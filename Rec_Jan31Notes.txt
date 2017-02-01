@@ -1,0 +1,18 @@
+Milestones for week:
+1) SRAM, ROM timing
+2) Schematic: Keypad, DIsplay
+3) PCB: Keypad, Display, SRAM/ROM/EEPROM
+4) Software Diagram: Keypad, Display
+5) PLD design for display
+6) Ethernet, Codec block diagram
+
+For timing diagrams, use TimingTool
+
+
+For CPLD, use:
+-ISPLSI1016
+-ISPLSI2023
+
+Software outline:
+-Display: display_IP, display_memory_addr, display_status, display_init
+-Keypad: key_available, getkey, keypad_init
