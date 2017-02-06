@@ -12,9 +12,15 @@
       <connection id="TT32" conn.type="O">
         <conn.name id="TT33">CLK</conn.name>
       </connection>
+      <connection id="TT6" conn.type="O">
+        <conn.name id="TT7">A</conn.name>
+      </connection>
+      <connection id="TT43" conn.type="O">
+        <conn.name id="TT44">CS</conn.name>
+      </connection>
     </conn.source>
   </sources>
-  <signal id="TT35" clock="1" falling.slope.degrees="80" rising.slope.degrees="80" show="1" show.grid="0">
+  <signal id="TT35" clock="1" falling.slope.degrees="80" rising.slope.degrees="80" show="1" show.grid="0" show.uncertainty="ALL">
     <conn.ptr conn.id="TT32">CLK</conn.ptr>
     <clock.info>
       <period>
@@ -39,11 +45,77 @@
         <number id="TT54">0</number>
       </uncertainty.rising>
     </clock.info>
-    <waveform id="TT34" locked="0"/>
+    <waveform id="TT34" e.label.type="default" locked="0" show.uncertainty="ALL">
+      <e id="TT31" driven="1" s="0" show.uncertainty="ALL" te="11363" tl="11363"/>
+    </waveform>
   </signal>
+  <signal id="TT9" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
+    <conn.ptr conn.id="TT6">A</conn.ptr>
+    <waveform id="TT8" e.label.type="default" locked="0" show.uncertainty="ALL">
+      <e id="TT10" driven="1" s="X" show.uncertainty="ALL"/>
+      <e id="TT13" driven="1" locked="1" s="V" show.uncertainty="ALL" te="16263" tl="18863"/>
+    </waveform>
+    <width>
+      <msb>
+        <number id="TT11">15</number>
+      </msb>
+      <lsb>
+        <number id="TT12">0</number>
+      </lsb>
+    </width>
+  </signal>
+  <signal id="TT46" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
+    <conn.ptr conn.id="TT43">CS</conn.ptr>
+    <waveform id="TT45" e.label.type="default" locked="0" show.uncertainty="ALL">
+      <e id="TT47" driven="1" s="1" show.uncertainty="ALL"/>
+      <e id="TT55" driven="1" locked="1" s="0" show.uncertainty="ALL" te="15663" tl="18263"/>
+    </waveform>
+  </signal>
+  <edge.relationships>
+    <relationship id="TT15" containing.signal.ptr="TT46" show="1" slot="1" tdml.cc.ptr="TT56" type="delay" user.created="0">
+      <two.edge source.e="TT31" target.e="TT55"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+  </edge.relationships>
   <view.group>
-    <view begin.time="-1100000" end.time="100000"/>
+    <view begin.time="-33000" end.time="41000"/>
   </view.group>
+  <cc.list>
+    <title id="TT16">General Data</title>
+    <tdml.cc id="TT17" show="1" static="1">
+      <parm id="P18">
+        <parm.symbol id="TT19">t_SMC3</parm.symbol>
+        <parm.desc id="TT20">to be defined</parm.desc>
+        <parm.def id="TT21">
+          <source.p id="TT21__0">MCK Falling to A1-A25 valid</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT23" value.type="MIN">
+        <number id="TT24">4.9</number>
+        <order.of.mag id="TT25">n</order.of.mag>
+        <unit id="TT26">s</unit>
+      </tdml.value>
+      <tdml.value id="TT27" value.type="MAX">
+        <number id="TT28">7.5</number>
+        <order.of.mag id="TT29">n</order.of.mag>
+        <unit id="TT30">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT56" show="1" static="1">
+      <parm id="P57">
+        <parm.symbol id="TT58">t_SMC5</parm.symbol>
+        <parm.desc id="TT59">to be defined</parm.desc>
+        <parm.def id="TT60">
+          <source.p id="TT60__0">MCK Falling to Chip Select active</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT62" value.type="MIN">
+        <number id="TT63">4.3</number>
+        <order.of.mag id="TT64">n</order.of.mag>
+        <unit id="TT65">s</unit>
+      </tdml.value>
+    </tdml.cc>
+  </cc.list>
   <font.list>
     <font id="TT1" color="ff000080" face.name="Lucida Sans" point.size="11"/>
   </font.list>

@@ -42,7 +42,7 @@
     <waveform id="TT34" locked="0"/>
   </signal>
   <view.group>
-    <view begin.time="-100000" end.time="1100000"/>
+    <view begin.time="-1100000" end.time="100000"/>
   </view.group>
   <font.list>
     <font id="TT1" color="ff000080" face.name="Lucida Sans" point.size="11"/>
