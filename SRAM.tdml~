@@ -130,7 +130,7 @@
     <conn.ptr conn.id="TT68">DATA</conn.ptr>
     <waveform id="TT70" e.label.type="default" locked="0" show.uncertainty="ALL">
       <e id="TT72" driven="1" s="Z" show.uncertainty="ALL"/>
-      <e id="TT145" driven="1" locked="1" s="V" show.uncertainty="ALL" te="28727" tl="43963"/>
+      <e id="TT145" driven="1" locked="1" s="V" show.uncertainty="ALL" te="28727" tl="43363"/>
     </waveform>
     <width>
       <msb>
@@ -145,7 +145,7 @@
     <conn.ptr conn.id="TT22">DATAB</conn.ptr>
     <waveform id="TT105" e.label.type="default" locked="0" show.uncertainty="ALL">
       <e id="TT113" driven="1" s="Z" show.uncertainty="ALL"/>
-      <e id="TT117" driven="1" locked="1" s="V" show.uncertainty="ALL" te="30027" tl="49063"/>
+      <e id="TT117" driven="1" locked="1" s="V" show.uncertainty="ALL" te="30027" tl="48463"/>
     </waveform>
   </signal>
   <edge.relationships>
@@ -173,7 +173,7 @@
       <two.edge source.e="TT67" target.e="TT143"/>
       <relationship.label label.type="default"/>
     </relationship>
-    <relationship id="TT163" containing.signal.ptr="TT71" show="1" slot="1" tdml.cc.ptr="TT108" type="delay" user.created="0">
+    <relationship id="TT163" containing.signal.ptr="TT71" show="1" slot="1" tdml.cc.ptr="TT84" type="delay" user.created="1">
       <two.edge source.e="TT127" target.e="TT145"/>
       <relationship.label label.type="default"/>
     </relationship>
@@ -181,7 +181,7 @@
       <two.edge source.e="TT143" target.e="TT145"/>
       <relationship.label label.type="default"/>
     </relationship>
-    <relationship id="TT179" containing.signal.ptr="TT71" show="1" slot="2" tdml.cc.ptr="TT84" type="delay" user.created="0">
+    <relationship id="TT179" containing.signal.ptr="TT71" show="1" slot="2" tdml.cc.ptr="TT108" type="guarantee" user.created="0">
       <two.edge source.e="TT82" target.e="TT145"/>
       <relationship.label label.type="default"/>
     </relationship>
@@ -191,7 +191,7 @@
     </relationship>
   </edge.relationships>
   <view.group>
-    <view begin.time="-2700" end.time="53300"/>
+    <view begin.time="11363" end.time="67363"/>
   </view.group>
   <cc.list>
     <title id="TT16">General Data</title>
@@ -279,7 +279,7 @@
       </parm>
       <tdml.value id="TT149" value.type="MIN">
         <number id="TT150">0</number>
-        <order.of.mag id="TT151">n</order.of.mag>
+        <order.of.mag id="TT151">p</order.of.mag>
         <unit id="TT152">s</unit>
       </tdml.value>
       <tdml.value id="TT153" value.type="MAX">
@@ -338,9 +338,6 @@
         <parm.desc id="TT123">to be defined</parm.desc>
       </parm>
     </tdml.cc>
-  </cc.list>
-  <cc.list>
-    <title id="TT15">Table 2</title>
   </cc.list>
   <font.list>
     <font id="TT1" color="ff000080" face.name="Lucida Sans" point.size="11"/>
