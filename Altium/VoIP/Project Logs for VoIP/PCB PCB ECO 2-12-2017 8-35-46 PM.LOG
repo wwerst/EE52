@@ -1,0 +1,7 @@
+Change Component Footprint: Designator=DISP1 Old Footprint=PCB-1539121-1 New Footprint=PCB-1539121-1
+Change Component Footprint: Designator=U9 Old Footprint=TI-PW16_M New Footprint=TI-PW16_M
+Change Component Footprint: Designator=U10 Old Footprint=TI-PW16_M New Footprint=TI-PW16_M
+Change Component Footprint: Designator=U11 Old Footprint=TI-PW16_M New Footprint=TI-PW16_M
+Change Component Footprint: Designator=U12 Old Footprint=TI-PW16_M New Footprint=TI-PW16_M
+Change Component Footprint: Designator=U14 Old Footprint=TI-PW16_M New Footprint=TI-PW16_M
+Added Room: Name=Main
