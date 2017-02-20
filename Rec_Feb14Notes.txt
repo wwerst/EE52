@@ -1,0 +1,8 @@
+Milestones for week:
+1) Timing: Audio
+2) Block Diagram: DRAM
+3) PCB: Audio, Ethernet
+
+
+Audio timing:
+TCLK freq,
