@@ -1,0 +1,46 @@
+Removed Pin From Net: NetName=MICIN- Pin=J2-A
+Removed Pin From Net: NetName=GND Pin=J2-E
+Removed Pin From Net: NetName=EAROUT- Pin=J3-A
+Removed Pin From Net: NetName=GND Pin=J3-E
+Removed Pin From Net: NetName=NetR25_1 Pin=R26-2
+Removed Pin From Net: NetName=NetR31_1 Pin=R32-2
+Removed Pin From Net: NetName=NetR31_1 Pin=U17-10
+Removed Pin From Net: NetName=NetR25_1 Pin=U17-11
+Change Component Footprint: Designator=DISP1 Old Footprint=PCB-1539121-1 New Footprint=PCB-1539121-1
+Change Component Footprint: Designator=U9 Old Footprint=TI-PW16_M New Footprint=TI-PW16_M
+Change Component Footprint: Designator=U10 Old Footprint=TI-PW16_M New Footprint=TI-PW16_M
+Change Component Footprint: Designator=U11 Old Footprint=TI-PW16_M New Footprint=TI-PW16_M
+Change Component Footprint: Designator=U12 Old Footprint=TI-PW16_M New Footprint=TI-PW16_M
+Change Component Footprint: Designator=U14 Old Footprint=TI-PW16_M New Footprint=TI-PW16_M
+Added Component: Designator=R41(J1-0603)
+Added Component: Designator=R42(J1-0603)
+Added Component: Designator=R43(J1-0603)
+Added Component: Designator=R44(J1-0603)
+Added Pin To Net: NetName=GND Pin=C59-2
+Added Pin To Net: NetName=GND Pin=C60-2
+Added Pin To Net: NetName=MICIN+ Pin=J2-A
+Added Pin To Net: NetName=MICIN- Pin=J2-E
+Added Pin To Net: NetName=EAROUT+ Pin=J3-A
+Added Pin To Net: NetName=EAROUT- Pin=J3-E
+Added Pin To Net: NetName=NetR31_1 Pin=R26-2
+Added Pin To Net: NetName=NetR25_1 Pin=R32-2
+Added Pin To Net: NetName=NetJ1_1 Pin=R41-1
+Added Pin To Net: NetName=3V3 Pin=R41-2
+Added Pin To Net: NetName=NetJ1_3 Pin=R42-1
+Added Pin To Net: NetName=3V3 Pin=R42-2
+Added Pin To Net: NetName=NetJ1_4 Pin=R43-1
+Added Pin To Net: NetName=3V3 Pin=R43-2
+Added Pin To Net: NetName=NetJ1_6 Pin=R44-1
+Added Pin To Net: NetName=3V3 Pin=R44-2
+Added Pin To Net: NetName=TF0 Pin=U1-80
+Added Pin To Net: NetName=TK0 Pin=U1-81
+Added Pin To Net: NetName=TD0 Pin=U1-82
+Added Pin To Net: NetName=RD0 Pin=U1-83
+Added Pin To Net: NetName=NetR25_1 Pin=U17-10
+Added Pin To Net: NetName=NetR31_1 Pin=U17-11
+Change Net Name : Old Net Name=NetR31_1 New Net Name=NetR26_2
+Added Member To Class: ClassName=Main Member=Component R41 Res3
+Added Member To Class: ClassName=Main Member=Component R42 Res3
+Added Member To Class: ClassName=Main Member=Component R43 Res3
+Added Member To Class: ClassName=Main Member=Component R44 Res3
+Added Room: Name=Main
