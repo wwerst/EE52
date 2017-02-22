@@ -1,0 +1,5 @@
+Milestones for week:
+1) DRAM Timing (Read/Write/REfresh) (60 pts)
+2) DRAM Schematic/PCB (40 pts)
+3) Audio Software Diagram (30 pts)
+
