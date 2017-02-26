@@ -10,19 +10,179 @@
   <sources>
     <conn.source id="TT5">
       <connection id="TT6" conn.type="O">
-        <conn.name id="TT7">sig</conn.name>
+        <conn.name id="TT7">PCMI</conn.name>
+      </connection>
+      <connection id="TT16" conn.type="O">
+        <conn.name id="TT17">MCLK</conn.name>
+      </connection>
+      <connection id="TT21" conn.type="O">
+        <conn.name id="TT22">PCMSYNC</conn.name>
       </connection>
     </conn.source>
   </sources>
-  <signal id="TT9" clock="0" show="1" show.grid="0">
-    <conn.ptr conn.id="TT6">sig</conn.ptr>
-    <waveform id="TT8" locked="0">
-      <e id="TT10" driven="1" s="0"/>
+  <signal id="TT9" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
+    <conn.ptr conn.id="TT6">PCMI</conn.ptr>
+    <waveform id="TT8" e.label.type="default" locked="0" show.uncertainty="ALL">
+      <e id="TT10" driven="1" s="V" show.uncertainty="ALL"/>
+      <e id="TT89" driven="1" locked="0" s="V" show.uncertainty="ALL" te="500000"/>
+      <e id="TT93" driven="1" s="V" show.uncertainty="ALL" te="1000000"/>
+      <e id="TT90" driven="1" s="V" show.uncertainty="ALL" te="1500000"/>
     </waveform>
   </signal>
+  <signal id="TT19" clock="1" show="1" show.grid="0" show.uncertainty="ALL">
+    <conn.ptr conn.id="TT16">MCLK</conn.ptr>
+    <clock.info>
+      <period>
+        <number id="TT39">500000</number>
+      </period>
+      <duty.cycle>
+        <number id="TT40">50</number>
+      </duty.cycle>
+      <time.offset>
+        <number id="TT41">0</number>
+      </time.offset>
+      <jitter.falling>
+        <number id="TT42">0</number>
+      </jitter.falling>
+      <jitter.rising>
+        <number id="TT43">0</number>
+      </jitter.rising>
+      <uncertainty.falling>
+        <number id="TT44">0</number>
+      </uncertainty.falling>
+      <uncertainty.rising>
+        <number id="TT45">0</number>
+      </uncertainty.rising>
+    </clock.info>
+    <waveform id="TT18" e.label.type="default" locked="0" show.uncertainty="ALL">
+      <e id="TT46" driven="1" s="0" show.uncertainty="ALL" te="250000" tl="250000"/>
+      <e id="TT96" driven="1" locked="0" s="0" show.uncertainty="ALL" te="750000" tl="750000"/>
+      <e id="TT100" driven="1" s="0" show.uncertainty="ALL" te="1250000" tl="1250000"/>
+      <e id="TT103" driven="1" s="0" show.uncertainty="ALL" te="1750000" tl="1750000"/>
+    </waveform>
+  </signal>
+  <signal id="TT24" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
+    <conn.ptr conn.id="TT21">PCMSYNC</conn.ptr>
+    <waveform id="TT23" e.label.type="default" locked="0" show.uncertainty="ALL">
+      <e id="TT25" driven="1" s="0" show.uncertainty="ALL"/>
+      <e id="TT91" driven="1" s="1" show.uncertainty="ALL" te="200000"/>
+      <e id="TT92" driven="1" s="0" show.uncertainty="ALL" te="320000"/>
+    </waveform>
+  </signal>
+  <edge.relationships>
+    <relationship id="TT94" containing.signal.ptr="TT24" show="1" slot="1" type="delay" user.created="0">
+      <two.edge source.e="TT46" target.e="TT91"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT95" containing.signal.ptr="TT24" show="1" slot="1" tdml.cc.ptr="TT60" type="hold" user.created="0">
+      <two.edge source.e="TT46" target.e="TT92"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT98" containing.signal.ptr="TT9" show="1" slot="-1" tdml.cc.ptr="TT64" type="setup" user.created="1">
+      <two.edge source.e="TT96" target.e="TT89"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT99" containing.signal.ptr="TT19" show="1" slot="1" tdml.cc.ptr="TT68" type="hold" user.created="0">
+      <two.edge source.e="TT96" target.e="TT93"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT101" containing.signal.ptr="TT9" show="1" slot="-1" tdml.cc.ptr="TT64" type="setup" user.created="1">
+      <two.edge source.e="TT100" target.e="TT93"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT102" containing.signal.ptr="TT19" show="1" slot="1" tdml.cc.ptr="TT68" type="hold" user.created="0">
+      <two.edge source.e="TT100" target.e="TT90"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT104" containing.signal.ptr="TT9" show="1" slot="-1" tdml.cc.ptr="TT64" type="setup" user.created="1">
+      <two.edge source.e="TT103" target.e="TT90"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+  </edge.relationships>
   <view.group>
-    <view begin.time="0" end.time="1000000"/>
+    <view begin.time="-200000" end.time="2400000"/>
   </view.group>
+  <cc.list>
+    <title id="TT48">General Data</title>
+    <tdml.cc id="TT76" show="1" static="1">
+      <cc.text id="TT77">
+        <source.p id="TT77__0">MCLK = 2 MHz (can&apos;t get 2.048 MHz)</source.p>
+        <source.p id="TT77__1">Divider ratio on AT91RM9200 = 11</source.p>
+        <source.p id="TT77__2">Frame sync period = 128us</source.p>
+        <source.p id="TT77__3">Frame sync length = 256 bits</source.p>
+      </cc.text>
+      <user.defined>
+        <key>table.housekeeping</key>
+        <user.value>Location of table format and general notes</user.value>
+      </user.defined>
+    </tdml.cc>
+    <tdml.cc id="TT49" show="1" static="1">
+      <parm id="P50">
+        <parm.symbol id="TT51">t<sub>SU</sub>(PCMSYN)</parm.symbol>
+        <parm.desc id="TT52">to be defined</parm.desc>
+        <parm.def id="TT58">
+          <source.p id="TT58__0">Setup time, PCMSYN high before MCLK low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT53" value.type="MIN">
+        <number id="TT54">20</number>
+        <order.of.mag id="TT55">n</order.of.mag>
+        <unit id="TT56">s</unit>
+      </tdml.value>
+      <tdml.value id="TT20" value.type="MAX">
+        <number id="TT38">480</number>
+        <order.of.mag id="TT50">n</order.of.mag>
+        <unit id="TT57">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT60" show="1" static="1">
+      <parm id="P61">
+        <parm.symbol id="TT62">t<sub>h</sub>(PCMSYN)</parm.symbol>
+        <parm.desc id="TT63">to be defined</parm.desc>
+        <parm.def id="TT72">
+          <source.p id="TT72__0">Hold time, PCMSYN high after MCLK low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT59" value.type="MIN">
+        <number id="TT61">20</number>
+        <order.of.mag id="TT65">n</order.of.mag>
+        <unit id="TT69">s</unit>
+      </tdml.value>
+      <tdml.value id="TT73" value.type="MAX">
+        <number id="TT75">480</number>
+        <order.of.mag id="TT78">n</order.of.mag>
+        <unit id="TT80">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT64" show="1" static="1">
+      <parm id="P65">
+        <parm.symbol id="TT66">t<sub>SU</sub>(PCMI)</parm.symbol>
+        <parm.desc id="TT67">to be defined</parm.desc>
+        <parm.def id="TT74">
+          <source.p id="TT74__0">Setup time, PCMI high or low before MCLK low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT81" value.type="MIN">
+        <number id="TT82">20</number>
+        <order.of.mag id="TT83">n</order.of.mag>
+        <unit id="TT84">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT68" show="1" static="1">
+      <parm id="P69">
+        <parm.symbol id="TT70">t<sub>h</sub>(PCMI)</parm.symbol>
+        <parm.desc id="TT71">to be defined</parm.desc>
+        <parm.def id="TT79">
+          <source.p id="TT79__0">Hold time, PCMI high or low after MCLK low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT85" value.type="MIN">
+        <number id="TT86">20</number>
+        <order.of.mag id="TT87">n</order.of.mag>
+        <unit id="TT88">s</unit>
+      </tdml.value>
+    </tdml.cc>
+  </cc.list>
   <font.list>
     <font id="TT1" color="ff000080" face.name="Lucida Sans" point.size="11"/>
   </font.list>
