@@ -1,0 +1,11 @@
+Added Component: Designator=U5(PLCC44)
+Added Pin To Net: NetName=GND Pin=U5-1
+Added Pin To Net: NetName=JTAG_NTRST Pin=U5-15
+Added Pin To Net: NetName=RESET Pin=U5-16
+Added Pin To Net: NetName=NTRST Pin=U5-17
+Added Pin To Net: NetName=GND Pin=U5-23
+Added Pin To Net: NetName=VCC Pin=U5-12
+Added Pin To Net: NetName=VCC Pin=U5-34
+Added Net: Name=VCC
+Added Member To Class: ClassName=Main Member=Component U5 ISPLSI1016E
+Added Room: Name=Main
