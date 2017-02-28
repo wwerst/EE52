@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE timing.diagram PUBLIC "-//TDML WorkingGroup//DTD XML-PCISTDML.DTD 1.1//EN" "xml-pcistdml.dtd">
+<timing.diagram default.time.units="1e-12" delay.rule="first" font.ptr="TT1" line.thickness="1" show.delays="1" show.holds="1" show.samples="1" show.setups="1" show.uncertainty="ALL">
+  <tdml.admin.info>
+    <tool.info id="TT2">
+      <tool.name id="TT3">TimingTool from www.timingtool.com</tool.name>
+      <tool.type id="TT4">Timing Diagram Editor</tool.type>
+    </tool.info>
+  </tdml.admin.info>
+  <sources>
+    <conn.source id="TT5"/>
+  </sources>
+  <view.group>
+    <view begin.time="0" end.time="1000000"/>
+  </view.group>
+  <font.list>
+    <font id="TT1" color="ff000080" face.name="Lucida Sans" point.size="11"/>
+  </font.list>
+  <user.defined>
+    <key>document.title</key>
+    <user.value>DRAMWRITE</user.value>
+  </user.defined>
+</timing.diagram>
