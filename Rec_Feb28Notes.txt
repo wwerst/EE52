@@ -1,0 +1,5 @@
+Milestones for week:
+1) DRAM PLD design and simulation
+2) Schematic: Power circuitry
+3) PCB: Power circuitry
+

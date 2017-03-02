@@ -1,0 +1,4 @@
+Added Pin To Net: NetName=NWAIT Pin=U1-25
+Added Pin To Net: NetName=NWAIT Pin=U5-27
+Added Net: Name=NWAIT
+Added Room: Name=Main
