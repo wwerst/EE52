@@ -68,24 +68,28 @@
     <conn.ptr conn.id="TT18">RAS</conn.ptr>
     <waveform id="TT20" e.label.type="default" locked="0" show.uncertainty="ALL">
       <e id="TT22" driven="1" s="1" show.uncertainty="ALL"/>
-      <e id="TT48" driven="1" s="0" show.uncertainty="ALL" te="100"/>
+      <e id="TT48" driven="1" locked="0" s="0" show.uncertainty="ALL" te="100000"/>
+      <e id="TT57" driven="1" s="1" show.uncertainty="ALL" te="300000"/>
+      <e id="TT79" driven="1" s="0" show.uncertainty="ALL" te="400000"/>
     </waveform>
   </signal>
   <signal id="TT56" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
     <conn.ptr conn.id="TT53">CAS</conn.ptr>
     <waveform id="TT55" e.label.type="default" locked="0" show.uncertainty="ALL">
       <e id="TT59" driven="1" s="1" show.uncertainty="ALL"/>
-      <e id="TT60" driven="1" s="0" show.uncertainty="ALL" te="180000"/>
+      <e id="TT60" driven="1" s="0" show.uncertainty="ALL" te="220000"/>
+      <e id="TT58" driven="1" s="1" show.uncertainty="ALL" te="300000"/>
     </waveform>
   </signal>
   <signal id="TT26" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
     <conn.ptr conn.id="TT23">AB</conn.ptr>
     <waveform id="TT25" e.label.type="default" locked="0" show.uncertainty="ALL">
       <e id="TT27" driven="1" s="X" show.uncertainty="ALL"/>
-      <e id="TT49" driven="1" s="V" show.uncertainty="ALL" te="100"/>
-      <e id="TT50" driven="1" s="X" show.uncertainty="ALL" te="100100"/>
-      <e id="TT51" driven="1" s="V" show.uncertainty="ALL" te="200100"/>
-      <e id="TT52" driven="1" s="X" show.uncertainty="ALL" te="300100"/>
+      <e id="TT49" driven="1" s="V" show.uncertainty="ALL" te="80000"/>
+      <e id="TT50" driven="1" s="X" show.uncertainty="ALL" te="140000"/>
+      <e id="TT51" driven="1" s="V" show.uncertainty="ALL" te="180000"/>
+      <e id="TT52" driven="1" s="X" show.uncertainty="ALL" te="260000"/>
+      <e id="TT86" driven="1" s="V" show.uncertainty="ALL" te="360000"/>
     </waveform>
   </signal>
   <signal id="TT31" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
@@ -98,25 +102,93 @@
     <conn.ptr conn.id="TT33">OE</conn.ptr>
     <waveform id="TT35" e.label.type="default" locked="0" show.uncertainty="ALL">
       <e id="TT37" driven="1" s="1" show.uncertainty="ALL"/>
-      <e id="TT62" driven="1" s="0" show.uncertainty="ALL" te="100"/>
-      <e id="TT63" driven="1" s="1" show.uncertainty="ALL" te="100100"/>
+      <e id="TT62" driven="1" s="0" show.uncertainty="ALL" te="220000"/>
+      <e id="TT63" driven="1" s="1" show.uncertainty="ALL" te="340000"/>
     </waveform>
   </signal>
   <signal id="TT41" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
     <conn.ptr conn.id="TT38">D</conn.ptr>
     <waveform id="TT40" e.label.type="default" locked="0" show.uncertainty="ALL">
-      <e id="TT42" driven="1" s="X" show.uncertainty="ALL"/>
+      <e id="TT87" driven="1" s="X" show.uncertainty="ALL"/>
     </waveform>
   </signal>
   <signal id="TT46" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
     <conn.ptr conn.id="TT43">Q</conn.ptr>
     <waveform id="TT45" e.label.type="default" locked="0" show.uncertainty="ALL">
       <e id="TT47" driven="1" s="Z" show.uncertainty="ALL"/>
+      <e id="TT89" driven="1" s="X" show.uncertainty="ALL" te="260000"/>
+      <e id="TT90" driven="1" s="V" show.uncertainty="ALL" te="320000"/>
+      <e id="TT91" driven="1" s="Z" show.uncertainty="ALL" te="380000"/>
     </waveform>
   </signal>
+  <edge.relationships>
+    <relationship id="TT73" containing.signal.ptr="TT26" show="1" slot="1" tdml.cc.ptr="TT64" type="setup" user.created="0">
+      <two.edge source.e="TT48" target.e="TT49"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+  </edge.relationships>
   <view.group>
-    <view begin.time="-400000" end.time="600000"/>
+    <view begin.time="-200000" end.time="800000"/>
   </view.group>
+  <cc.list>
+    <title id="TT61">General Data</title>
+    <tdml.cc id="TT64" show="1" static="1">
+      <parm id="P65">
+        <parm.symbol id="TT66">tASR</parm.symbol>
+        <parm.desc id="TT67">to be defined</parm.desc>
+        <parm.def id="TT92">
+          <source.p id="TT92__0">Row-address setup time before RAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT69" value.type="MIN">
+        <number id="TT70">0</number>
+        <order.of.mag id="TT71">n</order.of.mag>
+        <unit id="TT72">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT74" show="1" static="1">
+      <parm id="P75">
+        <parm.symbol id="TT76">tASC</parm.symbol>
+        <parm.desc id="TT77">to be defined</parm.desc>
+        <parm.def id="TT94">
+          <source.p id="TT94__0">Column-address setup time before CAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT96" value.type="MIN">
+        <number id="TT97">0</number>
+        <order.of.mag id="TT98">n</order.of.mag>
+        <unit id="TT99">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT78" show="1" static="1">
+      <parm id="P79">
+        <parm.symbol id="TT80">tCAH</parm.symbol>
+        <parm.desc id="TT81">to be defined</parm.desc>
+        <parm.def id="TT100">
+          <source.p id="TT100__0">Column-address hold time after CAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT104" value.type="MIN">
+        <number id="TT105">15</number>
+        <order.of.mag id="TT106">n</order.of.mag>
+        <unit id="TT107">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT82" show="1" static="1">
+      <parm id="P83">
+        <parm.symbol id="TT84">tRAH</parm.symbol>
+        <parm.desc id="TT85">to be defined</parm.desc>
+        <parm.def id="TT102">
+          <source.p id="TT102__0">Row-address hold time after RAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT108" value.type="MIN">
+        <number id="TT109">10</number>
+        <order.of.mag id="TT110">n</order.of.mag>
+        <unit id="TT111">s</unit>
+      </tdml.value>
+    </tdml.cc>
+  </cc.list>
   <font.list>
     <font id="TT1" color="ff000080" face.name="Lucida Sans" point.size="11"/>
   </font.list>
