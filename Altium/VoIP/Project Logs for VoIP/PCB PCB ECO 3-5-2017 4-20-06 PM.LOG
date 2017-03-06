@@ -1,0 +1,118 @@
+Added Component: Designator=C71(1608[0603])
+Added Component: Designator=C72(1608[0603])
+Added Component: Designator=C73(1608[0603])
+Added Component: Designator=C74(1608[0603])
+Added Component: Designator=C75(1608[0603])
+Added Component: Designator=C76(1608[0603])
+Added Component: Designator=C77(1608[0603])
+Added Component: Designator=C78(1608[0603])
+Added Component: Designator=J4(EJ508A)
+Added Component: Designator=R47(J1-0603)
+Added Component: Designator=R48(J1-0603)
+Added Component: Designator=R49(J1-0603)
+Added Component: Designator=R50(J1-0603)
+Added Component: Designator=R51(J1-0603)
+Added Component: Designator=R52(J1-0603)
+Added Component: Designator=R53(J1-0603)
+Added Component: Designator=R54(J1-0603)
+Added Component: Designator=REG_1V8(TO-220)
+Added Component: Designator=REG_3V3(TO-220)
+Added Component: Designator=REG_3V(TO-220)
+Added Component: Designator=REG_5V(TO-220)
+Added Component: Designator=U5(PLCCS44)
+Added Pin To Net: NetName=GND Pin=C71-1
+Added Pin To Net: NetName=GND Pin=C72-1
+Added Pin To Net: NetName=1V8 Pin=C72-2
+Added Pin To Net: NetName=GND Pin=C73-1
+Added Pin To Net: NetName=GND Pin=C74-1
+Added Pin To Net: NetName=5V Pin=C74-2
+Added Pin To Net: NetName=GND Pin=C75-1
+Added Pin To Net: NetName=GND Pin=C76-1
+Added Pin To Net: NetName=3V3 Pin=C76-2
+Added Pin To Net: NetName=GND Pin=C77-1
+Added Pin To Net: NetName=GND Pin=C78-1
+Added Pin To Net: NetName=3V Pin=C78-2
+Added Pin To Net: NetName=GND Pin=J4-GND
+Added Pin To Net: NetName=1V8 Pin=R47-2
+Added Pin To Net: NetName=GND Pin=R48-1
+Added Pin To Net: NetName=5V Pin=R49-2
+Added Pin To Net: NetName=GND Pin=R50-1
+Added Pin To Net: NetName=3V3 Pin=R51-2
+Added Pin To Net: NetName=GND Pin=R52-1
+Added Pin To Net: NetName=3V Pin=R53-2
+Added Pin To Net: NetName=GND Pin=R54-1
+Added Pin To Net: NetName=1V8 Pin=REG_1V8-2
+Added Pin To Net: NetName=3V3 Pin=REG_3V3-2
+Added Pin To Net: NetName=3V Pin=REG_3V-2
+Added Pin To Net: NetName=5V Pin=REG_5V-2
+Added Pin To Net: NetName=GND Pin=U5-1
+Added Pin To Net: NetName=PCK0 Pin=U5-11
+Added Pin To Net: NetName=5V Pin=U5-12
+Added Pin To Net: NetName=NetP3_2 Pin=U5-13
+Added Pin To Net: NetName=NetP2_1 Pin=U5-14
+Added Pin To Net: NetName=JTAG_NTRST Pin=U5-15
+Added Pin To Net: NetName=RESET Pin=U5-16
+Added Pin To Net: NetName=NTRST Pin=U5-17
+Added Pin To Net: NetName=RAS Pin=U5-18
+Added Pin To Net: NetName=CAS Pin=U5-19
+Added Pin To Net: NetName=DRAM_WE Pin=U5-20
+Added Pin To Net: NetName=ROW_ADDR_EN Pin=U5-21
+Added Pin To Net: NetName=COL_ADDR_EN Pin=U5-22
+Added Pin To Net: NetName=GND Pin=U5-23
+Added Pin To Net: NetName=NetP2_2 Pin=U5-24
+Added Pin To Net: NetName=NCS3V3B2 Pin=U5-25
+Added Pin To Net: NetName=NWE_3V3_BUF Pin=U5-26
+Added Pin To Net: NetName=NWAIT Pin=U5-27
+Added Pin To Net: NetName=NetP2_4 Pin=U5-33
+Added Pin To Net: NetName=5V Pin=U5-34
+Added Pin To Net: NetName=RESET Pin=U5-35
+Added Pin To Net: NetName=NetP2_3 Pin=U5-36
+Added Pin To Net: NetName=12V Pin=C71-2
+Added Pin To Net: NetName=12V Pin=C73-2
+Added Pin To Net: NetName=12V Pin=C75-2
+Added Pin To Net: NetName=12V Pin=C77-2
+Added Pin To Net: NetName=12V Pin=J4-VCC
+Added Pin To Net: NetName=12V Pin=REG_1V8-3
+Added Pin To Net: NetName=12V Pin=REG_3V3-3
+Added Pin To Net: NetName=12V Pin=REG_3V-3
+Added Pin To Net: NetName=12V Pin=REG_5V-3
+Added Net: Name=12V
+Added Pin To Net: NetName=NetR47_1 Pin=R47-1
+Added Pin To Net: NetName=NetR47_1 Pin=R48-2
+Added Pin To Net: NetName=NetR47_1 Pin=REG_1V8-1
+Added Net: Name=NetR47_1
+Added Pin To Net: NetName=NetR49_1 Pin=R49-1
+Added Pin To Net: NetName=NetR49_1 Pin=R50-2
+Added Pin To Net: NetName=NetR49_1 Pin=REG_5V-1
+Added Net: Name=NetR49_1
+Added Pin To Net: NetName=NetR51_1 Pin=R51-1
+Added Pin To Net: NetName=NetR51_1 Pin=R52-2
+Added Pin To Net: NetName=NetR51_1 Pin=REG_3V3-1
+Added Net: Name=NetR51_1
+Added Pin To Net: NetName=NetR53_1 Pin=R53-1
+Added Pin To Net: NetName=NetR53_1 Pin=R54-2
+Added Pin To Net: NetName=NetR53_1 Pin=REG_3V-1
+Added Net: Name=NetR53_1
+Added Member To Class: ClassName=Main Member=Component C71 
+Added Member To Class: ClassName=Main Member=Component C72 
+Added Member To Class: ClassName=Main Member=Component C73 
+Added Member To Class: ClassName=Main Member=Component C74 
+Added Member To Class: ClassName=Main Member=Component C75 
+Added Member To Class: ClassName=Main Member=Component C76 
+Added Member To Class: ClassName=Main Member=Component C77 
+Added Member To Class: ClassName=Main Member=Component C78 
+Added Member To Class: ClassName=Main Member=Component J4 EJ508A
+Added Member To Class: ClassName=Main Member=Component R47 Res3
+Added Member To Class: ClassName=Main Member=Component R48 Res3
+Added Member To Class: ClassName=Main Member=Component R49 Res3
+Added Member To Class: ClassName=Main Member=Component R50 Res3
+Added Member To Class: ClassName=Main Member=Component R51 Res3
+Added Member To Class: ClassName=Main Member=Component R52 Res3
+Added Member To Class: ClassName=Main Member=Component R53 Res3
+Added Member To Class: ClassName=Main Member=Component R54 Res3
+Added Member To Class: ClassName=Main Member=Component REG_1V8 LM1086
+Added Member To Class: ClassName=Main Member=Component REG_3V3 LM1086
+Added Member To Class: ClassName=Main Member=Component REG_3V LM1086
+Added Member To Class: ClassName=Main Member=Component REG_5V LM1086
+Added Member To Class: ClassName=Main Member=Component U5 ISPLSI1016E
+Added Room: Name=Main
