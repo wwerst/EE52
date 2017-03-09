@@ -8,11 +8,670 @@
     </tool.info>
   </tdml.admin.info>
   <sources>
-    <conn.source id="TT5"/>
+    <conn.source id="TT5">
+      <connection id="TT6" conn.type="O">
+        <conn.name id="TT7">CLK</conn.name>
+      </connection>
+      <connection id="TT18" conn.type="O">
+        <conn.name id="TT19">RAS</conn.name>
+      </connection>
+      <connection id="TT53" conn.type="O">
+        <conn.name id="TT54">CAS</conn.name>
+      </connection>
+    </conn.source>
   </sources>
+  <signal id="TT9" clock="1" show="1" show.grid="0" show.uncertainty="ALL">
+    <conn.ptr conn.id="TT6">CLK</conn.ptr>
+    <clock.info>
+      <period>
+        <number id="TT11">22727</number>
+      </period>
+      <duty.cycle>
+        <number id="TT12">50</number>
+      </duty.cycle>
+      <time.offset>
+        <number id="TT13">0</number>
+      </time.offset>
+      <jitter.falling>
+        <number id="TT14">0</number>
+      </jitter.falling>
+      <jitter.rising>
+        <number id="TT15">0</number>
+      </jitter.rising>
+      <uncertainty.falling>
+        <number id="TT16">0</number>
+      </uncertainty.falling>
+      <uncertainty.rising>
+        <number id="TT17">0</number>
+      </uncertainty.rising>
+    </clock.info>
+    <waveform id="TT8" e.label.type="default" locked="0" show.uncertainty="ALL">
+      <e id="TT10" driven="1" s="0" show.uncertainty="ALL"/>
+      <e id="TT371" driven="1" s="0" show.uncertainty="ALL" te="11363" tl="11363"/>
+      <e id="TT375" driven="1" s="0" show.uncertainty="ALL" te="34090" tl="34090"/>
+      <e id="TT23" driven="1" s="0" show.uncertainty="ALL" te="124998" tl="124998"/>
+    </waveform>
+  </signal>
+  <signal id="TT21" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
+    <conn.ptr conn.id="TT18">RAS</conn.ptr>
+    <waveform id="TT20" e.label.type="default" locked="0" show.uncertainty="ALL">
+      <e id="TT22" driven="1" s="1" show.uncertainty="ALL"/>
+      <e id="TT48" driven="1" locked="1" s="0" show.uncertainty="ALL" te="44090" tl="44090"/>
+      <e id="TT57" driven="1" locked="1" s="1" show.uncertainty="ALL" te="134998" tl="134998"/>
+      <e id="TT79" driven="1" locked="0" s="0" show.uncertainty="ALL" te="196000" tl="196000"/>
+    </waveform>
+  </signal>
+  <signal id="TT56" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
+    <conn.ptr conn.id="TT53">CAS</conn.ptr>
+    <waveform id="TT55" e.label.type="default" locked="0" show.uncertainty="ALL">
+      <e id="TT59" driven="1" s="1" show.uncertainty="ALL"/>
+      <e id="TT60" driven="1" locked="1" s="0" show.uncertainty="ALL" te="21363" tl="21363"/>
+      <e id="TT58" driven="1" locked="1" s="1" show.uncertainty="ALL" te="134998" tl="134998"/>
+    </waveform>
+  </signal>
+  <edge.relationships>
+    <relationship id="TT325" containing.signal.ptr="TT21" show="1" slot="2" tdml.cc.ptr="TT33" type="constraint" user.created="0">
+      <two.edge source.e="TT48" target.e="TT57"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT376" containing.signal.ptr="TT21" show="1" slot="1" tdml.cc.ptr="TT357" type="delay" user.created="0">
+      <two.edge source.e="TT375" target.e="TT48"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT385" containing.signal.ptr="TT56" show="1" slot="1" tdml.cc.ptr="TT357" type="delay" user.created="0">
+      <two.edge source.e="TT371" target.e="TT60"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT412" containing.signal.ptr="TT56" show="1" slot="1" tdml.cc.ptr="TT357" type="delay" user.created="0">
+      <two.edge source.e="TT23" target.e="TT58"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT24" containing.signal.ptr="TT21" show="1" slot="1" tdml.cc.ptr="TT357" type="delay" user.created="0">
+      <two.edge source.e="TT23" target.e="TT57"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT25" containing.signal.ptr="TT56" show="1" slot="1" tdml.cc.ptr="TT276" type="setup" user.created="0">
+      <two.edge source.e="TT48" target.e="TT60"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+  </edge.relationships>
   <view.group>
-    <view begin.time="0" end.time="1000000"/>
+    <view begin.time="0" end.time="180000"/>
   </view.group>
+  <cc.list>
+    <title id="TT61">General Data</title>
+    <tdml.cc id="TT64" show="1" static="1">
+      <parm id="P65">
+        <parm.symbol id="TT66">tASR</parm.symbol>
+        <parm.desc id="TT67">to be defined</parm.desc>
+        <parm.def id="TT92">
+          <source.p id="TT92__0">Row-address setup time before RAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT69" value.type="MIN">
+        <number id="TT70">0</number>
+        <order.of.mag id="TT71">n</order.of.mag>
+        <unit id="TT72">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT74" show="1" static="1">
+      <parm id="P75">
+        <parm.symbol id="TT76">tASC</parm.symbol>
+        <parm.desc id="TT77">to be defined</parm.desc>
+        <parm.def id="TT94">
+          <source.p id="TT94__0">Column-address setup time before CAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT96" value.type="MIN">
+        <number id="TT97">0</number>
+        <order.of.mag id="TT98">n</order.of.mag>
+        <unit id="TT99">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT42" show="1" static="1">
+      <parm id="P43">
+        <parm.symbol id="TT65">tDS</parm.symbol>
+        <parm.desc id="TT68">to be defined</parm.desc>
+        <parm.def id="TT75">
+          <source.p id="TT75__0">Data setup time</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT101" value.type="MIN">
+        <number id="TT103">0</number>
+        <order.of.mag id="TT112">n</order.of.mag>
+        <unit id="TT113">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT88" show="1" static="1">
+      <parm id="P89">
+        <parm.symbol id="TT93">tRCS</parm.symbol>
+        <parm.desc id="TT95">to be defined</parm.desc>
+        <parm.def id="TT114">
+          <source.p id="TT114__0">Read setup time before CAS low</source.p>
+        </parm.def>
+      </parm>
+    </tdml.cc>
+    <tdml.cc id="TT116" show="1" static="1">
+      <parm id="P117">
+        <parm.symbol id="TT118">tCWL</parm.symbol>
+        <parm.desc id="TT119">to be defined</parm.desc>
+        <parm.def id="TT124">
+          <source.p id="TT124__0">W low setup time before CAS high</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT126" value.type="MIN">
+        <number id="TT127">20</number>
+        <order.of.mag id="TT128">n</order.of.mag>
+        <unit id="TT129">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT120" show="1" static="1">
+      <parm id="P121">
+        <parm.symbol id="TT122">tRWL</parm.symbol>
+        <parm.desc id="TT123">to be defined</parm.desc>
+        <parm.def id="TT130">
+          <source.p id="TT130__0">W low setup time before RAS high</source.p>
+        </parm.def>
+      </parm>
+    </tdml.cc>
+    <tdml.cc id="TT132" show="1" static="1">
+      <parm id="P133">
+        <parm.symbol id="TT134">tWCS</parm.symbol>
+        <parm.desc id="TT135">to be defined</parm.desc>
+        <parm.def id="TT140">
+          <source.p id="TT140__0">W low setup time before CAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT142" value.type="MIN">
+        <number id="TT143">0</number>
+        <order.of.mag id="TT144">n</order.of.mag>
+        <unit id="TT145">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT136" show="1" static="1">
+      <parm id="P137">
+        <parm.symbol id="TT138">tWSR</parm.symbol>
+        <parm.desc id="TT139">to be defined</parm.desc>
+        <parm.def id="TT146">
+          <source.p id="TT146__0">W high setup time (CAS-before-RAS refresh only)</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT148" value.type="MIN">
+        <number id="TT149">10</number>
+        <order.of.mag id="TT150">n</order.of.mag>
+        <unit id="TT151">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT152" show="1" static="1">
+      <parm id="P153">
+        <parm.symbol id="TT154">tCAH</parm.symbol>
+        <parm.desc id="TT155">to be defined</parm.desc>
+        <parm.def id="TT176">
+          <source.p id="TT176__0">Column-address hold time after CAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT184" value.type="MIN">
+        <number id="TT185">15</number>
+        <order.of.mag id="TT186">n</order.of.mag>
+        <unit id="TT187">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT156" show="1" static="1">
+      <parm id="P157">
+        <parm.symbol id="TT158">tDHR</parm.symbol>
+        <parm.desc id="TT159">to be defined</parm.desc>
+        <parm.def id="TT182">
+          <source.p id="TT182__0">Data hold time after RAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT188" value.type="MIN">
+        <number id="TT189">60</number>
+        <order.of.mag id="TT190">n</order.of.mag>
+        <unit id="TT191">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT160" show="1" static="1">
+      <parm id="P161">
+        <parm.symbol id="TT162">tDH</parm.symbol>
+        <parm.desc id="TT163">to be defined</parm.desc>
+        <parm.def id="TT192">
+          <source.p id="TT192__0">Data hold time</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT194" value.type="MIN">
+        <number id="TT195">15</number>
+        <order.of.mag id="TT196">n</order.of.mag>
+        <unit id="TT197">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT164" show="1" static="1">
+      <parm id="P165">
+        <parm.symbol id="TT166">tAR</parm.symbol>
+        <parm.desc id="TT167">to be defined</parm.desc>
+        <parm.def id="TT198">
+          <source.p id="TT198__0">Column-address hold time after RAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT200" value.type="MIN">
+        <number id="TT201">60</number>
+        <order.of.mag id="TT202">n</order.of.mag>
+        <unit id="TT203">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT168" show="1" static="1">
+      <parm id="P169">
+        <parm.symbol id="TT170">tRAH</parm.symbol>
+        <parm.desc id="TT171">to be defined</parm.desc>
+        <parm.def id="TT204">
+          <source.p id="TT204__0">Row-address hold time after RAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT206" value.type="MIN">
+        <number id="TT207">10</number>
+        <order.of.mag id="TT208">n</order.of.mag>
+        <unit id="TT209">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT172" show="1" static="1">
+      <parm id="P173">
+        <parm.symbol id="TT174">tRCH</parm.symbol>
+        <parm.desc id="TT175">to be defined</parm.desc>
+        <parm.def id="TT210">
+          <source.p id="TT210__0">Read hold time after CAS high</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT218" value.type="MIN">
+        <number id="TT219">0</number>
+        <order.of.mag id="TT220">n</order.of.mag>
+        <unit id="TT221">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT212" show="1" static="1">
+      <parm id="P213">
+        <parm.symbol id="TT214">tRRH</parm.symbol>
+        <parm.desc id="TT215">to be defined</parm.desc>
+        <parm.def id="TT216">
+          <source.p id="TT216__0">Read hold time after RAS high</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT232" value.type="MIN">
+        <number id="TT233">0</number>
+        <order.of.mag id="TT234">n</order.of.mag>
+        <unit id="TT235">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT222" show="1" static="1">
+      <parm id="P223">
+        <parm.symbol id="TT224">tWCH</parm.symbol>
+        <parm.desc id="TT225">to be defined</parm.desc>
+        <parm.def id="TT230">
+          <source.p id="TT230__0">Write hold time after CAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT238" value.type="MIN">
+        <number id="TT239">15</number>
+        <order.of.mag id="TT240">n</order.of.mag>
+        <unit id="TT241">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT226" show="1" static="1">
+      <parm id="P227">
+        <parm.symbol id="TT228">tWCR</parm.symbol>
+        <parm.desc id="TT229">to be defined</parm.desc>
+        <parm.def id="TT236">
+          <source.p id="TT236__0">Write hold time after RAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT242" value.type="MIN">
+        <number id="TT243">60</number>
+        <order.of.mag id="TT244">n</order.of.mag>
+        <unit id="TT245">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT246" show="1" static="1">
+      <parm id="P247">
+        <parm.symbol id="TT248">tWHR</parm.symbol>
+        <parm.desc id="TT249">to be defined</parm.desc>
+        <parm.def id="TT258">
+          <source.p id="TT258__0">W high hold time (CAS-before-RAS refresh only)</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT260" value.type="MIN">
+        <number id="TT261">10</number>
+        <order.of.mag id="TT262">n</order.of.mag>
+        <unit id="TT263">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT250" show="1" static="1">
+      <parm id="P251">
+        <parm.symbol id="TT252">tCHR</parm.symbol>
+        <parm.desc id="TT253">to be defined</parm.desc>
+        <parm.def id="TT264">
+          <source.p id="TT264__0">Delay time, RAS low to CAS high</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT266" value.type="MIN">
+        <number id="TT267">20</number>
+        <order.of.mag id="TT268">n</order.of.mag>
+        <unit id="TT269">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT254" show="1" static="1">
+      <parm id="P255">
+        <parm.symbol id="TT256">tCRP</parm.symbol>
+        <parm.desc id="TT257">to be defined</parm.desc>
+        <parm.def id="TT270">
+          <source.p id="TT270__0">Delay time, CAS high to RAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT302" value.type="MIN">
+        <number id="TT303">0</number>
+        <order.of.mag id="TT304">n</order.of.mag>
+        <unit id="TT305">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT272" show="1" static="1">
+      <parm id="P273">
+        <parm.symbol id="TT274">tCSH</parm.symbol>
+        <parm.desc id="TT275">to be defined</parm.desc>
+        <parm.def id="TT300">
+          <source.p id="TT300__0">Delay time, RAS low to CAS high</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT306" value.type="MIN">
+        <number id="TT307">80</number>
+        <order.of.mag id="TT308">n</order.of.mag>
+        <unit id="TT309">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT276" show="1" static="1">
+      <parm id="P277">
+        <parm.symbol id="TT278">tCSR</parm.symbol>
+        <parm.desc id="TT279">to be defined</parm.desc>
+        <parm.def id="TT78">
+          <source.p id="TT78__0">Delay time, CAS low to RAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT81" value.type="MIN">
+        <number id="TT82">10</number>
+        <order.of.mag id="TT83">n</order.of.mag>
+        <unit id="TT84">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT280" show="1" static="1">
+      <parm id="P281">
+        <parm.symbol id="TT282">tRAD</parm.symbol>
+        <parm.desc id="TT283">to be defined</parm.desc>
+        <parm.def id="TT85">
+          <source.p id="TT85__0">Delay time, RAS low to column-address</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT102" value.type="MIN">
+        <number id="TT104">15</number>
+        <order.of.mag id="TT105">n</order.of.mag>
+        <unit id="TT106">s</unit>
+      </tdml.value>
+      <tdml.value id="TT107" value.type="MAX">
+        <number id="TT108">40</number>
+        <order.of.mag id="TT109">n</order.of.mag>
+        <unit id="TT110">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT284" show="1" static="1">
+      <parm id="P285">
+        <parm.symbol id="TT286">tRAL</parm.symbol>
+        <parm.desc id="TT287">to be defined</parm.desc>
+        <parm.def id="TT111">
+          <source.p id="TT111__0">Delay time, column-address to RAS high</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT117" value.type="MIN">
+        <number id="TT121">40</number>
+        <order.of.mag id="TT125">n</order.of.mag>
+        <unit id="TT131">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT288" show="1" static="1">
+      <parm id="P289">
+        <parm.symbol id="TT290">tCAL</parm.symbol>
+        <parm.desc id="TT291">to be defined</parm.desc>
+        <parm.def id="TT133">
+          <source.p id="TT133__0">Delay time, column-address to CAS high</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT141" value.type="MIN">
+        <number id="TT147">40</number>
+        <order.of.mag id="TT153">n</order.of.mag>
+        <unit id="TT157">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT292" show="1" static="1">
+      <parm id="P293">
+        <parm.symbol id="TT294">tRCD</parm.symbol>
+        <parm.desc id="TT295">to be defined</parm.desc>
+        <parm.def id="TT161">
+          <source.p id="TT161__0">Delay time, RAS low to CAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT169" value.type="MIN">
+        <number id="TT173">20</number>
+        <order.of.mag id="TT177">n</order.of.mag>
+        <unit id="TT178">s</unit>
+      </tdml.value>
+      <tdml.value id="TT179" value.type="MAX">
+        <number id="TT180">60</number>
+        <order.of.mag id="TT181">n</order.of.mag>
+        <unit id="TT183">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT296" show="1" static="1">
+      <parm id="P297">
+        <parm.symbol id="TT298">tRPC</parm.symbol>
+        <parm.desc id="TT299">to be defined</parm.desc>
+        <parm.def id="TT193">
+          <source.p id="TT193__0">Delay time, RAS high to CAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT227" value.type="MIN">
+        <number id="TT231">0</number>
+        <order.of.mag id="TT237">n</order.of.mag>
+        <unit id="TT247">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT205" show="1" static="1">
+      <parm id="P206">
+        <parm.symbol id="TT211">tRSH</parm.symbol>
+        <parm.desc id="TT213">to be defined</parm.desc>
+        <parm.def id="TT217">
+          <source.p id="TT217__0">Delay time, CAS low to RAS high</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT273" value.type="MIN">
+        <number id="TT277">20</number>
+        <order.of.mag id="TT281">n</order.of.mag>
+        <unit id="TT285">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT251" show="1" static="1">
+      <parm id="P252">
+        <parm.symbol id="TT255">tT</parm.symbol>
+        <parm.desc id="TT259">to be defined</parm.desc>
+        <parm.def id="TT265">
+          <source.p id="TT265__0">Transition time</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT289" value.type="MAX">
+        <number id="TT293">50</number>
+        <order.of.mag id="TT312">n</order.of.mag>
+        <unit id="TT313">s</unit>
+      </tdml.value>
+      <tdml.value id="TT297" value.type="MIN">
+        <number id="TT301">2</number>
+        <order.of.mag id="TT310">n</order.of.mag>
+        <unit id="TT311">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT33" show="1" static="1">
+      <parm id="P34">
+        <parm.symbol id="TT35">tRAS</parm.symbol>
+        <parm.desc id="TT36">to be defined</parm.desc>
+        <parm.def id="TT37">
+          <source.p id="TT37__0">Non-page-mode pulse duration, RAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT39" value.type="MIN">
+        <number id="TT40">80</number>
+        <order.of.mag id="TT41">n</order.of.mag>
+        <unit id="TT62">s</unit>
+      </tdml.value>
+      <tdml.value id="TT63" value.type="MAX">
+        <number id="TT80">10000</number>
+        <order.of.mag id="TT87">n</order.of.mag>
+        <unit id="TT100">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT115" show="1" static="1">
+      <parm id="P116">
+        <parm.symbol id="TT137">tCAS</parm.symbol>
+        <parm.desc id="TT165">to be defined</parm.desc>
+        <parm.def id="TT199">
+          <source.p id="TT199__0">Pulse duration, CAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT271" value.type="MIN">
+        <number id="TT317">20</number>
+        <order.of.mag id="TT318">n</order.of.mag>
+        <unit id="TT319">s</unit>
+      </tdml.value>
+      <tdml.value id="TT327" value.type="MAX">
+        <number id="TT328">10000</number>
+        <order.of.mag id="TT329">n</order.of.mag>
+        <unit id="TT330">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT320" show="1" static="1">
+      <parm id="P321">
+        <parm.symbol id="TT322">tCLZ</parm.symbol>
+        <parm.desc id="TT323">to be defined</parm.desc>
+        <parm.def id="TT332">
+          <source.p id="TT332__0">CAS to output in low Z</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT334" value.type="MIN">
+        <number id="TT335">0</number>
+        <order.of.mag id="TT336">n</order.of.mag>
+        <unit id="TT337">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT339" show="1" static="1">
+      <parm id="P340">
+        <parm.symbol id="TT341">tOFF</parm.symbol>
+        <parm.desc id="TT342">to be defined</parm.desc>
+        <parm.def id="TT343">
+          <source.p id="TT343__0">output disable time after CAS high</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT345" value.type="MIN">
+        <number id="TT346">0</number>
+        <order.of.mag id="TT347">n</order.of.mag>
+        <unit id="TT348">s</unit>
+      </tdml.value>
+      <tdml.value id="TT349" value.type="MAX">
+        <number id="TT350">20</number>
+        <order.of.mag id="TT351">n</order.of.mag>
+        <unit id="TT352">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT34" show="1" static="1">
+      <parm id="P35">
+        <parm.symbol id="TT38">tBufferAndPD</parm.symbol>
+        <parm.desc id="TT89">to be defined</parm.desc>
+        <parm.def id="TT355">
+          <source.p id="TT355__0">Buffer propagation delays</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT223" value.type="MIN">
+        <number id="TT316">1.3</number>
+        <order.of.mag id="TT321">n</order.of.mag>
+        <unit id="TT326">s</unit>
+      </tdml.value>
+      <tdml.value id="TT333" value.type="MAX">
+        <number id="TT340">15.1</number>
+        <order.of.mag id="TT344">n</order.of.mag>
+        <unit id="TT354">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT357" show="1" static="1">
+      <parm id="P358">
+        <parm.symbol id="TT359">tPD</parm.symbol>
+        <parm.desc id="TT360">to be defined</parm.desc>
+        <parm.def id="TT361">
+          <source.p id="TT361__0">CPLD worst case path</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT363" value.type="MAX">
+        <number id="TT364">10</number>
+        <order.of.mag id="TT365">n</order.of.mag>
+        <unit id="TT366">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT387" show="1" static="1">
+      <parm id="P388">
+        <parm.symbol id="TT389">tCAC</parm.symbol>
+        <parm.desc id="TT390">to be defined</parm.desc>
+        <parm.def id="TT391">
+          <source.p id="TT391__0">Access time from CAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT399" value.type="MAX">
+        <number id="TT400">20</number>
+        <order.of.mag id="TT401">n</order.of.mag>
+        <unit id="TT402">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT393" show="1" static="1">
+      <parm id="P394">
+        <parm.symbol id="TT395">tRAC</parm.symbol>
+        <parm.desc id="TT396">to be defined</parm.desc>
+        <parm.def id="TT397">
+          <source.p id="TT397__0">Access time from RAS low</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT403" value.type="MAX">
+        <number id="TT404">80</number>
+        <order.of.mag id="TT405">n</order.of.mag>
+        <unit id="TT406">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT413" show="1" static="1">
+      <parm id="P414">
+        <parm.symbol id="TT415">tRP</parm.symbol>
+        <parm.desc id="TT416">to be defined</parm.desc>
+        <parm.def id="TT417">
+          <source.p id="TT417__0">Pulse duration, RAS high</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT419" value.type="MIN">
+        <number id="TT420">60</number>
+        <order.of.mag id="TT421">n</order.of.mag>
+        <unit id="TT422">s</unit>
+      </tdml.value>
+    </tdml.cc>
+    <tdml.cc id="TT73" show="1" static="1">
+      <parm id="P74">
+        <parm.symbol id="TT356">tCP</parm.symbol>
+        <parm.desc id="TT358">to be defined</parm.desc>
+        <parm.def id="TT362">
+          <source.p id="TT362__0">Pulse duration, CAS high</source.p>
+        </parm.def>
+      </parm>
+      <tdml.value id="TT368" value.type="MIN">
+        <number id="TT369">10</number>
+        <order.of.mag id="TT370">n</order.of.mag>
+        <unit id="TT373">s</unit>
+      </tdml.value>
+    </tdml.cc>
+  </cc.list>
   <font.list>
     <font id="TT1" color="ff000080" face.name="Lucida Sans" point.size="11"/>
   </font.list>

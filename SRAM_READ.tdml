@@ -410,6 +410,9 @@
       <parm id="P117">
         <parm.symbol id="TT118">t_SMC32</parm.symbol>
         <parm.desc id="TT119">to be defined</parm.desc>
+        <parm.def id="TT272">
+          <source.p id="TT272__0">MCK falling to NRD inactive</source.p>
+        </parm.def>
       </parm>
       <tdml.value id="TT182" value.type="MIN">
         <number id="TT183">4.5</number>
