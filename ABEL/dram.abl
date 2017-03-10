@@ -1,6 +1,178 @@
 MODULE DRAM
 
-TITLE 'DRAM'
+TITLE 'DRAM Interface - State Machine Version'
+
+" LCDInterface  DEVICE  'GAL16V8'
+
+
+" Description:  Interfaces the Hitachi LCD controller with the 80C188
+"               microprocessor running at any speed using either the WR\ line,
+"               an address line, or the DT/R line as the R/W line for the
+"               controller.  SRDY is also generated appropriately.
+"
+"               If the 80C188 oscillator input frequency is under 17 MHz, the
+"               WR\ line may be used as the R/W line.  At higher speeds, an
+"               address line or the DT/R line (inverted) must be used.
+"
+"               At 80C188 oscillator input frequencies of 18.8 MHz or less,
+"               one wait state may be removed from the PAL logic.
+"
+"               The 80C188 should also have 1-2 wait states set on the PCS
+"               line for the LCD PAL.
+
+
+" Revision History:
+" 04/18/01   Created from 4/18/01 version of lcdintfs.pds
+" 04/16/02   Updated comments
+" 04/18/03   Updated comments
+" 04/12/06   Updated comments
+
+
+
+" Pins
+
+Clock  pin   1;                 "input   Clock (CLKOUT from 80C188)
+!PCS   pin   2;                 "input   peripheral chip select from 80C188 for LCD
+!RD    pin   3;                 "input   read (active low, from 80C188)
+!WR    pin   4;                 "input   write (active low, from 80C188)
+RESET  pin   5;                 "input   reset (active high, from 80C188)
+"      pin   6                   input   unused
+"      pin   7                   input   unused
+"      pin   8                   input   unused
+"      pin   9                   input   unused
+"GND   pin   10                  supply  power ground
+"      pin   11                  input   output enable (should be tied to ground)
+E      pin   12  ISTYPE 'com';  "output  enable to LCD
+"      pin   13                  output  unused
+"      pin   14                  output  unused
+"      pin   15                  output  unused
+"      pin   16                  output  unused
+St0    pin       ISTYPE 'reg';  "output  state bit 0
+St1    pin       ISTYPE 'reg';  "output  state bit 1
+St2    pin       ISTYPE 'reg';  "output  state bit 2
+"      pin   17                  output  unused
+"      pin   18                  output  unused
+SRDY   pin   19  ISTYPE 'com';  "output  synchronous ready to 80C188
+"VCC   pin   20                  supply  power Vcc
+
+
+
+"the states
+
+StateBits   =  [ St4, St3, St2, St1, St0 ];     " state bits
+                                      		" state assignments
+Idle        =  [   0,   0,   0,   0,   0 ];     " idle state (waiting for a cycle to start)
+Read0       =  [   0,   0,   0,   0,   1 ];     " enable row address for read
+Read1       =  [   0,   0,   0,   1,   0 ];     " RAS line low
+Read2       =  [   0,   0,   0,   1,   1 ];     " disable row address for read
+Read3       =  [   0,   0,   1,   0,   0 ];     " enable column address for read
+Read4       =  [   0,   0,   1,   0,   1 ];     " CAS line low
+Read5       =  [   0,   0,   1,   1,   0 ];     " Wait for data access
+Read6       =  [   0,   0,   1,   1,   1 ];     " CAS line high
+Read7       =  [   0,   1,   0,   0,   0 ];     " Pre-charge
+Read8       =  [   0,   1,   0,   0,   1 ];     " Pre-charge
+Write0      =  [   0,   1,   0,   1,   0 ];     " enable row address
+Write1      =  [   0,   1,   0,   1,   1 ];     " RAS line low
+Write2      =  [   0,   1,   1,   0,   0 ];     " disable row address
+Write3      =  [   0,   1,   1,   0,   1 ];     " WE low and column address enable
+Write4      =  [   0,   1,   1,   1,   0 ];     " CAS line low
+Write5      =  [   0,   1,   1,   1,   1 ];     " Wait
+Write6      =  [   1,   0,   0,   0,   0 ];     " RAS, CAS, WE high
+Write7      =  [   1,   0,   0,   0,   1 ];     " Pre-charge
+Write8      =  [   1,   0,   0,   1,   0 ];     " Pre-charge
+Ref0        =  [   1,   0,   0,   1,   1 ];     " CAS low
+Ref1        =  [   1,   0,   1,   0,   0 ];     " RAS low
+Ref2        =  [   1,   0,   1,   0,   1 ];     " Wait
+Ref3        =  [   1,   0,   1,   1,   0 ];     " Wait
+Ref4        =  [   1,   0,   1,   1,   1 ];     "
+
+EQUATIONS
+
+
+" Output enables - enable the used outputs (registered outputs enabled by OE\ pin)
+E.OE     =  1;
+SRDY.OE  =  1;
+
+
+" clocks for the registered outputs (state bits)
+StateBits.CLK  =  Clock;        " use the global clock pin
+
+
+
+STATE_DIAGRAM  StateBits        " a Mealy state machine
+
+
+STATE  Idle:                    " in the idle state waiting for an access
+
+   E = 0;                       " E always inactive in this state
+   SRDY = 1;                    " SRDY always 'ready' in this state
+
+   IF (PCS & (RD # WR)) THEN  StCyc     " LCD access starts the cycle
+   ELSE                       Idle;     " otherwise just stay here
+
+
+STATE  StCyc:                   " start of an LCD access cycle
+
+   E = 0;                       " E inactive for address and R/W setup times
+   SRDY = 1;                    " SRDY always 'ready' in this state
+
+   IF (RESET) THEN  Idle        " if resetting go back to idle
+   ELSE             Wait0;      " otherwise go to first wait state
+
+
+STATE  Wait0:                   " first wait cycle for E min pulse width
+
+   E = 1;                       " generate the E signal
+   SRDY = 0;                    " now no longer ready
+
+   IF (RESET) THEN  Idle        " if resetting go back to idle
+   ELSE             Wait1;      " otherwise go to next wait state
+
+
+STATE  Wait1:                   " second wait cycle for E min pulse width
+
+   E = 1;                       " generate the E signal
+   SRDY = 0;                    " still not ready
+
+   IF (RESET) THEN  Idle        " if resetting go back to idle
+   ELSE             Wait2;      " otherwise go to next wait state
+
+
+STATE  Wait2:                   " third wait cycle for E min pulse width
+
+   E = 1;                       " keep generating the E signal
+   SRDY = 0;                    " still not ready
+
+   IF (RESET) THEN  Idle        " if resetting go back to idle
+   ELSE             Wait3;      " otherwise go to next wait state
+
+
+STATE  Wait3:                   " fourth wait cycle for E min pulse width
+
+   E = 1;                       " E is still high (need 5 cycles)
+   SRDY = 0;                    " and still not ready
+
+   IF (RESET) THEN  Idle        " if resetting go back to idle
+   ELSE             Wait4;      " otherwise go to next wait state
+
+
+STATE  Wait4:                   " fifth (and final) wait cycle
+
+   E = 1;                       " generate the E signal
+   SRDY = 0;                    " still not ready to go forward
+
+   IF (RESET) THEN  Idle        " if resetting go back to idle
+   ELSE             EndCyc;     " otherwise handle the end of the cycle
+
+
+STATE  EndCyc:                  " end of the LCD access cycle
+
+   SRDY = 1;                    " are once again ready
+
+        IF (RESET)           THEN  Idle    WITH  E = 0  " if resetting go back to idle
+   ELSE IF (PCS & (RD # WR)) THEN  EndCyc  WITH  E = 1  " while accessing stay with E active
+   ELSE                            Idle    WITH  E = 0; " if access is over go back to idle
+
 
 
 END
