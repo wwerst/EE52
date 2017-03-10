@@ -31,18 +31,35 @@ TITLE 'DRAM Interface - State Machine Version'
 
 " Pins
 
-Clock  pin   1;                 "input   Clock (CLKOUT from 80C188)
-!PCS   pin   2;                 "input   peripheral chip select from 80C188 for LCD
-!RD    pin   3;                 "input   read (active low, from 80C188)
-!WR    pin   4;                 "input   write (active low, from 80C188)
-RESET  pin   5;                 "input   reset (active high, from 80C188)
+
+"      pin   1                   input   unused
+"      pin   2                   input   unused
+"      pin   3                   input   unused
+"      pin   4                   input   unused
+"      pin   5                   input   unused
 "      pin   6                   input   unused
 "      pin   7                   input   unused
 "      pin   8                   input   unused
 "      pin   9                   input   unused
-"GND   pin   10                  supply  power ground
-"      pin   11                  input   output enable (should be tied to ground)
-E      pin   12  ISTYPE 'com';  "output  enable to LCD
+"      pin   10                  input   unused
+"      pin   11                  input   unused
+"      pin   12                  input   unused
+"      pin   13                  input   unused
+"      pin   14                  input   unused
+"      pin   15                  input   unused
+Reset  pin   16;                "input   unused
+"      pin   17                  input   unused
+RAS    pin   18  ISTYPE 'com';  "input   unused
+CAS    pin   19  ISTYPE 'com';  "input   unused
+DRAM_WE pin  20  ISTYPE 'com';  "input   unused
+R_A_EN pin   21  ISTYPE 'com';  "input   unused
+C_A_EN pin   22  ISTYPE 'com';  "input   unused
+"      pin   23                  input   unused
+"      pin   24                  input   unused
+CS     pin   25;                "input chip select
+WE     pin   26;                "input for whether write access
+!NWAIT pin   27  ISTYPE 'com';  "output for making cpu wait for refresh finish
+MCLK    pin   28;
 "      pin   13                  output  unused
 "      pin   14                  output  unused
 "      pin   15                  output  unused
@@ -50,6 +67,8 @@ E      pin   12  ISTYPE 'com';  "output  enable to LCD
 St0    pin       ISTYPE 'reg';  "output  state bit 0
 St1    pin       ISTYPE 'reg';  "output  state bit 1
 St2    pin       ISTYPE 'reg';  "output  state bit 2
+St3    pin       ISTYPE 'reg';  "output  state bit 3
+St4    pin       ISTYPE 'reg';  "output  state bit 4
 "      pin   17                  output  unused
 "      pin   18                  output  unused
 SRDY   pin   19  ISTYPE 'com';  "output  synchronous ready to 80C188
@@ -84,18 +103,22 @@ Ref0        =  [   1,   0,   0,   1,   1 ];     " CAS low
 Ref1        =  [   1,   0,   1,   0,   0 ];     " RAS low
 Ref2        =  [   1,   0,   1,   0,   1 ];     " Wait
 Ref3        =  [   1,   0,   1,   1,   0 ];     " Wait
-Ref4        =  [   1,   0,   1,   1,   1 ];     "
+Ref4        =  [   1,   0,   1,   1,   1 ];     " Wait
+Ref5        =  [   1,   1,   0,   0,   0 ];     " RAS, CAS high
+Ref6        =  [   1,   1,   0,   0,   1 ];     " Pre-charge
+Ref7        =  [   1,   1,   0,   1,   0 ];     " Pre-charge
 
 EQUATIONS
 
 
 " Output enables - enable the used outputs (registered outputs enabled by OE\ pin)
-E.OE     =  1;
-SRDY.OE  =  1;
 
+
+" NWAIT equation
+NWAIT      =  CS & (StateBits == Ref0 # StateBits == Ref1 # StateBits == Ref2 # StateBits == Ref3 # StateBits == Ref4);
 
 " clocks for the registered outputs (state bits)
-StateBits.CLK  =  Clock;        " use the global clock pin
+StateBits.CLK  =  MCLK;        " use the global clock pin
 
 
 
@@ -104,75 +127,203 @@ STATE_DIAGRAM  StateBits        " a Mealy state machine
 
 STATE  Idle:                    " in the idle state waiting for an access
 
-   E = 0;                       " E always inactive in this state
-   SRDY = 1;                    " SRDY always 'ready' in this state
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
 
-   IF (PCS & (RD # WR)) THEN  StCyc     " LCD access starts the cycle
+   IF (!CS) THEN  Ref0;     " LCD access starts the cycle
+   ELSE IF (CS & WE) THEN Write0;
+   ELSE IF (CS) THEN      Read0;
    ELSE                       Idle;     " otherwise just stay here
 
+STATE Read0:
 
-STATE  StCyc:                   " start of an LCD access cycle
+   R_A_EN = 1;
 
-   E = 0;                       " E inactive for address and R/W setup times
-   SRDY = 1;                    " SRDY always 'ready' in this state
+   IF (Reset) THEN        Idle;
+   ELSE                   Read1;
 
-   IF (RESET) THEN  Idle        " if resetting go back to idle
-   ELSE             Wait0;      " otherwise go to first wait state
+STATE Read1:
 
+   RAS = 0;
 
-STATE  Wait0:                   " first wait cycle for E min pulse width
+   IF (Reset) THEN        Idle;
+   ELSE                   Read2;
 
-   E = 1;                       " generate the E signal
-   SRDY = 0;                    " now no longer ready
+STATE Read2:
 
-   IF (RESET) THEN  Idle        " if resetting go back to idle
-   ELSE             Wait1;      " otherwise go to next wait state
+   R_A_EN = 0;
 
+   IF (Reset) THEN        Idle;
+   ELSE                   Read3;
 
-STATE  Wait1:                   " second wait cycle for E min pulse width
+STATE Read3:
 
-   E = 1;                       " generate the E signal
-   SRDY = 0;                    " still not ready
+   C_A_EN = 1;
 
-   IF (RESET) THEN  Idle        " if resetting go back to idle
-   ELSE             Wait2;      " otherwise go to next wait state
+   IF (Reset) THEN        Idle;
+   ELSE                   Read4;
 
+STATE Read4:
 
-STATE  Wait2:                   " third wait cycle for E min pulse width
+   CAS = 0;
 
-   E = 1;                       " keep generating the E signal
-   SRDY = 0;                    " still not ready
+   IF (Reset) THEN        Idle;
+   ELSE                   Read5;
 
-   IF (RESET) THEN  Idle        " if resetting go back to idle
-   ELSE             Wait3;      " otherwise go to next wait state
+STATE Read5:
 
-
-STATE  Wait3:                   " fourth wait cycle for E min pulse width
-
-   E = 1;                       " E is still high (need 5 cycles)
-   SRDY = 0;                    " and still not ready
-
-   IF (RESET) THEN  Idle        " if resetting go back to idle
-   ELSE             Wait4;      " otherwise go to next wait state
+   IF (Reset) THEN        Idle;
+   ELSE                   Read6;
 
 
-STATE  Wait4:                   " fifth (and final) wait cycle
+STATE Read6:
 
-   E = 1;                       " generate the E signal
-   SRDY = 0;                    " still not ready to go forward
+   CAS = 1;
+   RAS = 1;
+   C_A_EN = 0;
 
-   IF (RESET) THEN  Idle        " if resetting go back to idle
-   ELSE             EndCyc;     " otherwise handle the end of the cycle
+   IF (Reset) THEN        Idle;
+   ELSE                   Read7;
+
+STATE Read7:
 
 
-STATE  EndCyc:                  " end of the LCD access cycle
+   IF (Reset) THEN        Idle;
+   ELSE                   Read8;
 
-   SRDY = 1;                    " are once again ready
 
-        IF (RESET)           THEN  Idle    WITH  E = 0  " if resetting go back to idle
-   ELSE IF (PCS & (RD # WR)) THEN  EndCyc  WITH  E = 1  " while accessing stay with E active
-   ELSE                            Idle    WITH  E = 0; " if access is over go back to idle
+STATE Read8:
 
+   GOTO Idle;
+
+
+STATE Write0:
+
+   R_A_EN = 1;
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Write1;
+
+STATE Write1:
+
+   RAS = 0;
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Write2;
+
+STATE Write2:
+
+   R_A_EN = 0;
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Write3;
+
+STATE Write3:
+
+   DRAM_WE = 0;
+   C_A_EN = 1;
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Write4;
+
+STATE Write4:
+
+   CAS = 0;
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Write5;
+
+STATE Write5:
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Write6;
+
+
+STATE Write6:
+
+   CAS = 1;
+   RAS = 1;
+   C_A_EN = 0;
+   DRAM_WE = 1;
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Write7;
+
+STATE Write7:
+
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Write8;
+
+
+STATE Write8:
+
+   GOTO Idle;
+
+STATE Ref0:
+
+   CAS = 0;
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Ref1;
+
+STATE Ref1:
+
+   RAS = 0;
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Ref2;
+
+
+STATE Ref2:
+
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Ref3;
+
+STATE Ref3:
+
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Ref4;
+
+
+STATE Ref4:
+
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Ref5;
+
+
+STATE Ref5:
+
+   RAS = 1;
+   CAS = 1;
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Ref6;
+
+STATE Ref6:
+
+   IF (Reset) THEN        Idle;
+   ELSE                   Ref7;
+
+STATE Ref7:
+
+
+   GOTO                   Idle;
+
+
+
+
+
+
+
+
+   
 
 
 END

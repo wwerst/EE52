@@ -212,7 +212,7 @@
     </relationship>
   </edge.relationships>
   <view.group>
-    <view begin.time="0" end.time="180000"/>
+    <view begin.time="-10000" end.time="170000"/>
   </view.group>
   <cc.list>
     <title id="TT61">General Data</title>

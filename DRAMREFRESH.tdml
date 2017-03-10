@@ -50,6 +50,7 @@
       <e id="TT371" driven="1" s="0" show.uncertainty="ALL" te="11363" tl="11363"/>
       <e id="TT375" driven="1" s="0" show.uncertainty="ALL" te="34090" tl="34090"/>
       <e id="TT23" driven="1" s="0" show.uncertainty="ALL" te="124998" tl="124998"/>
+      <e id="TT26" driven="1" s="0" show.uncertainty="ALL" te="193179" tl="193179"/>
     </waveform>
   </signal>
   <signal id="TT21" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
@@ -58,7 +59,7 @@
       <e id="TT22" driven="1" s="1" show.uncertainty="ALL"/>
       <e id="TT48" driven="1" locked="1" s="0" show.uncertainty="ALL" te="44090" tl="44090"/>
       <e id="TT57" driven="1" locked="1" s="1" show.uncertainty="ALL" te="134998" tl="134998"/>
-      <e id="TT79" driven="1" locked="0" s="0" show.uncertainty="ALL" te="196000" tl="196000"/>
+      <e id="TT79" driven="1" locked="1" s="0" show.uncertainty="ALL" te="203179" tl="203179"/>
     </waveform>
   </signal>
   <signal id="TT56" clock="0" show="1" show.grid="0" show.uncertainty="ALL">
@@ -94,9 +95,17 @@
       <two.edge source.e="TT48" target.e="TT60"/>
       <relationship.label label.type="default"/>
     </relationship>
+    <relationship id="TT27" containing.signal.ptr="TT21" show="1" slot="2" tdml.cc.ptr="TT357" type="delay" user.created="0">
+      <two.edge source.e="TT26" target.e="TT79"/>
+      <relationship.label label.type="default"/>
+    </relationship>
+    <relationship id="TT28" containing.signal.ptr="TT21" show="1" slot="1" tdml.cc.ptr="TT413" type="guarantee" user.created="0">
+      <two.edge source.e="TT57" target.e="TT79"/>
+      <relationship.label label.type="default"/>
+    </relationship>
   </edge.relationships>
   <view.group>
-    <view begin.time="0" end.time="180000"/>
+    <view begin.time="30000" end.time="210000"/>
   </view.group>
   <cc.list>
     <title id="TT61">General Data</title>
