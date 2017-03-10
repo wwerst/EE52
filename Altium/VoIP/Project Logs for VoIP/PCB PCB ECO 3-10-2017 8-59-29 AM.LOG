@@ -1,0 +1,9 @@
+Added Pin To Net: NetName=NetC41_1 Pin=C41-1
+Added Pin To Net: NetName=NetC41_1 Pin=U13-7
+Added Net: Name=NetC41_1
+Added Pin To Net: NetName=NetC43_1 Pin=C43-1
+Added Pin To Net: NetName=NetC43_1 Pin=U13-6
+Added Net: Name=NetC43_1
+Added Pin To Net: NetName=PCK1 Pin=U1-70
+Added Net: Name=PCK1
+Added Room: Name=Main
