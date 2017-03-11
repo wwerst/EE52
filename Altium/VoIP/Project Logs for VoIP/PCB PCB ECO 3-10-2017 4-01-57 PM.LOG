@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=CAS Pin=U20-2
+Removed Pin From Net: NetName=RAS Pin=U20-27
+Added Component: Designator=R55(J1-0603)
+Added Component: Designator=R56(J1-0603)
+Added Pin To Net: NetName=RAS Pin=R55-2
+Added Pin To Net: NetName=CAS Pin=R56-2
+Added Pin To Net: NetName=NetR55_1 Pin=R55-1
+Added Pin To Net: NetName=NetR55_1 Pin=U20-27
+Added Net: Name=NetR55_1
+Added Pin To Net: NetName=NetR56_1 Pin=R56-1
+Added Pin To Net: NetName=NetR56_1 Pin=U20-2
+Added Net: Name=NetR56_1
+Added Member To Class: ClassName=Main Member=Component R55 Res3
+Added Member To Class: ClassName=Main Member=Component R56 Res3
+Added Room: Name=Main
