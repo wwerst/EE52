@@ -1,0 +1,11 @@
+Added Component: Designator=C79(1608[0603])
+Added Component: Designator=U22(SOT23)
+Added Pin To Net: NetName=GND Pin=C79-1
+Added Pin To Net: NetName=3V Pin=C79-2
+Added Pin To Net: NetName=Net*_D Pin=U22-D
+Added Pin To Net: NetName=DISP_BCKLIGHT Pin=U22-G
+Added Pin To Net: NetName=GND Pin=U22-S
+Change Net Name : Old Net Name=Net*_D New Net Name=NetDISP1_19
+Added Member To Class: ClassName=Main Member=Component C79 
+Added Member To Class: ClassName=Main Member=Component U22 Q?
+Added Room: Name=Main
