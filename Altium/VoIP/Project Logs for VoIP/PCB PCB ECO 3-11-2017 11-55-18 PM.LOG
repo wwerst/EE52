@@ -1,0 +1,4 @@
+Change Component Footprint: Designator=DISP1 Old Footprint=PCB-1539121-1 New Footprint=PCB-1539121-1
+Added Pin To Net: NetName=PCK0 Pin=U5-28
+Added Pin To Net: NetName=PCK1 Pin=U5-29
+Added Room: Name=Main

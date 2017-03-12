@@ -1,0 +1,21 @@
+Removed Pin From Net: NetName=12V Pin=C71-2
+Removed Pin From Net: NetName=12V Pin=C75-2
+Removed Pin From Net: NetName=12V Pin=C77-2
+Removed Pin From Net: NetName=12V Pin=REG_1V8-3
+Removed Pin From Net: NetName=12V Pin=REG_3V3-3
+Removed Pin From Net: NetName=12V Pin=REG_3V-3
+Change Component Footprint: Designator=C71 Old Footprint=1608[0603] New Footprint=C1206
+Change Component Footprint: Designator=C72 Old Footprint=1608[0603] New Footprint=C1206
+Change Component Footprint: Designator=C73 Old Footprint=1608[0603] New Footprint=C1206
+Change Component Footprint: Designator=C74 Old Footprint=1608[0603] New Footprint=C1206
+Change Component Footprint: Designator=C75 Old Footprint=1608[0603] New Footprint=C1206
+Change Component Footprint: Designator=C76 Old Footprint=1608[0603] New Footprint=C1206
+Change Component Footprint: Designator=C77 Old Footprint=1608[0603] New Footprint=C1206
+Change Component Footprint: Designator=C78 Old Footprint=1608[0603] New Footprint=C1206
+Added Pin To Net: NetName=5V Pin=C71-2
+Added Pin To Net: NetName=5V Pin=C75-2
+Added Pin To Net: NetName=5V Pin=C77-2
+Added Pin To Net: NetName=5V Pin=REG_1V8-3
+Added Pin To Net: NetName=5V Pin=REG_3V3-3
+Added Pin To Net: NetName=5V Pin=REG_3V-3
+Added Room: Name=Main

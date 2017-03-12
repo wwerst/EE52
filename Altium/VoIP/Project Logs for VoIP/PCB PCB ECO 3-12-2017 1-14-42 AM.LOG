@@ -1,0 +1,5 @@
+Change Component Footprint: Designator=C61 Old Footprint=1608[0603] New Footprint=C1206
+Change Component Comment : Designator=C63 Old Comment=Tant New Comment=
+Change Component Comment : Designator=C65 Old Comment=Tant New Comment=
+Change Component Comment : Designator=C66 Old Comment=Tant New Comment=
+Added Room: Name=Main

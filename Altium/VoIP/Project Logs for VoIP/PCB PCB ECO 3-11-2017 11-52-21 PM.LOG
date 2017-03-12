@@ -1,0 +1,31 @@
+Added Component: Designator=U9(TI-PW16_M)
+Add component. Clean all parameters for all variants
+Added Component: Designator=U11(TI-PW16_M)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=3V3 Pin=U9-1
+Added Pin To Net: NetName=3V3 Pin=U9-2
+Added Pin To Net: NetName=DISP_A0 Pin=U9-3
+Added Pin To Net: NetName=NetDISP1_15 Pin=U9-4
+Added Pin To Net: NetName=NetDISP1_16 Pin=U9-5
+Added Pin To Net: NetName=DISP_RST Pin=U9-6
+Added Pin To Net: NetName=3V3 Pin=U9-7
+Added Pin To Net: NetName=GND Pin=U9-8
+Added Pin To Net: NetName=3V3 Pin=U9-9
+Added Pin To Net: NetName=DISP_CS Pin=U9-10
+Added Pin To Net: NetName=NetDISP1_17 Pin=U9-11
+Added Pin To Net: NetName=3V3 Pin=U9-15
+Added Pin To Net: NetName=3V Pin=U9-16
+Added Pin To Net: NetName=3V3 Pin=U11-1
+Added Pin To Net: NetName=3V3 Pin=U11-2
+Added Pin To Net: NetName=3V3 Pin=U11-7
+Added Pin To Net: NetName=GND Pin=U11-8
+Added Pin To Net: NetName=3V3 Pin=U11-9
+Added Pin To Net: NetName=DISP_MOSI Pin=U11-10
+Added Pin To Net: NetName=NetDISP1_13 Pin=U11-11
+Added Pin To Net: NetName=NetDISP1_14 Pin=U11-13
+Added Pin To Net: NetName=DISP_SCK Pin=U11-14
+Added Pin To Net: NetName=3V3 Pin=U11-15
+Added Pin To Net: NetName=3V Pin=U11-16
+Added Member To Class: ClassName=Main Member=Component U9 TI-CD40109B-16
+Added Member To Class: ClassName=Main Member=Component U11 TI-CD40109B-16
+Added Room: Name=Main
