@@ -59,7 +59,8 @@ C_A_EN pin   22  ISTYPE 'com';  "input   unused
 CS     pin   25;                "input chip select
 WE     pin   26;                "input for whether write access
 !NWAIT pin   27  ISTYPE 'com';  "output for making cpu wait for refresh finish
-MCLK    pin   28;
+MCLK   pin   28;                "main clock input
+RCLK   pin   29;                "refresh clock input
 "      pin   13                  output  unused
 "      pin   14                  output  unused
 "      pin   15                  output  unused
@@ -115,7 +116,7 @@ EQUATIONS
 
 
 " NWAIT equation
-NWAIT      =  CS & (StateBits == Ref0 # StateBits == Ref1 # StateBits == Ref2 # StateBits == Ref3 # StateBits == Ref4);
+NWAIT      =  !CS & (StateBits == Ref0 # StateBits == Ref1 # StateBits == Ref2 # StateBits == Ref3 # StateBits == Ref4);
 
 " clocks for the registered outputs (state bits)
 StateBits.CLK  =  MCLK;        " use the global clock pin
