@@ -3,6 +3,7 @@ NWAIT		o
 RAS		o
 DRAM_WE		o
 Reset		i
+RCLK		i
 CS		i
 CAS		o
 WE		i

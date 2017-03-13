@@ -47,17 +47,17 @@ TITLE 'DRAM Interface - State Machine Version'
 "      pin   13                  input   unused
 "      pin   14                  input   unused
 "      pin   15                  input   unused
-Reset  pin   16;                "input   unused
+!Reset  pin   16;                "input   unused
 "      pin   17                  input   unused
-RAS    pin   18  ISTYPE 'com';  "input   unused
-CAS    pin   19  ISTYPE 'com';  "input   unused
-DRAM_WE pin  20  ISTYPE 'com';  "input   unused
-R_A_EN pin   21  ISTYPE 'com';  "input   unused
-C_A_EN pin   22  ISTYPE 'com';  "input   unused
+!RAS    pin   18  ISTYPE 'com';  "input   unused
+!CAS    pin   19  ISTYPE 'com';  "input   unused
+!DRAM_WE pin  20  ISTYPE 'com';  "input   unused
+!R_A_EN pin   21  ISTYPE 'com';  "input   unused
+!C_A_EN pin   22  ISTYPE 'com';  "input   unused
 "      pin   23                  input   unused
 "      pin   24                  input   unused
-CS     pin   25;                "input chip select
-WE     pin   26;                "input for whether write access
+!CS     pin   25;                "input chip select
+!WE     pin   26;                "input for whether write access
 !NWAIT pin   27  ISTYPE 'com';  "output for making cpu wait for refresh finish
 MCLK   pin   28;                "main clock input
 RCLK   pin   29;                "refresh clock input
@@ -132,7 +132,7 @@ STATE  Idle:                    " in the idle state waiting for an access
    R_A_EN = 0;
    C_A_EN = 0;
 
-   IF (!CS) THEN  Ref0;     " LCD access starts the cycle
+   IF (RCLK) THEN  Ref0;
    ELSE IF (CS & WE) THEN Write0;
    ELSE IF (CS) THEN      Read0;
    ELSE                       Idle;     " otherwise just stay here
@@ -324,9 +324,30 @@ TEST_VECTORS
 
 
 " reset the system
-  [   .C.,     0,     1,   0,   0  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];
+  [   .C.,     0,     1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];
+  [   .C.,     0,     1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];
+  [   .C.,     0,     1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];
 
-   
+" Single read
+
+
+" Single write
+
+" Consecutive reads
+
+" Refresh
+  [   .C.,   .C.,     1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Start refresh
+  [   .C.,     0,     1,   1,   1  ] -> [     1,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref0
+  [   .C.,     0,     1,   1,   1  ] -> [     0,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref1
+  [   .C.,     0,     1,   1,   1  ] -> [     0,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref2
+  [   .C.,     0,     1,   1,   1  ] -> [     0,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref3
+  [   .C.,     0,     1,   1,   1  ] -> [     0,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref4
+  [   .C.,     0,     1,   1,   1  ] -> [     0,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref5
+  [   .C.,     0,     1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref6
+  [   .C.,     0,     1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref7
+  [   .C.,     0,     1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Idle
+
+
 
 
 END DRAM

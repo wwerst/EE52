@@ -16,10 +16,72 @@
 
         0.000 ns: 00000->xxxxx1xxxxx
         0.000 ns: 00000->11100100000
-      100.000 ns: 00100->11100100000
-      200.000 ns: 10100->11100100000
-      200.000 ns: 10100->00000111001
-      300.000 ns: 00100->00000111001
+      100.000 ns: 00111->11100100000
+      200.000 ns: 10111->11100100000
+      200.000 ns: 10111->00010101010
+      300.000 ns: 00111->00010101010
 at 300.000 ns, RAS  expected: 1, actual: 0
 at 300.000 ns, CAS  expected: 1, actual: 0
 at 300.000 ns, DRAM_WE  expected: 1, actual: 0
+at 300.000 ns, R_A_EN  expected: 0, actual: 1
+      500.000 ns: 10111->00010101010
+      500.000 ns: 10111->11100100000
+      600.000 ns: 00111->11100100000
+      800.000 ns: 10111->11100100000
+      800.000 ns: 10111->00010101010
+      900.000 ns: 00111->00010101010
+at 900.000 ns, RAS  expected: 1, actual: 0
+at 900.000 ns, CAS  expected: 1, actual: 0
+at 900.000 ns, DRAM_WE  expected: 1, actual: 0
+at 900.000 ns, R_A_EN  expected: 0, actual: 1
+     1100.000 ns: 11111->00010101010
+     1100.000 ns: 11111->11100100000
+     1200.000 ns: 00111->11100100000
+     1400.000 ns: 10111->11100100000
+     1400.000 ns: 10111->00010101010
+     1500.000 ns: 00111->00010101010
+at 1500.000 ns, RAS  expected: 1, actual: 0
+at 1500.000 ns, DRAM_WE  expected: 1, actual: 0
+at 1500.000 ns, R_A_EN  expected: 0, actual: 1
+     1700.000 ns: 10111->00010101010
+     1700.000 ns: 10111->11100100000
+     1800.000 ns: 00111->11100100000
+at 1800.000 ns, RAS  expected: 0, actual: 1
+at 1800.000 ns, CAS  expected: 0, actual: 1
+     2000.000 ns: 10111->11100100000
+     2000.000 ns: 10111->00010101010
+     2100.000 ns: 00111->00010101010
+at 2100.000 ns, DRAM_WE  expected: 1, actual: 0
+at 2100.000 ns, R_A_EN  expected: 0, actual: 1
+     2300.000 ns: 10111->00010101010
+     2300.000 ns: 10111->11100100000
+     2400.000 ns: 00111->11100100000
+at 2400.000 ns, RAS  expected: 0, actual: 1
+at 2400.000 ns, CAS  expected: 0, actual: 1
+     2600.000 ns: 10111->11100100000
+     2600.000 ns: 10111->00010101010
+     2700.000 ns: 00111->00010101010
+at 2700.000 ns, DRAM_WE  expected: 1, actual: 0
+at 2700.000 ns, R_A_EN  expected: 0, actual: 1
+     2900.000 ns: 10111->00010101010
+     2900.000 ns: 10111->11100100000
+     3000.000 ns: 00111->11100100000
+at 3000.000 ns, RAS  expected: 0, actual: 1
+at 3000.000 ns, CAS  expected: 0, actual: 1
+     3200.000 ns: 10111->11100100000
+     3200.000 ns: 10111->00010101010
+     3300.000 ns: 00111->00010101010
+at 3300.000 ns, RAS  expected: 1, actual: 0
+at 3300.000 ns, CAS  expected: 1, actual: 0
+at 3300.000 ns, DRAM_WE  expected: 1, actual: 0
+at 3300.000 ns, R_A_EN  expected: 0, actual: 1
+     3500.000 ns: 10111->00010101010
+     3500.000 ns: 10111->11100100000
+     3600.000 ns: 00111->11100100000
+     3800.000 ns: 10111->11100100000
+     3800.000 ns: 10111->00010101010
+     3900.000 ns: 00111->00010101010
+at 3900.000 ns, RAS  expected: 1, actual: 0
+at 3900.000 ns, CAS  expected: 1, actual: 0
+at 3900.000 ns, DRAM_WE  expected: 1, actual: 0
+at 3900.000 ns, R_A_EN  expected: 0, actual: 1
