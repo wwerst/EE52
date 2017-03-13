@@ -2,9 +2,8 @@ C_A_EN		o
 NWAIT		o
 RAS		o
 DRAM_WE		o
-Reset		i
+RefRqst		o
 RCLK		i
-CS		i
 CAS		o
 WE		i
 St0		o
@@ -14,3 +13,5 @@ St3		o
 St4		o
 MCLK		i
 R_A_EN		o
+NCS		i
+NReset		i

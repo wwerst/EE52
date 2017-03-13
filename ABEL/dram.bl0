@@ -1,48 +1,36 @@
 #$ TOOL ispLEVER Classic 2.0.00.17.20.15
-#$ DATE Sun Mar 12 21:01:03 2017
+#$ DATE Sun Mar 12 22:43:20 2017
 #$ TITLE DRAM Interface - State Machine Version
 #$ MODULE dram
 #$ JEDECFILE dram
-#$ PINS 16 Reset:16 RAS:18 CAS:19 DRAM_WE:20 R_A_EN:21 C_A_EN:22 CS:25 WE:26 NWAIT:27 MCLK:28 RCLK:29 St0 St1 St2 St3 St4
+#$ PINS 17 NReset:16 RAS:18 CAS:19 DRAM_WE:20 R_A_EN:21 C_A_EN:22 NCS:25 WE:26 NWAIT:27 MCLK:28 RCLK:29 St0 St1 St2 St3 St4 RefRqst
 
 .model dram
-.inputs CS.BLIF MCLK.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RCLK.BLIF WE.BLIF \
-Reset.BLIF
-.outputs RAS CAS DRAM_WE R_A_EN C_A_EN NWAIT St4.C St3.C St2.C St1.C St0.C \
-St0.REG St1.REG St2.REG St3.REG St4.REG
+.inputs NCS.BLIF RCLK.BLIF MCLK.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RefRqst.BLIF \
+WE.BLIF NReset.BLIF
+.outputs RAS CAS DRAM_WE R_A_EN C_A_EN NWAIT RefRqst.C RefRqst.REG St4.C St3.C \
+St2.C St1.C St0.C St0.REG St1.REG St2.REG St3.REG St4.REG
 .names St4.FB St3.FB St2.FB St1.FB St0.FB RAS
-01--- 1
---1-0 1
---0-1 1
---10- 1
---01- 1
-1-1-- 1
+00111 1
+1-000 1
+-0000 1
 .names St4.FB St3.FB St2.FB St1.FB St0.FB CAS
-01--- 1
---1-0 1
---0-1 1
---10- 1
---01- 1
-1-1-- 1
+00111 1
+1-000 1
+-0000 1
 .names St3.FB St2.FB St1.FB St0.FB DRAM_WE
----1 1
---1- 1
--1-- 1
-1--- 1
+0000 1
 .names St4.FB St3.FB St2.FB St1.FB St0.FB R_A_EN
--0--0 1
--1--1 1
--1-0- 1
--0-1- 1
---1-- 1
-1---- 1
+01010 1
+00001 1
 .names St4.FB St3.FB St2.FB St1.FB St0.FB C_A_EN
--1--0 1
--0--1 1
----1- 1
---0-- 1
-1---- 1
+00100 1
+01101 1
 .names NWAIT
+ 1
+.names RCLK.BLIF RefRqst.C
+1 1
+.names RefRqst.REG
  1
 .names MCLK.BLIF St4.C
 1 1
@@ -54,39 +42,39 @@ St0.REG St1.REG St2.REG St3.REG St4.REG
 1 1
 .names MCLK.BLIF St0.C
 1 1
-.names CS.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RCLK.BLIF WE.BLIF Reset.BLIF \
-St0.REG
-000000-1- 1
+.names NCS.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RefRqst.BLIF WE.BLIF \
+NReset.BLIF St0.REG
+100000-0- 1
 -000001-- 1
 --01-0--1 1
 -1-000--1 1
 -01--0--1 1
 -0--10--1 1
-.names CS.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RCLK.BLIF WE.BLIF Reset.BLIF \
-St1.REG
-000000-0- 1
+.names NCS.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RefRqst.BLIF WE.BLIF \
+NReset.BLIF St1.REG
+100000-1- 1
 -1-001--1 1
 -000001-- 1
 --0110--1 1
 -0--10--1 1
 --0-01--1 1
 -0-101--1 1
-.names St4.FB St3.FB St2.FB St1.FB St0.FB Reset.BLIF St2.REG
+.names St4.FB St3.FB St2.FB St1.FB St0.FB NReset.BLIF St2.REG
 -00111 1
 0-0111 1
 -01-01 1
 0-10-1 1
 0-1-01 1
 -010-1 1
-.names CS.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RCLK.BLIF WE.BLIF Reset.BLIF \
-St3.REG
-00000000- 1
+.names NCS.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RefRqst.BLIF WE.BLIF \
+NReset.BLIF St3.REG
+10000001- 1
 --0111--1 1
 -1100---1 1
 -01--0--1 1
 -0110---1 1
 -0101---1 1
-.names St4.FB St3.FB St2.FB St1.FB St0.FB RCLK.BLIF Reset.BLIF St4.REG
+.names St4.FB St3.FB St2.FB St1.FB St0.FB RefRqst.BLIF NReset.BLIF St4.REG
 000001- 1
 01111-1 1
 1-00--1 1

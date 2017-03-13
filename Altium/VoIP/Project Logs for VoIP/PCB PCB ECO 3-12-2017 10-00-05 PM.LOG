@@ -1,0 +1,8 @@
+Change Component Footprint: Designator=U15 Old Footprint=DIP8 New Footprint=DIPS8
+Change Component Footprint: Designator=U2 Old Footprint=SSOP48 New Footprint=TSSOP48
+Change Component Footprint: Designator=U4 Old Footprint=SSOP48 New Footprint=TSSOP48
+Change Component Footprint: Designator=U8 Old Footprint=SSOP48 New Footprint=TSSOP48
+Change Component Footprint: Designator=U18 Old Footprint=SSOP48 New Footprint=TSSOP48
+Change Component Footprint: Designator=U19 Old Footprint=SSOP48 New Footprint=TSSOP48
+Change Component Footprint: Designator=U21 Old Footprint=SSOP48 New Footprint=TSSOP48
+Added Room: Name=Main
