@@ -1,13 +1,9 @@
-Output: NC Drill Files
-Type  : NC Drill
-From  : Project [VoIP.PrjPcb]
-   Generated File[PCB-RoundHoles.TXT]
-   Generated File[PCB-SlotHoles.TXT]
-   Generated File[PCB.LDP]
-   Generated File[PCB.DRR]
+Output: Bill of Materials
+Type  : BOM
+From  : Variant [[No Variations]] of Project [VoIP.PrjPcb]
 
 
-Files Generated   : 4
+Files Generated   : 0
 Documents Printed : 0
 
-Finished Output Generation At 6:02:37 AM On 3/12/2017
+Finished Output Generation At 5:20:54 PM On 3/12/2017
