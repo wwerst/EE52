@@ -72,8 +72,6 @@ St3    pin       ISTYPE 'reg';  "output  state bit 3
 St4    pin       ISTYPE 'reg';  "output  state bit 4
 "      pin   17                  output  unused
 "      pin   18                  output  unused
-SRDY   pin   19  ISTYPE 'com';  "output  synchronous ready to 80C188
-"VCC   pin   20                  supply  power Vcc
 
 
 
@@ -116,7 +114,7 @@ EQUATIONS
 
 
 " NWAIT equation
-NWAIT      =  !CS & (StateBits == Ref0 # StateBits == Ref1 # StateBits == Ref2 # StateBits == Ref3 # StateBits == Ref4);
+NWAIT      =  !CS & (StateBits == Ref0 # StateBits == Ref1 # StateBits == Ref2 # StateBits == Ref3 # StateBits == Ref4 # StateBits == Ref5 # StateBits == Ref6 # StateBits == Ref7);
 
 " clocks for the registered outputs (state bits)
 StateBits.CLK  =  MCLK;        " use the global clock pin
@@ -319,6 +317,95 @@ STATE Ref7:
 
 
 
+
+Reset  pin   16;                "input   unused
+"      pin   17                  input   unused
+RAS    pin   18  ISTYPE 'com';  "input   unused
+CAS    pin   19  ISTYPE 'com';  "input   unused
+DRAM_WE pin  20  ISTYPE 'com';  "input   unused
+R_A_EN pin   21  ISTYPE 'com';  "input   unused
+C_A_EN pin   22  ISTYPE 'com';  "input   unused
+"      pin   23                  input   unused
+"      pin   24                  input   unused
+CS     pin   25;                "input chip select
+WE     pin   26;                "input for whether write access
+!NWAIT pin   27  ISTYPE 'com';  "output for making cpu wait for refresh finish
+MCLK   pin   28;                "main clock input
+RCLK   pin   29;                "refresh clock input
+"      pin   13                  output  unused
+"      pin   14                  output  unused
+"      pin   15                  output  unused
+"      pin   16                  output  unused
+St0    pin       ISTYPE 'reg';  "output  state bit 0
+St1    pin       ISTYPE 'reg';  "output  state bit 1
+St2    pin       ISTYPE 'reg';  "output  state bit 2
+St3    pin       ISTYPE 'reg';  "output  state bit 3
+St4    pin       ISTYPE 'reg';  "output  state bit 4
+
+TEST_VECTORS
+
+( [  MCLK,  RCLK, Reset,  CS,  WE, ] -> [   RAS, CAS, DRAM_WE, R_A_EN, C_A_EN, NWAIT, St0, St1, St2, St3, St4 ] )
+
+  [     0,     0,    0,   0,   0 ] -> [ .X.,  .X., .X., .X., .X. ];
+
+" reset the system
+  [   .C.,     1,    0,   0,   0 ] -> [   0,    1, .X., .X., .X. ];
+  [   .C.,     1,    0,   0,   0 ] -> [   0,    1, .X., .X., .X. ];
+  [   .C.,     1,    0,   0,   0 ] -> [   0,    1, .X., .X., .X. ];
+
+" remove reset and no access
+  [   .C.,     0,    1,   0,   0 ] -> [   0,    1, .X., .X., .X. ];   " no PCS
+  [   .C.,     0,    1,   0,   0 ] -> [   0,    1, .X., .X., .X. ];
+  [   .C.,     0,    1,   0,   0 ] -> [   0,    1, .X., .X., .X. ];
+  [   .C.,     0,    0,   1,   1 ] -> [   0,    1, .X., .X., .X. ];   " PCS, but no RD or WR
+  [   .C.,     0,    0,   1,   1 ] -> [   0,    1, .X., .X., .X. ];
+  [   .C.,     0,    0,   1,   1 ] -> [   0,    1, .X., .X., .X. ];
+
+" access the LCD (read)
+  [   .C.,     0,    0,   1,   1 ] -> [   0,    1, .X., .X., .X. ];   " nothing yet
+  [   .C.,     0,    0,   1,   1 ] -> [   0,    1, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   0,    1, .X., .X., .X. ];   " start the read
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    1, .X., .X., .X. ];
+  [     0,     0,    0,   0,   1 ] -> [   1,    1, .X., .X., .X. ];
+  [     0,     0,    1,   1,   1 ] -> [   0,    1, .X., .X., .X. ];   " end the read
+  [   .C.,     0,    1,   1,   1 ] -> [   0,    1, .X., .X., .X. ];
+  [   .C.,     0,    1,   1,   1 ] -> [   0,    1, .X., .X., .X. ];
+
+" access the LCD (write)
+  [   .C.,     0,    1,   1,   1 ] -> [   0,    1, .X., .X., .X. ];   " no access yet
+  [   .C.,     0,    0,   1,   1 ] -> [   0,    1, .X., .X., .X. ];   " no access - PCS only
+  [   .C.,     0,    0,   1,   0 ] -> [   0,    1, .X., .X., .X. ];   " start of write
+  [   .C.,     0,    0,   1,   0 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   1,   0 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   1,   0 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   1,   0 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   1,   0 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   1,   0 ] -> [   1,    1, .X., .X., .X. ];
+  [     0,     0,    0,   1,   0 ] -> [   1,    1, .X., .X., .X. ];
+  [     0,     0,    1,   1,   1 ] -> [   0,    1, .X., .X., .X. ];   " end of write cycle
+  [   .C.,     0,    1,   1,   1 ] -> [   0,    1, .X., .X., .X. ];
+  [   .C.,     0,    1,   1,   1 ] -> [   0,    1, .X., .X., .X. ];
+
+" access the LCD (long read cycle)
+  [   .C.,     0,    1,   1,   1 ] -> [   0,    1, .X., .X., .X. ];   " no access yet
+  [   .C.,     0,    0,   1,   1 ] -> [   0,    1, .X., .X., .X. ];   " still no access, PCS w/o RD
+  [   .C.,     0,    0,   0,   1 ] -> [   0,    1, .X., .X., .X. ];   " start the read cycle
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    0, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    1, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    1, .X., .X., .X. ];
+  [   .C.,     0,    0,   0,   1 ] -> [   1,    1, .X., .X., .X. ];
+  [   .C.,     0,    1,   1,   1 ] -> [   0,    1, .X., .X., .X. ];   " end of the read cycle
+  [   .C.,     0,    1,   1,   1 ] -> [   0,    1, .X., .X., .X. ];
+  [   .C.,     0,    1,   1,   1 ] -> [   0,    1, .X., .X., .X. ];
 
 
 
