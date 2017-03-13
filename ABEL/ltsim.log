@@ -1,0 +1,6 @@
+Loading netlist......
+Loading netlist successfully.
+at 300.000 ns, RAS  expected: 1, actual: 0
+at 300.000 ns, CAS  expected: 1, actual: 0
+at 300.000 ns, DRAM_WE  expected: 1, actual: 0
+Operation RUN ends.

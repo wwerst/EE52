@@ -1,0 +1,9 @@
+#$ TOOL ispLEVER Classic 2.0.00.17.20.15
+#$ MODULE dram
+#$ TITLE DRAM Interface - State Machine Version
+S16;
+MCLK RCLK Reset CS WE -> RAS CAS DRAM_WE R_A_EN C_A_EN NWAIT St0 St1 St2 St3 St4 
+$
+00000->XXXXXXXXXXX;
+C0100->11100XXXXXX;
+$

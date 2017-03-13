@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\will\Documents\GitHub\EE52\Altium\VoIP\PCB.PcbDoc
 Date     : 3/12/2017
-Time     : 4:58:41 PM
+Time     : 8:44:33 PM
 
 Processing Rule : Clearance Constraint (Gap=7mil) (All),(All)
 Rule Violations :0
@@ -49,4 +49,4 @@ Rule Violations :0
 
 
 Violations Detected : 2
-Time Elapsed        : 00:00:02
+Time Elapsed        : 00:00:04

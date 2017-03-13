@@ -719,7 +719,7 @@ Configuration1_Item5=????
 Configuration1_Name6=SortOrder
 Configuration1_Item6=Designator=Up|Comment=Up|Footprint=Up
 Configuration1_Name7=VisibleOrder
-Configuration1_Item7=Comment=67|Description=67|Designator=67|Footprint=67|LibRef=67|Quantity=67
+Configuration1_Item7=Comment=113|Description=113|Designator=113|Footprint=113|LibRef=113|Quantity=113|Value=109
 OutputType2=ComponentCrossReference
 OutputName2=Component Cross Reference Report
 OutputDocumentPath2=
