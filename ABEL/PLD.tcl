@@ -698,3 +698,35 @@ if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_
 
 ########## Tcl recorder end at 03/12/17 19:44:25 ###########
 
+
+########## Tcl recorder starts at 03/12/17 20:18:49 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 20:18:49 ###########
+
+
+########## Tcl recorder starts at 03/12/17 20:18:53 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 20:18:53 ###########
+
