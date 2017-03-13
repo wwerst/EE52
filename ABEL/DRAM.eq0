@@ -1,0 +1,129 @@
+ispLEVER Classic 2.0.00.17.20.15 Linked Equations File
+Copyright(C), 1992-2015, Lattice Semiconductor Corp.
+All Rights Reserved.
+
+Design dram created Sun Mar 12 23:56:10 2017
+
+Title: DRAM Interface - State Machine Version
+
+ P-Terms   Fan-in  Fan-out  Type  Name (attributes)
+---------  ------  -------  ----  -----------------
+   4          5        1    Pin   RAS 
+   6          5        1    Pin   CAS 
+   5          5        1    Pin   DRAM_WE 
+   3          5        1    Pin   R_A_EN 
+   3          5        1    Pin   C_A_EN 
+   1          0        1    Pin   NWAIT 
+   6          9        1    Pin   St0.REG 
+   1/1        1        1    Pin   St0.C 
+   7          9        1    Pin   St1.REG 
+   1/1        1        1    Pin   St1.C 
+   6          6        1    Pin   St2.REG 
+   1/1        1        1    Pin   St2.C 
+   6          9        1    Pin   St3.REG 
+   1/1        1        1    Pin   St3.C 
+   5          7        1    Pin   St4.REG 
+   1/1        1        1    Pin   St4.C 
+   1          0        1    Pin   RefRqst.REG 
+   1/1        1        1    Pin   RefRqst.C 
+=========
+  59/6          Best P-Term Total: 59
+                       Total Pins: 17
+                      Total Nodes: 0
+            Average P-Term/Output: 4
+
+
+Equations:
+
+RAS = (!St4.FB & !St3.FB & St2.FB & St1.FB & St0.FB
+     # St3.FB & !St2.FB & !St0.FB
+     # St4.FB & !St3.FB & !St2.FB
+     # !St2.FB & !St1.FB);
+
+CAS = (!St4.FB & !St3.FB & St1.FB & St0.FB
+     # !St4.FB & St3.FB & !St1.FB
+     # !St4.FB & !St1.FB & !St0.FB
+     # !St2.FB & !St0.FB
+     # !St2.FB & !St1.FB
+     # !St4.FB & !St2.FB);
+
+DRAM_WE = (!St4.FB & !St1.FB & !St0.FB
+     # !St2.FB & !St0.FB
+     # !St2.FB & !St1.FB
+     # !St4.FB & !St2.FB
+     # !St3.FB);
+
+R_A_EN = (!St4.FB & !St3.FB & !St2.FB & !St1.FB & St0.FB
+     # !St4.FB & !St2.FB & St1.FB & !St0.FB
+     # !St4.FB & St3.FB & !St2.FB & St1.FB);
+
+C_A_EN = (!St4.FB & !St3.FB & St2.FB & !St0.FB
+     # !St4.FB & St3.FB & St2.FB & St1.FB
+     # !St4.FB & St2.FB & !St1.FB & St0.FB);
+
+NWAIT = (1);
+
+St0 := (!NCS & !St4.FB & !St0.FB & NReset & NWE
+     # !St4.FB & !St0.FB & NReset & RefRqst
+     # !St3.FB & St2.FB & !St0.FB & NReset
+     # St4.FB & !St2.FB & !St1.FB & !St0.FB & NReset
+     # !St4.FB & St3.FB & !St0.FB & NReset
+     # !St4.FB & St1.FB & !St0.FB & NReset);
+
+St0.C = (MCLK);
+
+St1 := (!NCS & !St4.FB & !St3.FB & !St2.FB & !St0.FB & NReset & !NWE
+     # !St4.FB & !St3.FB & !St2.FB & !St0.FB & NReset & RefRqst
+     # St4.FB & !St2.FB & !St1.FB & St0.FB & NReset
+     # !St3.FB & St2.FB & St1.FB & !St0.FB & NReset
+     # !St4.FB & St1.FB & !St0.FB & NReset
+     # !St3.FB & !St1.FB & St0.FB & NReset
+     # !St4.FB & St2.FB & !St1.FB & St0.FB & NReset);
+
+St1.C = (MCLK);
+
+St2 := (!St3.FB & !St2.FB & St1.FB & St0.FB & NReset
+     # !St4.FB & !St2.FB & St1.FB & St0.FB & NReset
+     # !St3.FB & St2.FB & !St0.FB & NReset
+     # !St4.FB & St2.FB & !St1.FB & NReset
+     # !St4.FB & St2.FB & !St0.FB & NReset
+     # !St3.FB & St2.FB & !St1.FB & NReset);
+
+St2.C = (MCLK);
+
+St3 := (!NCS & !St4.FB & !St2.FB & !St1.FB & !St0.FB & NReset & !RefRqst & !NWE
+     # !St3.FB & St2.FB & St1.FB & St0.FB & NReset
+     # St4.FB & St3.FB & !St2.FB & !St1.FB & NReset
+     # !St4.FB & St3.FB & !St0.FB & NReset
+     # !St4.FB & St3.FB & St2.FB & !St1.FB & NReset
+     # !St4.FB & St3.FB & !St2.FB & St1.FB & NReset);
+
+St3.C = (MCLK);
+
+St4 := (!St3.FB & !St2.FB & !St1.FB & !St0.FB & NReset & RefRqst
+     # !St4.FB & St3.FB & St2.FB & St1.FB & St0.FB & NReset
+     # St4.FB & !St2.FB & !St1.FB & NReset
+     # St4.FB & !St3.FB & St2.FB & NReset
+     # St4.FB & !St3.FB & St0.FB & NReset);
+
+St4.C = (MCLK);
+
+RefRqst := (1);
+
+RefRqst.C = (RCLK);
+
+
+Reverse-Polarity Equations:
+
+!St0.C = (!MCLK);
+
+!St1.C = (!MCLK);
+
+!St2.C = (!MCLK);
+
+!St3.C = (!MCLK);
+
+!St4.C = (!MCLK);
+
+!RefRqst.C = (!RCLK);
+

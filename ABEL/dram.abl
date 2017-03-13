@@ -47,7 +47,7 @@ TITLE 'DRAM Interface - State Machine Version'
 "      pin   13                  input   unused
 "      pin   14                  input   unused
 "      pin   15                  input   unused
-!NReset  pin   16;              "input   unused
+!NReset pin   16;              "input   unused
 "      pin   17                  input   unused
 RAS    pin   18  ISTYPE 'com';  "input   unused
 CAS    pin   19  ISTYPE 'com';  "input   unused
@@ -56,8 +56,8 @@ R_A_EN pin   21  ISTYPE 'com';  "input   unused
 C_A_EN pin   22  ISTYPE 'com';  "input   unused
 "      pin   23                  input   unused
 "      pin   24                  input   unused
-!NCS     pin   25;                "input chip select
-WE     pin   26;                "input for whether write access
+!NCS   pin   25;                "input chip select
+!NWE     pin   26;                "input for whether write access
 !NWAIT pin   27  ISTYPE 'com';  "output for making cpu wait for refresh finish
 MCLK   pin   28;                "main clock input
 RCLK   pin   29;                "refresh clock input
@@ -132,14 +132,19 @@ STATE  Idle:                    " in the idle state waiting for an access
    R_A_EN = 0;
    C_A_EN = 0;
 
-   IF (RefRqst) THEN  Ref0;
-   ELSE IF (!NCS & WE) THEN Write0;
-   ELSE IF (!NCS) THEN      Read0;
+   IF (NReset) THEN Idle;
+   ELSE IF (RefRqst) THEN  Ref0;
+   ELSE IF (NCS & NWE) THEN Write0;
+   ELSE IF (NCS) THEN      Read0;
    ELSE                       Idle;     " otherwise just stay here
 
 STATE Read0:
 
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
    R_A_EN = 1;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Read1;
@@ -147,19 +152,31 @@ STATE Read0:
 STATE Read1:
 
    RAS = 0;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 1;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Read2;
 
 STATE Read2:
 
+   RAS = 0;
+   CAS = 1;
+   DRAM_WE = 1;
    R_A_EN = 0;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Read3;
 
 STATE Read3:
 
+   RAS = 0;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
    C_A_EN = 1;
 
    IF (NReset) THEN        Idle;
@@ -167,21 +184,33 @@ STATE Read3:
 
 STATE Read4:
 
+   RAS = 0;
    CAS = 0;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 1;
 
    IF (NReset) THEN        Idle;
    ELSE                   Read5;
 
 STATE Read5:
 
+   RAS = 0;
+   CAS = 0;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 1;
+   
    IF (NReset) THEN        Idle;
    ELSE                   Read6;
 
 
 STATE Read6:
 
-   CAS = 1;
    RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
    C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
@@ -189,6 +218,11 @@ STATE Read6:
 
 STATE Read7:
 
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Read8;
@@ -196,12 +230,22 @@ STATE Read7:
 
 STATE Read8:
 
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
    GOTO Idle;
 
 
 STATE Write0:
-
+   
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
    R_A_EN = 1;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Write1;
@@ -209,20 +253,31 @@ STATE Write0:
 STATE Write1:
 
    RAS = 0;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 1;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Write2;
 
 STATE Write2:
 
+   RAS = 0;
+   CAS = 1;
+   DRAM_WE = 1;
    R_A_EN = 0;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Write3;
 
 STATE Write3:
 
+   RAS = 0;
+   CAS = 1;
    DRAM_WE = 0;
+   R_A_EN = 0;
    C_A_EN = 1;
 
    IF (NReset) THEN        Idle;
@@ -230,12 +285,22 @@ STATE Write3:
 
 STATE Write4:
 
+   RAS = 0;
    CAS = 0;
+   DRAM_WE = 0;
+   R_A_EN = 0;
+   C_A_EN = 1;
 
    IF (NReset) THEN        Idle;
    ELSE                   Write5;
 
 STATE Write5:
+   
+   RAS = 0;
+   CAS = 0;
+   DRAM_WE = 0;
+   R_A_EN = 0;
+   C_A_EN = 1;
 
    IF (NReset) THEN        Idle;
    ELSE                   Write6;
@@ -243,16 +308,23 @@ STATE Write5:
 
 STATE Write6:
 
-   CAS = 1;
+
    RAS = 1;
-   C_A_EN = 0;
+   CAS = 1;
    DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Write7;
 
 STATE Write7:
 
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Write8;
@@ -260,11 +332,21 @@ STATE Write7:
 
 STATE Write8:
 
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
    GOTO Idle;
 
 STATE Ref0:
-
+   
+   RAS = 1;
    CAS = 0;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Ref1;
@@ -272,18 +354,33 @@ STATE Ref0:
 STATE Ref1:
 
    RAS = 0;
+   CAS = 0;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Ref2;
 
 
 STATE Ref2:
-
+   
+   RAS = 0;
+   CAS = 0;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Ref3;
 
 STATE Ref3:
+   
+   RAS = 0;
+   CAS = 0;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
 
 
    IF (NReset) THEN        Idle;
@@ -291,6 +388,12 @@ STATE Ref3:
 
 
 STATE Ref4:
+   
+   RAS = 0;
+   CAS = 0;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
 
 
    IF (NReset) THEN        Idle;
@@ -299,18 +402,36 @@ STATE Ref4:
 
 STATE Ref5:
 
+   
    RAS = 1;
    CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
 
    IF (NReset) THEN        Idle;
    ELSE                   Ref6;
 
 STATE Ref6:
 
+   
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+
    IF (NReset) THEN        Idle;
    ELSE                   Ref7;
 
 STATE Ref7:
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
    RefRqst = 0;
 
    GOTO                   Idle;
@@ -318,36 +439,33 @@ STATE Ref7:
 
 TEST_VECTORS
 
-( [  MCLK,  RCLK, NReset,  NCS,  WE  ] -> [   RAS, CAS, DRAM_WE, R_A_EN, C_A_EN, NWAIT, St0,  St1, St2, St3, St4 ] )
+( [  MCLK,  RCLK, NReset,  NCS,  NWE ] -> [   RAS, CAS, DRAM_WE, R_A_EN, C_A_EN, NWAIT, RefRqst, St0, St1, St2, St3, St4 ] )
 
-  [     0,     0,      0,   0,   0  ] -> [   .X., .X.,     .X.,    .X.,    .X.,   .X., .X., .X.,  .X., .X., .X.];
+  [     0,     0,      0,    0,   0  ] -> [   .X., .X.,     .X.,    .X.,    .X.,   .X.,     .X., .X., .X.,  .X., .X., .X. ];
 
 
 " reset the system
-  [   .D.,     0,      1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];
-  [   .D.,     0,      1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];
-  [   .D.,     0,      1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];
+  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
+  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
+  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
 
 " Single read
-
+  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read0
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read1
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read2
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read3
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read4
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read5
+  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read6
+  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Pre-charge
+  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Pre-charge
 
 " Single write
 
 " Consecutive reads
 
 " Refresh
-  [   .D.,   .C.,     1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Start refresh
-  [   .D.,     0,     1,   1,   1  ] -> [     1,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref0
-  [   .D.,     0,     1,   1,   1  ] -> [     0,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref1
-  [   .D.,     0,     1,   1,   1  ] -> [     0,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref2
-  [   .D.,     0,     1,   1,   1  ] -> [     0,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref3
-  [   .D.,     0,     1,   1,   1  ] -> [     0,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref4
-  [   .D.,     0,     1,   1,   1  ] -> [     0,   0,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref5
-  [   .D.,     0,     1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref6
-  [   .D.,     0,     1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Ref7
-  [   .D.,     0,     1,   1,   1  ] -> [     1,   1,       1,      0,      0,   .X., .X., .X.,  .X., .X., .X.];"Idle
-
-
+  [     0,   .C.,      0,    1,   0  ] -> [   .X., .X.,     .X.,    .X.,    .X.,   .X.,       1, .X., .X.,  .X., .X., .X. ]; "Read0
 
 
 END DRAM

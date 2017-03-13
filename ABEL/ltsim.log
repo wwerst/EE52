@@ -1,32 +1,4 @@
 Loading netlist......
 Loading netlist successfully.
-at 300.000 ns, RAS  expected: 1, actual: 0
-at 300.000 ns, CAS  expected: 1, actual: 0
-at 300.000 ns, DRAM_WE  expected: 1, actual: 0
-at 300.000 ns, R_A_EN  expected: 0, actual: 1
-at 900.000 ns, RAS  expected: 1, actual: 0
-at 900.000 ns, CAS  expected: 1, actual: 0
-at 900.000 ns, DRAM_WE  expected: 1, actual: 0
-at 900.000 ns, R_A_EN  expected: 0, actual: 1
-at 1500.000 ns, RAS  expected: 1, actual: 0
-at 1500.000 ns, DRAM_WE  expected: 1, actual: 0
-at 1500.000 ns, R_A_EN  expected: 0, actual: 1
-at 1800.000 ns, RAS  expected: 0, actual: 1
-at 1800.000 ns, CAS  expected: 0, actual: 1
-at 2100.000 ns, DRAM_WE  expected: 1, actual: 0
-at 2100.000 ns, R_A_EN  expected: 0, actual: 1
-at 2400.000 ns, RAS  expected: 0, actual: 1
-at 2400.000 ns, CAS  expected: 0, actual: 1
-at 2700.000 ns, DRAM_WE  expected: 1, actual: 0
-at 2700.000 ns, R_A_EN  expected: 0, actual: 1
-at 3000.000 ns, RAS  expected: 0, actual: 1
-at 3000.000 ns, CAS  expected: 0, actual: 1
-at 3300.000 ns, RAS  expected: 1, actual: 0
-at 3300.000 ns, CAS  expected: 1, actual: 0
-at 3300.000 ns, DRAM_WE  expected: 1, actual: 0
-at 3300.000 ns, R_A_EN  expected: 0, actual: 1
-at 3900.000 ns, RAS  expected: 1, actual: 0
-at 3900.000 ns, CAS  expected: 1, actual: 0
-at 3900.000 ns, DRAM_WE  expected: 1, actual: 0
-at 3900.000 ns, R_A_EN  expected: 0, actual: 1
+at 3900.000 ns, REFRQST  expected: 0, actual: 1
 Operation RUN ends.

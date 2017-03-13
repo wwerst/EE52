@@ -1,0 +1,470 @@
+0002 |
+0003 |TITLE 'DRAM Interface - State Machine Version'
+0004 |
+0005 |" LCDInterface  DEVICE  'GAL16V8'
+0006 |
+0007 |
+0008 |" Description:  Interfaces the Hitachi LCD controller with the 80C188
+0009 |"               microprocessor running at any speed using either the WR\ line,
+0010 |"               an address line, or the DT/R line as the R/W line for the
+0011 |"               controller.  SRDY is also generated appropriately.
+0012 |"
+0013 |"               If the 80C188 oscillator input frequency is under 17 MHz, the
+0014 |"               WR\ line may be used as the R/W line.  At higher speeds, an
+0015 |"               address line or the DT/R line (inverted) must be used.
+0016 |"
+0017 |"               At 80C188 oscillator input frequencies of 18.8 MHz or less,
+0018 |"               one wait state may be removed from the PAL logic.
+0019 |"
+0020 |"               The 80C188 should also have 1-2 wait states set on the PCS
+0021 |"               line for the LCD PAL.
+0022 |
+0023 |
+0024 |" Revision History:
+0025 |" 04/18/01   Created from 4/18/01 version of lcdintfs.pds
+0026 |" 04/16/02   Updated comments
+0027 |" 04/18/03   Updated comments
+0028 |" 04/12/06   Updated comments
+0029 |
+0030 |
+0031 |
+0032 |" Pins
+0033 |
+0034 |
+0035 |"      pin   1                   input   unused
+0036 |"      pin   2                   input   unused
+0037 |"      pin   3                   input   unused
+0038 |"      pin   4                   input   unused
+0039 |"      pin   5                   input   unused
+0040 |"      pin   6                   input   unused
+0041 |"      pin   7                   input   unused
+0042 |"      pin   8                   input   unused
+0043 |"      pin   9                   input   unused
+0044 |"      pin   10                  input   unused
+0045 |"      pin   11                  input   unused
+0046 |"      pin   12                  input   unused
+0047 |"      pin   13                  input   unused
+0048 |"      pin   14                  input   unused
+0049 |"      pin   15                  input   unused
+0050 |!NReset pin   16;              "input   unused
+0051 |"      pin   17                  input   unused
+0052 |RAS    pin   18  ISTYPE 'com';  "input   unused
+0053 |CAS    pin   19  ISTYPE 'com';  "input   unused
+0054 |DRAM_WE pin  20  ISTYPE 'com';  "input   unused
+0055 |R_A_EN pin   21  ISTYPE 'com';  "input   unused
+0056 |C_A_EN pin   22  ISTYPE 'com';  "input   unused
+0057 |"      pin   23                  input   unused
+0058 |"      pin   24                  input   unused
+0059 |!NCS   pin   25;                "input chip select
+0060 |!NWE     pin   26;                "input for whether write access
+0061 |!NWAIT pin   27  ISTYPE 'com';  "output for making cpu wait for refresh finish
+0062 |MCLK   pin   28;                "main clock input
+0063 |RCLK   pin   29;                "refresh clock input
+0064 |"      pin   13                  output  unused
+0065 |"      pin   14                  output  unused
+0066 |"      pin   15                  output  unused
+0067 |"      pin   16                  output  unused
+0068 |St0    pin       ISTYPE 'reg';  "output  state bit 0
+0069 |St1    pin       ISTYPE 'reg';  "output  state bit 1
+0070 |St2    pin       ISTYPE 'reg';  "output  state bit 2
+0071 |St3    pin       ISTYPE 'reg';  "output  state bit 3
+0072 |St4    pin       ISTYPE 'reg';  "output  state bit 4
+0073 |RefRqst pin      ISTYPE 'reg';
+0074 |"      pin   17                  output  unused
+0075 |"      pin   18                  output  unused
+0076 |
+0077 |
+0078 |"the states
+0079 |
+0080 |StateBits   =  [ St4, St3, St2, St1, St0 ];     " state bits
+0081 |                                      		" state assignments
+0082 |Idle        =  [   0,   0,   0,   0,   0 ];     " idle state (waiting for a cycle to start)
+0083 |Read0       =  [   0,   0,   0,   0,   1 ];     " enable row address for read
+0084 |Read1       =  [   0,   0,   0,   1,   0 ];     " RAS line low
+0085 |Read2       =  [   0,   0,   0,   1,   1 ];     " disable row address for read
+0086 |Read3       =  [   0,   0,   1,   0,   0 ];     " enable column address for read
+0087 |Read4       =  [   0,   0,   1,   0,   1 ];     " CAS line low
+0088 |Read5       =  [   0,   0,   1,   1,   0 ];     " Wait for data access
+0089 |Read6       =  [   0,   0,   1,   1,   1 ];     " CAS line high
+0090 |Read7       =  [   0,   1,   0,   0,   0 ];     " Pre-charge
+0091 |Read8       =  [   0,   1,   0,   0,   1 ];     " Pre-charge
+0092 |Write0      =  [   0,   1,   0,   1,   0 ];     " enable row address
+0093 |Write1      =  [   0,   1,   0,   1,   1 ];     " RAS line low
+0094 |Write2      =  [   0,   1,   1,   0,   0 ];     " disable row address
+0095 |Write3      =  [   0,   1,   1,   0,   1 ];     " WE low and column address enable
+0096 |Write4      =  [   0,   1,   1,   1,   0 ];     " CAS line low
+0097 |Write5      =  [   0,   1,   1,   1,   1 ];     " Wait
+0098 |Write6      =  [   1,   0,   0,   0,   0 ];     " RAS, CAS, WE high
+0099 |Write7      =  [   1,   0,   0,   0,   1 ];     " Pre-charge
+0100 |Write8      =  [   1,   0,   0,   1,   0 ];     " Pre-charge
+0101 |Ref0        =  [   1,   0,   0,   1,   1 ];     " CAS low
+0102 |Ref1        =  [   1,   0,   1,   0,   0 ];     " RAS low
+0103 |Ref2        =  [   1,   0,   1,   0,   1 ];     " Wait
+0104 |Ref3        =  [   1,   0,   1,   1,   0 ];     " Wait
+0105 |Ref4        =  [   1,   0,   1,   1,   1 ];     " Wait
+0106 |Ref5        =  [   1,   1,   0,   0,   0 ];     " RAS, CAS high
+0107 |Ref6        =  [   1,   1,   0,   0,   1 ];     " Pre-charge
+0108 |Ref7        =  [   1,   1,   0,   1,   0 ];     " Pre-charge
+0109 |
+0110 |EQUATIONS
+0111 |
+0112 |
+0113 |" NWAIT equation
+0114 |NWAIT      =  !NCS & (StateBits == Ref0 # StateBits == Ref1 # StateBits == Ref2 # StateBits == Ref3 # StateBits == Ref4 # StateBits == Ref5 # StateBits == Ref6 # StateBits == Ref7);
+0115 |
+0116 |RefRqst.CLK = RCLK;
+0117 |RefRqst := 1;
+0118 |
+0119 |" clocks for the registered outputs (state bits)
+0120 |StateBits.CLK  =  MCLK;        " use the global clock pin
+0121 |
+0122 |
+0123 |
+0124 |STATE_DIAGRAM  StateBits        " a Mealy state machine
+0125 |
+0126 |
+0127 |STATE  Idle:                    " in the idle state waiting for an access
+0128 |
+0129 |   RAS = 1;
+0130 |   CAS = 1;
+0131 |   DRAM_WE = 1;
+0132 |   R_A_EN = 0;
+0133 |   C_A_EN = 0;
+0134 |
+0135 |   IF (NReset) THEN Idle;
+0136 |   ELSE IF (RefRqst) THEN  Ref0;
+0137 |   ELSE IF (NCS & NWE) THEN Write0;
+0138 |   ELSE IF (NCS) THEN      Read0;
+0139 |   ELSE                       Idle;     " otherwise just stay here
+0140 |
+0141 |STATE Read0:
+0142 |
+0143 |   RAS = 1;
+0144 |   CAS = 1;
+0145 |   DRAM_WE = 1;
+0146 |   R_A_EN = 1;
+0147 |   C_A_EN = 0;
+0148 |
+0149 |   IF (NReset) THEN        Idle;
+0150 |   ELSE                   Read1;
+0151 |
+0152 |STATE Read1:
+0153 |
+0154 |   RAS = 0;
+0155 |   CAS = 1;
+0156 |   DRAM_WE = 1;
+0157 |   R_A_EN = 1;
+0158 |   C_A_EN = 0;
+0159 |
+0160 |   IF (NReset) THEN        Idle;
+0161 |   ELSE                   Read2;
+0162 |
+0163 |STATE Read2:
+0164 |
+0165 |   RAS = 0;
+0166 |   CAS = 1;
+0167 |   DRAM_WE = 1;
+0168 |   R_A_EN = 0;
+0169 |   C_A_EN = 0;
+0170 |
+0171 |   IF (NReset) THEN        Idle;
+0172 |   ELSE                   Read3;
+0173 |
+0174 |STATE Read3:
+0175 |
+0176 |   RAS = 0;
+0177 |   CAS = 1;
+0178 |   DRAM_WE = 1;
+0179 |   R_A_EN = 0;
+0180 |   C_A_EN = 1;
+0181 |
+0182 |   IF (NReset) THEN        Idle;
+0183 |   ELSE                   Read4;
+0184 |
+0185 |STATE Read4:
+0186 |
+0187 |   RAS = 0;
+0188 |   CAS = 0;
+0189 |   DRAM_WE = 1;
+0190 |   R_A_EN = 0;
+0191 |   C_A_EN = 1;
+0192 |
+0193 |   IF (NReset) THEN        Idle;
+0194 |   ELSE                   Read5;
+0195 |
+0196 |STATE Read5:
+0197 |
+0198 |   RAS = 0;
+0199 |   CAS = 0;
+0200 |   DRAM_WE = 1;
+0201 |   R_A_EN = 0;
+0202 |   C_A_EN = 1;
+0203 |   
+0204 |   IF (NReset) THEN        Idle;
+0205 |   ELSE                   Read6;
+0206 |
+0207 |
+0208 |STATE Read6:
+0209 |
+0210 |   RAS = 1;
+0211 |   CAS = 1;
+0212 |   DRAM_WE = 1;
+0213 |   R_A_EN = 0;
+0214 |   C_A_EN = 0;
+0215 |
+0216 |   IF (NReset) THEN        Idle;
+0217 |   ELSE                   Read7;
+0218 |
+0219 |STATE Read7:
+0220 |
+0221 |   RAS = 1;
+0222 |   CAS = 1;
+0223 |   DRAM_WE = 1;
+0224 |   R_A_EN = 0;
+0225 |   C_A_EN = 0;
+0226 |
+0227 |   IF (NReset) THEN        Idle;
+0228 |   ELSE                   Read8;
+0229 |
+0230 |
+0231 |STATE Read8:
+0232 |
+0233 |   RAS = 1;
+0234 |   CAS = 1;
+0235 |   DRAM_WE = 1;
+0236 |   R_A_EN = 0;
+0237 |   C_A_EN = 0;
+0238 |
+0239 |   GOTO Idle;
+0240 |
+0241 |
+0242 |STATE Write0:
+0243 |   
+0244 |   RAS = 1;
+0245 |   CAS = 1;
+0246 |   DRAM_WE = 1;
+0247 |   R_A_EN = 1;
+0248 |   C_A_EN = 0;
+0249 |
+0250 |   IF (NReset) THEN        Idle;
+0251 |   ELSE                   Write1;
+0252 |
+0253 |STATE Write1:
+0254 |
+0255 |   RAS = 0;
+0256 |   CAS = 1;
+0257 |   DRAM_WE = 1;
+0258 |   R_A_EN = 1;
+0259 |   C_A_EN = 0;
+0260 |
+0261 |   IF (NReset) THEN        Idle;
+0262 |   ELSE                   Write2;
+0263 |
+0264 |STATE Write2:
+0265 |
+0266 |   RAS = 0;
+0267 |   CAS = 1;
+0268 |   DRAM_WE = 1;
+0269 |   R_A_EN = 0;
+0270 |   C_A_EN = 0;
+0271 |
+0272 |   IF (NReset) THEN        Idle;
+0273 |   ELSE                   Write3;
+0274 |
+0275 |STATE Write3:
+0276 |
+0277 |   RAS = 0;
+0278 |   CAS = 1;
+0279 |   DRAM_WE = 0;
+0280 |   R_A_EN = 0;
+0281 |   C_A_EN = 1;
+0282 |
+0283 |   IF (NReset) THEN        Idle;
+0284 |   ELSE                   Write4;
+0285 |
+0286 |STATE Write4:
+0287 |
+0288 |   RAS = 0;
+0289 |   CAS = 0;
+0290 |   DRAM_WE = 0;
+0291 |   R_A_EN = 0;
+0292 |   C_A_EN = 1;
+0293 |
+0294 |   IF (NReset) THEN        Idle;
+0295 |   ELSE                   Write5;
+0296 |
+0297 |STATE Write5:
+0298 |   
+0299 |   RAS = 0;
+0300 |   CAS = 0;
+0301 |   DRAM_WE = 0;
+0302 |   R_A_EN = 0;
+0303 |   C_A_EN = 1;
+0304 |
+0305 |   IF (NReset) THEN        Idle;
+0306 |   ELSE                   Write6;
+0307 |
+0308 |
+0309 |STATE Write6:
+0310 |
+0311 |
+0312 |   RAS = 1;
+0313 |   CAS = 1;
+0314 |   DRAM_WE = 1;
+0315 |   R_A_EN = 0;
+0316 |   C_A_EN = 0;
+0317 |
+0318 |   IF (NReset) THEN        Idle;
+0319 |   ELSE                   Write7;
+0320 |
+0321 |STATE Write7:
+0322 |
+0323 |   RAS = 1;
+0324 |   CAS = 1;
+0325 |   DRAM_WE = 1;
+0326 |   R_A_EN = 0;
+0327 |   C_A_EN = 0;
+0328 |
+0329 |   IF (NReset) THEN        Idle;
+0330 |   ELSE                   Write8;
+0331 |
+0332 |
+0333 |STATE Write8:
+0334 |
+0335 |   RAS = 1;
+0336 |   CAS = 1;
+0337 |   DRAM_WE = 1;
+0338 |   R_A_EN = 0;
+0339 |   C_A_EN = 0;
+0340 |
+0341 |   GOTO Idle;
+0342 |
+0343 |STATE Ref0:
+0344 |   
+0345 |   RAS = 1;
+0346 |   CAS = 0;
+0347 |   DRAM_WE = 1;
+0348 |   R_A_EN = 0;
+0349 |   C_A_EN = 0;
+0350 |
+0351 |   IF (NReset) THEN        Idle;
+0352 |   ELSE                   Ref1;
+0353 |
+0354 |STATE Ref1:
+0355 |
+0356 |   RAS = 0;
+0357 |   CAS = 0;
+0358 |   DRAM_WE = 1;
+0359 |   R_A_EN = 0;
+0360 |   C_A_EN = 0;
+0361 |
+0362 |   IF (NReset) THEN        Idle;
+0363 |   ELSE                   Ref2;
+0364 |
+0365 |
+0366 |STATE Ref2:
+0367 |   
+0368 |   RAS = 0;
+0369 |   CAS = 0;
+0370 |   DRAM_WE = 1;
+0371 |   R_A_EN = 0;
+0372 |   C_A_EN = 0;
+0373 |
+0374 |   IF (NReset) THEN        Idle;
+0375 |   ELSE                   Ref3;
+0376 |
+0377 |STATE Ref3:
+0378 |   
+0379 |   RAS = 0;
+0380 |   CAS = 0;
+0381 |   DRAM_WE = 1;
+0382 |   R_A_EN = 0;
+0383 |   C_A_EN = 0;
+0384 |
+0385 |
+0386 |   IF (NReset) THEN        Idle;
+0387 |   ELSE                   Ref4;
+0388 |
+0389 |
+0390 |STATE Ref4:
+0391 |   
+0392 |   RAS = 0;
+0393 |   CAS = 0;
+0394 |   DRAM_WE = 1;
+0395 |   R_A_EN = 0;
+0396 |   C_A_EN = 0;
+0397 |
+0398 |
+0399 |   IF (NReset) THEN        Idle;
+0400 |   ELSE                   Ref5;
+0401 |
+0402 |
+0403 |STATE Ref5:
+0404 |
+0405 |   
+0406 |   RAS = 1;
+0407 |   CAS = 1;
+0408 |   DRAM_WE = 1;
+0409 |   R_A_EN = 0;
+0410 |   C_A_EN = 0;
+0411 |
+0412 |
+0413 |   IF (NReset) THEN        Idle;
+0414 |   ELSE                   Ref6;
+0415 |
+0416 |STATE Ref6:
+0417 |
+0418 |   
+0419 |   RAS = 1;
+0420 |   CAS = 1;
+0421 |   DRAM_WE = 1;
+0422 |   R_A_EN = 0;
+0423 |   C_A_EN = 0;
+0424 |
+0425 |
+0426 |   IF (NReset) THEN        Idle;
+0427 |   ELSE                   Ref7;
+0428 |
+0429 |STATE Ref7:
+0430 |   RAS = 1;
+0431 |   CAS = 1;
+0432 |   DRAM_WE = 1;
+0433 |   R_A_EN = 0;
+0434 |   C_A_EN = 0;
+0435 |   RefRqst = 0;
+0436 |
+0437 |   GOTO                   Idle;
+0438 |
+0439 |
+0440 |TEST_VECTORS
+0441 |
+0442 |( [  MCLK,  RCLK, NReset,  NCS,  NWE ] -> [   RAS, CAS, DRAM_WE, R_A_EN, C_A_EN, NWAIT, RefRqst, St0, St1, St2, St3, St4 ] )
+0443 |
+0444 |  [     0,     0,      0,    0,   0  ] -> [   .X., .X.,     .X.,    .X.,    .X.,   .X.,     .X., .X., .X.,  .X., .X., .X. ];
+0445 |
+0446 |
+0447 |" reset the system
+0448 |  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
+0449 |  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
+0450 |  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
+0451 |
+0452 |" Single read
+0453 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read0
+0454 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read1
+0455 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read2
+0456 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read3
+0457 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read4
+0458 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read5
+0459 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Read6
+0460 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Pre-charge
+0461 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ]; "Pre-charge
+0462 |
+0463 |" Single write
+0464 |
+0465 |" Consecutive reads
+0466 |
+0467 |" Refresh
+0468 |  [     0,   .C.,      0,    1,   0  ] -> [   .X., .X.,     .X.,    .X.,    .X.,   .X.,       1, .X., .X.,  .X., .X., .X. ]; "Read0
+0469 |
+0470 |
+0471 |END DRAM

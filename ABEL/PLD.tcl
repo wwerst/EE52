@@ -1627,3 +1627,1956 @@ if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
 
 ########## Tcl recorder end at 03/12/17 22:44:17 ###########
 
+
+########## Tcl recorder starts at 03/12/17 22:58:09 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 22:58:09 ###########
+
+
+########## Tcl recorder starts at 03/12/17 22:59:25 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 22:59:25 ###########
+
+
+########## Tcl recorder starts at 03/12/17 22:59:38 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 22:59:38 ###########
+
+
+########## Tcl recorder starts at 03/12/17 22:59:45 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 22:59:45 ###########
+
+
+########## Tcl recorder starts at 03/12/17 22:59:48 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 22:59:48 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:01:30 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:01:30 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:01:51 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:01:51 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:02:13 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:02:13 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:02:21 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:02:21 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:02:24 ##########
+
+# Commands to make the Process: 
+# Compiler Listing
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -list -sim PLD -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:02:24 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:02:38 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:02:38 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:06:41 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:06:41 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:07:19 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:07:19 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:07:23 ##########
+
+# Commands to make the Process: 
+# ABEL Test Vector Template
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.abt\" -testfix -template \"$install_dir/ispcpld/plsi/abel/plsiabt.tft\" -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:07:23 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:10:03 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:10:03 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:10:12 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:10:12 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:10:20 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:10:20 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:10:23 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:10:23 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:11:12 ##########
+
+# Commands to make the Process: 
+# Compiler Listing
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -list -sim PLD -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:11:12 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:11:41 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+# - none -
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:11:41 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:15:00 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:15:00 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:15:07 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:15:07 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:15:13 ##########
+
+# Commands to make the Process: 
+# Check Syntax
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -syn -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:15:13 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:15:25 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:15:25 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:15:28 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:15:28 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:17:42 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:17:42 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:17:48 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:17:48 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:17:54 ##########
+
+# Commands to make the Process: 
+# Check Syntax
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -syn -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:17:54 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:17:58 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:17:58 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:18:00 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:18:00 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:20:34 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:20:34 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:20:45 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:20:45 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:21:11 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:21:11 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:21:15 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:21:15 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:21:59 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:21:59 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:22:06 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:22:06 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:22:09 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:22:09 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:22:53 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+# - none -
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:22:53 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:29:04 ##########
+
+# Commands to make the Process: 
+# ABEL Test Vector Template
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.abt\" -testfix -template \"$install_dir/ispcpld/plsi/abel/plsiabt.tft\" -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:29:04 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:38:36 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:38:36 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:38:42 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:38:42 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:38:49 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:38:50 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:38:52 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:38:52 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:40:51 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:40:51 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:41:31 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:41:31 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:41:38 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:41:38 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:41:46 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:41:46 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:41:48 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:41:48 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:42:16 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:42:16 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:42:20 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:42:20 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:42:27 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:42:27 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:42:29 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:42:29 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:42:32 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+# - none -
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:42:32 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:42:52 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+# - none -
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:42:52 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:46:57 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:46:57 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:47:02 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:47:02 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:47:08 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:47:08 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:47:11 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:47:11 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:50:20 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:50:20 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:54:16 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:54:16 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:55:56 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:55:56 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:56:04 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:56:04 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:56:07 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:56:07 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:56:24 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+# - none -
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:56:24 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:57:34 ##########
+
+# Commands to make the Process: 
+# Check Syntax
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -syn -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:57:34 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:57:36 ##########
+
+# Commands to make the Process: 
+# Compiled Equations
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.eq0\" -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:57:36 ###########
+
+
+########## Tcl recorder starts at 03/12/17 23:59:15 ##########
+
+# Commands to make the Process: 
+# Compiler Listing
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -syn -list -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/12/17 23:59:15 ###########
+
+
+########## Tcl recorder starts at 03/13/17 00:01:24 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+# - none -
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/13/17 00:01:24 ###########
+
+
+########## Tcl recorder starts at 03/13/17 00:01:39 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+# - none -
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/13/17 00:01:39 ###########
+
+
+########## Tcl recorder starts at 03/13/17 00:02:17 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/13/17 00:02:17 ###########
+
+
+########## Tcl recorder starts at 03/13/17 00:02:38 ##########
+
+# Commands to make the Process: 
+# Compile Logic
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/13/17 00:02:38 ###########
+
+
+########## Tcl recorder starts at 03/13/17 00:02:46 ##########
+
+# Commands to make the Process: 
+# Compile Test Vectors
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -vec -ovec \"dram.tmv\" -sim PLD  -def _PLSI_ _LATTICE_  -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/13/17 00:02:46 ###########
+
+
+########## Tcl recorder starts at 03/13/17 00:02:49 ##########
+
+# Commands to make the Process: 
+# Functional Simulation
+if [runCmd "\"$cpld_bin/blif2eqn\" \"DRAM.bl0\" -o \"DRAM.lsi\" -template \"$install_dir/ispcpld/plsi/latsim/plsi.tft\" -testfix -bus rebuild -prj pld -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"DRAM.bl0\" -o \"DRAM.blo\" -red bypin choose -collapse -pterms 8 -family -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblflink\" \"DRAM.blo\" -o \"pld.blh\" -omod pld -propadd -family PLSI -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/iblifopt\" \"pld.blh\" -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+if [runCmd "\"$cpld_bin/idiofft\" -i \"pld.bli\" -o \"pld.blj\" -idev PLSI -propadd -dev pla_basic -err automake.err "] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+# Application to view the Process: 
+# Functional Simulation
+if [catch {open simcp._sp w} rspFile] {
+	puts stderr "Cannot create response file simcp._sp: $rspFile"
+} else {
+	puts $rspFile "simcp.pre1 -ini simcpls.ini -unit simcp.pre1
+-cfg plsi.fdk \"dram.lts\" -map \"DRAM.lsi\"
+"
+	close $rspFile
+}
+if [runCmd "\"$cpld_bin/simcp\" @simcp._sp"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/13/17 00:02:49 ###########
+
+
+########## Tcl recorder starts at 03/13/17 00:03:21 ##########
+
+# Commands to make the Process: 
+# Hierarchy
+if [runCmd "\"$cpld_bin/ahdl2blf\" \"dram.abl\" -ojhd only -def _PLSI_ _LATTICE_  -err automake.err"] {
+	return
+} else {
+	vwait done
+	if [checkResult $done] {
+		return
+	}
+}
+
+########## Tcl recorder end at 03/13/17 00:03:21 ###########
+

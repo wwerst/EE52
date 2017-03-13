@@ -1,7 +1,7 @@
 #$ TOOL ispLEVER Classic 2.0.00.17.20.15
 #$ DATE Mon Mar 13 00:02:41 2017
 #$ TITLE DRAM Interface - State Machine Version
-#$ MODULE dram
+#$ MODULE pld
 #$ JEDECFILE dram
 #$ PINS 17 NReset:16 RAS:18 CAS:19 DRAM_WE:20 R_A_EN:21 C_A_EN:22 NCS:25 NWE:26 NWAIT:27 MCLK:28 RCLK:29 St0 St1 St2 St3 St4 RefRqst
 
@@ -27,10 +27,10 @@ St2.C St1.C St0.C St0.REG St1.REG St2.REG St3.REG St4.REG
 --00- 1
 --0-0 1
 0-0-- 1
-1-1-- 0
 -0101 0
 -111- 0
 --110 0
+1-1-- 0
 1--11 0
 .names St4.FB St3.FB St2.FB St1.FB St0.FB DRAM_WE
 0--00 1
@@ -114,14 +114,14 @@ NWE.BLIF St3.REG
 -0110-1-- 1
 -0101-1-- 1
 -01--01-- 1
-1-0--0--- 0
--100----- 0
+-10--0--- 0
 --001---- 0
--1-01---- 0
---0-01--- 0
+--01-0--- 0
 -111----- 0
 --00---1- 0
---01-0--- 0
+--0-01--- 0
+-1-01---- 0
+1-0--0--- 0
 --00----1 0
 -0-001--- 0
 --1111--- 0

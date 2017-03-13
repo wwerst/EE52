@@ -1,3 +1,4 @@
+NWE		i
 C_A_EN		o
 NWAIT		o
 RAS		o
@@ -5,7 +6,6 @@ DRAM_WE		o
 RefRqst		o
 RCLK		i
 CAS		o
-WE		i
 St0		o
 St1		o
 St2		o
