@@ -1,15 +1,15 @@
 #$ TOOL ispLEVER Classic 2.0.00.17.20.15
-#$ DATE Mon Mar 13 00:02:41 2017
+#$ DATE Mon Mar 13 03:30:27 2017
 #$ TITLE DRAM Interface - State Machine Version
 #$ MODULE pld
 #$ JEDECFILE dram
 #$ PINS 17 NReset:16 RAS:18 CAS:19 DRAM_WE:20 R_A_EN:21 C_A_EN:22 NCS:25 NWE:26 NWAIT:27 MCLK:28 RCLK:29 St0 St1 St2 St3 St4 RefRqst
 
 .model dram
-.inputs NCS.BLIF RCLK.BLIF MCLK.BLIF St4.Q St3.Q St2.Q St1.Q St0.Q NReset.BLIF \
-RefRqst.BLIF NWE.BLIF
-.outputs RAS CAS DRAM_WE R_A_EN C_A_EN NWAIT RefRqst.C St4.C St3.C St2.C St1.C \
-St0.C St0.D St1.D St2.D St3.D St4.D RefRqst.D
+.inputs NCS.BLIF St0.BLIF St1.BLIF St2.BLIF St3.BLIF St4.BLIF MCLK.BLIF RCLK.BLIF \
+St4.Q St3.Q St2.Q St1.Q St0.Q NReset.BLIF RefRqst.BLIF NWE.BLIF
+.outputs RAS CAS DRAM_WE R_A_EN C_A_EN NWAIT St4.C St3.C St2.C St1.C St0.C \
+RefRqst.C RefRqst.AR St0.D St1.D St2.D St3.D St4.D RefRqst.D
 .names St4.Q St3.Q St2.Q St1.Q St0.Q RAS
 00111 1
 100-- 1
@@ -61,9 +61,13 @@ St0.C St0.D St1.D St2.D St3.D St4.D RefRqst.D
 1---- 0
 .names NWAIT
  1
-.names RCLK.BLIF RefRqst.C
-1 1
-0 0
+.names St0.BLIF St1.BLIF St2.BLIF St3.BLIF St4.BLIF RefRqst.AR
+01011 1
+---0- 0
+--1-- 0
+-0--- 0
+1---- 0
+----0 0
 .names MCLK.BLIF St4.C
 1 1
 0 0
@@ -77,6 +81,9 @@ St0.C St0.D St1.D St2.D St3.D St4.D RefRqst.D
 1 1
 0 0
 .names MCLK.BLIF St0.C
+1 1
+0 0
+.names RCLK.BLIF RefRqst.C
 1 1
 0 0
 .names NCS.BLIF St4.Q St3.Q St2.Q St1.Q St0.Q NReset.BLIF RefRqst.BLIF \
