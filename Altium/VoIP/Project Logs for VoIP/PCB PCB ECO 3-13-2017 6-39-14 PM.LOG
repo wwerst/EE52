@@ -1,0 +1,55 @@
+Removed Pin From Net: NetName=DATA7 Pin=U18-37
+Removed Pin From Net: NetName=DATA6 Pin=U18-38
+Removed Pin From Net: NetName=DATA5 Pin=U18-40
+Removed Pin From Net: NetName=DATA4 Pin=U18-41
+Removed Pin From Net: NetName=DATA3 Pin=U18-43
+Removed Pin From Net: NetName=DATA2 Pin=U18-44
+Removed Pin From Net: NetName=DATA1 Pin=U18-46
+Removed Pin From Net: NetName=DATA0 Pin=U18-47
+Added Component: Designator=C81(1608[0603])
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0.1uF"; VariantName = "[No Variations]"
+Added Component: Designator=C82(1608[0603])
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0.1uF"; VariantName = "[No Variations]"
+Added Component: Designator=C83(1608[0603])
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "29-May-2009"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "IPC-7351 Footprint Added."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Chip Capacitor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "C1206"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0.01uF"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=3V3 Pin=C81-1
+Added Pin To Net: NetName=GND Pin=C81-2
+Added Pin To Net: NetName=3V3 Pin=C82-1
+Added Pin To Net: NetName=GND Pin=C82-2
+Added Pin To Net: NetName=5V Pin=C83-1
+Added Pin To Net: NetName=GND Pin=C83-2
+Added Pin To Net: NetName=D_3V3B7 Pin=U18-37
+Added Pin To Net: NetName=D_3V3B6 Pin=U18-38
+Added Pin To Net: NetName=D_3V3B5 Pin=U18-40
+Added Pin To Net: NetName=D_3V3B4 Pin=U18-41
+Added Pin To Net: NetName=D_3V3B3 Pin=U18-43
+Added Pin To Net: NetName=D_3V3B2 Pin=U18-44
+Added Pin To Net: NetName=D_3V3B1 Pin=U18-46
+Added Pin To Net: NetName=D_3V3B0 Pin=U18-47
+Added Pin To Net: NetName=5V Pin=U20-1
+Added Pin To Net: NetName=5V Pin=U20-30
+Added Member To Class: ClassName=Main Member=Component C81 
+Added Member To Class: ClassName=Main Member=Component C82 
+Added Member To Class: ClassName=Main Member=Component C83 
+Added Room: Name=Main
