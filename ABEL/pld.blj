@@ -1,5 +1,5 @@
 #$ TOOL ispLEVER Classic 2.0.00.17.20.15
-#$ DATE Mon Mar 13 03:30:27 2017
+#$ DATE Tue Mar 14 10:22:48 2017
 #$ TITLE DRAM Interface - State Machine Version
 #$ MODULE pld
 #$ JEDECFILE dram
@@ -12,36 +12,35 @@ St4.Q St3.Q St2.Q St1.Q St0.Q NReset.BLIF RefRqst.BLIF NWE.BLIF
 RefRqst.C RefRqst.AR St0.D St1.D St2.D St3.D St4.D RefRqst.D
 .names St4.Q St3.Q St2.Q St1.Q St0.Q RAS
 00111 1
-100-- 1
+--00- 1
+11--- 1
 -10-0 1
---00- 1
---1-0 0
-0001- 0
---10- 0
--1-11 0
-1-1-- 0
+1-0-- 1
+00-10 0
+0-011 0
+011-- 0
+0-10- 0
+101-- 0
 .names St4.Q St3.Q St2.Q St1.Q St0.Q CAS
+0-0-- 1
 00-11 1
-01-0- 1
+11--- 1
 0--00 1
+-1-0- 1
 --00- 1
 --0-0 1
-0-0-- 1
+-0110 0
+0111- 0
 -0101 0
--111- 0
---110 0
-1-1-- 0
-1--11 0
+10-11 0
+101-- 0
 .names St4.Q St3.Q St2.Q St1.Q St0.Q DRAM_WE
-0--00 1
---00- 1
-0-0-- 1
+---00 1
+--0-- 1
 -0--- 1
---0-0 1
-11-11 0
--111- 0
-111-- 0
--11-1 0
+1---- 1
+0111- 0
+011-1 0
 .names St4.Q St3.Q St2.Q St1.Q St0.Q R_A_EN
 00001 1
 0101- 1

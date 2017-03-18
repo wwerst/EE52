@@ -7,6 +7,7 @@ stepsize 100000 ps
 mode unit
 Loading netlist......
 Loading netlist successfully.
+restart
 run 16,000.0 ns
 Operation RUN ends.
 quit

@@ -91,14 +91,18 @@ Ref4        =  [   1,   0,   1,   1,   1 ];     " Wait
 Ref5        =  [   1,   1,   0,   0,   0 ];     " RAS, CAS high
 Ref6        =  [   1,   1,   0,   0,   1 ];     " Pre-charge
 Ref7        =  [   1,   1,   0,   1,   0 ];     " Pre-charge
-
+Inval0      =  [   1,   1,   0,   1,   1 ];     " Invalid state
+Inval1      =  [   1,   1,   1,   0,   0 ];     " Invalid state
+Inval2      =  [   1,   1,   1,   0,   1 ];     " Invalid state
+Inval3      =  [   1,   1,   1,   1,   0 ];     " Invalid state
+Inval4      =  [   1,   1,   1,   1,   1 ];     " Invalid state
 
 
 EQUATIONS
 
 
 " NWAIT equation
-NWAIT      =  !NCS & (StateBits == Ref0 # StateBits == Ref1 # StateBits == Ref2 # StateBits == Ref3 # StateBits == Ref4 # StateBits == Ref5 # StateBits == Ref6 # StateBits == Ref7);
+NWAIT      =  NCS & (StateBits == Ref0 # StateBits == Ref1 # StateBits == Ref2 # StateBits == Ref3 # StateBits == Ref4 # StateBits == Ref5 # StateBits == Ref6 # StateBits == Ref7);
 
 
 " clocks for the registered outputs (state bits)
@@ -423,6 +427,50 @@ STATE Ref7:
 
    GOTO                   Idle;
 
+STATE Inval0:
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
+
+STATE Inval1:
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
+
+STATE Inval2:
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
+
+STATE Inval3:
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
+
+STATE Inval4:
+   RAS = 1;
+   CAS = 1;
+   DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
 
 
 
