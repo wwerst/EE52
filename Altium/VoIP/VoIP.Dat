@@ -1,0 +1,63 @@
+﻿Field=#~Integer~#~50|Field=Comment~String~Comment~141|Field=Description~String~Description~141|Field=Designator~String~Designator~141|Field=Footprint~String~Footprint~141|Field=LibRef~String~LibRef~141|Field=Quantity~Integer~Quantity~141|Field=Value~String~Value~136|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~VoIP.PrjPcb|ReportField=ProjectFullPath~C:\Users\will\GitReps\EE52\Altium\VoIP\VoIP.PrjPcb|ReportField=Title~Bill of Materials For Project [VoIP.PrjPcb] (No PCB Document Selected)|ReportField=TotalQuantity~208|ReportField=ReportTime~1:09:05 AM|ReportField=ReportDate~3/20/2017|ReportField=ReportDateTime~3/20/2017 1:09:05 AM|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~|ReportField=Address2~|ReportField=Address3~|ReportField=Address4~|ReportField=Application_BuildNumber~|ReportField=ApprovedBy~|ReportField=Author~Will Werst|ReportField=CheckedBy~|ReportField=CompanyName~Caltech EE/CS 52|ReportField=CurrentDate~3/20/2017|ReportField=CurrentTime~1:08:47 AM|ReportField=Date~|ReportField=DocumentFullPathAndName~C:\Users\will\GitReps\EE52\Altium\VoIP\Main.SchDoc|ReportField=DocumentName~Main.SchDoc|ReportField=DocumentNumber~|ReportField=DrawnBy~|ReportField=Engineer~|ReportField=ImagePath~|ReportField=ModifiedDate~3/20/2017|ReportField=Organization~|ReportField=ProjectName~VoIP.PrjPcb|ReportField=Revision~|ReportField=Rule~|ReportField=SheetNumber~1|ReportField=SheetTotal~1|ReportField=Time~|ReportField=Title~Main|ReportField=DataSourceFileName~VoIP.PrjPcb|ReportField=DataSourceFullPath~C:\Users\will\GitReps\EE52\Altium\VoIP\VoIP.PrjPcb|ReportField=PCBConfigurationName~Default Configuration|ReportField=Item~|ReportField=ItemRevision~|ReportField=ItemAndRevision~|ReportField=ItemRevisionBase~|ReportField=ItemRevisionLevel1~|ReportField=ItemRevisionLevel2~|ReportField=ItemRevisionLevel1AndBase~|ReportField=ItemRevisionLevel2AndLevel1~
+1||Capacitor (Semiconductor SIM Model)|C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12, C13, C14, C15, C16, C17, C18, C19, C20, C21, C24, C25, C32, C33, C34, C35, C36, C37, C38, C43, C49, C50, C51, C52, C53, C54, C55, C56, C57, C58, C63, C65, C66, C67, C68, C69, C70, C80, C81, C82, C85, C86, C87, C89, C90, C92|1608[0603]|Cap Semi|57|0.1uF
+2||Capacitor (Semiconductor SIM Model)|C22, C29|1608[0603]|Cap Semi|2|1nF
+3||Capacitor (Semiconductor SIM Model)|C23, C27, C59, C60|1608[0603]|Cap Semi|4|30pF
+4||Capacitor (Semiconductor SIM Model)|C26, C31|1608[0603]|Cap Semi|2|10nF
+5||Capacitor (Semiconductor SIM Model)|C28, C30|1608[0603]|Cap Semi|2|16pF
+6||Capacitor (Semiconductor SIM Model)|C39, C40, C41, C42, C44, C45, C46, C47, C48, C75, C77, C79, C91|1608[0603]|Cap Semi|13|1uF
+7|Tant|Capacitor (Semiconductor SIM Model)|C61|C1206|Cap Semi|1|10uF
+8||Capacitor (Semiconductor SIM Model)|C62, C64|1608[0603]|Cap Semi|2|0.22uF
+9||Capacitor (Semiconductor SIM Model)|C71, C72, C73, C74, C76, C78|C1206|Cap Semi|6|10uF
+10||Capacitor (Semiconductor SIM Model)|C83, C84, C88, C93|1608[0603]|Cap Semi|4|0.01uF
+11|Newhaven Display NHD-C12832A1Z-FSW-FBW-3V3||DISP1|PCB-1539121-1|SYM-1539121-1|1|
+12|SI-50170|MagJack SI-50170 Ethernet Jack with LEDs|J1|SI51070|SI-50170|1|
+13|Speaker|3.5mm Stereo Jack with Switches PHONEJACK STEREO SW|J2|SJ1-352|PHONEJACK STEREO SW|1|
+14|Microphone|3.5mm Stereo Jack with Switches PHONEJACK STEREO SW|J3|SJ1-352|PHONEJACK STEREO SW|1|
+15|Power Connector|EJ508A|J4|EJ508A|EJ508A|1|
+16|Header 3|Header, 3-Pin|JTAG_SEL, P3|HDR1X3|Header 3|2|
+17|KEYPAD4X4|Grayhill 4x4 Keypad|K1|SIP8|KEYPAD4X4|1|
+18|742792116|SMD EMI Suppression Ferrite Bead WE-CBF, Z = 500 Ohm|L1, L2, L3, L4|SMD-1206|742792116|4|
+19|Header 10X2|Header, 10-Pin, Dual row|P1|HDR2X10|Header 10X2|1|
+20|Header 4|Header, 4-Pin|P2|HDR1X4|Header 4|1|
+21|Header 8X2|Header, 8-Pin, Dual row|P4, P5, P6, P7|HDR2X8|Header 8X2|4|
+22|Header 4X2|Header, 4-Pin, Dual row|P8|HDR2X4|Header 4X2|1|
+23|MMBFJ175LT1|JFET Chopper, P-Channel - Depletion, 3-Pin SOT-23, Tape and Reel|Q1|ONSC-SOT-23-3-318-08_V|MMBFJ175LT1|1|
+24|DMG3420U||Q2|SOT23|DMG3420|1|
+25|Res3|Resistor|R1|J1-0603|Res3|1|909
+26|Res3|Resistor|R2|J1-0603|Res3|1|1000
+27|Res3|Resistor|R3|J1-0603|Res3|1|12K
+28|Res3|Resistor|R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R45, R46|J1-0603|Res3|14|10K
+29|Res3|Resistor|R16, R17, R18, R19, R20, R27, R28, R29, R30, R34, R35, R36, R37, R38, R39, R59, R63, R64|J1-0603|Res3|18|2.2k
+30|Res3|Resistor|R21, R22|J1-0603|Res3|2|220
+31|Res3|Resistor|R23|J1-0603|Res3|1|1.5K
+32|Res3|Resistor|R24, R33|J1-0603|Res3|2|2K
+33|Res3|Resistor|R25, R31|J1-0603|Res3|2|510K
+34|Res3|Resistor|R26, R32|J1-0603|Res3|2|34K
+35|Res3|Resistor|R40|J1-0603|Res3|1|4.87K
+36|Res3|Resistor|R41, R42, R43, R44|J1-0603|Res3|4|49.9
+37|Res3|Resistor|R47, R49, R51, R53|J1-0603|Res3|4|120
+38|Res3|Resistor|R48|J1-0603|Res3|1|52.3
+39|Res3|Resistor|R50|J1-0603|Res3|1|365
+40|Res3|Resistor|R52|J1-0603|Res3|1|196
+41|Res3|Resistor|R54|J1-0603|Res3|1|169
+42|Res3|Resistor|R55, R56, R57|J1-0603|Res3|3|0
+43|1W|MCR100JZHJ2R2  |R58, R60, R61, R62|RESC6332|Res3|4|2.2
+44|Res3|Resistor|R65, R67|J1-0603|Res3|2|1k
+45|Res3|Resistor|R66|J1-0603|Res3|1|100k
+46|LM1086-ADJ|1.5A Low Dropout Positive Regulator|REG_1V8, REG_3V, REG_3V3, REG_5V|TO-220|LM1086|4|
+47|KS01Q01||SW_HANGUP, SW_RESET|KS01Q01|KS01Q01|2|
+48|AT91RM9200|Atmel ARM|U1|PQFP208|AT91RM9200|1|
+49|74LVT16245|16-Bit Bus Transceiver|U2, U4, U8, U18, U19, U21|TSSOP48|74LVT16245|6|
+50|MAX705|Maxim uP Supervisory Circuit|U3|DIP8|MAX705|1|
+51|ISPLSI1016E|In-System Programmable High Density CPLD|U5|PLCCS44|ISPLSI1016E|1|
+52|SRAM IDT71V016|64K x 16 3.3V Static CMOS RAM|U6|SSOP44.400|IDT71V016|1|
+53|ROM 29LV040|4 Megabit (512K x 8) CMOS Uniform Sector Flash Memory|U7|PLCCS32|29LV040|1|
+54|TI-CD40109B-16||U9, U11|TI-PW16_M|TI-CD40109B-16|2|
+55|MM74C923|20-Key Encoder|U13|DIP20|MM74C923|1|
+56|24AA32|I2C Serial EEPROM|U15|DIPS8|24AA32|1|
+57|DP83848|PHYTER - Single Port 10/100 Mb/s Ethernet Physical Layer Transceiver|U16|LQFP48|DP83848|1|
+58|TLV320AIC1106|PCM Codec|U17|PSOP20|TLV320AIC1106|1|
+59|DRAM1MX8|1M x 8 DRAM SIMM|U20|SIMM30|DRAM1MX8|1|
+60|20 MHz|Crystal|X1|HC-49U|CRYSTAL|1|
+61|32.768 kHz|Crystal|X2|FX-3|CRYSTAL|1|
+62|25 MHz|Crystal|X3|HC-49U|CRYSTAL|1|
