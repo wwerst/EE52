@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------------------
-NCDrill File Report For: PCB.PcbDoc   3/18/2017  1:51:27 PM
+NCDrill File Report For: PCB.PcbDoc   3/24/2017  12:37:31 AM
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -8,26 +8,26 @@ ASCII SlotHoles File : PCB-SlotHoles.TXT
 
 Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
 ----------------------------------------------------------------------------------------------------------------------------------
-T1      16mil (0.406mm)                                           Round             61        PTH        13.55inch (344.16mm)
+T1      16mil (0.406mm)                                           Round             461       PTH        92.41inch (2347.09mm)
 T2      20mil (0.508mm)                                           Round             2         PTH        0.04inch (1.09mm)
 T3      24mil (0.6mm)                                             Round             17        PTH        1.77inch (45.00mm)
-T4      25mil (0.635mm)                                           Round             12        PTH        3.27inch (83.02mm)
+T4      25mil (0.635mm)                                           Round             12        PTH        3.35inch (85.10mm)
 T5      28mil (0.711mm)                                           Round             76        PTH        12.03inch (305.44mm)
 T6      30mil (0.76mm)                                            Slot              2         PTH        0.56inch (14.23mm)
-T7      35mil (0.889mm)                                           Round             44        PTH        13.29inch (337.48mm)
-T8      35mil (0.9mm)                                             Round             102       PTH        15.98inch (405.96mm)
-T9      40mil (1.016mm)                                           Round             24        PTH        7.40inch (187.93mm)
+T7      35mil (0.889mm)                                           Round             36        PTH        9.83inch (249.68mm)
+T8      35mil (0.9mm)                                             Round             86        PTH        14.04inch (356.56mm)
+T9      40mil (1.016mm)                                           Round             24        PTH        7.44inch (188.92mm)
 T10     40mil (1.02mm)                                            Slot              1         PTH        0.10inch (2.54mm)
 T11     42mil (1.067mm)                                           Round             30        PTH        2.90inch (73.66mm)
-T12     47mil (1.2mm)                                             Round             20        PTH        3.33inch (84.56mm)
-T13     50mil (1.27mm)                                            Round             4         PTH        8.24inch (209.29mm)
+T12     43mil (1.1mm)                                             Round             8         PTH        8.37inch (212.67mm)
+T13     47mil (1.2mm)                                             Round             20        PTH        3.33inch (84.56mm)
 T14     51mil (1.3mm)                                             Round             2         PTH        1.36inch (34.60mm)
 T15     63mil (1.6mm)                                             Round             2         PTH        0.61inch (15.60mm)
 T16     70mil (1.778mm)                                           Round             1         PTH        0.00inch (0.00mm)
 T17     92mil (2.337mm)                                           Round             1         PTH        0.00inch (0.00mm)
-T18     125mil (3.175mm)                                          Round             6         PTH        4.93inch (125.27mm)
+T18     125mil (3.175mm)                                          Round             6         PTH        5.13inch (130.20mm)
 T19     201mil (5.105mm)                                          Round             4         PTH        20.69inch (525.44mm)
 ----------------------------------------------------------------------------------------------------------------------------------
-Totals                                                                              411
+Totals                                                                              791
 
-Total Processing Time (hh:mm:ss) : 00:00:00
+Total Processing Time (hh:mm:ss) : 00:00:01
