@@ -69,7 +69,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=MQAOWJKL
+DocumentUniqueId=TBRAGDVI
 
 [Document3]
 DocumentPath=..\eecs5x.PcbLib
@@ -86,7 +86,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=MHRWQDQF
+DocumentUniqueId=RPGOUXGN
 
 [Document4]
 DocumentPath=..\screwire.PcbLib
@@ -188,7 +188,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=
+DocumentUniqueId=BQPRJXVV
 
 [Document10]
 DocumentPath=..\EEW_Client.SchLib
