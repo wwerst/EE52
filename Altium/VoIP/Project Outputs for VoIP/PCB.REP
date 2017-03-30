@@ -7,6 +7,8 @@ Generating : Top Layer
 
     Adding Layer      : Top Layer
 
+    Adding Layer      : Mechanical 3
+
     Adding Layer      : Multi-Layer
 
 
@@ -61,6 +63,9 @@ Used DCodes :
     D57
     D58
     D59
+    D60
+    D61
+    D62
 *************************************************************
 
 *************************************************************
@@ -69,22 +74,21 @@ Generating : Bottom Layer
 
     Adding Layer      : Bottom Layer
 
+    Adding Layer      : Mechanical 3
+
     Adding Layer      : Multi-Layer
 
 
 Used DCodes :
-    D14
-    D15
-    D16
-    D20
+    D10
+    D21
+    D22
+    D23
     D24
-    D28
-    D29
     D30
     D31
     D32
     D33
-    D34
     D35
     D36
     D37
@@ -111,6 +115,9 @@ Used DCodes :
     D58
     D59
     D60
+    D61
+    D62
+    D63
 *************************************************************
 
 *************************************************************
@@ -121,16 +128,15 @@ Generating : Bottom Pad Master
 
     Adding Layer      : Multi-Layer
 
+    Adding Layer      : Mechanical 3
+
 
 Used DCodes :
-    D14
-    D15
-    D16
-    D20
+    D10
+    D21
+    D22
+    D23
     D24
-    D33
-    D34
-    D35
     D36
     D37
     D38
@@ -154,7 +160,10 @@ Used DCodes :
     D56
     D57
     D58
+    D59
     D60
+    D61
+    D63
 *************************************************************
 
 *************************************************************
@@ -165,6 +174,8 @@ Generating : Top Pad Master
 
     Adding Layer      : Multi-Layer
 
+    Adding Layer      : Mechanical 3
+
 
 Used DCodes :
     D10
@@ -185,9 +196,8 @@ Used DCodes :
     D25
     D26
     D27
-    D33
-    D34
-    D35
+    D28
+    D29
     D36
     D37
     D38
@@ -211,6 +221,9 @@ Used DCodes :
     D56
     D57
     D58
+    D59
+    D60
+    D61
 *************************************************************
 
 *************************************************************
@@ -219,14 +232,18 @@ Generating : Top Overlay
 
     Adding Layer      : Top Overlay
 
+    Adding Layer      : Mechanical 3
+
 
 Used DCodes :
-    D28
-    D29
-    D30
-    D61
-    D62
-    D63
+    D31
+    D32
+    D33
+    D36
+    D64
+    D65
+    D66
+    D67
 *************************************************************
 
 *************************************************************
@@ -234,6 +251,8 @@ Generating : Top Paste
       File : PCB.GTP
 
     Adding Layer      : Top Paste
+
+    Adding Layer      : Mechanical 3
 
     Adding Layer      : Top Layer
 
@@ -259,6 +278,9 @@ Used DCodes :
     D25
     D26
     D27
+    D28
+    D29
+    D36
 *************************************************************
 
 *************************************************************
@@ -267,19 +289,17 @@ Generating : Top Solder
 
     Adding Layer      : Top Solder
 
+    Adding Layer      : Mechanical 3
+
     Adding Layer      : Top Layer
 
     Adding Layer      : Multi-Layer
 
 
 Used DCodes :
-    D42
-    D45
-    D47
-    D64
-    D65
-    D66
-    D67
+    D36
+    D44
+    D52
     D68
     D69
     D70
@@ -319,6 +339,12 @@ Used DCodes :
     D104
     D105
     D106
+    D107
+    D108
+    D109
+    D110
+    D111
+    D112
 *************************************************************
 
 *************************************************************
@@ -327,26 +353,22 @@ Generating : Bottom Solder
 
     Adding Layer      : Bottom Solder
 
+    Adding Layer      : Mechanical 3
+
     Adding Layer      : Bottom Layer
 
     Adding Layer      : Multi-Layer
 
 
 Used DCodes :
-    D42
-    D45
-    D47
+    D36
+    D44
+    D52
     D68
-    D69
-    D70
-    D74
-    D78
+    D79
+    D80
+    D81
     D82
-    D83
-    D84
-    D85
-    D86
-    D87
     D88
     D89
     D90
@@ -367,6 +389,12 @@ Used DCodes :
     D105
     D106
     D107
+    D108
+    D109
+    D110
+    D111
+    D112
+    D113
 *************************************************************
 
 *************************************************************
@@ -375,18 +403,21 @@ Generating : Bottom Paste
 
     Adding Layer      : Bottom Paste
 
+    Adding Layer      : Mechanical 3
+
     Adding Layer      : Bottom Layer
 
     Adding Layer      : Multi-Layer
 
 
 Used DCodes :
-    D14
-    D15
-    D16
-    D20
+    D10
+    D21
+    D22
+    D23
     D24
-    D60
+    D36
+    D63
 *************************************************************
 
 *************************************************************
@@ -395,13 +426,15 @@ Generating : Bottom Overlay
 
     Adding Layer      : Bottom Overlay
 
+    Adding Layer      : Mechanical 3
+
 
 Used DCodes :
-    D28
-    D29
-    D30
-    D61
-    D63
+    D32
+    D33
+    D36
+    D64
+    D66
 *************************************************************
 
 *************************************************************
@@ -410,9 +443,12 @@ Generating : Keep-Out Layer
 
     Adding Layer      : Keep-Out Layer
 
+    Adding Layer      : Mechanical 3
+
 
 Used DCodes :
-    D29
+    D32
+    D36
 *************************************************************
 
 *************************************************************
@@ -421,9 +457,25 @@ Generating : Mechanical 1
 
     Adding Layer      : Mechanical 1
 
+    Adding Layer      : Mechanical 3
+
 
 Used DCodes :
-    D28
+    D31
+    D36
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 3
+      File : PCB.GM3
+
+    Adding Layer      : Mechanical 3
+
+    Adding Layer      : Mechanical 3
+
+
+Used DCodes :
+    D36
 *************************************************************
 
 *************************************************************
@@ -432,9 +484,12 @@ Generating : Mechanical 13
 
     Adding Layer      : Mechanical 13
 
+    Adding Layer      : Mechanical 3
+
 
 Used DCodes :
-    D108
+    D36
+    D114
 *************************************************************
 
 *************************************************************
@@ -443,10 +498,12 @@ Generating : Mechanical 15
 
     Adding Layer      : Mechanical 15
 
+    Adding Layer      : Mechanical 3
+
 
 Used DCodes :
-    D108
-    D109
-    D110
+    D36
+    D114
+    D115
 *************************************************************
 

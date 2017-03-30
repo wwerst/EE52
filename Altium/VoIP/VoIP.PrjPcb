@@ -69,7 +69,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=TBRAGDVI
+DocumentUniqueId=LXPNJWUG
 
 [Document3]
 DocumentPath=..\eecs5x.PcbLib
@@ -86,7 +86,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=RPGOUXGN
+DocumentUniqueId=OOGOXMUM
 
 [Document4]
 DocumentPath=..\screwire.PcbLib
@@ -388,47 +388,55 @@ DocumentPath=Project Outputs for VoIP\PCB.GM1
 DItemRevisionGUID=
 
 [GeneratedDocument12]
-DocumentPath=Project Outputs for VoIP\PCB.GM13
+DocumentPath=Project Outputs for VoIP\PCB.GM3
 DItemRevisionGUID=
 
 [GeneratedDocument13]
-DocumentPath=Project Outputs for VoIP\PCB.GM15
+DocumentPath=Project Outputs for VoIP\PCB.GM13
 DItemRevisionGUID=
 
 [GeneratedDocument14]
-DocumentPath=Project Outputs for VoIP\PCB.GPB
+DocumentPath=Project Outputs for VoIP\PCB.GM15
 DItemRevisionGUID=
 
 [GeneratedDocument15]
-DocumentPath=Project Outputs for VoIP\PCB.GPT
+DocumentPath=Project Outputs for VoIP\PCB.GPB
 DItemRevisionGUID=
 
 [GeneratedDocument16]
-DocumentPath=Project Outputs for VoIP\PCB.GTL
+DocumentPath=Project Outputs for VoIP\PCB.GPT
 DItemRevisionGUID=
 
 [GeneratedDocument17]
-DocumentPath=Project Outputs for VoIP\PCB.GTO
+DocumentPath=Project Outputs for VoIP\PCB.GTL
 DItemRevisionGUID=
 
 [GeneratedDocument18]
-DocumentPath=Project Outputs for VoIP\PCB.GTP
+DocumentPath=Project Outputs for VoIP\PCB.GTO
 DItemRevisionGUID=
 
 [GeneratedDocument19]
-DocumentPath=Project Outputs for VoIP\PCB.GTS
+DocumentPath=Project Outputs for VoIP\PCB.GTP
 DItemRevisionGUID=
 
 [GeneratedDocument20]
-DocumentPath=Project Outputs for VoIP\PCB.LDP
+DocumentPath=Project Outputs for VoIP\PCB.GTS
 DItemRevisionGUID=
 
 [GeneratedDocument21]
-DocumentPath=Project Outputs for VoIP\PCB.REP
+DocumentPath=Project Outputs for VoIP\PCB.LDP
 DItemRevisionGUID=
 
 [GeneratedDocument22]
+DocumentPath=Project Outputs for VoIP\PCB.REP
+DItemRevisionGUID=
+
+[GeneratedDocument23]
 DocumentPath=Project Outputs for VoIP\PCB.RUL
+DItemRevisionGUID=
+
+[GeneratedDocument24]
+DocumentPath=Project Outputs for VoIP\PCB.TXT
 DItemRevisionGUID=
 
 [Configuration1]
@@ -707,7 +715,7 @@ OutputDefault3=0
 [OutputGroup5]
 Name=Fabrication Outputs
 Description=
-TargetPrinter=Adobe PDF
+TargetPrinter=HP53B07C (HP ENVY 7640 series)
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=CompositeDrill
 OutputName1=Composite Drill Drawing
@@ -800,7 +808,7 @@ OutputDocumentPath12=
 OutputVariantName12=[No Variations]
 OutputDefault12=0
 Configuration12_Name1=OutputConfigurationParameter1
-Configuration12_Item1=AddToAllLayerClasses.Set= |AddToAllPlots.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean|CentrePlots=False|DrillDrawingSymbol=GraphicsSymbol|DrillDrawingSymbolSize=200000|EmbeddedApertures=True|FilmBorderSize=10000000|FilmXSize=200000000|FilmYSize=160000000|FlashAllFills=False|FlashPadShapes=True|G54OnApertureChange=False|GenerateDRCRulesFile=True|GenerateDRCRulesFile=True|GenerateReliefShapes=True|GerberUnit=Imperial|GerberUnit=Imperial|IncludeUnconnectedMidLayerPads=False|LayerClassesMirror.Set= |LayerClassesPlot.Set= |LeadingAndTrailingZeroesMode=SuppressLeadingZeroes|MaxApertureSize=2500000|MinusApertureTolerance=50|MinusApertureTolerance=50|Mirror.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean|MirrorDrillDrawingPlots=False|MirrorDrillGuidePlots=False|NoRegularPolygons=False|NumberOfDecimals=5|NumberOfDecimals=5|OptimizeChangeLocationCommands=True|OptimizeChangeLocationCommands=True|OriginPosition=Relative|Panelize=False|Plot.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean,16973830~1,16973832~1,16973834~1,16777217~1,16842751~1,16973835~1,16973833~1,16973831~1,16908289~1,16908301~1,16908303~1,16973837~1,16973848~1,16973849~1|PlotPositivePlaneLayers=False|PlotUsedDrillDrawingLayerPairs=False|PlotUsedDrillGuideLayerPairs=False|PlusApertureTolerance=50|PlusApertureTolerance=50|Record=GerberView|SoftwareArcs=False|Sorted=False|Sorted=False
+Configuration12_Item1=AddToAllLayerClasses.Set= |AddToAllPlots.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean,16908291~1|CentrePlots=False|DrillDrawingSymbol=GraphicsSymbol|DrillDrawingSymbolSize=200000|EmbeddedApertures=True|FilmBorderSize=10000000|FilmXSize=200000000|FilmYSize=160000000|FlashAllFills=False|FlashPadShapes=True|G54OnApertureChange=False|GenerateDRCRulesFile=True|GenerateDRCRulesFile=True|GenerateReliefShapes=True|GerberUnit=Imperial|GerberUnit=Imperial|IncludeUnconnectedMidLayerPads=False|LayerClassesMirror.Set= |LayerClassesPlot.Set= |LeadingAndTrailingZeroesMode=SuppressLeadingZeroes|MaxApertureSize=2500000|MinusApertureTolerance=50|MinusApertureTolerance=50|Mirror.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean|MirrorDrillDrawingPlots=False|MirrorDrillGuidePlots=False|NoRegularPolygons=False|NumberOfDecimals=5|NumberOfDecimals=5|OptimizeChangeLocationCommands=True|OptimizeChangeLocationCommands=True|OriginPosition=Relative|Panelize=False|Plot.Set=SerializeLayerHash.Version~2,ClassName~TLayerToBoolean,16973830~1,16973832~1,16973834~1,16777217~1,16842751~1,16973835~1,16973833~1,16973831~1,16908289~1,16908291~1,16908301~1,16908303~1,16973837~1,16973848~1,16973849~1|PlotPositivePlaneLayers=False|PlotUsedDrillDrawingLayerPairs=False|PlotUsedDrillGuideLayerPairs=False|PlusApertureTolerance=50|PlusApertureTolerance=50|Record=GerberView|SoftwareArcs=False|Sorted=False|Sorted=False
 
 [OutputGroup6]
 Name=Report Outputs
