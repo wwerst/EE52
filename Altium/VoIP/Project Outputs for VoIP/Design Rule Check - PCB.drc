@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
-PCB File : C:\Users\will\GitReps\EE52\Altium\VoIP\PCB.PcbDoc
-Date     : 3/30/2017
-Time     : 2:57:01 AM
+PCB File : C:\Users\will\Documents\GitHub\EE52\Altium\VoIP\PCB.PcbDoc
+Date     : 4/2/2017
+Time     : 4:27:32 PM
 
 Processing Rule : Clearance Constraint (Gap=7mil) (All),(All)
 Rule Violations :0
@@ -37,34 +37,24 @@ Processing Rule : Silk To Solder Mask (Clearance=3mil) (Disabled)(IsPad),(All)
 Rule Violations :0
 
 Processing Rule : Silk to Silk (Clearance=6mil) (All),(All)
-   Violation between Silk To Silk Clearance Constraint: (5.402mil < 6mil) Between Text "1" (3510mil,4830mil) on Top Overlay And Track (3480mil,4660mil)(3480mil,4860mil) on Top Overlay Silk Text to Silk Clearance [5.402mil]
-   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "7" (3070mil,4830mil) on Top Overlay And Track (3080mil,4660mil)(3080mil,4860mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
-   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "8" (3070mil,4730mil) on Top Overlay And Track (3080mil,4660mil)(3080mil,4860mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
-   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "20" (4050mil,1150mil) on Top Overlay And Track (4060mil,1080mil)(4060mil,1280mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
-   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "19" (4050mil,1250mil) on Top Overlay And Track (4060mil,1080mil)(4060mil,1280mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
    Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "15" (5618mil,975mil) on Top Overlay And Track (5588mil,985mil)(5788mil,985mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
    Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "16" (5718mil,975mil) on Top Overlay And Track (5588mil,985mil)(5788mil,985mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
-   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "15" (5199mil,1249mil) on Top Overlay And Track (5169mil,1259mil)(5369mil,1259mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
-   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "16" (5299mil,1249mil) on Top Overlay And Track (5169mil,1259mil)(5369mil,1259mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
-   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "16" (3640mil,4615mil) on Top Overlay And Track (3650mil,4545mil)(3650mil,4745mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
-   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "15" (3640mil,4715mil) on Top Overlay And Track (3650mil,4545mil)(3650mil,4745mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
-   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "16" (2410mil,5065mil) on Top Overlay And Track (2420mil,4995mil)(2420mil,5195mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
-   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "15" (2410mil,5165mil) on Top Overlay And Track (2420mil,4995mil)(2420mil,5195mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
-   Violation between Silk To Silk Clearance Constraint: (Collision < 6mil) Between Text "SW_HangUp" (1373mil,6054.85mil) on Top Overlay And Track (1323.778mil,5808.408mil)(1323.778mil,6261.164mil) on Top Overlay Silk Text to Silk Clearance [0mil]
-Rule Violations :14
+   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "20" (4050mil,1150mil) on Top Overlay And Track (4060mil,1080mil)(4060mil,1280mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
+   Violation between Silk To Silk Clearance Constraint: (2.063mil < 6mil) Between Text "19" (4050mil,1250mil) on Top Overlay And Track (4060mil,1080mil)(4060mil,1280mil) on Top Overlay Silk Text to Silk Clearance [2.063mil]
+Rule Violations :4
 
 Processing Rule : Net Antennae (Tolerance=0mil) (All)
-   Violation between Net Antennae: Track (7410mil,860mil)(7410mil,6010mil) on Top Layer 
-   Violation between Net Antennae: Track (6680mil,820mil)(6680mil,5990mil) on Top Layer 
-   Violation between Net Antennae: Track (6860mil,840mil)(6860mil,6020mil) on Top Layer 
-   Violation between Net Antennae: Track (976mil,521.378mil)(976mil,545mil) on Top Layer 
-   Violation between Net Antennae: Track (618.434mil,2948mil)(642.056mil,2948mil) on Top Layer 
    Violation between Net Antennae: Track (604.378mil,2256mil)(628mil,2256mil) on Top Layer 
+   Violation between Net Antennae: Track (618.434mil,2948mil)(642.056mil,2948mil) on Top Layer 
+   Violation between Net Antennae: Track (1226mil,514.378mil)(1226mil,538mil) on Top Layer 
+   Violation between Net Antennae: Track (4700mil,3536.169mil)(4720mil,3556.169mil) on Bottom Layer 
+   Violation between Net Antennae: Track (6860mil,840mil)(6860mil,6020mil) on Bottom Layer 
+   Violation between Net Antennae: Track (7142mil,823mil)(7142mil,6010mil) on Bottom Layer 
 Rule Violations :6
 
 Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
 Rule Violations :0
 
 
-Violations Detected : 20
+Violations Detected : 10
 Time Elapsed        : 00:00:03
