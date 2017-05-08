@@ -1,0 +1,181 @@
+__________________________________________________________________________
+
+Tue Jun 02 07:29:42 PDT 2015
+
+Free Memory: 7804 kB
+Total Memory: 15936 kB
+
+4 Command Line Args:
+0:  -f
+1:  D:/temp/261203.tmp/arm-2011.09-69-arm-none-eabi1.properties
+2:  -l
+3:  en
+
+java.class.path:
+    D:\temp\261203.tmp\SubInstaller1.zip
+    d:\temp\I1433255130\InstallerData\IAClasses.zip
+    d:\temp\I1433255130\InstallerData\Execute.zip
+    d:\temp\I1433255130\InstallerData
+
+ZGUtil.CLASS_PATH:
+    D:\temp\261203.tmp\SubInstaller1.zip
+    d:\temp\I1433255130\InstallerData\IAClasses.zip
+    d:\temp\I1433255130\InstallerData\Execute.zip
+    d:\temp\I1433255130\InstallerData
+
+sun.boot.class.path:
+    d:\temp\I1433255130\Windows\resource\jre\lib\resources.jar
+    d:\temp\I1433255130\Windows\resource\jre\lib\rt.jar
+    d:\temp\I1433255130\Windows\resource\jre\lib\sunrsasign.jar
+    d:\temp\I1433255130\Windows\resource\jre\lib\jsse.jar
+    d:\temp\I1433255130\Windows\resource\jre\lib\jce.jar
+    d:\temp\I1433255130\Windows\resource\jre\lib\charsets.jar
+    d:\temp\I1433255130\Windows\resource\jre\classes
+
+java.ext.dirs:
+    d:\temp\I1433255130\Windows\resource\jre\lib\ext
+    C:\WINDOWS\Sun\Java\lib\ext
+
+java.version                  == 1.6.0_20 (Java 1)
+java.vm.name                  == Java HotSpot(TM) Client VM
+java.vm.vendor                == Sun Microsystems Inc.
+java.vm.version               == 16.3-b01
+java.vm.specification.name    == Java Virtual Machine Specification
+java.vm.specification.vendor  == Sun Microsystems Inc.
+java.vm.specification.version == 1.0
+java.specification.name       == Java Platform API Specification
+java.specification.vendor     == Sun Microsystems Inc.
+java.specification.version    == 1.6
+java.vendor                   == Sun Microsystems Inc.
+java.vendor.url               == http://java.sun.com/
+java.class.version            == 50.0
+java.compiler                 == null
+java.home                     == d:\temp\I1433255130\Windows\resource\jre
+java.io.tmpdir                == d:\temp\
+os.name                       == Windows XP
+os.arch                       == x86
+os.version                    == 5.1
+path.separator                == ;
+file.separator                == \
+file.encoding                 == Cp1252
+user.name                     == micro
+user.home                     == C:\Documents and Settings\micro
+user.dir                      == D:\temp\261203.tmp
+user.language                 == en
+user.region                   == null
+__________________________________________________________________________
+
+Install Begin: Tue Jun 02 07:29:41 PDT 2015
+Install End: Tue Jun 02 07:29:42 PDT 2015
+
+Installed by InstallAnywhere 11.0 Enterprise Build 3890
+
+
+User Interactions
+-----------------
+
+
+#Install
+#-------
+-fileOverwrite_C\:\\mgc\\uninstall\\Uninstall_Sourcery_Gxx_Common\\Uninstall_Sourcery_Gxx_Common.lax=Yes
+-fileOverwrite_C\:\\mgc\\uninstall\\Uninstall_Sourcery_Gxx_Common\\resource\\iawin32.dll=Yes
+-fileOverwrite_C\:\\mgc\\uninstall\\Uninstall_Sourcery_Gxx_Common\\resource\\remove.exe=Yes
+-fileOverwrite_C\:\\mgc\\bin\\cs-make.exe=Yes
+-fileOverwrite_C\:\\mgc\\bin\\cs-rm.exe=Yes
+-fileOverwrite_C\:\\mgc\\uninstall\\create-links-iamm-common_files-arm-2011.09-69-arm-none-eabi.exe=Yes
+-fileOverwrite_C\:\\mgc\\uninstall\\remove-links-iamm-common_files-arm-2011.09-69-arm-none-eabi.exe=Yes
+-fileOverwrite_C\:\\mgc\\uninstall\\features\\Common.key=Yes
+
+Summary
+-------
+
+Installation: Successful.
+
+25 Successes
+0 Warnings
+0 NonFatalErrors
+0 FatalErrors
+
+Action Notes:
+
+None
+
+Install Log Detail:
+
+Install Action:           InstallAnywhere Variable
+                          Status: SUCCESSFUL
+
+Install Action:           InstallAnywhere Variable
+                          Status: SUCCESSFUL
+
+Install Action:           InstallAnywhere Variable
+                          Status: SUCCESSFUL
+
+Check Disk Space:         C:\mgc
+                          Status: SUCCESSFUL
+                          Additional Notes: NOTE - Required Disk Space: 1,736,922; Free Disk Space: 367,215,329,280
+
+Install Directory:        C:\mgc\
+                          Status: SUCCESSFUL
+                          Additional Notes: NOTE - Directory already existed
+
+Install Directory:        C:\mgc\uninstall\
+                          Status: SUCCESSFUL
+                          Additional Notes: NOTE - Directory already existed
+
+Install Directory:        C:\mgc\uninstall\Uninstall_Sourcery_Gxx_Common\
+                          Status: SUCCESSFUL
+
+Install Uninstaller:      Sourcery G++ Common (Install All Uninstaller Components)
+                          Status: SUCCESSFUL
+
+Install File:             C:\mgc\uninstall\Uninstall_Sourcery_Gxx_Common\Uninstall_Sourcery_Gxx_Common.exe
+                          Status: SUCCESSFUL
+
+
+Install File:             C:\mgc\uninstall\Uninstall_Sourcery_Gxx_Common\Uninstall_Sourcery_Gxx_Common.lax
+                          Status: SUCCESSFUL
+
+Install Directory:        C:\mgc\uninstall\Uninstall_Sourcery_Gxx_Common\resource\
+                          Status: SUCCESSFUL
+
+Install File:             C:\mgc\uninstall\Uninstall_Sourcery_Gxx_Common\resource\iawin32.dll
+                          Status: SUCCESSFUL
+
+Install File:             C:\mgc\uninstall\Uninstall_Sourcery_Gxx_Common\resource\remove.exe
+                          Status: SUCCESSFUL
+
+Install Uninstaller:      Sourcery G++ Common (Install All Uninstaller Components)
+                          Status: SUCCESSFUL
+
+Install Directory:        C:\mgc\bin\
+                          Status: SUCCESSFUL
+                          Additional Notes: NOTE - Directory already existed
+
+Install File:             C:\mgc\bin\cs-make.exe
+                          Status: SUCCESSFUL
+
+Install File:             C:\mgc\bin\cs-rm.exe
+                          Status: SUCCESSFUL
+
+Install Directory:        C:\mgc\uninstall\
+                          Status: SUCCESSFUL
+                          Additional Notes: NOTE - Directory already existed
+
+Install File:             C:\mgc\uninstall\create-links-iamm-common_files-arm-2011.09-69-arm-none-eabi.exe
+                          Status: SUCCESSFUL
+
+Install File:             C:\mgc\uninstall\remove-links-iamm-common_files-arm-2011.09-69-arm-none-eabi.exe
+                          Status: SUCCESSFUL
+
+Install Directory:        C:\mgc\uninstall\features\
+                          Status: SUCCESSFUL
+                          Additional Notes: NOTE - Directory already existed
+
+Install File:             C:\mgc\uninstall\features\Common.key
+                          Status: SUCCESSFUL
+
+
+Execute Target File:      Creating links...
+                          Status: SUCCESSFUL
+
