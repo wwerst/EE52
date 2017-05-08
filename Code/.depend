@@ -658,7 +658,27 @@ mainloop.o: src/voip101/mainloop.c src/lwip-1.3.2/src/include/lwip/tcp.h \
  src/lwip-1.3.2/src/include/ipv4/lwip/icmp.h src/voip101/interfac.h \
  src/voip101/voipdefs.h src/voip101/keyproc.h src/voip101/callutil.h \
  src/voip101/buffers.h src/voip101/tcpconn.h src/voip101/ethernet.h
-error.o: src/voip101/error.c src/voip101/error.h
+stubfncs.o: src/voip101/stubfncs.c src/voip101/voipdefs.h \
+ src/lwip-1.3.2/src/include/lwip/pbuf.h \
+ src/lwip-1.3.2/src/include/lwip/opt.h \
+ src/lwip-1.3.2/src/include/lwip/lwipopts.h \
+ src/lwip-1.3.2/src/include/lwip/debug.h \
+ src/lwip-1.3.2/src/include/lwip/arch.h \
+ src/lwip-1.3.2/src/include/arch/cc.h \
+ U:\mgc\arm-none-eabi\include/string.h \
+ U:\mgc\arm-none-eabi\include/_ansi.h \
+ U:\mgc\arm-none-eabi\include/newlib.h \
+ U:\mgc\arm-none-eabi\include/sys/config.h \
+ U:\mgc\arm-none-eabi\include/machine/ieeefp.h \
+ U:\mgc\arm-none-eabi\include/sys/features.h \
+ U:\mgc\arm-none-eabi\include/sys/reent.h \
+ U:\mgc\arm-none-eabi\include/_ansi.h \
+ U:\mgc\arm-none-eabi\include/sys/_types.h \
+ U:\mgc\arm-none-eabi\include/machine/_types.h \
+ U:\mgc\arm-none-eabi\include/machine/_default_types.h \
+ U:\mgc\arm-none-eabi\include/sys/lock.h \
+ U:\mgc\arm-none-eabi\include/sys/string.h \
+ src/lwip-1.3.2/src/include/lwip/err.h src/voip101/interfac.h
 buffers.o: src/voip101/buffers.c src/voip101/interfac.h \
  src/voip101/voipdefs.h src/lwip-1.3.2/src/include/lwip/pbuf.h \
  src/lwip-1.3.2/src/include/lwip/opt.h \
@@ -702,6 +722,28 @@ callproc.o: src/voip101/callproc.c src/voip101/interfac.h \
  U:\mgc\arm-none-eabi\include/sys/string.h \
  src/lwip-1.3.2/src/include/lwip/err.h src/voip101/keyproc.h \
  src/voip101/error.h src/voip101/callutil.h
+keyproc.o: src/voip101/keyproc.c src/voip101/voipdefs.h \
+ src/lwip-1.3.2/src/include/lwip/pbuf.h \
+ src/lwip-1.3.2/src/include/lwip/opt.h \
+ src/lwip-1.3.2/src/include/lwip/lwipopts.h \
+ src/lwip-1.3.2/src/include/lwip/debug.h \
+ src/lwip-1.3.2/src/include/lwip/arch.h \
+ src/lwip-1.3.2/src/include/arch/cc.h \
+ U:\mgc\arm-none-eabi\include/string.h \
+ U:\mgc\arm-none-eabi\include/_ansi.h \
+ U:\mgc\arm-none-eabi\include/newlib.h \
+ U:\mgc\arm-none-eabi\include/sys/config.h \
+ U:\mgc\arm-none-eabi\include/machine/ieeefp.h \
+ U:\mgc\arm-none-eabi\include/sys/features.h \
+ U:\mgc\arm-none-eabi\include/sys/reent.h \
+ U:\mgc\arm-none-eabi\include/_ansi.h \
+ U:\mgc\arm-none-eabi\include/sys/_types.h \
+ U:\mgc\arm-none-eabi\include/machine/_types.h \
+ U:\mgc\arm-none-eabi\include/machine/_default_types.h \
+ U:\mgc\arm-none-eabi\include/sys/lock.h \
+ U:\mgc\arm-none-eabi\include/sys/string.h \
+ src/lwip-1.3.2/src/include/lwip/err.h src/voip101/interfac.h \
+ src/voip101/keyproc.h src/voip101/callutil.h
 ethernet.o: src/voip101/ethernet.c src/lwip-1.3.2/src/include/lwip/opt.h \
  src/lwip-1.3.2/src/include/lwip/lwipopts.h \
  src/lwip-1.3.2/src/include/lwip/debug.h \
@@ -766,49 +808,6 @@ tcpconn.o: src/voip101/tcpconn.c src/lwip-1.3.2/src/include/lwip/opt.h \
  src/lwip-1.3.2/src/include/ipv4/lwip/icmp.h src/voip101/interfac.h \
  src/voip101/voipdefs.h src/voip101/tcpconn.h src/voip101/callutil.h \
  src/voip101/error.h
-stubfncs.o: src/voip101/stubfncs.c src/voip101/voipdefs.h \
- src/lwip-1.3.2/src/include/lwip/pbuf.h \
- src/lwip-1.3.2/src/include/lwip/opt.h \
- src/lwip-1.3.2/src/include/lwip/lwipopts.h \
- src/lwip-1.3.2/src/include/lwip/debug.h \
- src/lwip-1.3.2/src/include/lwip/arch.h \
- src/lwip-1.3.2/src/include/arch/cc.h \
- U:\mgc\arm-none-eabi\include/string.h \
- U:\mgc\arm-none-eabi\include/_ansi.h \
- U:\mgc\arm-none-eabi\include/newlib.h \
- U:\mgc\arm-none-eabi\include/sys/config.h \
- U:\mgc\arm-none-eabi\include/machine/ieeefp.h \
- U:\mgc\arm-none-eabi\include/sys/features.h \
- U:\mgc\arm-none-eabi\include/sys/reent.h \
- U:\mgc\arm-none-eabi\include/_ansi.h \
- U:\mgc\arm-none-eabi\include/sys/_types.h \
- U:\mgc\arm-none-eabi\include/machine/_types.h \
- U:\mgc\arm-none-eabi\include/machine/_default_types.h \
- U:\mgc\arm-none-eabi\include/sys/lock.h \
- U:\mgc\arm-none-eabi\include/sys/string.h \
- src/lwip-1.3.2/src/include/lwip/err.h src/voip101/interfac.h
-keyproc.o: src/voip101/keyproc.c src/voip101/voipdefs.h \
- src/lwip-1.3.2/src/include/lwip/pbuf.h \
- src/lwip-1.3.2/src/include/lwip/opt.h \
- src/lwip-1.3.2/src/include/lwip/lwipopts.h \
- src/lwip-1.3.2/src/include/lwip/debug.h \
- src/lwip-1.3.2/src/include/lwip/arch.h \
- src/lwip-1.3.2/src/include/arch/cc.h \
- U:\mgc\arm-none-eabi\include/string.h \
- U:\mgc\arm-none-eabi\include/_ansi.h \
- U:\mgc\arm-none-eabi\include/newlib.h \
- U:\mgc\arm-none-eabi\include/sys/config.h \
- U:\mgc\arm-none-eabi\include/machine/ieeefp.h \
- U:\mgc\arm-none-eabi\include/sys/features.h \
- U:\mgc\arm-none-eabi\include/sys/reent.h \
- U:\mgc\arm-none-eabi\include/_ansi.h \
- U:\mgc\arm-none-eabi\include/sys/_types.h \
- U:\mgc\arm-none-eabi\include/machine/_types.h \
- U:\mgc\arm-none-eabi\include/machine/_default_types.h \
- U:\mgc\arm-none-eabi\include/sys/lock.h \
- U:\mgc\arm-none-eabi\include/sys/string.h \
- src/lwip-1.3.2/src/include/lwip/err.h src/voip101/interfac.h \
- src/voip101/keyproc.h src/voip101/callutil.h
 callutil.o: src/voip101/callutil.c src/voip101/interfac.h \
  src/voip101/voipdefs.h src/lwip-1.3.2/src/include/lwip/pbuf.h \
  src/lwip-1.3.2/src/include/lwip/opt.h \
@@ -831,3 +830,4 @@ callutil.o: src/voip101/callutil.c src/voip101/interfac.h \
  U:\mgc\arm-none-eabi\include/sys/string.h \
  src/lwip-1.3.2/src/include/lwip/err.h src/voip101/callutil.h \
  src/voip101/buffers.h src/voip101/tcpconn.h src/voip101/error.h
+error.o: src/voip101/error.c src/voip101/error.h
