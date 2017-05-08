@@ -1,0 +1,22 @@
+
+; Reset board
+reset
+; Data is little endian
+Endian Little
+
+;Configure PLLA for DIVA = 5, MULA = 22
+WORD 0xFFFFFC28 = 0x20160005
+
+;Configure MCK
+WORD 0xFFFFFC30 = 0x00000006     ;MDIV = 00, PRES = 001, CSS = 10
+
+;Configure Peripheral clock
+
+WORD 0xFFFFFC10 = 0x00000008
+;Configure PCK0
+WORD 0xFFFFFC40 = 0x00000006
+WORD 0xFFFFF670 = 0x08000000
+WORD 0xFFFFF610 = 0x08000000
+WORD 0xFFFFF604 = 0x08000000
+;Enable PCK0 output
+WORD 0xFFFFFC00 = 0x00000100
