@@ -24,11 +24,13 @@
 @                                                                              @
 @   2011/02/06  Joseph Schmitz  Added documentation on exception vectors.      @
 @                                                                              @
+@   2017/05/21  William Werst   Modified to work for this project              @
+@                                                                              @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 .include    "at91rm9200.inc"
-.include    "armvoip.inc"
-.include    "macros.inc"
+.include    "system.inc"
+.include    "macro.inc"
 
 
 .text
