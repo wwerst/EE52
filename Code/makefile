@@ -159,9 +159,8 @@ endif
 ifdef TEST_MODE
 SYSOBJS = boot.o
 else
-SYSOBJS  = crt0.o 
-#display.o keypad.o system.o audio.o ether.o 
-# crt0.o keypad.o display.o audio.o
+SYSOBJS  = crt0.o
+# display.o keypad.o system.o audio.o ether.o crt0.o
 endif
 
 BOOTOBJS = boot.o
