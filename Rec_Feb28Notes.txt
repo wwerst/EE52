@@ -3,3 +3,16 @@ Milestones for week:
 2) Schematic: Power circuitry
 3) PCB: Power circuitry
 
+Simulation:
+1) Single read
+2) single write
+3) Back-to-back read or write
+4) Refresh
+5) 
+
+
+10110111
+
+
+
+10101000

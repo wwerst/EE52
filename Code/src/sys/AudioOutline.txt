@@ -1,0 +1,398 @@
+; Audio Outline
+; Revision History:
+; Name             Comment              Date
+; Will Werst      Initial version       11/14/2016
+;
+;
+; Pseudocode Includes
+; INIT_BAUDRATE	EQU	9600
+; INIT_PARITY		EQU 0
+; TRUE			EQU 1
+; FALSE			EQU 0
+;
+; DEFINE STRUC SerialQueues
+; Queue TX
+; Queue RX
+; byte sending
+;
+;
+; Shared Variables:
+; 	SerialQueues serial
+;
+;
+;
+; InitSerial
+;
+; Description: Initializes the serial chip to a set of known values, and
+; 			 initializes the queues at TX and RX.
+;
+; Operational Description: Initializes queues at TX and RX by calling InitQueue
+; 						 for both of them. Sends control register data to serial
+; 						 chip to initialize with default baud rate and parity.
+;
+; Arguments: none
+;
+; Return values: none
+;
+; Local variables: none
+;
+; Shared variables: serial(DS)[W] - serial is initialized.			  
+;
+; Global Variables: none
+;
+; Inputs: none
+;
+; Outputs: none
+;
+; Error Handling: none
+;
+; Algorithms: none
+;
+; Data Structures: none
+;
+; Limitations: none
+;
+; Registers Changed: None
+;
+; Known Bugs: none
+;
+; Special notes: none
+;
+; Revision History:
+; Name             Comment              Date
+; Will Werst        Initial version     11/14/2016
+;
+Pseudocode
+	
+	CALL InitQueue(serial.TX)
+	CALL InitQueue(serial.RX)
+	OUTPUT Control values to serial chip
+	CALL SetSerialBaudRate(INIT_BAUDRATE)
+	CALL SetSerialParity(INIT_PARITY)
+
+; SerialPutChar
+;
+; Description: Attempts to put character into TX queue. If the queue is full, the
+; 			 carry flag is set and the method returns without enqueueing c. If
+; 			 the queue is not full, the carry flag is reset and c is enqueued in
+; 			 TX, then the method returns.
+;
+; Operational Description: QueueFull is called for queue serial.TX. If the queue
+;						 is full, the carry flag is set and then the method
+;						 returns. If the queue is not full, the carry flag is
+;						 reset, c is enqueued, and the method returns.
+;
+; Arguments: c (AL) - the value to attempt to enqueue.
+;
+; Return values: EnqueueFailure (Carry flag) - Indicates whether the enqueue failed.
+;
+; Local variables: none
+;
+; Shared variables: serial.sending(DS)[R] - check if serial is currently sending,
+;							and if it isn't start sending again.
+;
+; Global Variables: none
+;
+; Inputs: none
+;
+; Outputs: none
+;
+; Error Handling: none
+;
+; Algorithms: none
+;
+; Data Structures: none
+;
+; Limitations: none
+;
+; Registers Changed: Flags
+;
+; Known Bugs: none
+;
+; Special notes: none
+;
+; Revision History:
+; Name             Comment              Date
+; Will Werst        Initial version     11/14/2016
+;
+Pseudocode
+
+	IF (QueueFull(serial.TX)) THEN
+		SET CARRY FLAG
+	ELSE
+		Enqueue(serial.TX, c)
+		START Critical Code (push flags, disable interrupts)
+		IF serial.sending is FALSE THEN
+			CALL SerialSendNextByte
+		ENDIF
+		END Critical Code (restore flags register)
+		RESET CARRY FLAG
+	ENDIF
+	RETURN
+
+	
+; SerialSendNextByte
+;
+; Description: Check if there is another byte to send, and then send it to the
+; 			 serial chip if there is a byte to send. If a byte is sent, the
+; 			 sending flag in serial.sending is set. Else, the flag is
+; 			 set to FALSE.
+;
+; Operational Description: Check if the TX queue is empty. If it isn't, Dequeue 
+; 						 the next item from the TX queue, and then send it
+; 						 to the serial chip. If an item is sent, the sending flag
+; 						 in serial.sending is set to TRUE, and if an item is not
+; 						 sent the flag is set to FALSE.
+;
+; Arguments: none
+;
+; Return values: none
+;
+; Local variables: none
+; 
+; Shared variables: serial.sending(DS)[W] - set to either TRUE or FALSE depending
+; 										on whether a new item is sent.
+;
+; Global Variables: none
+;
+; Inputs: none
+;
+; Outputs: none
+;
+; Error Handling: none
+;
+; Algorithms: none
+;
+; Data Structures: none
+;
+; Limitations: none
+;
+; Registers Changed: 
+;
+; Known Bugs: none
+;
+; Special notes: none
+;
+; Revision History:
+; Name             Comment              Date
+; Will Werst        Initial version     11/14/2016
+
+Pseudocode
+	
+	IF (QueueEmpty(serial.TX)) THEN
+		serial.sending = FALSE
+	ELSE
+		serial.sending = TRUE
+		element = Dequeue(serial.TX)
+		SEND element TO SERIAL CHIP
+	ENDIF
+
+	
+; SetSerialBaudRate
+;
+; Description: Sends the new baud rate, passed in AX, to the serial chip.
+;
+; Operational Description: The new baud rate passed in AX is translated to the
+; 						 appropriate register output and sent to the serial chip.
+;
+; Arguments: rate (AX) - the new baud rate to set for the serial chip.
+;
+; Return values: none
+;
+; Local variables: rateControlRegister
+;
+; Shared variables: none
+;
+; Global Variables: none
+;
+; Inputs: none
+;
+; Outputs: none
+;
+; Error Handling: none
+;
+; Algorithms: none
+;
+; Data Structures: none
+;
+; Limitations: none
+;
+; Registers Changed: AX
+;
+; Known Bugs: none
+;
+; Special notes: none
+;
+; Revision History:
+; Name             Comment              Date
+; Will Werst        Initial version     11/14/2016
+
+Pseudocode
+
+	rateControlRegister = TRANSLATE rate to rateControlRegister
+	OUTPUT rateControlRegister to serial chip
+	
+	
+
+; SetSerialParity
+;
+; Description: Outputs the serial parity to the serial chip. If the passed value is
+; 			 FALSE, the parity is set to off. If the passed value is anything
+; 			 besides FALSE, parity is set on.
+;
+; Operational Description: parity (AX) is compared against FALSE. If parity is
+; 						 false, the parity is set to be off. Else, parity is set
+; 						 to be on.
+;
+; Arguments: parity (AX) - a TRUE or FALSE value indicating whether parity should
+; 						be on or not.
+;
+; Return values: none
+;
+; Local variables: none
+;
+; Shared variables: 
+;
+; Global Variables: none
+;
+; Inputs: none
+;
+; Outputs: none
+;
+; Error Handling: none
+;
+; Algorithms: none
+;
+; Data Structures: none
+;
+; Limitations: none
+;
+; Registers Changed: 
+;
+; Known Bugs: none
+;
+; Special notes: none
+;
+; Revision History:
+; Name             Comment              Date
+; Will Werst        Initial version     11/14/2016
+
+Pseudocode
+
+	IF parity equals FALSE THEN
+		OUTPUT to serial control "parity off"
+	ELSE
+		OUTPUT to serial control "parity on"
+
+
+; SerialEventHandler
+;
+; Description: This event handler is called by the interrupt from the serial
+; 			 chip. It gets the interrupt type and then determines what to do
+; 			 based off of the states 
+;
+; Operational Description: The event handler retrieves the interrupt ID from the
+; 						 serial chip, and then takes appropriate action:
+; 						 - EVENT_ID = ERROR: the error is enqueued into
+; 							EnqueueEvent.
+; 						 - EVENT_ID = DATA_RECV: the data is enqueued into
+; 							EnqueueEvent.
+; 						 - EVENT_ID = TX_EMPTY: SerialSendNextByte is called.
+; 							This method sends the next byte from TXQueue if there
+; 							are any, and sets serial.sending to FALSE if there
+; 							aren't any.
+;
+; Arguments: none
+;
+; Return values: none
+;
+; Local variables: Event_ID (AH) - the event id retrieved based off of the
+; 								interrupt type.
+; 				 Event_Message (AL) - the message retrieved from the serial chip.
+; 
+; Shared variables: 
+;
+; Global Variables: none
+;
+; Inputs: none
+;
+; Outputs: none
+;
+; Error Handling: none
+;
+; Algorithms: none
+;
+; Data Structures: none
+;
+; Limitations: none
+;
+; Registers Changed: AX
+;
+; Known Bugs: none
+;
+; Special notes: none
+;
+; Revision History:
+; Name             Comment              Date
+; Will Werst        Initial version     11/14/2016
+;
+Pseudocode
+
+	GET Event_ID, Event_Message FROM SERIAL CHIP
+	
+	IF Event_ID IS ERROR THEN
+		CALL EnqueueEvent(serial.RX, Event_Message)
+	ELSE IF Event_ID IS DATA_RECV THEN
+		CALL EnqueueEvent(serial.RX, Event_Message)
+	ELSE IF Event_ID IS TX_EMPTY
+		CALL SerialSendNextByte()
+	ENDIF
+	
+
+; InstallSerialEventHandlers
+;
+; Description: Call this before using serial chip. This installs the segment and
+; 			 offset of the SerialEventHandler into the interrupt vector table
+; 
+; Operational Description: The instruction pointer and address for SerialEventHandler
+; 						 are written to the appropriate spot in the interrupt
+; 						 vector table (INT2).
+;
+; Arguments: none
+;
+; Return values: none
+;
+; Local variables: none
+;
+; Shared variables: Interrupt vector table (ES)[W] - the interrupt vector table
+; 					section for INT2 event handler is updated to point to 
+; 					SerialEventHandler
+;
+; Global Variables: none
+;
+; Inputs: none
+;
+; Outputs: none
+;
+; Error Handling: none
+;
+; Algorithms: none
+;
+; Data Structures: none
+; 
+; Limitations: none
+;
+; Registers Changed: none
+;
+; Known Bugs: none
+;
+; Special notes: none
+;
+; Revision History:
+; Name             Comment              Date
+; Will Werst        Initial version     11/15/2016
+
+Pseudocode
+
+	IVP.Int2Location.CS = SEGMENT(SerialEventHandler) ; IVP is interrupt vector
+	IVP.Int2Location.IP = OFFSET(SerialEventHandler)  ; table.
