@@ -1,17 +1,17 @@
 
 [Device]
 Family = plsi1k;
-PartNumber = ispLSI1016EA-100LJ44;
+PartNumber = ispLSI1016E-100LJ44;
 Package = 44PLCC;
-PartType = ispLSI1016EA;
+PartType = ispLSI1016E;
 Speed = 100;
 Operating_condition = COM;
-Status = Production;
+Status = Obsolete;
 
 [Revision]
-Parent = lc1kea.lci;
-DATE = 2002;
-TIME = 0:00:00;
+Parent = lc1ke.lci;
+DATE = 05/21/2017;
+TIME = 22:08:30;
 Source_Format = ABEL_Schematic;
 Synthesis = Synplify;
 
@@ -25,6 +25,17 @@ Synthesis = Synplify;
 
 [Location Assignments]
 layer = OFF;
+NReset = pin, 16, -, -;
+RAS = pin, 18, -, -;
+CAS = pin, 19, -, -;
+DRAM_WE = pin, 20, -, -;
+R_A_EN = pin, 21, -, -;
+C_A_EN = pin, 22, -, -;
+NCS = pin, 25, -, -;
+NWE = pin, 26, -, -;
+NWAIT = pin, 27, -, -;
+MCLK = pin, 28, -, -;
+RCLK = pin, 29, -, -;
 
 [Group Assignments]
 layer = OFF;
@@ -60,54 +71,3 @@ layer = OFF;
 [HSI Attributes]
 
 [Input Delay]
-
-[opt global constraints list]
-
-[Explorer User Settings]
-
-[Pin attributes list]
-
-[global constraints list]
-
-[Global Constraints Process Update]
-
-[pin lock limitation]
-
-[LOCATION ASSIGNMENTS LIST]
-
-[RESOURCE RESERVATIONS LIST]
-
-[individual constraints list]
-
-[Attributes list setting]
-
-[Timing Analyzer]
-
-[PLL Assignments]
-
-[Dual Function Macrocell]
-
-[Explorer Results]
-
-[VHDL synplify constraints]
-
-[VHDL spectrum constraints]
-
-[verilog synplify constraints]
-
-[verilog spectrum constraints]
-
-[VHDL synplify constraints list]
-
-[VHDL spectrum constraints list]
-
-[verilog synplify constraints list]
-
-[verilog spectrum constraints list]
-
-[symbol/module attribute]
-layer = OFF;
-
-[symbol/module attribute list]
-
-[Node attribute list]

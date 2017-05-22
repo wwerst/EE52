@@ -36,8 +36,8 @@ TITLE 'DRAM Interface - State Machine Version'
 RAS    pin   18  ISTYPE 'com';  "RAS line
 CAS    pin   19  ISTYPE 'com';  "CAS line
 DRAM_WE pin  20  ISTYPE 'com';  "Write Enable Line to DRAM
-R_A_EN pin   21  ISTYPE 'com';  "Buffer row address enable
-C_A_EN pin   22  ISTYPE 'com';  "Buffer column address enable line
+!R_A_EN pin   21  ISTYPE 'com';  "Buffer row address enable
+!C_A_EN pin   22  ISTYPE 'com';  "Buffer column address enable line
 "      pin   23                  input   unused
 "      pin   24                  input   unused
 !NCS   pin   25;                "input chip select
