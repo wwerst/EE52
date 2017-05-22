@@ -15,10 +15,6 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-@ Clock Definitions
-
-    .equ   PMC_MCKR,        0xfffffc30          @ Master Clock
-
 
 @ System Mode Definitions
 
@@ -99,6 +95,7 @@
     .equ    PMC_SCER,       PMCBase + 0x0       @ System Clock Enable
     .equ    PMC_PCER,       PMCBase + 0x10      @ Peripheral Clock Enable
     .equ    PMC_MOR,        PMCBase + 0x20      @ Main Oscillator register
+    .equ    PMC_PLLAR,      PMCBase + 0x28      @ PLL A Control
     .equ    PMC_PLLBR,      PMCBase + 0x2C      @ PLL B Control
     .equ    PMC_MCKR,       PMCBase + 0x30      @ Master Clock
     .equ    PMC_PCK0,       PMCBase + 0x40      @ Programmable Clock 0
