@@ -136,7 +136,24 @@ _start:
 
 
 @@@ Clock Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@Configure PLLA for DIVA = 5, MULA = 22
+LDR r0,=0xFFFFFC28
+LDR r1,=0x20160005
+STR r1, [r0]
 
+@Configure MCK
+LSR 0xFFFFFC30, =0x00000006     @MDIV = 00, PRES = 001, CSS = 10
+
+@Configure Peripheral clock
+
+LSR 0xFFFFFC10, =0x00000008
+@Configure PCK0
+LSR 0xFFFFFC40, =0x00000006
+LSR 0xFFFFF670, =0x08000000
+LSR 0xFFFFF610, =0x08000000
+LSR 0xFFFFF604, =0x08000000
+;Enable PCK0 output
+LSR 0xFFFFFC00, =0x00000100
 
 
 @@@ CS Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

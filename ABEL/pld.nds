@@ -1,0 +1,45 @@
+//Design Name: pld
+//START
+
+//DESTINATION NODES
+GLB_ST4_PIN.D0 [reg]
+GLB_ST4_PIN.CLK [reg]
+GLB_REFRQST_PIN.D0 [reg]
+GLB_REFRQST_PIN.CLK [reg]
+GLB_ST3_PIN.D0 [reg]
+GLB_ST3_PIN.CLK [reg]
+GLB_ST2_PIN.D0 [reg]
+GLB_ST2_PIN.CLK [reg]
+GLB_ST1_PIN.D0 [reg]
+GLB_ST1_PIN.CLK [reg]
+GLB_ST0_PIN.D0 [reg]
+GLB_ST0_PIN.CLK [reg]
+ST1 [out]
+ST2 [out]
+ST3 [out]
+ST4 [out]
+NWAIT [out]
+CAS [out]
+R_A_EN [out]
+REFRQST [out]
+DRAM_WE [out]
+C_A_EN [out]
+RAS [out]
+ST0 [out]
+
+//SOURCE NODES;
+
+RCLK [in]
+MCLK [in]
+NWE [in]
+XRESET [in]
+NRESET [in]
+NCS [in]
+GLB_ST0_PIN.Q0 [reg]
+GLB_ST1_PIN.Q0 [reg]
+GLB_ST2_PIN.Q0 [reg]
+GLB_ST3_PIN.Q0 [reg]
+GLB_REFRQST_PIN.Q0 [reg]
+GLB_ST4_PIN.Q0 [reg]
+
+//END

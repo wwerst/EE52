@@ -1,0 +1,13 @@
+[LOCATION ASSIGNMENTS]
+NReset=pin,16,-,-;
+RAS=pin,18,-,-;
+CAS=pin,19,-,-;
+DRAM_WE=pin,20,-,-;
+R_A_EN=pin,21,-,-;
+C_A_EN=pin,22,-,-;
+NCS=pin,25,-,-;
+NWE=pin,26,-,-;
+NWAIT=pin,27,-,-;
+MCLK=pin,28,-,-;
+RCLK=pin,29,-,-;
+

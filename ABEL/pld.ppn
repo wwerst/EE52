@@ -1,0 +1,29 @@
+// 
+// Software Version 8.2
+// Targeted Device : ispLSI1016E-100LJ44
+// Platform : Windows NT 5.1
+// Date : Sun May 21 22:09:29 2017
+// Elapsed Time : 00:00:00
+// 
+                     GND        SYS          1
+                     VCC        SYS         12
+                 REFRQST        OUT         15
+                  NRESET         IN         16
+                     RAS        OUT         18
+                     CAS        OUT         19
+                 DRAM_WE        OUT         20
+                  R_A_EN        OUT         21
+                  C_A_EN        OUT         22
+                     GND        SYS         23
+                     NCS         IN         25
+                     NWE         IN         26
+                   NWAIT        OUT         27
+                    MCLK         IN         28
+                    RCLK         IN         29
+                     VCC        SYS         34
+                   RESET        SYS         35
+                     ST3        OUT         37
+                     ST1        OUT         38
+                     ST4        OUT         39
+                     ST2        OUT         40
+                     ST0        OUT         43

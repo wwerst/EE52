@@ -1,0 +1,82 @@
+[DEVICE]
+Family = plsi1k;
+PartNumber = ispLSI1016E-100LJ44;
+PartType = ispLSI1016E;
+Package = 44PLCC;
+Speed = 100;
+Operating_condition = COM;
+Default_Device_Io_Types = LVCMOS50,-;
+
+[REVISION]
+RCS = ;
+Parent = lc1k.lci;
+Design = pld;
+DATE = 05/21/2017;
+TIME = 22:09:30;
+Source_Format = ;
+Type = ;
+Pre_Fit_Time = ;
+
+[IGNORE ASSIGNMENTS]
+
+[CLEAR ASSIGNMENTS]
+
+[BACKANNOTATE ASSIGNMENTS]
+
+[GLOBAL CONSTRAINTS]
+Security = Off;
+PULLUP = Up;
+Y1_AS_RESET = On;
+ISP = On;
+ISP_EXCEPT_Y2 = Off;
+SLEWRATE = Off;
+
+[FITTER REPORT FORMAT]
+
+[LOCATION ASSIGNMENTS]
+RCLK = pin, 29, -, -, -;
+NWE = pin, 26, -, -, -;
+NRESET = pin, 16, -, -, -;
+NCS = pin, 25, -, -, -;
+MCLK = pin, 28, -, -, -;
+ST4 = pin, 39, -, -, -;
+ST3 = pin, 37, -, -, -;
+ST2 = pin, 40, -, -, -;
+ST1 = pin, 38, -, -, -;
+ST0 = pin, 43, -, -, -;
+R_A_EN = pin, 21, -, -, -;
+REFRQST = pin, 15, -, -, -;
+RAS = pin, 18, -, -, -;
+NWAIT = pin, 27, -, -, -;
+DRAM_WE = pin, 20, -, -, -;
+C_A_EN = pin, 22, -, -, -;
+CAS = pin, 19, -, -, -;
+
+[PULLUP]
+Up = RCLK, NWE, NRESET, NCS, MCLK, ST4, ST3, ST2, ST1, ST0, R_A_EN, REFRQST, RAS, NWAIT, DRAM_WE, C_A_EN, CAS; 
+
+[SLEWRATE]
+FAST = ST4, ST3, ST2, ST1, ST0, R_A_EN, REFRQST, RAS, NWAIT, DRAM_WE, C_A_EN, CAS; 
+
+[IO TYPES]
+
+[OSM Bypass]
+
+[CLK]
+CLK1 = BUF_983, 
+CLK2 = BUF_984; 
+
+[PTSABYPASS]
+Bypass = OR_920, OR_921, C_A_EN_PIN; 
+
+[Fitter Results]
+I/O_Pin_Util = 53;
+I/O_Pin = 17;
+Logic_PT_Util = 15;
+Logic_PT = 49;
+Logic_MC_Util = 21;
+Logic_MC = 14;
+Occupied_PT_Util = 4;
+Occupied_PT = 14;
+GLB_input_Util = 9;
+GLB_input = 28;

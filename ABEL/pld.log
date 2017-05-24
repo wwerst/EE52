@@ -1,0 +1,171 @@
+ispEXPERT Compiler Release 2.0.00.17.20.15, May 20 2002 13:06:40
+
+Copyright (C) 1994-2000 by Lattice Semiconductor Corporation.
+All Rights Reserved.
+
+
+Design Process Management 
+
+Renaming existing log file to pld.lo-
+Renaming existing rpt file to pld.rp-
+
+Preprocessing design 'pld'...
+
+Processing design 'pld'...
+
+
+Logical LAF Reading and Translation 
+  
+Reading file 'c:\documents and settings\micro\my 
+      documents\wwerst\ee52\abel\pld.laf'... 
+  
+Checking design rules... 
+Selected part is 'ispLSI1016E-100LJ44' 
+  
+Writing output files... 
+  
+Logical LAF reading and translation completed successfully 
+
+
+Synthesis and Partitioning 
+  
+Reading design 'pld'... 
+  
+Optimizing logic... 
+  
+Trying to move PT reset signal to global reset pin... 
+      PT reset signal cannot be moved to global reset pin 
+      In order to move PT reset signal to global reset pin, the 
+      following conditions need to be satisfied: 
+      1. There exists at least one pin which drives all register's reset
+      signals 
+      2. This pin is unlocked 
+      3. This pin does not drive any data signals 
+      4. This pin can be disjointly decomposed with other pins, if any, 
+      which drive reset signals 
+  
+Partitioning logic into 16-input, 16-input with DIs, functions to 
+      minimize delay... 
+  
+Extracting LXOR2 gates to minimize delay... 
+  
+Packing functions into GLBs using 16 inputs and 4 outputs per GLB to 
+      minimize delay... 
+Constant VCC drives register 'REFRQST' data input 
+Constant VCC drives pin 'NWAIT' 
+  
+Synthesis and partitioning statistics: 
+  
+Number of Macrocells is 14 
+Number of GLBs is 4 
+Number of product terms is 49 
+Maximum number of GLB levels is 1 
+Average number of inputs per GLB is 7.0 
+Average number of outputs per GLB is 3.5 
+Average number of product terms per GLB is 12.3 
+  
+Synthesis and partitioning completed successfully 
+
+
+Physical LAF Reading and Translation
+
+Reading design 'pld'...
+
+Writing output files...
+
+Physical LAF reading and translation completed successfully
+
+
+Placement and Routing
+
+Reading design 'pld'...
+
+Routing
+.
+
+
+Writing output files...
+
+Placement and routing completed successfully
+
+
+Technology Remapping 
+  
+Reading design 'pld'... 
+  
+Remapping... 
+  
+Writing output files... 
+  
+Writing output lco files... 
+  
+Technology remapping completed successfully 
+
+
+Physical LAF Reading and Translation
+
+Reading design 'pld'...
+
+Writing output files...
+
+Physical LAF reading and translation completed successfully
+
+
+Fusemap Generation
+
+Reading design 'pld'...
+
+Writing output files...
+
+Fusemap generation completed successfully
+
+
+Simulation LAF Netlist Generation
+
+Reading design 'pld'...
+
+Writing output files...
+
+
+Information: Global reset (XRESET) is generated to reset all registers
+
+
+
+Simulation LAF netlist generation completed successfully
+
+
+Timing Analyzer 
+Reading design pld .... 
+
+Evaluating maximum operating frequency...
+Evaluating setup and hold times...
+              
+Calculating  Tpd Path delays ...
+
+............
+
+              
+     
+Timing analyzer completed successfully 
+
+
+
+Lattice Verilog netlist writer
+Copyright (c) 1993 - 2000 by Lattice Semiconductor Corporation.
+All Rights Reserved.
+
+writing verilog netlist ...
+
+Verilog netlist writer completed successfully.
+
+
+
+Lattice VHDL netlist writer
+Copyright (c) 1993 - 2000 by Lattice Semiconductor Corporation.
+All Rights Reserved.
+
+writing vhdl file ...
+VHDL netlist writer completed successfully.
+
+
+Design process management completed successfully

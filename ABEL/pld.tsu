@@ -1,0 +1,26 @@
+Setup and Hold Report:
+---------------------
+
+Design Name: PLD
+Part Name: ispLSI1016E-100LJ44
+
+  This report lists the setup/hold requirements for all the boundary
+  registers in the design
+
+
+Required Setup and Hold
+
+  Register Name         Data                Clock               Setup(ns)      Hold(ns)
+==-------------------------------------------------------------------------------------
+  GLB_ST3_PIN           NCS                 MCLK                -4.60          7.30    
+  GLB_ST3_PIN           NRESET              MCLK                -4.20          6.90    
+  GLB_ST3_PIN           NWE                 MCLK                -4.60          7.30    
+  GLB_ST1_PIN           NCS                 MCLK                -4.60          7.30    
+  GLB_ST1_PIN           NRESET              MCLK                -4.20          6.90    
+  GLB_ST1_PIN           NWE                 MCLK                -4.60          7.30    
+  GLB_ST0_PIN           NCS                 MCLK                -4.40          7.10    
+  GLB_ST0_PIN           NRESET              MCLK                -3.00          6.90    
+  GLB_ST0_PIN           NWE                 MCLK                -4.60          7.30    
+  GLB_ST4_PIN           NRESET              MCLK                -4.20          6.90    
+  GLB_ST2_PIN           NRESET              MCLK                -4.40          7.10    
+==-----------------------------------------------------------------------------------

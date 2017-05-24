@@ -1,0 +1,84 @@
+Frequency Analysis Report:
+-------------------------
+
+Design Name: PLD
+Part Name: ispLSI1016E-100LJ44
+
+This report contains the maximum frequency at which the design
+can be operated. It also lists the path that determines the
+maximum frequency and the number of GLB levels. 
+The remaining internal register paths and their frequencies
+are also listed, if the source and the registers are driven
+by the same reference clock.
+
+
+Maximum Operating Frequency:    96 MHz
+
+The clock period is 10.40.
+Clock period = path delay + clock-to-output delay + setup time
+  path delay:              8.30
+  clock-to-output delay:   1.40
+  setup time:              0.70
+
+
+The following path determines the frequency: 
+
+  Startpoint: GLB_ST4_PIN/Q0
+              (edge-triggered flip-flop)
+  Endpoint: GLB_ST0_PIN/D0
+              (edge-triggered flip-flop)
+  No. of GLB Levels: 1
+
+Internal Register  Paths and Frequencies:
+
+  Source              Source                  Destination       Destination             Clock     Frequency   # of GLB     
+  Reference           Register                Reference         Register                Period      [MHz]     Levels       
+  Clock               Name                    Clock             Name                     [ns]     
+==----------------------------------------------------------------------------------------------------------------
+  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST0_PIN/D0           10.40     96        1    
+  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST0_PIN/D0           10.20     98        1    
+  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.50      105       1    
+  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.50      105       1    
+  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.50      105       1    
+  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST0_PIN/D0           9.40      106       1    
+  RCLK                GLB_..._PIN *1/Q0       MCLK              GLB_ST1_PIN/D0           9.40      ----     1    
+  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.40      106       1    
+  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.40      106       1    
+  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.40      106       1    
+  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.40      106       1    
+  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.40      106       1    
+  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.40      106       1    
+  RCLK                GLB_..._PIN *1/Q0       MCLK              GLB_ST4_PIN/D0           9.40      ----     1    
+  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.40      106       1    
+  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.40      106       1    
+  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST0_PIN/D0           9.30      108       1    
+  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.30      108       1    
+  RCLK                GLB_..._PIN *1/Q0       MCLK              GLB_ST0_PIN/D0           9.20      ----     1    
+  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.20      109       1    
+  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.20      109       1    
+  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.20      109       1    
+  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.20      109       1    
+  RCLK                GLB_..._PIN *1/Q0       MCLK              GLB_ST3_PIN/D0           9.20      ----     1    
+  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.20      109       1    
+  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.20      109       1    
+  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.20      109       1    
+  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.20      109       1    
+  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST0_PIN/D0           9.00      111       1    
+==-------------------------------------------------------------------------------------------
+
+Index Name Table
+==----------------------------------------
+    *1  GLB_REFRQST_PIN
+==----------------------------------------
+
+Information for flip-flop:
+
+  Global reset-to-output delay:   6.30
+  Clock-to-output delay:          1.40
+  User reset-to-output delay:     6.30
+  Data-to-output delay:           0.00
+  Setup time:                     0.70
+  Hold time:                      2.00
+  Pulse-width time:               4.00
+
+
