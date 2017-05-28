@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
+<!-- saved from url=(0064)http://wolverine.caltech.edu/eecs52/projects/armvoip/swispec.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>EE/CS 52 Project - ARM VoIP Telephone Software Interface
+Specification</title>
+<meta name="FORMATTER" content="Microsoft FrontPage 2.0">
+</head>
+
+<body>
+
+<h1>ARM VoIP Telephone Project<br>
+Software Interface Specification (version 1) </h1>
+
+<h2>Function Descriptions </h2>
+
+<p>This document describes the interface between the software
+that will be supplied and the code that must be written. Since
+each system is different there must be a level of abstraction
+between the supplied software and the actual hardware. This
+document describes the functions, symbols, and data structures
+that implement that abstraction. Note that this document only
+describes the interface between the supplied software and the
+project's hardware and many more data structures and functions
+will exist in the code that implements the low-level hardware
+routines. </p>
+
+<p>The supplied software should be called <strong>after</strong>
+all initialization is done. A function called <font face="Times New Roman"><code>main</code></font> is defined
+globally. This function runs the system and will never return.
+The supplied code assumes the code section is called <font face="Times New Roman"><code>.text</code></font>, and the data
+section is called <font face="Times New Roman"><code>.data</code></font>.</p>
+
+<p>For each part of the software system the symbols, data, and
+functions are given. The names must match exactly. The symbols
+should be defined by the implementor (student) in the file
+interfac.h. A template for this file is included in the
+distribution. The symbol values in the supplied file will need to
+be changed to match the implementation. The data and functions
+should be declared <font face="Times New Roman"><code>.global</code></font>
+in the .s file in which they are defined. The functions must
+maintain the values of R4, R5, R6, R7, R8, R9, R10, R11, R12
+(FP), R14 (LR), R15 (PC) and, of course, not mess with the stack
+pointer - R13 (SP). </p>
+
+<h2>General </h2>
+
+<h4>Symbols </h4>
+
+<table border="0" cellpadding="4" colpadding="4">
+    <tbody><tr>
+        <td valign="top"><a name="DRAMSTART">DRAM_START</a></td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">starting address of the DRAM</td>
+    </tr>
+    <tr>
+        <td valign="top"><a name="MEMORYSIZE">MEMORY_SIZE</a></td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">number of IP addresses which can be
+        stored in memory for later recall (typically 32)</td>
+    </tr>
+    <tr>
+        <td valign="top"><a name="SAMPLERATE">SAMPLE_RATE</a></td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">number of audio samples per second
+        (typically 8000)</td>
+    </tr>
+    <tr>
+        <td valign="top"><a name="MACADDRH">MAC_ADDR_H</a></td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">upper 16-bits of the 48-bit MAC address
+        for the ethernet controller</td>
+    </tr>
+    <tr>
+        <td valign="top"><a name="MACADDRL">MAC_ADDR_L</a></td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">lower 32-bits of the 48-bit MAC address
+        for the ethernet controller</td>
+    </tr>
+    <tr>
+        <td valign="top"><a name="ETHERINTF">ETHER_INTF</a></td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">the name of the ethernet interface to
+        use (typically "et0")</td>
+    </tr>
+</tbody></table>
+
+<h4>Data </h4>
+
+<dl>
+    <dt>None </dt>
+</dl>
+
+<h4>Functions </h4>
+
+<dl>
+    <dt>int <a name="elapsed_time">elapsed_time</a>(void)</dt>
+    <dd>Returns the number of milliseconds which have elapsed
+        since the last time this function was called. Note that
+        this may be zero if the function was recently called.</dd>
+</dl>
+
+<h2>Keypad/Switches</h2>
+
+<h4>Symbols</h4>
+
+<table border="0" cellpadding="4" colpadding="4">
+    <tbody><tr>
+        <td valign="top"><a name="KeySymbols">KEY_0</a></td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;0&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_1</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;1&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_2</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;2&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_3</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;3&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_4</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;4&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_5</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;5&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_6</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;6&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_7</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;7&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_8</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;8&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_9</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;9&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_ESC</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;ESC&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_BACKSPACE</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;Backspace&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_SEND</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;Send&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_OFFHOOK</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;Off Hook&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_ONHOOK</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;On Hook&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_SET_IP</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;Set IP&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_SET_SUBNET</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;Set Subnet&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_SET_GATEWAY</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;Set Gateway&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_MEM_SAVE</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;Memory Save&gt; key</td>
+    </tr>
+    <tr>
+        <td valign="top">KEY_MEM_RECALL</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">keycode for the &lt;Memory Recall&gt;
+        key</td>
+    </tr>
+    <tr>
+        <td valign="top"><a name="KEY_ILLEGAL">KEY_ILLEGAL</a></td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">illegal keycode, different from any
+        valid keycode</td>
+    </tr>
+</tbody></table>
+
+<h4>Data </h4>
+
+<dl>
+    <dt>None </dt>
+</dl>
+
+<h4>Functions </h4>
+
+<dl>
+    <dt>unsigned char key_available(void) </dt>
+    <dd>Returns TRUE (non-zero) if there is a valid key ready to
+        be processed and FALSE (zero) otherwise. </dd>
+    <dt>int getkey(void) </dt>
+    <dd>Returns the keycode (as defined <a href="http://wolverine.caltech.edu/eecs52/projects/armvoip/swispec.htm#KeySymbols">above</a>)
+        for the debounced key. This value must <strong>never</strong>
+        be <a href="http://wolverine.caltech.edu/eecs52/projects/armvoip/swispec.htm#KEY_ILLEGAL">KEY_ILLEGAL</a>. The function
+        does <strong>not</strong> return until it has a valid
+        key. </dd>
+</dl>
+
+<h2>Display </h2>
+
+<h4>Symbols </h4>
+
+<table border="0" cellpadding="4" colpadding="4">
+    <tbody><tr>
+        <td valign="top"><a name="StatusSymbols">STATUS_IDLE</a></td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">current status (for display) is <i>Idle</i></td>
+    </tr>
+    <tr>
+        <td valign="top">STATUS_OFFHOOK</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">current status (for display) is <i>Off
+        Hook</i></td>
+    </tr>
+    <tr>
+        <td valign="top">STATUS_RINGING</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">current status (for display) is <em>Ringing</em></td>
+    </tr>
+    <tr>
+        <td valign="top">STATUS_CONNECTING</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">current status (for display) is <i>Connecting</i></td>
+    </tr>
+    <tr>
+        <td valign="top">STATUS_CONNECTED</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">current status (for display) is <i>Connected</i></td>
+    </tr>
+    <tr>
+        <td valign="top">STATUS_SET_IP</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">current status (for display) is <i>Set
+        IP</i></td>
+    </tr>
+    <tr>
+        <td valign="top">STATUS_SET_SUBNET</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">current status (for display) is <i>Set
+        Subnet</i></td>
+    </tr>
+    <tr>
+        <td valign="top">STATUS_SET_GATEWAY</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">current status (for display) is <i>Set
+        Gateway</i></td>
+    </tr>
+    <tr>
+        <td valign="top">STATUS_MEM_SAVE</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">current status (for display) is <i>Memory
+        Save</i></td>
+    </tr>
+    <tr>
+        <td valign="top">STATUS_MEM_RECALL</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">current status (for display) is <i>Memory
+        Recall</i></td>
+    </tr>
+    <tr>
+        <td valign="top">STATUS_RECALLED</td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">current status is a memory address was
+        just recalled, otherwise status is like <i>Idle</i></td>
+    </tr>
+    <tr>
+        <td valign="top"><a name="STATUS_ILLEGAL">STATUS_ILLEGAL</a></td>
+        <td valign="top">&nbsp;</td>
+        <td valign="top">illegal status, different from any valid
+        status</td>
+    </tr>
+</tbody></table>
+
+<h4>Data </h4>
+
+<dl>
+    <dt>None </dt>
+</dl>
+
+<h4>Functions </h4>
+
+<dl>
+    <dt>void display_IP(unsigned long int) </dt>
+    <dd>Displays the passed IP address on the LCD/LED display.
+        The passed IP address is in binary.</dd>
+    <dt>void display_memory_addr(unsigned int) </dt>
+    <dd>Displays the passed memory address on the LCD/LED
+        display. The passed memory address is in binary and will
+        range from 1 to <a href="http://wolverine.caltech.edu/eecs52/projects/armvoip/swispec.htm#MEMORYSIZE">MEMORY_SIZE</a>. </dd>
+    <dt>void display_status(unsigned int) </dt>
+    <dd>Displays the passed status (as described <a href="http://wolverine.caltech.edu/eecs52/projects/armvoip/swispec.htm#StatusSymbols">above</a>) on the LCD/LED display.
+        Note that some status values may also cause tones or
+        other sounds to be output. The passed status will <strong>never</strong>
+        be <a href="http://wolverine.caltech.edu/eecs52/projects/armvoip/swispec.htm#STATUS_ILLEGAL">STATUS_ILLEGAL</a>.</dd>
+</dl>
+
+<h2>Audio Circuitry </h2>
+
+<h4>Symbols </h4>
+
+<table border="0" cellpadding="4" colpadding="4">
+    <tbody><tr>
+        <td valign="top"><a name="AUDIOBUFLEN">AUDIO_BUFLEN</a></td>
+        <td>&nbsp;</td>
+        <td>length of each audio buffer<br>
+        This symbol specifies the size of the buffers used for
+        audio input and output.</td>
+    </tr>
+</tbody></table>
+
+<h4>Data </h4>
+
+<dl>
+    <dt>None </dt>
+</dl>
+
+<h4>Functions </h4>
+
+<dl>
+    <dt>void call_start(short int *) </dt>
+    <dd>Begins recording the microphone data into the passed
+        buffer (of length <a href="http://wolverine.caltech.edu/eecs52/projects/armvoip/swispec.htm#AUDIOBUFLEN">AUDIO_BUFLEN</a>).
+        The first argument points to the first buffer in DRAM to
+        be filled with data. Note that the actual storing of data
+        is done under interrupt control and this function should
+        return immediately after setting up for the call. After
+        this function is called and the call has begun all future
+        buffers for audio data will be supplied using the <a href="http://wolverine.caltech.edu/eecs52/projects/armvoip/swispec.htm#updateRX">update_rx</a> and <a href="http://wolverine.caltech.edu/eecs52/projects/armvoip/swispec.htm#updateTX">update_tx</a>
+        functions. Note that an initial output buffer is not
+        passed (the call has just started so there isn't one as
+        yet).</dd>
+    <dt>void call_halt(void) </dt>
+    <dd>Immediately halts audio transmitting and receiving for
+        the call.</dd>
+    <dt>unsigned char <a name="updateRX">update_rx</a>(short int
+        *) </dt>
+    <dd>Returns TRUE (non-zero) if an update was needed and the
+        passed pointer was used (meaning the pointer was stored
+        and the buffer will be recorded into by the user's code).
+        FALSE (zero) should be returned if the audio input
+        routines have not finished filling either of the buffers
+        they already have. The passed pointer indicates the next
+        buffer (of length <a href="http://wolverine.caltech.edu/eecs52/projects/armvoip/swispec.htm#AUDIOBUFLEN">AUDIO_BUFLEN</a>)
+        to be filled. If TRUE is returned another buffer will be
+        allocated for recording and its address will be passed to
+        update_rx the next time it is called. If FALSE is
+        returned then the software assumes the buffer was not
+        used and will pass the same buffer pointer on the next
+        call to update_rx. The supplied software also assumes
+        that the data is double buffered. That is, it assumes the
+        user code has two buffer pointers stored, the one
+        currently being recorded to and the next one to be
+        recorded to.</dd>
+    <dt>unsigned char <a name="updateTX">update_tx</a>(short int
+        *) </dt>
+    <dd>Returns TRUE (non-zero) if an update was needed and the
+        passed pointer was used (meaning the pointer was stored
+        and the buffer data will be played by the user's code).
+        FALSE (zero) should be returned if the audio output
+        routines are not ready for more data. The passed pointer
+        indicates the next buffer (of length <a href="http://wolverine.caltech.edu/eecs52/projects/armvoip/swispec.htm#AUDIOBUFLEN">AUDIO_BUFLEN</a>) to be played. When
+        TRUE is returned another buffer will be retrieved from
+        DRAM (where it was put by the networking routines) for
+        the next call to update_tx. If FALSE is returned then the
+        software assumes the buffer was not used and will pass
+        the same buffer pointer on the next call to update_tx.
+        The supplied software also assumes that the data is
+        double buffered. That is, it assumes the user code has
+        two buffer pointers stored, the one currently being
+        played from and the next one to be played from.</dd>
+</dl>
+
+<h2>Ethernet</h2>
+
+<h4>Symbols</h4>
+
+<p>None</p>
+
+<h4>Data </h4>
+
+<dl>
+    <dt>None </dt>
+</dl>
+
+<h4>Functions </h4>
+
+<dl>
+    <dt>char ether_init()</dt>
+    <dd>Initializes the ethernet interface. This function does
+        all of the low-level initialization for the ethernet
+        interface. After it returns the ethernet interface is
+        ready for use. The function returns TRUE (non-zero) if
+        there is no error initializing the interface and FALSE
+        (zero) if there is an error.</dd>
+    <dt>char ether_transmit(struct pbuf *)</dt>
+    <dd>Transmits the packet pointed to by the passed pbuf chain
+        over the ethernet interface. The argument points to the
+        first pbuf in the chain. Note that there could be more
+        than one pbuf in the chain. The function returns TRUE
+        (non-zero) if there is no error and FALSE (zero) if there
+        is an error.</dd>
+    <dt>char ether_rx_available()</dt>
+    <dd>Returns TRUE (non-zero) if there is received ethernet
+        data available and FALSE (zero) otherwise.</dd>
+    <dt>struct pbuf *ether_receive()</dt>
+    <dd>Returns a pointer to the start of a pbuf chain containing
+        a received internet packet. If there is no ethernet data
+        currently available, the function returns NULL. If there
+        is data available a chain of pbuf buffers is filled with
+        the received data. Note that the function pbuf_alloc must
+        be called in this function in order to get a pbuf chain
+        for storing the data.</dd>
+</dl>
+
+<hr>
+
+<address>
+    Last updated <!--webbot bot="Timestamp" s-type="EDITED"
+    s-format="%B %d, %Y" startspan -->February 03, 2016<!--webbot
+    bot="Timestamp" endspan i-checksum="41530" --> by <a href="mailto:glen@caltech.edu">glen@caltech.edu</a> 
+</address>
+
+<p>copyright � 2006 - 2016, <a href="mailto:glen@caltech.edu">Glen
+George</a>. All rights reserved. Reproduction of all or part of
+this work is permitted for educational or research use only,
+provided that this copyright notice is included in any copy.</p>
+
+
+</body></html>

@@ -142,23 +142,47 @@ LDR r1,=0x20160005
 STR r1, [r0]
 
 @Configure MCK
-LSR 0xFFFFFC30, =0x00000006     @MDIV = 00, PRES = 001, CSS = 10
+LDR r0, =0xFFFFFC30
+LDR r1, =0x00000006
+STR r1, [r0] @MDIV = 00, PRES = 001, CSS = 10
 
 @Configure Peripheral clock
 
-LSR 0xFFFFFC10, =0x00000008
+LDR r0, =0xFFFFFC10
+LDR r1, =0x00000008
+STR r1, [r0]
+
 @Configure PCK0
-LSR 0xFFFFFC40, =0x00000006
-LSR 0xFFFFF670, =0x08000000
-LSR 0xFFFFF610, =0x08000000
-LSR 0xFFFFF604, =0x08000000
+
+LDR r0, =0xFFFFFC40
+LDR r1, =0x00000006
+STR r1, [r0]
+
+LDR r0, =0xFFFFF670
+LDR r1, =0x08000000
+STR r1, [r0]
+
+LDR r0, =0xFFFFF610
+LSR r1, =0x08000000
+STR r1, [r0]
+
+LDR r0, =0xFFFFF604
+LDR r1, =0x08000000
+STR r1, [r0]
 ;Enable PCK0 output
 LSR 0xFFFFFC00, =0x00000100
 
 
 @@@ CS Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+@Setup SRAM
+SetHReg SMC_CSR1, SMC_CSR1VAL
 
+@Setup DRAM
+SetHReg SMC_CSR2, SMC_CSR2VAL
+
+@Setup ROM
+SetHReg SMC_CSR7, SMC_CSR7VAL
 
 @@@ Future Code for Copying Code from External ROM -> External SRAM @@@@@@@@@@@@
 

@@ -23,12 +23,9 @@
 ;
 ; InitSerial
 ;
-; Description: Initializes the serial chip to a set of known values, and
-; 			 initializes the queues at TX and RX.
+; Description: 
 ;
-; Operational Description: Initializes queues at TX and RX by calling InitQueue
-; 						 for both of them. Sends control register data to serial
-; 						 chip to initialize with default baud rate and parity.
+; Operational Description: 
 ;
 ; Arguments: none
 ;
@@ -36,7 +33,7 @@
 ;
 ; Local variables: none
 ;
-; Shared variables: serial(DS)[W] - serial is initialized.			  
+; Shared variables: 			  
 ;
 ; Global Variables: none
 ;
@@ -60,7 +57,7 @@
 ;
 ; Revision History:
 ; Name             Comment              Date
-; Will Werst        Initial version     11/14/2016
+; Will Werst        Initial version     5/26/2017
 ;
 Pseudocode
 	
