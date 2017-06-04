@@ -31,6 +31,7 @@
 .include    "at91rm9200.inc"
 .include    "system.inc"
 .include    "macro.inc"
+.include    "boot.inc"
 
 
 .text
@@ -163,26 +164,27 @@ LDR r1, =0x08000000
 STR r1, [r0]
 
 LDR r0, =0xFFFFF610
-LSR r1, =0x08000000
+LDR r1, =0x08000000
 STR r1, [r0]
 
 LDR r0, =0xFFFFF604
 LDR r1, =0x08000000
 STR r1, [r0]
-;Enable PCK0 output
-LSR 0xFFFFFC00, =0x00000100
+
+@Enable PCK0 output
+SetHReg 0xFFFFFC00, 0x00000100
 
 
 @@@ CS Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 @Setup SRAM
-SetHReg SMC_CSR1, SMC_CSR1VAL
+SetHReg SMC_CSR1, SMC_CSR1_VAL
 
 @Setup DRAM
-SetHReg SMC_CSR2, SMC_CSR2VAL
+SetHReg SMC_CSR2, SMC_CSR2_VAL
 
 @Setup ROM
-SetHReg SMC_CSR7, SMC_CSR7VAL
+SetHReg SMC_CSR7, SMC_CSR7_VAL
 
 @@@ Future Code for Copying Code from External ROM -> External SRAM @@@@@@@@@@@@
 

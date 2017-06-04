@@ -82,8 +82,8 @@ endif
 
 SYSINC = -I$(SYSDIR)
 
-CSINC  = -I"C:\Users\will\GitReps\EE52\Code\mgc\arm-none-eabi\include" \
-	 -L"C:\Users\will\GitReps\EE52\Code\mgc\arm-none-eabi\lib"
+CSINC  = -I"C:\mgc\arm-none-eabi\include" \
+	 -L"C:\mgc\arm-none-eabi\lib"
 
 # take care of whether LwIP code should be included or not
 ifdef  NO_LWIP
@@ -185,7 +185,7 @@ vpath %.o $(OBJDIR)
 
 armvoip: .depend $(SYSOBJS) $(LWIPOBJS) $(VOIPOBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -v -Tldscript \
-		-L"C:\Users\will\GitReps\EE52\Code\mgc\lib\gcc\arm-none-eabi\4.6.1" \
+		-L"C:\mgc\lib\gcc\arm-none-eabi\4.6.1" \
 		-Wl,-Map=armvoip.map -lgcc -nostartfiles -o armvoip.elf \
 		$(addprefix $(OBJDIR)/,$(SYSOBJS)) \
 		$(addprefix $(OBJDIR)/,$(LWIPOBJS)) \
@@ -198,7 +198,7 @@ armvoip: .depend $(SYSOBJS) $(LWIPOBJS) $(VOIPOBJS)
 
 armstart: $(BOOTOBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -Ttext 0x0 \
-		-L"C:\Users\will\GitReps\EE52\Code\mgc\arm-none-eabi" \
+		-L"C:\mgc\arm-none-eabi" \
 		-lgcc -nostartfiles -o armstart.elf \
 		$(addprefix $(OBJDIR)/,$(BOOTOBJS))
 	$(OBJDUMP) -d armstart.elf > armstart.txt
