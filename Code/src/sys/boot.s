@@ -40,7 +40,7 @@
 
 @@@ Exception Vectors @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @
-@ Start of the IRQ vector table.  This defines the interrupt hander for each
+@ Start of the IRQ vector table.  This defines the interrupt handler for each
 @ type of interrupt.  Must be at the memory address 0x0 (remapped at boot).
 @
 @ Exception 	            Description
@@ -138,6 +138,8 @@ _start:
 
 @@@ Clock Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @Configure PLLA for DIVA = 5, MULA = 22
+Set_HReg 
+
 LDR r0,=0xFFFFFC28
 LDR r1,=0x20160005
 STR r1, [r0]
