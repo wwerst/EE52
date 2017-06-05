@@ -11,7 +11,7 @@
 @                                  to distribute to students                 @
 @   2011/02/13  Glen George     Cleaned up commenting, removed definitions   @
 @                                  not related to the AT91RM9200 chip.       @
-@                                                                            @
+@   2017/06/04  Will Werst      Added PCK0                                   @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -49,9 +49,11 @@
 
     .equ    PIOA_PER,       PIOABase            @ PIO Enable
     .equ    PIOA_PDR,       PIOABase + 0x4      @ PIO Disable
+    .equ    PIOA_OER,       PIOABase + 0x10     @ PIO Output Enable
     .equ    PIOA_PDSR,      PIOABase + 0x3C     @ Pin Data Status
     .equ    PIOA_IMR,       PIOABase + 0x8      @ IRQ Status
     .equ    PIOA_ASR,       PIOABase + 0x70     @ PIO Peripheral A Select
+    .equ    PIOA_BSR,       PIOABase + 0x74     @ PIO Peripheral B Select
 
 
 @ Parallel I/O B Definintions
@@ -59,6 +61,7 @@
     .equ    PIOBBase,       0xFFFFF600          @ base address
 
     .equ    PIOB_PDR,       PIOBBase + 0x4      @ PIO Disable
+    .equ    PIOB_OER,       PIOBBase + 0x10     @ PIO Output Enable
     .equ    PIOB_ASR,       PIOBBase + 0x70     @ PIO Peripheral A Select
     .equ    PIOB_BSR,       PIOBBase + 0x74     @ PIO Peripheral B Select
 
@@ -99,6 +102,7 @@
     .equ    PMC_PLLBR,      PMCBase + 0x2C      @ PLL B Control
     .equ    PMC_MCKR,       PMCBase + 0x30      @ Master Clock
     .equ    PMC_PCK0,       PMCBase + 0x40      @ Programmable Clock 0
+    .equ    PMC_PCK1,       PMCBase + 0x44      @ Programmable Clock 1
     .equ    PMC_SR,         PMCBase + 0x68      @ Status Register
 
 

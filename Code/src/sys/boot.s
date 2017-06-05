@@ -137,44 +137,37 @@ _start:
 
 
 @@@ Clock Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@Configure PLLA for DIVA = 5, MULA = 22
-Set_HReg 
+@Configure PLLA for DIVA = 5, MULA = 22 
 
-LDR r0,=0xFFFFFC28
-LDR r1,=0x20160005
-STR r1, [r0]
+SetHReg PMC_PLLAR, PMC_PLLAR_VAL
 
-@Configure MCK
-LDR r0, =0xFFFFFC30
-LDR r1, =0x00000006
-STR r1, [r0] @MDIV = 00, PRES = 001, CSS = 10
+@Configure MCK @MDIV = 00, PRES = 001, CSS = 10
+SetHReg PMC_MCKR, PMC_MCKR_VAL
 
 @Configure Peripheral clock
 
-LDR r0, =0xFFFFFC10
-LDR r1, =0x00000008
-STR r1, [r0]
+SetHReg PMC_PCER, PMC_PCER_VAL
 
 @Configure PCK0
+SetHReg PMC_PCK0, PMC_PCK0_VAL
 
-LDR r0, =0xFFFFFC40
-LDR r1, =0x00000006
-STR r1, [r0]
+@Configure PCK1
+SetHReg PMC_PCK1, PMC_PCK1_VAL
 
-LDR r0, =0xFFFFF670
-LDR r1, =0x08000000
-STR r1, [r0]
+@Configure PIOA
+SetHReg PIOA_BSR, PIOA_BSR_VAL
+SetHReg PIOA_OER, PIOA_OER_VAL
+SetHReg PIOA_PDR, PIOA_PDR_VAL
 
-LDR r0, =0xFFFFF610
-LDR r1, =0x08000000
-STR r1, [r0]
+@Configure PIOB
+SetHReg PIOB_ASR, PIOB_ASR_VAL
+SetHReg PIOB_OER, PIOB_OER_VAL
+SetHReg PIOB_PDR, PIOB_PDR_VAL
 
-LDR r0, =0xFFFFF604
-LDR r1, =0x08000000
-STR r1, [r0]
 
-@Enable PCK0 output
-SetHReg 0xFFFFFC00, 0x00000100
+
+@Enable PCK0, PCK1 output
+SetHReg 0xFFFFFC00, 0x00000300
 
 
 @@@ CS Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -194,6 +187,8 @@ SetHReg SMC_CSR7, SMC_CSR7_VAL
   
 @@@ Branch to the Main Body of Code Now Located in the External SRAM @@@@@@@@@@@
 
+InfiniteLoop:
+    B InfiniteLoop
     @BL      low_level_init
 
 BootEndLoop:

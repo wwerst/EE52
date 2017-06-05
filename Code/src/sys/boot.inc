@@ -38,7 +38,20 @@
 @@@@@ PMC Definitions
 
 
-	@ PLLA
-	@
+	.equ PMC_PLLAR_VAL, 0x20160005
+    .equ PMC_MCKR_VAL,  0x00000006
+    .equ PMC_PCER_VAL,  0x0000000C  @Enable PIOA, PIOB
+    .equ PMC_PCK0_VAL,  0x00000006
+    .equ PMC_PCK1_VAL,  0x00000019  @MCK source, Pre-scale by 64
 	
-	
+@@@@@ PIOA Definitions
+
+    .equ PIOA_BSR_VAL,  0x01000000
+    .equ PIOA_OER_VAL,  0x01000000
+    .equ PIOA_PDR_VAL,  0x01000000
+    
+@@@@@ PIOB Definitions
+
+    .equ PIOB_ASR_VAL,  0x08000000
+    .equ PIOB_OER_VAL,  0x08000000
+    .equ PIOB_PDR_VAL,  0x08000000
