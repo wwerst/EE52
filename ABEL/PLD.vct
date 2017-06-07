@@ -1,0 +1,54 @@
+
+[Device]
+Family = plsi1K;
+PartNumber = ispLSI1016E-100LJ44;
+Package = 44PLCC;
+PartType = ispLSI1016E;
+Speed = 100;
+Operating_condition = COM;
+
+[Revision]
+Parent = plsi1k.vci;
+Design = ;
+DATE = 1999;
+TIME = 0:00:00;
+
+[IGNORE ASSIGNMENTS]
+
+[CLEAR ASSIGNMENTS]
+
+[BACKANNOTATE ASSIGNMENTS]
+
+[GLOBAL PROJECT OPTIMIZATION]
+
+[OPTIMIZATION OPTIONS]
+
+[FITTER GLOBAL OPTIONS]
+
+[LOCATION ASSIGNMENT]
+layer = OFF;
+
+[GROUP ASSIGNMENT]
+layer = OFF;
+
+[SPACE RESERVATIONS]
+layer = OFF;
+
+[PIN RESERVATIONS]
+layer = OFF;
+
+[FITTER REPORT FORMAT]
+
+[POWER]
+
+[SOURCE CONSTRAINT OPTION]
+
+[HARDWARE DEVICE OPTIONS]
+
+[PULL]
+
+[OPENDRAIN]
+
+[Timing Analyzer]
+
+[Backannotate Netlist]

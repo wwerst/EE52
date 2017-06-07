@@ -32,8 +32,8 @@
 	@ RWHOLD,RWSETUP 	0x00------
 	@ ACSS				0x--00----
 	@ 8 bit				0x----43--
-	@ 6 Wait state		0x------86
-    .equ SMC_CSR7_VAL, 	0x00004386
+	@ 7 Wait state		0x------85
+    .equ SMC_CSR7_VAL, 	0x00004385
 	
 @@@@@ PMC Definitions
 
