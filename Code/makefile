@@ -197,7 +197,7 @@ armvoip: .depend $(SYSOBJS) $(LWIPOBJS) $(VOIPOBJS)
 
 
 armstart: $(BOOTOBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -Ttext 0x200000 \
+	$(CC) $(CFLAGS) $(INCLUDES) -Ttext 0x000000 \
 		-L"C:\mgc\arm-none-eabi" \
 		-lgcc -nostartfiles -o armstart.elf \
 		$(addprefix $(OBJDIR)/,$(BOOTOBJS))

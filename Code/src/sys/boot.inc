@@ -32,14 +32,14 @@
 	@ RWHOLD,RWSETUP 	0x00------
 	@ ACSS				0x--00----
 	@ 8 bit				0x----43--
-	@ 7 Wait state		0x------85
-    .equ SMC_CSR7_VAL, 	0x00004385
+	@ 6 Wait state		0x------86
+    .equ SMC_CSR7_VAL, 	0x00004386
 	
 @@@@@ PMC Definitions
 
 
-	.equ PMC_PLLAR_VAL, 0x20160005
-    .equ PMC_MCKR_VAL,  0x00000006
+	.equ PMC_PLLAR_VAL, 0x20153F05  @ MULA = 21 + 1, DIVA = 5, PLLACOUNT =63, OUTA = 00
+    .equ PMC_MCKR_VAL,  0x00000012
     .equ PMC_PCER_VAL,  0x0000000C  @Enable PIOA, PIOB
     .equ PMC_PCK0_VAL,  0x00000006
     .equ PMC_PCK1_VAL,  0x00000019  @MCK source, Pre-scale by 64

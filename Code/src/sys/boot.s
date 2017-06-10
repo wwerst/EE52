@@ -107,7 +107,7 @@ IRQTable:
     data:
         B   data
     btldr:
-		.word 0x00000000
+		.word 0x00000008
     irq:
         LDR PC, [PC, #-0xF20]
     fiq:
@@ -132,63 +132,72 @@ _start:
 @
 @   - Set up the chip selects for SRAM/ROM
 @
-@   - As you write other functions/code for the various hardware blocks, you
-@     will need to initialize them here as well.
 
 
 @@@ Clock Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@Configure PLLA for DIVA = 5, MULA = 22 
+    @Configure PLLA for DIVA = 5, MULA = 22 
 
-SetHReg PMC_PLLAR, PMC_PLLAR_VAL
+    SetHReg PMC_PLLAR, PMC_PLLAR_VAL
+    
+    @Configure MCK @MDIV = 00, PRES = 001, CSS = 10
+    @First, need to change one value at a time, so change CSS first
+    LDR r0, =PMC_MCKR                   @Load PMC_MCKR address
+    LDR r1, [r0]                        @Load current PMC_MCKR value
+    AND r1, r1, #0xFFFFFFFC             @Mask out CSS bits
+    LDR r0, =(PMC_MCKR_VAL & 0x03)      @Load the CSS component of final MCKR value
+    ORR r1, r0                           @Merge current PRES value with new CSS
+    LDR r0, =PMC_MCKR                   @Load PMC_MCKR address
+    STR r1, [r0]                        @Store intermediate value in MCKR
+WaitMCKRDY:
+    LDR r0, =PMC_SR
+    LDR r1, [r0]
+    TST r1, #0x8
+    BEQ WaitMCKRDY
+    
+    SetHReg PMC_MCKR, PMC_MCKR_VAL
+    @Configure Peripheral clock
 
-@Configure MCK @MDIV = 00, PRES = 001, CSS = 10
-SetHReg PMC_MCKR, PMC_MCKR_VAL
+    SetHReg PMC_PCER, PMC_PCER_VAL
 
-@Configure Peripheral clock
+    @Configure PCK0
+    SetHReg PMC_PCK0, PMC_PCK0_VAL
 
-SetHReg PMC_PCER, PMC_PCER_VAL
+    @Configure PCK1
+    SetHReg PMC_PCK1, PMC_PCK1_VAL
 
-@Configure PCK0
-SetHReg PMC_PCK0, PMC_PCK0_VAL
+    @Configure PIOA
+    SetHReg PIOA_BSR, PIOA_BSR_VAL
+    SetHReg PIOA_OER, PIOA_OER_VAL
+    SetHReg PIOA_PDR, PIOA_PDR_VAL
 
-@Configure PCK1
-SetHReg PMC_PCK1, PMC_PCK1_VAL
-
-@Configure PIOA
-SetHReg PIOA_BSR, PIOA_BSR_VAL
-SetHReg PIOA_OER, PIOA_OER_VAL
-SetHReg PIOA_PDR, PIOA_PDR_VAL
-
-@Configure PIOB
-SetHReg PIOB_ASR, PIOB_ASR_VAL
-SetHReg PIOB_OER, PIOB_OER_VAL
-SetHReg PIOB_PDR, PIOB_PDR_VAL
+    @Configure PIOB
+    SetHReg PIOB_ASR, PIOB_ASR_VAL
+    SetHReg PIOB_OER, PIOB_OER_VAL
+    SetHReg PIOB_PDR, PIOB_PDR_VAL
 
 
 
-@Enable PCK0, PCK1 output
-SetHReg 0xFFFFFC00, 0x00000300
+    @Enable PCK0, PCK1 output
+    SetHReg 0xFFFFFC00, 0x00000300
 
 
-@@@ CS Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @@@ CS Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-@Setup SRAM
-SetHReg SMC_CSR1, SMC_CSR1_VAL
+    @Setup SRAM
+    SetHReg SMC_CSR1, SMC_CSR1_VAL
 
-@Setup DRAM
-SetHReg SMC_CSR2, SMC_CSR2_VAL
+    @Setup DRAM
+    SetHReg SMC_CSR2, SMC_CSR2_VAL
 
-@Setup ROM
-SetHReg SMC_CSR7, SMC_CSR7_VAL
+    @Setup ROM
+    SetHReg SMC_CSR7, SMC_CSR7_VAL
 
-@@@ Future Code for Copying Code from External ROM -> External SRAM @@@@@@@@@@@@
+    @@@ Future Code for Copying Code from External ROM -> External SRAM @@@@@@@@@@@@
 
 
   
-@@@ Branch to the Main Body of Code Now Located in the External SRAM @@@@@@@@@@@
+    @@@ Branch to the Main Body of Code Now Located in the External SRAM @@@@@@@@@@@
 
-InfiniteLoop:
-    B InfiniteLoop
     @BL      low_level_init
 
 BootEndLoop:

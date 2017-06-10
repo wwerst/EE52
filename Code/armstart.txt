@@ -4,95 +4,106 @@ armstart.elf:     file format elf32-littlearm
 
 Disassembly of section .text:
 
-00200000 <IRQTable>:
-  200000:	ea000006 	b	200020 <_start>
+00000000 <IRQTable>:
+   0:	ea000006 	b	20 <_start>
 
-00200004 <undef>:
-  200004:	eafffffe 	b	200004 <undef>
+00000004 <undef>:
+   4:	eafffffe 	b	4 <undef>
 
-00200008 <swi>:
-  200008:	eafffffe 	b	200008 <swi>
+00000008 <swi>:
+   8:	eafffffe 	b	8 <swi>
 
-0020000c <prefetch>:
-  20000c:	eafffffe 	b	20000c <prefetch>
+0000000c <prefetch>:
+   c:	eafffffe 	b	c <prefetch>
 
-00200010 <data>:
-  200010:	eafffffe 	b	200010 <data>
+00000010 <data>:
+  10:	eafffffe 	b	10 <data>
 
-00200014 <btldr>:
-  200014:	00000000 	.word	0x00000000
+00000014 <btldr>:
+  14:	00000008 	.word	0x00000008
 
-00200018 <irq>:
-  200018:	e51fff20 	ldr	pc, [pc, #-3872]	; 1ff100 <_stack+0x17f100>
+00000018 <irq>:
+  18:	e51fff20 	ldr	pc, [pc, #-3872]	; fffff100 <AIC_SVR26+0x18>
 
-0020001c <fiq>:
-  20001c:	eafffffe 	b	20001c <fiq>
+0000001c <fiq>:
+  1c:	eafffffe 	b	1c <fiq>
 
-00200020 <_start>:
-  200020:	e59f00b4 	ldr	r0, [pc, #180]	; 2000dc <BootEndLoop+0x4>
-  200024:	e59f10b4 	ldr	r1, [pc, #180]	; 2000e0 <BootEndLoop+0x8>
-  200028:	e5801000 	str	r1, [r0]
-  20002c:	e59f00b0 	ldr	r0, [pc, #176]	; 2000e4 <BootEndLoop+0xc>
-  200030:	e3a01006 	mov	r1, #6
-  200034:	e5801000 	str	r1, [r0]
-  200038:	e59f00a8 	ldr	r0, [pc, #168]	; 2000e8 <BootEndLoop+0x10>
-  20003c:	e3a0100c 	mov	r1, #12
-  200040:	e5801000 	str	r1, [r0]
-  200044:	e59f00a0 	ldr	r0, [pc, #160]	; 2000ec <BootEndLoop+0x14>
-  200048:	e3a01006 	mov	r1, #6
-  20004c:	e5801000 	str	r1, [r0]
-  200050:	e59f0098 	ldr	r0, [pc, #152]	; 2000f0 <BootEndLoop+0x18>
-  200054:	e3a01019 	mov	r1, #25
-  200058:	e5801000 	str	r1, [r0]
-  20005c:	e59f0090 	ldr	r0, [pc, #144]	; 2000f4 <BootEndLoop+0x1c>
-  200060:	e3a01401 	mov	r1, #16777216	; 0x1000000
-  200064:	e5801000 	str	r1, [r0]
-  200068:	e59f0088 	ldr	r0, [pc, #136]	; 2000f8 <BootEndLoop+0x20>
-  20006c:	e3a01401 	mov	r1, #16777216	; 0x1000000
-  200070:	e5801000 	str	r1, [r0]
-  200074:	e59f0080 	ldr	r0, [pc, #128]	; 2000fc <BootEndLoop+0x24>
-  200078:	e3a01401 	mov	r1, #16777216	; 0x1000000
-  20007c:	e5801000 	str	r1, [r0]
-  200080:	e59f0078 	ldr	r0, [pc, #120]	; 200100 <BootEndLoop+0x28>
-  200084:	e3a01302 	mov	r1, #134217728	; 0x8000000
-  200088:	e5801000 	str	r1, [r0]
-  20008c:	e59f0070 	ldr	r0, [pc, #112]	; 200104 <BootEndLoop+0x2c>
-  200090:	e3a01302 	mov	r1, #134217728	; 0x8000000
-  200094:	e5801000 	str	r1, [r0]
-  200098:	e59f0068 	ldr	r0, [pc, #104]	; 200108 <BootEndLoop+0x30>
-  20009c:	e3a01302 	mov	r1, #134217728	; 0x8000000
-  2000a0:	e5801000 	str	r1, [r0]
-  2000a4:	e59f0060 	ldr	r0, [pc, #96]	; 20010c <BootEndLoop+0x34>
-  2000a8:	e3a01c03 	mov	r1, #768	; 0x300
-  2000ac:	e5801000 	str	r1, [r0]
-  2000b0:	e3e0008b 	mvn	r0, #139	; 0x8b
-  2000b4:	e59f1054 	ldr	r1, [pc, #84]	; 200110 <BootEndLoop+0x38>
-  2000b8:	e5801000 	str	r1, [r0]
-  2000bc:	e3e00087 	mvn	r0, #135	; 0x87
-  2000c0:	e59f104c 	ldr	r1, [pc, #76]	; 200114 <BootEndLoop+0x3c>
-  2000c4:	e5801000 	str	r1, [r0]
-  2000c8:	e3e00073 	mvn	r0, #115	; 0x73
-  2000cc:	e59f1044 	ldr	r1, [pc, #68]	; 200118 <BootEndLoop+0x40>
-  2000d0:	e5801000 	str	r1, [r0]
+00000020 <_start>:
+  20:	e59f00dc 	ldr	r0, [pc, #220]	; 104 <BootEndLoop+0x4>
+  24:	e59f10dc 	ldr	r1, [pc, #220]	; 108 <BootEndLoop+0x8>
+  28:	e5801000 	str	r1, [r0]
+  2c:	e59f00d8 	ldr	r0, [pc, #216]	; 10c <BootEndLoop+0xc>
+  30:	e5901000 	ldr	r1, [r0]
+  34:	e3c11003 	bic	r1, r1, #3
+  38:	e3a00002 	mov	r0, #2
+  3c:	e1811000 	orr	r1, r1, r0
+  40:	e59f00c4 	ldr	r0, [pc, #196]	; 10c <BootEndLoop+0xc>
+  44:	e5801000 	str	r1, [r0]
 
-002000d4 <InfiniteLoop>:
-  2000d4:	eafffffe 	b	2000d4 <InfiniteLoop>
+00000048 <WaitMCKRDY>:
+  48:	e59f00c0 	ldr	r0, [pc, #192]	; 110 <BootEndLoop+0x10>
+  4c:	e5901000 	ldr	r1, [r0]
+  50:	e3110008 	tst	r1, #8
+  54:	0afffffb 	beq	48 <WaitMCKRDY>
+  58:	e59f00ac 	ldr	r0, [pc, #172]	; 10c <BootEndLoop+0xc>
+  5c:	e3a01012 	mov	r1, #18
+  60:	e5801000 	str	r1, [r0]
+  64:	e59f00a8 	ldr	r0, [pc, #168]	; 114 <BootEndLoop+0x14>
+  68:	e3a0100c 	mov	r1, #12
+  6c:	e5801000 	str	r1, [r0]
+  70:	e59f00a0 	ldr	r0, [pc, #160]	; 118 <BootEndLoop+0x18>
+  74:	e3a01006 	mov	r1, #6
+  78:	e5801000 	str	r1, [r0]
+  7c:	e59f0098 	ldr	r0, [pc, #152]	; 11c <BootEndLoop+0x1c>
+  80:	e3a01019 	mov	r1, #25
+  84:	e5801000 	str	r1, [r0]
+  88:	e59f0090 	ldr	r0, [pc, #144]	; 120 <BootEndLoop+0x20>
+  8c:	e3a01401 	mov	r1, #16777216	; 0x1000000
+  90:	e5801000 	str	r1, [r0]
+  94:	e59f0088 	ldr	r0, [pc, #136]	; 124 <BootEndLoop+0x24>
+  98:	e3a01401 	mov	r1, #16777216	; 0x1000000
+  9c:	e5801000 	str	r1, [r0]
+  a0:	e59f0080 	ldr	r0, [pc, #128]	; 128 <BootEndLoop+0x28>
+  a4:	e3a01401 	mov	r1, #16777216	; 0x1000000
+  a8:	e5801000 	str	r1, [r0]
+  ac:	e59f0078 	ldr	r0, [pc, #120]	; 12c <BootEndLoop+0x2c>
+  b0:	e3a01302 	mov	r1, #134217728	; 0x8000000
+  b4:	e5801000 	str	r1, [r0]
+  b8:	e59f0070 	ldr	r0, [pc, #112]	; 130 <BootEndLoop+0x30>
+  bc:	e3a01302 	mov	r1, #134217728	; 0x8000000
+  c0:	e5801000 	str	r1, [r0]
+  c4:	e59f0068 	ldr	r0, [pc, #104]	; 134 <BootEndLoop+0x34>
+  c8:	e3a01302 	mov	r1, #134217728	; 0x8000000
+  cc:	e5801000 	str	r1, [r0]
+  d0:	e59f0060 	ldr	r0, [pc, #96]	; 138 <BootEndLoop+0x38>
+  d4:	e3a01c03 	mov	r1, #768	; 0x300
+  d8:	e5801000 	str	r1, [r0]
+  dc:	e3e0008b 	mvn	r0, #139	; 0x8b
+  e0:	e59f1054 	ldr	r1, [pc, #84]	; 13c <BootEndLoop+0x3c>
+  e4:	e5801000 	str	r1, [r0]
+  e8:	e3e00087 	mvn	r0, #135	; 0x87
+  ec:	e59f104c 	ldr	r1, [pc, #76]	; 140 <BootEndLoop+0x40>
+  f0:	e5801000 	str	r1, [r0]
+  f4:	e3e00073 	mvn	r0, #115	; 0x73
+  f8:	e59f1044 	ldr	r1, [pc, #68]	; 144 <BootEndLoop+0x44>
+  fc:	e5801000 	str	r1, [r0]
 
-002000d8 <BootEndLoop>:
-  2000d8:	eafffffe 	b	2000d8 <BootEndLoop>
-  2000dc:	fffffc28 	.word	0xfffffc28
-  2000e0:	20160005 	.word	0x20160005
-  2000e4:	fffffc30 	.word	0xfffffc30
-  2000e8:	fffffc10 	.word	0xfffffc10
-  2000ec:	fffffc40 	.word	0xfffffc40
-  2000f0:	fffffc44 	.word	0xfffffc44
-  2000f4:	fffff474 	.word	0xfffff474
-  2000f8:	fffff410 	.word	0xfffff410
-  2000fc:	fffff404 	.word	0xfffff404
-  200100:	fffff670 	.word	0xfffff670
-  200104:	fffff610 	.word	0xfffff610
-  200108:	fffff604 	.word	0xfffff604
-  20010c:	fffffc00 	.word	0xfffffc00
-  200110:	00003081 	.word	0x00003081
-  200114:	00004083 	.word	0x00004083
-  200118:	00004385 	.word	0x00004385
+00000100 <BootEndLoop>:
+ 100:	eafffffe 	b	100 <BootEndLoop>
+ 104:	fffffc28 	.word	0xfffffc28
+ 108:	20153f05 	.word	0x20153f05
+ 10c:	fffffc30 	.word	0xfffffc30
+ 110:	fffffc68 	.word	0xfffffc68
+ 114:	fffffc10 	.word	0xfffffc10
+ 118:	fffffc40 	.word	0xfffffc40
+ 11c:	fffffc44 	.word	0xfffffc44
+ 120:	fffff474 	.word	0xfffff474
+ 124:	fffff410 	.word	0xfffff410
+ 128:	fffff404 	.word	0xfffff404
+ 12c:	fffff670 	.word	0xfffff670
+ 130:	fffff610 	.word	0xfffff610
+ 134:	fffff604 	.word	0xfffff604
+ 138:	fffffc00 	.word	0xfffffc00
+ 13c:	00003081 	.word	0x00003081
+ 140:	00004083 	.word	0x00004083
+ 144:	00004386 	.word	0x00004386
