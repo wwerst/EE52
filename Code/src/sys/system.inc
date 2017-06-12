@@ -17,10 +17,10 @@
 @ Stack definitions
 
 @ top of the stack, usually the end of the external SRAM
-	.equ	TOP_STACK, 0
+	.equ	TOP_STACK, 0x00203000
    
 @ interrupt stack size (see chapter 13 of the manual)
-        .equ	IRQ_STACK_SIZE, 0
+        .equ	IRQ_STACK_SIZE, 128
 
 @ supervisor mode stack size (see chapter 13 of the manual)
-	.equ	SVC_STACK_SIZE,	0
+	.equ	SVC_STACK_SIZE,	128

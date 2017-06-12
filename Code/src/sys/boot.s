@@ -160,7 +160,7 @@ WaitMCKRDY:
     SetHReg PMC_PCER, PMC_PCER_VAL
 
     @Configure PCK0
-    SetHReg PMC_PCK0, PMC_PCK0_VAL
+    SetHReg PMC_PCK0, PMC_MCKR_VAL
 
     @Configure PCK1
     SetHReg PMC_PCK1, PMC_PCK1_VAL
@@ -198,7 +198,7 @@ WaitMCKRDY:
   
     @@@ Branch to the Main Body of Code Now Located in the External SRAM @@@@@@@@@@@
 
-    @BL      low_level_init
+    BL      low_level_init
 
 BootEndLoop:
     B BootEndLoop    

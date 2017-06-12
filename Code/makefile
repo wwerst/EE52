@@ -157,13 +157,13 @@ endif
 # BOOTOBJS= crt0.o
 
 ifdef TEST_MODE
-SYSOBJS = boot.o
+SYSOBJS = boot.o crt0.o memtest.o
 else
-SYSOBJS  = crt0.o
+SYSOBJS  = crt0.o memtest.o
 # display.o keypad.o system.o audio.o ether.o crt0.o
 endif
 
-BOOTOBJS = boot.o
+BOOTOBJS = boot.o crt0.o memtest.o
 
 
 ### Rules ####################################################################
@@ -197,7 +197,7 @@ armvoip: .depend $(SYSOBJS) $(LWIPOBJS) $(VOIPOBJS)
 
 
 armstart: $(BOOTOBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -Ttext 0x000000 \
+	$(CC) $(CFLAGS) $(INCLUDES) -Ttext 0x200000 \
 		-L"C:\mgc\arm-none-eabi" \
 		-lgcc -nostartfiles -o armstart.elf \
 		$(addprefix $(OBJDIR)/,$(BOOTOBJS))
@@ -241,6 +241,7 @@ include .depend
 #        $(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/audio.o $(SYSDIR)/audio.s
 
 boot.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/boot.inc $(SYSDIR)/macro.inc
+memtest.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc
 crt0.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc  $(SYSDIR)/system.inc $(SYSDIR)/boot.inc 
 keypad.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/keypad.inc
 display.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/display.inc
@@ -252,6 +253,9 @@ system.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/system.inc
 boot.o: $(SYSDIR)/boot.s
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/boot.o $(SYSDIR)/boot.s
 
+memtest.o: $(SYSDIR)/memtest.s
+	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/memtest.o $(SYSDIR)/memtest.s
+    
 crt0.o: $(SYSDIR)/crt0.s
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/crt0.o $(SYSDIR)/crt0.s
 keypad.o: $(SYSDIR)/keypad.s

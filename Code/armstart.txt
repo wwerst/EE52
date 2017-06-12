@@ -4,106 +4,172 @@ armstart.elf:     file format elf32-littlearm
 
 Disassembly of section .text:
 
-00000000 <IRQTable>:
-   0:	ea000006 	b	20 <_start>
+00200000 <IRQTable>:
+  200000:	ea000006 	b	200020 <_start>
 
-00000004 <undef>:
-   4:	eafffffe 	b	4 <undef>
+00200004 <undef>:
+  200004:	eafffffe 	b	200004 <undef>
 
-00000008 <swi>:
-   8:	eafffffe 	b	8 <swi>
+00200008 <swi>:
+  200008:	eafffffe 	b	200008 <swi>
 
-0000000c <prefetch>:
-   c:	eafffffe 	b	c <prefetch>
+0020000c <prefetch>:
+  20000c:	eafffffe 	b	20000c <prefetch>
 
-00000010 <data>:
-  10:	eafffffe 	b	10 <data>
+00200010 <data>:
+  200010:	eafffffe 	b	200010 <data>
 
-00000014 <btldr>:
-  14:	00000008 	.word	0x00000008
+00200014 <btldr>:
+  200014:	00000008 	.word	0x00000008
 
-00000018 <irq>:
-  18:	e51fff20 	ldr	pc, [pc, #-3872]	; fffff100 <AIC_SVR26+0x18>
+00200018 <irq>:
+  200018:	e51fff20 	ldr	pc, [pc, #-3872]	; 1ff100 <_stack+0x17f100>
 
-0000001c <fiq>:
-  1c:	eafffffe 	b	1c <fiq>
+0020001c <fiq>:
+  20001c:	eafffffe 	b	20001c <fiq>
 
-00000020 <_start>:
-  20:	e59f00dc 	ldr	r0, [pc, #220]	; 104 <BootEndLoop+0x4>
-  24:	e59f10dc 	ldr	r1, [pc, #220]	; 108 <BootEndLoop+0x8>
-  28:	e5801000 	str	r1, [r0]
-  2c:	e59f00d8 	ldr	r0, [pc, #216]	; 10c <BootEndLoop+0xc>
-  30:	e5901000 	ldr	r1, [r0]
-  34:	e3c11003 	bic	r1, r1, #3
-  38:	e3a00002 	mov	r0, #2
-  3c:	e1811000 	orr	r1, r1, r0
-  40:	e59f00c4 	ldr	r0, [pc, #196]	; 10c <BootEndLoop+0xc>
-  44:	e5801000 	str	r1, [r0]
+00200020 <_start>:
+  200020:	e59f00e0 	ldr	r0, [pc, #224]	; 200108 <BootEndLoop+0x4>
+  200024:	e59f10e0 	ldr	r1, [pc, #224]	; 20010c <BootEndLoop+0x8>
+  200028:	e5801000 	str	r1, [r0]
+  20002c:	e59f00dc 	ldr	r0, [pc, #220]	; 200110 <BootEndLoop+0xc>
+  200030:	e5901000 	ldr	r1, [r0]
+  200034:	e3c11003 	bic	r1, r1, #3
+  200038:	e3a00002 	mov	r0, #2
+  20003c:	e1811000 	orr	r1, r1, r0
+  200040:	e59f00c8 	ldr	r0, [pc, #200]	; 200110 <BootEndLoop+0xc>
+  200044:	e5801000 	str	r1, [r0]
 
-00000048 <WaitMCKRDY>:
-  48:	e59f00c0 	ldr	r0, [pc, #192]	; 110 <BootEndLoop+0x10>
-  4c:	e5901000 	ldr	r1, [r0]
-  50:	e3110008 	tst	r1, #8
-  54:	0afffffb 	beq	48 <WaitMCKRDY>
-  58:	e59f00ac 	ldr	r0, [pc, #172]	; 10c <BootEndLoop+0xc>
-  5c:	e3a01012 	mov	r1, #18
-  60:	e5801000 	str	r1, [r0]
-  64:	e59f00a8 	ldr	r0, [pc, #168]	; 114 <BootEndLoop+0x14>
-  68:	e3a0100c 	mov	r1, #12
-  6c:	e5801000 	str	r1, [r0]
-  70:	e59f00a0 	ldr	r0, [pc, #160]	; 118 <BootEndLoop+0x18>
-  74:	e3a01006 	mov	r1, #6
-  78:	e5801000 	str	r1, [r0]
-  7c:	e59f0098 	ldr	r0, [pc, #152]	; 11c <BootEndLoop+0x1c>
-  80:	e3a01019 	mov	r1, #25
-  84:	e5801000 	str	r1, [r0]
-  88:	e59f0090 	ldr	r0, [pc, #144]	; 120 <BootEndLoop+0x20>
-  8c:	e3a01401 	mov	r1, #16777216	; 0x1000000
-  90:	e5801000 	str	r1, [r0]
-  94:	e59f0088 	ldr	r0, [pc, #136]	; 124 <BootEndLoop+0x24>
-  98:	e3a01401 	mov	r1, #16777216	; 0x1000000
-  9c:	e5801000 	str	r1, [r0]
-  a0:	e59f0080 	ldr	r0, [pc, #128]	; 128 <BootEndLoop+0x28>
-  a4:	e3a01401 	mov	r1, #16777216	; 0x1000000
-  a8:	e5801000 	str	r1, [r0]
-  ac:	e59f0078 	ldr	r0, [pc, #120]	; 12c <BootEndLoop+0x2c>
-  b0:	e3a01302 	mov	r1, #134217728	; 0x8000000
-  b4:	e5801000 	str	r1, [r0]
-  b8:	e59f0070 	ldr	r0, [pc, #112]	; 130 <BootEndLoop+0x30>
-  bc:	e3a01302 	mov	r1, #134217728	; 0x8000000
-  c0:	e5801000 	str	r1, [r0]
-  c4:	e59f0068 	ldr	r0, [pc, #104]	; 134 <BootEndLoop+0x34>
-  c8:	e3a01302 	mov	r1, #134217728	; 0x8000000
-  cc:	e5801000 	str	r1, [r0]
-  d0:	e59f0060 	ldr	r0, [pc, #96]	; 138 <BootEndLoop+0x38>
-  d4:	e3a01c03 	mov	r1, #768	; 0x300
-  d8:	e5801000 	str	r1, [r0]
-  dc:	e3e0008b 	mvn	r0, #139	; 0x8b
-  e0:	e59f1054 	ldr	r1, [pc, #84]	; 13c <BootEndLoop+0x3c>
-  e4:	e5801000 	str	r1, [r0]
-  e8:	e3e00087 	mvn	r0, #135	; 0x87
-  ec:	e59f104c 	ldr	r1, [pc, #76]	; 140 <BootEndLoop+0x40>
-  f0:	e5801000 	str	r1, [r0]
-  f4:	e3e00073 	mvn	r0, #115	; 0x73
-  f8:	e59f1044 	ldr	r1, [pc, #68]	; 144 <BootEndLoop+0x44>
-  fc:	e5801000 	str	r1, [r0]
+00200048 <WaitMCKRDY>:
+  200048:	e59f00c4 	ldr	r0, [pc, #196]	; 200114 <BootEndLoop+0x10>
+  20004c:	e5901000 	ldr	r1, [r0]
+  200050:	e3110008 	tst	r1, #8
+  200054:	0afffffb 	beq	200048 <WaitMCKRDY>
+  200058:	e59f00b0 	ldr	r0, [pc, #176]	; 200110 <BootEndLoop+0xc>
+  20005c:	e3a01012 	mov	r1, #18
+  200060:	e5801000 	str	r1, [r0]
+  200064:	e59f00ac 	ldr	r0, [pc, #172]	; 200118 <BootEndLoop+0x14>
+  200068:	e3a0100c 	mov	r1, #12
+  20006c:	e5801000 	str	r1, [r0]
+  200070:	e59f00a4 	ldr	r0, [pc, #164]	; 20011c <BootEndLoop+0x18>
+  200074:	e3a01012 	mov	r1, #18
+  200078:	e5801000 	str	r1, [r0]
+  20007c:	e59f009c 	ldr	r0, [pc, #156]	; 200120 <BootEndLoop+0x1c>
+  200080:	e3a01019 	mov	r1, #25
+  200084:	e5801000 	str	r1, [r0]
+  200088:	e59f0094 	ldr	r0, [pc, #148]	; 200124 <BootEndLoop+0x20>
+  20008c:	e3a01401 	mov	r1, #16777216	; 0x1000000
+  200090:	e5801000 	str	r1, [r0]
+  200094:	e59f008c 	ldr	r0, [pc, #140]	; 200128 <BootEndLoop+0x24>
+  200098:	e3a01401 	mov	r1, #16777216	; 0x1000000
+  20009c:	e5801000 	str	r1, [r0]
+  2000a0:	e59f0084 	ldr	r0, [pc, #132]	; 20012c <BootEndLoop+0x28>
+  2000a4:	e3a01401 	mov	r1, #16777216	; 0x1000000
+  2000a8:	e5801000 	str	r1, [r0]
+  2000ac:	e59f007c 	ldr	r0, [pc, #124]	; 200130 <BootEndLoop+0x2c>
+  2000b0:	e3a01302 	mov	r1, #134217728	; 0x8000000
+  2000b4:	e5801000 	str	r1, [r0]
+  2000b8:	e59f0074 	ldr	r0, [pc, #116]	; 200134 <BootEndLoop+0x30>
+  2000bc:	e3a01302 	mov	r1, #134217728	; 0x8000000
+  2000c0:	e5801000 	str	r1, [r0]
+  2000c4:	e59f006c 	ldr	r0, [pc, #108]	; 200138 <BootEndLoop+0x34>
+  2000c8:	e3a01302 	mov	r1, #134217728	; 0x8000000
+  2000cc:	e5801000 	str	r1, [r0]
+  2000d0:	e59f0064 	ldr	r0, [pc, #100]	; 20013c <BootEndLoop+0x38>
+  2000d4:	e3a01c03 	mov	r1, #768	; 0x300
+  2000d8:	e5801000 	str	r1, [r0]
+  2000dc:	e3e0008b 	mvn	r0, #139	; 0x8b
+  2000e0:	e59f1058 	ldr	r1, [pc, #88]	; 200140 <BootEndLoop+0x3c>
+  2000e4:	e5801000 	str	r1, [r0]
+  2000e8:	e3e00087 	mvn	r0, #135	; 0x87
+  2000ec:	e59f1050 	ldr	r1, [pc, #80]	; 200144 <BootEndLoop+0x40>
+  2000f0:	e5801000 	str	r1, [r0]
+  2000f4:	e3e00073 	mvn	r0, #115	; 0x73
+  2000f8:	e59f1048 	ldr	r1, [pc, #72]	; 200148 <BootEndLoop+0x44>
+  2000fc:	e5801000 	str	r1, [r0]
+  200100:	eb000011 	bl	20014c <low_level_init>
 
-00000100 <BootEndLoop>:
- 100:	eafffffe 	b	100 <BootEndLoop>
- 104:	fffffc28 	.word	0xfffffc28
- 108:	20153f05 	.word	0x20153f05
- 10c:	fffffc30 	.word	0xfffffc30
- 110:	fffffc68 	.word	0xfffffc68
- 114:	fffffc10 	.word	0xfffffc10
- 118:	fffffc40 	.word	0xfffffc40
- 11c:	fffffc44 	.word	0xfffffc44
- 120:	fffff474 	.word	0xfffff474
- 124:	fffff410 	.word	0xfffff410
- 128:	fffff404 	.word	0xfffff404
- 12c:	fffff670 	.word	0xfffff670
- 130:	fffff610 	.word	0xfffff610
- 134:	fffff604 	.word	0xfffff604
- 138:	fffffc00 	.word	0xfffffc00
- 13c:	00003081 	.word	0x00003081
- 140:	00004083 	.word	0x00004083
- 144:	00004386 	.word	0x00004386
+00200104 <BootEndLoop>:
+  200104:	eafffffe 	b	200104 <BootEndLoop>
+  200108:	fffffc28 	.word	0xfffffc28
+  20010c:	20153f05 	.word	0x20153f05
+  200110:	fffffc30 	.word	0xfffffc30
+  200114:	fffffc68 	.word	0xfffffc68
+  200118:	fffffc10 	.word	0xfffffc10
+  20011c:	fffffc40 	.word	0xfffffc40
+  200120:	fffffc44 	.word	0xfffffc44
+  200124:	fffff474 	.word	0xfffff474
+  200128:	fffff410 	.word	0xfffff410
+  20012c:	fffff404 	.word	0xfffff404
+  200130:	fffff670 	.word	0xfffff670
+  200134:	fffff610 	.word	0xfffff610
+  200138:	fffff604 	.word	0xfffff604
+  20013c:	fffffc00 	.word	0xfffffc00
+  200140:	00003081 	.word	0x00003081
+  200144:	30004786 	.word	0x30004786
+  200148:	00004083 	.word	0x00004083
+
+0020014c <low_level_init>:
+  20014c:	e59f0030 	ldr	r0, [pc, #48]	; 200184 <loop+0x8>
+  200150:	e321f0d2 	msr	CPSR_c, #210	; 0xd2
+  200154:	e1a0d000 	mov	sp, r0
+  200158:	e2400080 	sub	r0, r0, #128	; 0x80
+  20015c:	e321f0d3 	msr	CPSR_c, #211	; 0xd3
+  200160:	e1a0d000 	mov	sp, r0
+  200164:	e2400080 	sub	r0, r0, #128	; 0x80
+  200168:	e321f050 	msr	CPSR_c, #80	; 0x50
+  20016c:	e1a0d000 	mov	sp, r0
+  200170:	e3a00203 	mov	r0, #805306368	; 0x30000000
+  200174:	e3a01c02 	mov	r1, #512	; 0x200
+  200178:	eb000002 	bl	200188 <mem_test>
+
+0020017c <loop>:
+  20017c:	eafffffe 	b	20017c <loop>
+  200180:	eafffff1 	b	20014c <low_level_init>
+  200184:	00203000 	.word	0x00203000
+
+00200188 <mem_test>:
+  200188:	e92d4030 	push	{r4, r5, lr}
+  20018c:	e3a03000 	mov	r3, #0
+
+00200190 <mem_test_loop>:
+  200190:	e59f506c 	ldr	r5, [pc, #108]	; 200204 <mem_test_end+0x4>
+  200194:	e0933005 	adds	r3, r3, r5
+  200198:	2a000017 	bcs	2001fc <success>
+  20019c:	e3a02000 	mov	r2, #0
+  2001a0:	e3a04000 	mov	r4, #0
+
+002001a4 <writedata>:
+  2001a4:	e7804002 	str	r4, [r0, r2]
+  2001a8:	e0944003 	adds	r4, r4, r3
+  2001ac:	e2c44000 	sbc	r4, r4, #0
+  2001b0:	e2822004 	add	r2, r2, #4
+  2001b4:	e1520001 	cmp	r2, r1
+  2001b8:	bafffff9 	blt	2001a4 <writedata>
+  2001bc:	e3a02000 	mov	r2, #0
+  2001c0:	e3a04000 	mov	r4, #0
+
+002001c4 <checkdata>:
+  2001c4:	e7905002 	ldr	r5, [r0, r2]
+  2001c8:	e1550004 	cmp	r5, r4
+  2001cc:	1a000005 	bne	2001e8 <failure>
+  2001d0:	e0944003 	adds	r4, r4, r3
+  2001d4:	e2c44000 	sbc	r4, r4, #0
+  2001d8:	e2822004 	add	r2, r2, #4
+  2001dc:	e1520001 	cmp	r2, r1
+  2001e0:	bafffff7 	blt	2001c4 <checkdata>
+  2001e4:	eaffffe9 	b	200190 <mem_test_loop>
+
+002001e8 <failure>:
+  2001e8:	e3a00001 	mov	r0, #1
+  2001ec:	e1a01005 	mov	r1, r5
+  2001f0:	e1a03002 	mov	r3, r2
+  2001f4:	e1a02004 	mov	r2, r4
+  2001f8:	ea000000 	b	200200 <mem_test_end>
+
+002001fc <success>:
+  2001fc:	e3a00000 	mov	r0, #0
+
+00200200 <mem_test_end>:
+  200200:	e8bd8030 	pop	{r4, r5, pc}
+  200204:	009ac329 	.word	0x009ac329

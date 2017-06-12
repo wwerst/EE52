@@ -30,15 +30,6 @@
 
 @ In this file you must do at least the following:
 @
-@   - Switch to the master clock
-@
-@   - Wait for it to stabilize.  The datasheet tells you how long this will
-@     take.  You will need to force your CPU to do no external memory  
-@     operations during this time.  There is an easy way to do this, but
-@     think about it and only ask me if you still can't come up with anything.
-@
-@   - Set up the chip selects for SRAM/ROM
-@
 @   - As you write other functions/code for the various hardware blocks, you
 @     will call the initialization functions for them from here as well.
 
@@ -76,9 +67,14 @@ low_level_init:
 @  user initialization goes here  @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-	
+@Check SRAM valid
+    LDR r0, =0x30000000
+    LDR r1, =0x200
+    BL mem_test
 
-    BL		main			@ run the main function (no arguments)
+loop:
+    B loop
+    @BL		main			@ run the main function (no arguments)
 
     B		low_level_init		@ if main returns (shouldn't)
     					@   reinitialize everything and start
