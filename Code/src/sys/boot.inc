@@ -41,7 +41,7 @@
 
 	.equ PMC_PLLAR_VAL, 0x20153F05  @ MULA = 21 + 1, DIVA = 5, PLLACOUNT =63, OUTA = 00
     .equ PMC_MCKR_VAL,  0x00000012
-    .equ PMC_PCER_VAL,  0x0000000C  @Enable PIOA, PIOB
+    .equ PMC_PCER_VAL,  0x0000001C  @Enable PIOA, PIOB
     .equ PMC_PCK1_VAL,  0x00000019  @MCK source, Pre-scale by 64
 	
 @@@@@ PIOA Definitions

@@ -67,10 +67,13 @@ low_level_init:
 @  user initialization goes here  @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-@Check SRAM valid
-    LDR r0, =0x30000000
-    LDR r1, =0x200
-    BL mem_test
+@@Check SRAM valid
+@    LDR r0, =0x30000000
+@    LDR r1, =0x200
+@   BL mem_test
+
+    BL keypad_init
+    
 
 loop:
     B loop

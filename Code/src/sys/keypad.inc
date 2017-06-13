@@ -11,5 +11,4 @@
 
 
 
-@ Stack definitions
-
+    .equ Keypad_RDY_Pin,    26

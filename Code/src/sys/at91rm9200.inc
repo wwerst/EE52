@@ -51,7 +51,7 @@
     .equ    PIOA_PDR,       PIOABase + 0x4      @ PIO Disable
     .equ    PIOA_OER,       PIOABase + 0x10     @ PIO Output Enable
     .equ    PIOA_PDSR,      PIOABase + 0x3C     @ Pin Data Status
-    .equ    PIOA_IMR,       PIOABase + 0x8      @ IRQ Status
+    .equ    PIOA_IMR,       PIOABase + 0x48      @ IRQ Status
     .equ    PIOA_ASR,       PIOABase + 0x70     @ PIO Peripheral A Select
     .equ    PIOA_BSR,       PIOABase + 0x74     @ PIO Peripheral B Select
 
@@ -65,11 +65,19 @@
     .equ    PIOB_ASR,       PIOBBase + 0x70     @ PIO Peripheral A Select
     .equ    PIOB_BSR,       PIOBBase + 0x74     @ PIO Peripheral B Select
 
+@ Parallel I/O C Definintions
+
+    .equ    PIOCBase,       0xFFFFF800          @ base address
+    .equ    PIOC_PDSR,      PIOCBase + 0x3C     @ PIO Pin Data Status Register
+    .equ    PIOC_IER,       PIOCBase + 0x40     @ PIO Interrupt Enable Register
+    .equ    PIOC_ISR,       PIOCBase + 0x4C     @ IRQ Status
 
 @ Advanced Interrupt Ccontroller Definitions
 
     .equ    AICBase,        0xFFFFF000          @ base address
-
+    
+    .equ    AIC_SMR4,       AICBase + 0x10      @ PIOC: Source Mode 4
+    .equ    AIC_SVR4,       AICBase + 0x90      @ PIOC: Source Vector 4
     .equ    AIC_SMR14,      AICBase + 0x38      @ SSC0: Source Mode 14 
     .equ    AIC_SVR14,      AICBase + 0xB8      @ SSC0: Source Vector 14
     .equ    AIC_SMR17,      AICBase + 0x44      @ TC0: Source Mode 17

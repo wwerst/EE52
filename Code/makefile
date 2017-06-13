@@ -163,7 +163,7 @@ SYSOBJS  = crt0.o memtest.o
 # display.o keypad.o system.o audio.o ether.o crt0.o
 endif
 
-BOOTOBJS = boot.o crt0.o memtest.o
+BOOTOBJS = boot.o crt0.o memtest.o keypad.o
 
 
 ### Rules ####################################################################
