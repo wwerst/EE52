@@ -1,4 +1,4 @@
-ispEXPERT Compiler Release 2.0.00.17.20.15, May 20 2002 13:06:40
+ispEXPERT Compiler Release 1.7.00.05.28.13, May 20 2002 13:06:40
 
 Copyright (C) 1994-2000 by Lattice Semiconductor Corporation.
 All Rights Reserved.
@@ -6,6 +6,9 @@ All Rights Reserved.
 
 Design Process Management 
 
+Renaming existing log file to pld.lo-
+Renaming existing parameter file to pld.pa-
+Renaming existing rpt file to pld.rp-
 
 Preprocessing design 'pld'...
 

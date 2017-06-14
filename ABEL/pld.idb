@@ -1,13 +1,15 @@
-1 2.0.00.17.20.15
+1 1.7.00.05.28.13
 -i c:\documents and settings\micro\my documents\wwerst\ee52\abel\pld.laf -if laf -p ispLSI1016E-100LJ44 -of vhdl -of verilog -s d -e 2 -z -m 16 -n 4 -ta on -y c:\documents and settings\micro\my documents\wwerst\ee52\abel\PLD.xpn -r c:\documents and settings\micro\my documents\wwerst\ee52\abel\ispxpert.par 
-c:\documents and settings\micro\my documents\wwerst\ee52\abel\ispxpert.par 1495429770 Sun May 21 22:09:30 2017
-pld.ppn 1495429770 Sun May 21 22:09:30 2017
-pld.fxp 1495429770 Sun May 21 22:09:30 2017
-c:\documents and settings\micro\my documents\wwerst\ee52\abel\pld.laf 1495429766 Sun May 21 22:09:26 2017
+c:\documents and settings\micro\my documents\wwerst\ee52\abel\ispxpert.par 1497430032 Wed Jun 14 01:47:12 2017
+pld.ppn 1497430032 Wed Jun 14 01:47:12 2017
+pld.fxp 1497430032 Wed Jun 14 01:47:12 2017
+c:\documents and settings\micro\my documents\wwerst\ee52\abel\pld.laf 1497430030 Wed Jun 14 01:47:10 2017
 >  c:\documents and settings\micro\my documents\wwerst\ee52\abel\PLD.xpn
 // PART: 	ispLSI1016E-100LJ44
 // FORMAT: 	PINNAME		PINTYPE	LOCK	PULLUP	SLOWSLEW	OPENDRAIN	OUTDELAY	VOLTAGE	CRIT
+		JTAG_NTRST		-		15	-1		-1		-1		-1		-1		-1
 		NReset		-		16	-1		-1		-1		-1		-1		-1
+		NTRST			-		17	-1		-1		-1		-1		-1		-1
 		RAS			-		18	-1		-1		-1		-1		-1		-1
 		CAS			-		19	-1		-1		-1		-1		-1		-1
 		DRAM_WE		-		20	-1		-1		-1		-1		-1		-1
@@ -18,6 +20,11 @@ c:\documents and settings\micro\my documents\wwerst\ee52\abel\pld.laf 1495429766
 		NWAIT			-		27	-1		-1		-1		-1		-1		-1
 		MCLK			-		28	-1		-1		-1		-1		-1		-1
 		RCLK			-		29	-1		-1		-1		-1		-1		-1
+		St0			-		37	-1		-1		-1		-1		-1		-1
+		St1			-		38	-1		-1		-1		-1		-1		-1
+		St2			-		39	-1		-1		-1		-1		-1		-1
+		St3			-		40	-1		-1		-1		-1		-1		-1
+		St4			-		41	-1		-1		-1		-1		-1		-1
 
 // FORMAT: 	NETNAME		CLK		PRESERVE	ECP	GROUP		XOR	ELP	ETP
 

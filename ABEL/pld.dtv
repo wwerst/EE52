@@ -1,4 +1,4 @@
-#$ TOOL ispLEVER Classic 2.0.00.17.20.15
+#$ TOOL ispLEVER Classic 1.7.00.05.28.13
 #$ MODULE dram
 #$ TITLE DRAM Interface - State Machine Version
 S17;

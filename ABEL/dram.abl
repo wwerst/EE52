@@ -30,30 +30,30 @@ TITLE 'DRAM Interface - State Machine Version'
 "      pin   12                  input   unused
 "      pin   13                  input   unused
 "      pin   14                  input   unused
-"      pin   15                  input   unused
+!JTAG_NTRST pin   15;           "JTAG NTRST input
 !NReset pin  16;                "Reset input
-"      pin   17                  input   unused
+!NTRST pin   17  ISTYPE 'com';  "TRST output  
 RAS    pin   18  ISTYPE 'com';  "RAS line
 CAS    pin   19  ISTYPE 'com';  "CAS line
 DRAM_WE pin  20  ISTYPE 'com';  "Write Enable Line to DRAM
-!R_A_EN pin   21  ISTYPE 'com';  "Buffer row address enable
-!C_A_EN pin   22  ISTYPE 'com';  "Buffer column address enable line
+!R_A_EN pin   21 ISTYPE 'com';  "Buffer row address enable
+!C_A_EN pin   22 ISTYPE 'com';  "Buffer column address enable line
 "      pin   23                  input   unused
 "      pin   24                  input   unused
 !NCS   pin   25;                "input chip select
 !NWE   pin   26;                "input for whether write access
-!NWAIT pin   27  ISTYPE 'com';  "output for making cpu wait for refresh finish
+!NWAIT pin   27  ISTYPE 'reg';  "output for making cpu wait for refresh finish
 MCLK   pin   28;                "main clock input
 RCLK   pin   29;                "refresh clock input
 "      pin   13                  output  unused
 "      pin   14                  output  unused
 "      pin   15                  output  unused
 "      pin   16                  output  unused
-St0    pin       ISTYPE 'reg';  "output  state bit 0
-St1    pin       ISTYPE 'reg';  "output  state bit 1
-St2    pin       ISTYPE 'reg';  "output  state bit 2
-St3    pin       ISTYPE 'reg';  "output  state bit 3
-St4    pin       ISTYPE 'reg';  "output  state bit 4
+St0    pin 37      ISTYPE 'reg';  "output  state bit 0
+St1    pin 38      ISTYPE 'reg';  "output  state bit 1
+St2    pin 39      ISTYPE 'reg';  "output  state bit 2
+St3    pin 40      ISTYPE 'reg';  "output  state bit 3
+St4    pin 41      ISTYPE 'reg';  "output  state bit 4
 RefRqst pin      ISTYPE 'reg';  "refresh request bit
 "      pin   17                  output  unused
 "      pin   18                  output  unused
@@ -102,11 +102,18 @@ EQUATIONS
 
 
 " NWAIT equation
-NWAIT      =  NCS & (StateBits == Ref0 # StateBits == Ref1 # StateBits == Ref2 # StateBits == Ref3 # StateBits == Ref4 # StateBits == Ref5 # StateBits == Ref6 # StateBits == Ref7);
+NWAIT := (NCS & (StateBits >= 19));
+NTRST = NReset # JTAG_NTRST;
 
 
 " clocks for the registered outputs (state bits)
+St0.CLK = MCLK;
+St1.CLK = MCLK;
+St2.CLK = MCLK;
+St3.CLK = MCLK;
+St4.CLK = MCLK;
 StateBits.CLK  =  MCLK;        " use the global clock pin
+NWAIT.CLK = MCLK;
 RefRqst.CLK = RCLK;
 RefRqst.AR = (StateBits == Ref7);
 RefRqst := 1;
@@ -129,6 +136,9 @@ STATE  Idle:                    " in the idle state waiting for an access
    ELSE IF (NCS) THEN      Read0;
    ELSE                       Idle;     " otherwise just stay here
 
+
+
+
 STATE Read0:
 
    RAS = 1;
@@ -140,9 +150,10 @@ STATE Read0:
    IF (NReset) THEN        Idle;
    ELSE                   Read1;
 
+
 STATE Read1:
 
-   RAS = 0;
+   RAS = 1;
    CAS = 1;
    DRAM_WE = 1;
    R_A_EN = 1;
@@ -156,7 +167,7 @@ STATE Read2:
    RAS = 0;
    CAS = 1;
    DRAM_WE = 1;
-   R_A_EN = 0;
+   R_A_EN = 1;
    C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
@@ -168,7 +179,7 @@ STATE Read3:
    CAS = 1;
    DRAM_WE = 1;
    R_A_EN = 0;
-   C_A_EN = 1;
+   C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
    ELSE                   Read4;
@@ -176,7 +187,7 @@ STATE Read3:
 STATE Read4:
 
    RAS = 0;
-   CAS = 0;
+   CAS = 1;
    DRAM_WE = 1;
    R_A_EN = 0;
    C_A_EN = 1;
@@ -191,21 +202,21 @@ STATE Read5:
    DRAM_WE = 1;
    R_A_EN = 0;
    C_A_EN = 1;
-   
+
    IF (NReset) THEN        Idle;
    ELSE                   Read6;
 
-
 STATE Read6:
 
-   RAS = 1;
-   CAS = 1;
+   RAS = 0;
+   CAS = 0;
    DRAM_WE = 1;
    R_A_EN = 0;
-   C_A_EN = 0;
-
+   C_A_EN = 1;
+   
    IF (NReset) THEN        Idle;
    ELSE                   Read7;
+
 
 STATE Read7:
 

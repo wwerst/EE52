@@ -7,4 +7,11 @@ Part Name: ispLSI1016E-100LJ44
   primary inputs and primary outputs of the design
   with no register in the path.
 
-43123 WARNING: There are no Tpd paths for this mode of analysis in this design
+Tpd Paths:
+
+  Source                   Destination              Path Delay
+  (Input)                  (Output)                   [ns]
+==------------------------------------------------------------------------------
+  NRESET                   NTRST                    14.20 
+  JTAG_NTRST               NTRST                    13.90 
+==----------------------------------------------------------------------------

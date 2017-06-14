@@ -1,4 +1,4 @@
-ispEXPERT Compiler Release 2.0.00.17.20.15, May 20 2002 13:06:40
+ispEXPERT Compiler Release 1.7.00.05.28.13, May 20 2002 13:06:40
 
 Copyright (C) 1994-2000 by Lattice Semiconductor Corporation.
 All Rights Reserved.
@@ -52,17 +52,16 @@ Extracting LXOR2 gates to minimize delay...
 Packing functions into GLBs using 16 inputs and 4 outputs per GLB to 
       minimize delay... 
 Constant VCC drives register 'REFRQST' data input 
-Constant VCC drives pin 'NWAIT' 
   
 Synthesis and partitioning statistics: 
   
-Number of Macrocells is 14 
-Number of GLBs is 4 
-Number of product terms is 49 
+Number of Macrocells is 15 
+Number of GLBs is 6 
+Number of product terms is 48 
 Maximum number of GLB levels is 1 
-Average number of inputs per GLB is 7.0 
-Average number of outputs per GLB is 3.5 
-Average number of product terms per GLB is 12.3 
+Average number of inputs per GLB is 7.5 
+Average number of outputs per GLB is 2.5 
+Average number of product terms per GLB is 8.0 
   
 Synthesis and partitioning completed successfully 
 
@@ -81,7 +80,6 @@ Placement and Routing
 Reading design 'pld'...
 
 Routing
-.
 
 
 Writing output files...
@@ -142,7 +140,7 @@ Evaluating setup and hold times...
               
 Calculating  Tpd Path delays ...
 
-............
+.............
 
               
      

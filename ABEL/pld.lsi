@@ -1,5 +1,7 @@
 [LOCATION ASSIGNMENTS]
+JTAG_NTRST=pin,15,-,-;
 NReset=pin,16,-,-;
+NTRST=pin,17,-,-;
 RAS=pin,18,-,-;
 CAS=pin,19,-,-;
 DRAM_WE=pin,20,-,-;
@@ -10,4 +12,9 @@ NWE=pin,26,-,-;
 NWAIT=pin,27,-,-;
 MCLK=pin,28,-,-;
 RCLK=pin,29,-,-;
+St0=pin,37,-,-;
+St1=pin,38,-,-;
+St2=pin,39,-,-;
+St3=pin,40,-,-;
+St4=pin,41,-,-;
 

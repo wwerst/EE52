@@ -12,11 +12,11 @@ are also listed, if the source and the registers are driven
 by the same reference clock.
 
 
-Maximum Operating Frequency:    96 MHz
+Maximum Operating Frequency:    94 MHz
 
-The clock period is 10.40.
+The clock period is 10.60.
 Clock period = path delay + clock-to-output delay + setup time
-  path delay:              8.30
+  path delay:              8.50
   clock-to-output delay:   1.40
   setup time:              0.70
 
@@ -35,40 +35,46 @@ Internal Register  Paths and Frequencies:
   Reference           Register                Reference         Register                Period      [MHz]     Levels       
   Clock               Name                    Clock             Name                     [ns]     
 ==----------------------------------------------------------------------------------------------------------------
-  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST0_PIN/D0           10.40     96        1    
+  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST0_PIN/D0           10.60     94        1    
   MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST0_PIN/D0           10.20     98        1    
-  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.50      105       1    
-  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.50      105       1    
-  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.50      105       1    
-  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST0_PIN/D0           9.40      106       1    
-  RCLK                GLB_..._PIN *1/Q0       MCLK              GLB_ST1_PIN/D0           9.40      ----     1    
-  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.40      106       1    
-  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.40      106       1    
-  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.40      106       1    
-  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.40      106       1    
-  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.40      106       1    
-  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.40      106       1    
-  RCLK                GLB_..._PIN *1/Q0       MCLK              GLB_ST4_PIN/D0           9.40      ----     1    
-  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.40      106       1    
-  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.40      106       1    
-  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST0_PIN/D0           9.30      108       1    
-  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.30      108       1    
-  RCLK                GLB_..._PIN *1/Q0       MCLK              GLB_ST0_PIN/D0           9.20      ----     1    
+  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_..._PIN *1/D0        9.60      104       1    
+  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_..._PIN *1/D0        9.60      104       1    
+  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_..._PIN *1/D0        9.60      104       1    
+  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_..._PIN *1/D0        9.60      104       1    
+  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_..._PIN *1/D0        9.60      104       1    
+  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST0_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.60      104       1    
+  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST0_PIN/D0           9.40      106       1    
+  RCLK                GLB_..._PIN *2/Q0       MCLK              GLB_ST1_PIN/D0           9.40      ----     1    
+  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.40      106       1    
+  RCLK                GLB_..._PIN *2/Q0       MCLK              GLB_ST4_PIN/D0           9.40      ----     1    
+  RCLK                GLB_..._PIN *2/Q0       MCLK              GLB_ST0_PIN/D0           9.20      ----     1    
   MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.20      109       1    
   MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST1_PIN/D0           9.20      109       1    
   MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.20      109       1    
-  MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.20      109       1    
-  RCLK                GLB_..._PIN *1/Q0       MCLK              GLB_ST3_PIN/D0           9.20      ----     1    
-  MCLK                GLB_ST0_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.20      109       1    
-  MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.20      109       1    
-  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.20      109       1    
+  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST2_PIN/D0           9.20      109       1    
+  RCLK                GLB_..._PIN *2/Q0       MCLK              GLB_ST3_PIN/D0           9.20      ----     1    
+  MCLK                GLB_ST2_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.20      109       1    
+  MCLK                GLB_ST3_PIN/Q0          MCLK              GLB_ST3_PIN/D0           9.20      109       1    
   MCLK                GLB_ST4_PIN/Q0          MCLK              GLB_ST4_PIN/D0           9.20      109       1    
   MCLK                GLB_ST1_PIN/Q0          MCLK              GLB_ST0_PIN/D0           9.00      111       1    
 ==-------------------------------------------------------------------------------------------
 
 Index Name Table
 ==----------------------------------------
-    *1  GLB_REFRQST_PIN
+    *1  GLB_NWAIT_PIN
+    *2  GLB_REFRQST_PIN
 ==----------------------------------------
 
 Information for flip-flop:

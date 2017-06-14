@@ -8,10 +8,12 @@ RCLK		i
 CAS		o
 St0		o
 St1		o
+NTRST		o
 St2		o
 St3		o
 St4		o
 MCLK		i
 R_A_EN		o
+JTAG_NTRST		i
 NCS		i
 NReset		i

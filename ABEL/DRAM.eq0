@@ -1,19 +1,21 @@
-ispLEVER Classic 2.0.00.17.20.15 Linked Equations File
-Copyright(C), 1992-2015, Lattice Semiconductor Corp.
+ispLEVER Classic 1.7.00.05.28.13 Linked Equations File
+Copyright(C), 1992-2013, Lattice Semiconductor Corp.
 All Rights Reserved.
 
-Design dram created Mon Mar 13 02:25:36 2017
+Design dram created Sun Jun 11 23:05:14 2017
 
 Title: DRAM Interface - State Machine Version
 
  P-Terms   Fan-in  Fan-out  Type  Name (attributes)
 ---------  ------  -------  ----  -----------------
-   4          5        1    Pin   RAS 
-   6          5        1    Pin   CAS 
-   5          5        1    Pin   DRAM_WE 
-   3          5        1    Pin   R_A_EN 
-   3          5        1    Pin   C_A_EN 
-   1          0        1    Pin   NWAIT 
+   2          2        1    Pin   NTRST 
+   5          5        1    Pin   RAS 
+   7          5        1    Pin   CAS 
+   4          5        1    Pin   DRAM_WE 
+   5          5        1    Pin   R_A_EN 
+   4          5        1    Pin   C_A_EN 
+   4          6        1    Pin   NWAIT.REG 
+   1/1        1        1    Pin   NWAIT.C 
    6          9        1    Pin   St0.REG 
    1/1        1        1    Pin   St0.C 
    7          9        1    Pin   St1.REG 
@@ -25,95 +27,112 @@ Title: DRAM Interface - State Machine Version
    5          7        1    Pin   St4.REG 
    1/1        1        1    Pin   St4.C 
    1          0        1    Pin   RefRqst.REG 
+   1          5        1    Pin   RefRqst.AR 
    1/1        1        1    Pin   RefRqst.C 
 =========
-  59/6          Best P-Term Total: 59
-                       Total Pins: 17
+  70/7          Best P-Term Total: 70
+                       Total Pins: 19
                       Total Nodes: 0
             Average P-Term/Output: 4
 
 
 Equations:
 
+NTRST = (JTAG_NTRST
+     # NReset);
+
 RAS = (!St4.FB & !St3.FB & St2.FB & St1.FB & St0.FB
+     # !St2.FB & !St1.FB
+     # St4.FB & St3.FB
      # St3.FB & !St2.FB & !St0.FB
-     # St4.FB & !St3.FB & !St2.FB
-     # !St2.FB & !St1.FB);
+     # St4.FB & !St2.FB);
 
 CAS = (!St4.FB & !St3.FB & St1.FB & St0.FB
-     # !St4.FB & St3.FB & !St1.FB
      # !St4.FB & !St1.FB & !St0.FB
+     # St4.FB & St3.FB
      # !St2.FB & !St0.FB
+     # St3.FB & !St1.FB
      # !St2.FB & !St1.FB
      # !St4.FB & !St2.FB);
 
-DRAM_WE = (!St4.FB & !St1.FB & !St0.FB
-     # !St2.FB & !St0.FB
-     # !St2.FB & !St1.FB
-     # !St4.FB & !St2.FB
-     # !St3.FB);
+DRAM_WE = (!St1.FB & !St0.FB
+     # !St2.FB
+     # !St3.FB
+     # St4.FB);
 
-R_A_EN = (!St4.FB & !St3.FB & !St2.FB & !St1.FB & St0.FB
-     # !St4.FB & !St2.FB & St1.FB & !St0.FB
-     # !St4.FB & St3.FB & !St2.FB & St1.FB);
+R_A_EN = (!St3.FB & St1.FB & St0.FB
+     # !St1.FB & !St0.FB
+     # St3.FB & !St1.FB
+     # St2.FB
+     # St4.FB);
 
-C_A_EN = (!St4.FB & !St3.FB & St2.FB & !St0.FB
-     # !St4.FB & St3.FB & St2.FB & St1.FB
-     # !St4.FB & St2.FB & !St1.FB & St0.FB);
+C_A_EN = (St3.FB & !St1.FB & !St0.FB
+     # !St3.FB & St1.FB & St0.FB
+     # !St2.FB
+     # St4.FB);
 
-NWAIT = (1);
+NWAIT := (!St3 & !St2 & !St1
+     # !St3 & !St2 & !St0
+     # !St4
+     # NCS);
 
-St0 := (!NCS & !St4.FB & !St0.FB & NReset & NWE
-     # !St4.FB & !St0.FB & NReset & RefRqst
-     # !St3.FB & St2.FB & !St0.FB & NReset
-     # St4.FB & !St2.FB & !St1.FB & !St0.FB & NReset
-     # !St4.FB & St3.FB & !St0.FB & NReset
-     # !St4.FB & St1.FB & !St0.FB & NReset);
+NWAIT.C = (MCLK);
+
+St0 := (!NCS & NReset & !St4.FB & !St0.FB & NWE
+     # NReset & !St4.FB & !St0.FB & RefRqst
+     # NReset & !St3.FB & St2.FB & !St0.FB
+     # NReset & St4.FB & !St2.FB & !St1.FB & !St0.FB
+     # NReset & !St4.FB & St3.FB & !St0.FB
+     # NReset & !St4.FB & St1.FB & !St0.FB);
 
 St0.C = (MCLK);
 
-St1 := (!NCS & !St4.FB & !St3.FB & !St2.FB & !St0.FB & NReset & !NWE
-     # !St4.FB & !St3.FB & !St2.FB & !St0.FB & NReset & RefRqst
-     # St4.FB & !St2.FB & !St1.FB & St0.FB & NReset
-     # !St3.FB & St2.FB & St1.FB & !St0.FB & NReset
-     # !St4.FB & St1.FB & !St0.FB & NReset
-     # !St3.FB & !St1.FB & St0.FB & NReset
-     # !St4.FB & St2.FB & !St1.FB & St0.FB & NReset);
+St1 := (!NCS & NReset & !St4.FB & !St3.FB & !St2.FB & !St0.FB & !NWE
+     # NReset & !St4.FB & !St3.FB & !St2.FB & !St0.FB & RefRqst
+     # NReset & St4.FB & !St2.FB & !St1.FB & St0.FB
+     # NReset & !St3.FB & St2.FB & St1.FB & !St0.FB
+     # NReset & !St4.FB & St1.FB & !St0.FB
+     # NReset & !St3.FB & !St1.FB & St0.FB
+     # NReset & !St4.FB & St2.FB & !St1.FB & St0.FB);
 
 St1.C = (MCLK);
 
-St2 := (!St3.FB & !St2.FB & St1.FB & St0.FB & NReset
-     # !St4.FB & !St2.FB & St1.FB & St0.FB & NReset
-     # !St3.FB & St2.FB & !St0.FB & NReset
-     # !St4.FB & St2.FB & !St1.FB & NReset
-     # !St4.FB & St2.FB & !St0.FB & NReset
-     # !St3.FB & St2.FB & !St1.FB & NReset);
+St2 := (NReset & !St3.FB & !St2.FB & St1.FB & St0.FB
+     # NReset & !St4.FB & !St2.FB & St1.FB & St0.FB
+     # NReset & !St3.FB & St2.FB & !St0.FB
+     # NReset & !St4.FB & St2.FB & !St1.FB
+     # NReset & !St4.FB & St2.FB & !St0.FB
+     # NReset & !St3.FB & St2.FB & !St1.FB);
 
 St2.C = (MCLK);
 
-St3 := (!NCS & !St4.FB & !St2.FB & !St1.FB & !St0.FB & NReset & !RefRqst & !NWE
-     # !St3.FB & St2.FB & St1.FB & St0.FB & NReset
-     # St4.FB & St3.FB & !St2.FB & !St1.FB & NReset
-     # !St4.FB & St3.FB & !St0.FB & NReset
-     # !St4.FB & St3.FB & St2.FB & !St1.FB & NReset
-     # !St4.FB & St3.FB & !St2.FB & St1.FB & NReset);
+St3 := (!NCS & NReset & !St4.FB & !St2.FB & !St1.FB & !St0.FB & !RefRqst & !NWE
+     # NReset & !St3.FB & St2.FB & St1.FB & St0.FB
+     # NReset & St4.FB & St3.FB & !St2.FB & !St1.FB
+     # NReset & !St4.FB & St3.FB & !St0.FB
+     # NReset & !St4.FB & St3.FB & St2.FB & !St1.FB
+     # NReset & !St4.FB & St3.FB & !St2.FB & St1.FB);
 
 St3.C = (MCLK);
 
-St4 := (!St3.FB & !St2.FB & !St1.FB & !St0.FB & NReset & RefRqst
-     # !St4.FB & St3.FB & St2.FB & St1.FB & St0.FB & NReset
-     # St4.FB & !St2.FB & !St1.FB & NReset
-     # St4.FB & !St3.FB & St2.FB & NReset
-     # St4.FB & !St3.FB & St0.FB & NReset);
+St4 := (NReset & !St3.FB & !St2.FB & !St1.FB & !St0.FB & RefRqst
+     # NReset & !St4.FB & St3.FB & St2.FB & St1.FB & St0.FB
+     # NReset & St4.FB & !St2.FB & !St1.FB
+     # NReset & St4.FB & !St3.FB & St2.FB
+     # NReset & St4.FB & !St3.FB & St0.FB);
 
 St4.C = (MCLK);
 
 RefRqst := (1);
 
+RefRqst.AR = (St4 & St3 & !St2 & !St0 & St1);
+
 RefRqst.C = (RCLK);
 
 
 Reverse-Polarity Equations:
+
+!NWAIT.C = (!MCLK);
 
 !St0.C = (!MCLK);
 

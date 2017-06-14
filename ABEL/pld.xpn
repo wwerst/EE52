@@ -1,6 +1,8 @@
 // PART: 	ispLSI1016E-100LJ44
 // FORMAT: 	PINNAME		PINTYPE	LOCK	PULLUP	SLOWSLEW	OPENDRAIN	OUTDELAY	VOLTAGE	CRIT
+		JTAG_NTRST		-		15	-1		-1		-1		-1		-1		-1
 		NReset		-		16	-1		-1		-1		-1		-1		-1
+		NTRST			-		17	-1		-1		-1		-1		-1		-1
 		RAS			-		18	-1		-1		-1		-1		-1		-1
 		CAS			-		19	-1		-1		-1		-1		-1		-1
 		DRAM_WE		-		20	-1		-1		-1		-1		-1		-1
@@ -11,6 +13,11 @@
 		NWAIT			-		27	-1		-1		-1		-1		-1		-1
 		MCLK			-		28	-1		-1		-1		-1		-1		-1
 		RCLK			-		29	-1		-1		-1		-1		-1		-1
+		St0			-		37	-1		-1		-1		-1		-1		-1
+		St1			-		38	-1		-1		-1		-1		-1		-1
+		St2			-		39	-1		-1		-1		-1		-1		-1
+		St3			-		40	-1		-1		-1		-1		-1		-1
+		St4			-		41	-1		-1		-1		-1		-1		-1
 
 // FORMAT: 	NETNAME		CLK		PRESERVE	ECP	GROUP		XOR	ELP	ETP
 
