@@ -25,7 +25,7 @@
 	@ ACSS				0x--00----
 	@ 8 bit				0x----40--
 	@ 10 Wait state		0x------86
-    .equ SMC_CSR2_VAL, 	0x30004786
+    .equ SMC_CSR2_VAL, 	0x20004787
 	
 	@ ROM
 	@ RWHOLD,RWSETUP 	0x00------

@@ -1,0 +1,35 @@
+[PROJECT_INFORMATION]
+Version=5.2
+Project_Name=ABEL
+Project_Directory=C:\DOCUMENTS AND SETTINGS\MICRO\MY DOCUMENTS\WWERST\EE52
+[SOURCE_INFORMATION]
+Design_Directory=C:\DOCUMENTS AND SETTINGS\MICRO\MY DOCUMENTS\WWERST\EE52\ABEL
+Design_File=pld.edf
+Design_Type=EDF
+Parameter_File=C:\DOCUMENTS AND SETTINGS\MICRO\MY DOCUMENTS\WWERST\EE52\ABEL\PLD.prp
+Parameter_FileTime=1497240644
+Design_Modified=1497242290
+[DATABASE_INFORMATION]
+Database_File=pld.LDB
+[SETTING_INFORMATION]
+Settings_File=pld.stp
+[EDIF Setting]
+VCC=
+GND=
+Property_File=C:\DOCUMENTS AND SETTINGS\MICRO\MY DOCUMENTS\WWERST\EE52\ABEL\PLD.prp
+EDIF reader Vendor change=0
+EDIF reader Vendor=
+EDIF writer Vendor=
+Psnttn=0
+LPMAttr=0
+Cell Prefix=
+Load Default Setting=1
+Ground floating Output pins=1
+Async Clear=0
+Async Preset=0
+Map Clock Enable=0
+Array Index Ordering=
+Least Significant Bit=
+Extension=edo
+[PROJECT_NEW_UPDATE]
+PART=ispLSI1016E-100LJ44

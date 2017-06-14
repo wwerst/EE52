@@ -1,0 +1,6 @@
+state FAILED
+part ispLSI1016E-100LJ44
+file exxxxxxx.edf 1497242290
+file pld.laf 1497240644
+args C:\PROGRA.1\LATTICE\ISPDES81\ISPCOMP\bin\edif2laf.exe edif2laf.exe -fext laf -p ispLSI1016E-100LJ44
+prop epxxxxxx.prp 4294967295

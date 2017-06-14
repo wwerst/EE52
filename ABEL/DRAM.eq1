@@ -1,0 +1,213 @@
+ispDesignEXPERT 8.1
+
+Design dram created Sun Jun 11 20:21:21 2017
+
+Title: DRAM Interface - State Machine Version
+
+ P-Terms   Fan-in  Fan-out  Type  Name (attributes)
+---------  ------  -------  ----  -----------------
+   2/1        2        1    Pin   NTRST 
+   5/5        5        1    Pin   RAS 
+   7/5        5        1    Pin   CAS 
+   4/2        5        1    Pin   DRAM_WE 
+   5/3        5        1    Pin   R_A_EN 
+   4/3        5        1    Pin   C_A_EN 
+   1          0        1    Pin   NWAIT 
+   6/6        9        1    Pin   St0.REG 
+   1/1        1        1    Pin   St0.C 
+   7/8        9        1    Pin   St1.REG 
+   1/1        1        1    Pin   St1.C 
+   6/5        6        1    Pin   St2.REG 
+   1/1        1        1    Pin   St2.C 
+   6/12       9        1    Pin   St3.REG 
+   1/1        1        1    Pin   St3.C 
+   5/8        7        1    Pin   St4.REG 
+   1/1        1        1    Pin   St4.C 
+   1          0        1    Pin   RefRqst.REG 
+   1/5        5        1    Pin   RefRqst.AR 
+   1/1        1        1    Pin   RefRqst.C 
+=========
+  66/69         Best P-Term Total: 57
+                       Total Pins: 19
+                      Total Nodes: 0
+            Average P-Term/Output: 3
+
+
+Equations:
+
+NTRST = (NReset
+     # JTAG_NTRST);
+
+RAS = (!St4.FB & !St3.FB & St2.FB & St1.FB & St0.FB
+     # !St2.FB & !St1.FB
+     # St4.FB & St3.FB
+     # St3.FB & !St2.FB & !St0.FB
+     # St4.FB & !St2.FB);
+
+CAS = (!St4.FB & !St2.FB
+     # !St4.FB & !St3.FB & St1.FB & St0.FB
+     # St4.FB & St3.FB
+     # !St4.FB & !St1.FB & !St0.FB
+     # St3.FB & !St1.FB
+     # !St2.FB & !St1.FB
+     # !St2.FB & !St0.FB);
+
+DRAM_WE = (!St1.FB & !St0.FB
+     # !St2.FB
+     # !St3.FB
+     # St4.FB);
+
+R_A_EN = (!St3.FB & St1.FB & St0.FB
+     # St3.FB & !St1.FB
+     # !St1.FB & !St0.FB
+     # St2.FB
+     # St4.FB);
+
+C_A_EN = (St3.FB & !St1.FB & !St0.FB
+     # !St3.FB & St1.FB & St0.FB
+     # !St2.FB
+     # St4.FB);
+
+NWAIT = (1);
+
+St0 := (!NCS & NReset & !St4.FB & !St0.FB & NWE
+     # NReset & !St4.FB & St3.FB & !St0.FB
+     # NReset & St4.FB & !St2.FB & !St1.FB & !St0.FB
+     # NReset & !St4.FB & !St0.FB & RefRqst
+     # NReset & !St3.FB & St2.FB & !St0.FB
+     # NReset & !St4.FB & St1.FB & !St0.FB);
+
+St0.C = (MCLK);
+
+St1 := (!NCS & NReset & !St4.FB & !St3.FB & !St2.FB & !St0.FB & !NWE
+     # NReset & !St4.FB & !St3.FB & !St2.FB & !St0.FB & RefRqst
+     # NReset & St4.FB & !St2.FB & !St1.FB & St0.FB
+     # NReset & !St3.FB & St2.FB & St1.FB & !St0.FB
+     # NReset & !St4.FB & St2.FB & !St1.FB & St0.FB
+     # NReset & !St4.FB & St1.FB & !St0.FB
+     # NReset & !St3.FB & !St1.FB & St0.FB);
+
+St1.C = (MCLK);
+
+St2 := (NReset & !St3.FB & !St2.FB & St1.FB & St0.FB
+     # NReset & !St4.FB & !St2.FB & St1.FB & St0.FB
+     # NReset & !St3.FB & St2.FB & !St1.FB
+     # NReset & !St4.FB & St2.FB & !St1.FB
+     # NReset & !St3.FB & St2.FB & !St0.FB
+     # NReset & !St4.FB & St2.FB & !St0.FB);
+
+St2.C = (MCLK);
+
+St3 := (!NCS & NReset & !St4.FB & !St2.FB & !St1.FB & !St0.FB & !RefRqst & !NWE
+     # NReset & !St3.FB & St2.FB & St1.FB & St0.FB
+     # NReset & St4.FB & St3.FB & !St2.FB & !St1.FB
+     # NReset & !St4.FB & St3.FB & St2.FB & !St1.FB
+     # NReset & !St4.FB & St3.FB & !St2.FB & St1.FB
+     # NReset & !St4.FB & St3.FB & !St0.FB);
+
+St3.C = (MCLK);
+
+St4 := (NReset & !St4.FB & St3.FB & St2.FB & St1.FB & St0.FB
+     # NReset & !St3.FB & !St2.FB & !St1.FB & !St0.FB & RefRqst
+     # NReset & St4.FB & !St2.FB & !St1.FB
+     # NReset & St4.FB & !St3.FB & St0.FB
+     # NReset & St4.FB & !St3.FB & St2.FB);
+
+St4.C = (MCLK);
+
+RefRqst := (1);
+
+RefRqst.AR = (!St0 & St1 & !St2 & St3 & St4);
+
+RefRqst.C = (RCLK);
+
+
+Reverse-Polarity Equations:
+
+!NTRST = (!NReset & !JTAG_NTRST);
+
+!RAS = (!St4.FB & !St3.FB & St1.FB & !St0.FB
+     # !St4.FB & !St2.FB & St1.FB & St0.FB
+     # !St4.FB & St3.FB & St2.FB
+     # !St4.FB & St2.FB & !St1.FB
+     # St4.FB & !St3.FB & St2.FB);
+
+!CAS = (!St3.FB & St2.FB & St1.FB & !St0.FB
+     # !St4.FB & St3.FB & St2.FB & St1.FB
+     # St4.FB & !St3.FB & St2.FB
+     # !St3.FB & St2.FB & !St1.FB & St0.FB
+     # St4.FB & !St3.FB & St1.FB & St0.FB);
+
+!DRAM_WE = (!St4.FB & St3.FB & St2.FB & St1.FB
+     # !St4.FB & St3.FB & St2.FB & St0.FB);
+
+!R_A_EN = (!St4.FB & !St3.FB & !St2.FB & !St1.FB & St0.FB
+     # !St4.FB & St3.FB & !St2.FB & St1.FB
+     # !St4.FB & !St2.FB & St1.FB & !St0.FB);
+
+!C_A_EN = (!St4.FB & St2.FB & St1.FB & !St0.FB
+     # !St4.FB & St3.FB & St2.FB & St0.FB
+     # !St4.FB & !St3.FB & St2.FB & !St1.FB);
+
+!St0 := (NCS & !St4.FB & !St3.FB & !St2.FB & !St1.FB & !RefRqst
+     # !St4.FB & !St3.FB & !St2.FB & !St1.FB & !RefRqst & !NWE
+     # St4.FB & St3.FB & St2.FB
+     # St4.FB & !St2.FB & St1.FB
+     # St0.FB
+     # !NReset);
+
+!St0.C = (!MCLK);
+
+!St1 := (!St4.FB & St3.FB & !St2.FB & !St1.FB
+     # St4.FB & !St2.FB & !St0.FB
+     # NCS & !St1.FB & !St0.FB & !RefRqst
+     # St4.FB & St3.FB & St2.FB
+     # !St1.FB & !St0.FB & !RefRqst & NWE
+     # St2.FB & !St1.FB & !St0.FB
+     # St1.FB & St0.FB
+     # !NReset);
+
+!St1.C = (!MCLK);
+
+!St2 := (St2.FB & St1.FB & St0.FB
+     # St4.FB & St3.FB
+     # !St2.FB & !St1.FB
+     # !St2.FB & !St0.FB
+     # !NReset);
+
+!St2.C = (!MCLK);
+
+!St3 := (NCS & !St3.FB & !St1.FB
+     # St4.FB & !St3.FB & !St1.FB
+     # !St3.FB & !St2.FB & St1.FB
+     # St4.FB & St3.FB & St1.FB
+     # !St3.FB & !St1.FB & St0.FB
+     # St4.FB & St3.FB & St2.FB
+     # !St3.FB & !St2.FB & RefRqst
+     # !St3.FB & St2.FB & !St0.FB
+     # !St3.FB & !St2.FB & NWE
+     # !St4.FB & !St2.FB & !St1.FB & St0.FB
+     # St3.FB & St2.FB & St1.FB & St0.FB
+     # !NReset);
+
+!St3.C = (!MCLK);
+
+!St4 := (!St4.FB & !St2.FB & St0.FB
+     # St4.FB & St3.FB & St1.FB
+     # St3.FB & St2.FB & !St1.FB
+     # !St4.FB & !St2.FB & !RefRqst
+     # !St4.FB & !St3.FB & St2.FB
+     # !St4.FB & St3.FB & !St0.FB
+     # !St2.FB & St1.FB & !St0.FB
+     # !NReset);
+
+!St4.C = (!MCLK);
+
+!RefRqst.AR = (!St3
+     # St2
+     # !St1
+     # St0
+     # !St4);
+
+!RefRqst.C = (!RCLK);
+

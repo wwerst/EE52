@@ -1,0 +1,1683 @@
+(edif dram
+  (edifVersion 2 0 0)
+  (edifLevel 0)
+  (keywordMap (keywordLevel 0))
+  (status (written
+    (timeStamp 117 6 11 20 38 8)
+    (program "blif2net" (version "ispDesignEXPERT 8.1"))))
+
+  (external plsi
+    (edifLevel 0)
+    (technology (numberDefinition))
+
+    (cell AND2
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port A0 (direction INPUT))
+          (port A1 (direction INPUT))
+          (port Z0 (direction OUTPUT))
+        )
+      )
+    )
+
+    (cell AND3
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port A0 (direction INPUT))
+          (port A1 (direction INPUT))
+          (port A2 (direction INPUT))
+          (port Z0 (direction OUTPUT))
+        )
+      )
+    )
+
+    (cell AND4
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port A0 (direction INPUT))
+          (port A1 (direction INPUT))
+          (port A2 (direction INPUT))
+          (port A3 (direction INPUT))
+          (port Z0 (direction OUTPUT))
+        )
+      )
+    )
+
+    (cell INV
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port A0 (direction INPUT))
+          (port ZN0 (direction OUTPUT))
+        )
+      )
+    )
+
+    (cell NAND2
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port A0 (direction INPUT))
+          (port A1 (direction INPUT))
+          (port ZN0 (direction OUTPUT))
+        )
+      )
+    )
+
+    (cell NAND3
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port A0 (direction INPUT))
+          (port A1 (direction INPUT))
+          (port A2 (direction INPUT))
+          (port ZN0 (direction OUTPUT))
+        )
+      )
+    )
+
+    (cell NAND4
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port A0 (direction INPUT))
+          (port A1 (direction INPUT))
+          (port A2 (direction INPUT))
+          (port A3 (direction INPUT))
+          (port ZN0 (direction OUTPUT))
+        )
+      )
+    )
+
+    (cell XNOR2
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port A0 (direction INPUT))
+          (port A1 (direction INPUT))
+          (port ZN0 (direction OUTPUT))
+        )
+      )
+    )
+
+    (cell IB11
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port XI0 (direction INPUT))
+          (port Z0 (direction OUTPUT))
+        )
+      )
+    )
+
+    (cell OB11
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port A0 (direction INPUT))
+          (port XO0 (direction OUTPUT))
+        )
+      )
+    )
+
+    (cell FD11
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port CLK (direction INPUT))
+          (port D0 (direction INPUT))
+          (port Q0 (direction OUTPUT))
+        )
+      )
+    )
+
+    (cell FD21
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port CD (direction INPUT))
+          (port CLK (direction INPUT))
+          (port D0 (direction INPUT))
+          (port Q0 (direction OUTPUT))
+        )
+      )
+    )
+  )
+
+  (library dram
+    (edifLevel 0)
+    (technology (numberDefinition))
+
+    (cell dram
+      (cellType GENERIC)
+      (view NetList
+        (viewType NETLIST)
+        (interface
+          (port JTAG_NTRST (direction INPUT)
+            (property LOCK (string "15"))
+          )
+          (port NReset (direction INPUT)
+            (property LOCK (string "16"))
+          )
+          (port NTRST (direction OUTPUT)
+            (property LOCK (string "17"))
+          )
+          (port RAS (direction OUTPUT)
+            (property LOCK (string "18"))
+          )
+          (port CAS (direction OUTPUT)
+            (property LOCK (string "19"))
+          )
+          (port DRAM_WE (direction OUTPUT)
+            (property LOCK (string "20"))
+          )
+          (port R_A_EN (direction OUTPUT)
+            (property LOCK (string "21"))
+          )
+          (port C_A_EN (direction OUTPUT)
+            (property LOCK (string "22"))
+          )
+          (port NCS (direction INPUT)
+            (property LOCK (string "25"))
+          )
+          (port NWE (direction INPUT)
+            (property LOCK (string "26"))
+          )
+          (port NWAIT (direction OUTPUT)
+            (property LOCK (string "27"))
+          )
+          (port MCLK (direction INPUT)
+            (property LOCK (string "28"))
+          )
+          (port RCLK (direction INPUT)
+            (property LOCK (string "29"))
+          )
+          (port St0 (direction OUTPUT))
+          (port St1 (direction OUTPUT))
+          (port St2 (direction OUTPUT))
+          (port St3 (direction OUTPUT))
+          (port St4 (direction OUTPUT))
+          (port RefRqst (direction OUTPUT))
+        )
+
+        (contents
+          (instance IN_JTAG_NTRST_U1 (viewRef NetList (cellRef IB11 (libraryRef plsi))))
+          (instance IN_NReset_U1 (viewRef NetList (cellRef IB11 (libraryRef plsi))))
+          (instance OUT_NTRST_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance OUT_RAS_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance OUT_CAS_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance OUT_DRAM_WE_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance OUT_R_A_EN_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance OUT_C_A_EN_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance IN_NCS_U1 (viewRef NetList (cellRef IB11 (libraryRef plsi))))
+          (instance IN_NWE_U1 (viewRef NetList (cellRef IB11 (libraryRef plsi))))
+          (instance OUT_NWAIT_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance IN_MCLK_U1 (viewRef NetList (cellRef IB11 (libraryRef plsi))))
+          (instance IN_RCLK_U1 (viewRef NetList (cellRef IB11 (libraryRef plsi))))
+          (instance OUT_St0_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance OUT_St1_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance OUT_St2_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance OUT_St3_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance OUT_St4_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance OUT_RefRqst_U1 (viewRef NetList (cellRef OB11 (libraryRef plsi))))
+          (instance FF_St0_U1 (viewRef NetList (cellRef FD11 (libraryRef plsi))))
+          (instance FF_St1_U1 (viewRef NetList (cellRef FD11 (libraryRef plsi))))
+          (instance FF_St2_U1 (viewRef NetList (cellRef FD11 (libraryRef plsi))))
+          (instance FF_St3_U1 (viewRef NetList (cellRef FD11 (libraryRef plsi))))
+          (instance FF_St4_U1 (viewRef NetList (cellRef FD11 (libraryRef plsi))))
+          (instance FF_RefRqst_U1 (viewRef NetList (cellRef FD21 (libraryRef plsi))))
+          (instance GATE_NTRST_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_NTRST_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_NTRST_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_RAS_I_1 (viewRef NetList (cellRef NAND3 (libraryRef plsi))))
+          (instance GATE_RAS_I_3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_RAS_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_RAS_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_CAS_U1 (viewRef NetList (cellRef NAND4 (libraryRef plsi))))
+          (instance GATE_CAS_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_CAS_U4 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_CAS_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_CAS_U2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_DRAM_WE_U1 (viewRef NetList (cellRef NAND4 (libraryRef plsi))))
+          (instance GATE_DRAM_WE_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_DRAM_WE_U2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_R_A_EN_U1 (viewRef NetList (cellRef NAND4 (libraryRef plsi))))
+          (instance GATE_R_A_EN_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_R_A_EN_U4 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_R_A_EN_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_R_A_EN_U2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_C_A_EN_U1 (viewRef NetList (cellRef NAND4 (libraryRef plsi))))
+          (instance GATE_C_A_EN_U4 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_C_A_EN_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_C_A_EN_U2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_NWAIT_I_1 (viewRef NetList (cellRef NAND3 (libraryRef plsi))))
+          (instance GATE_NWAIT_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_NWAIT_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_RefRqst_AR_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_St0_D_REG_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_St0_D_REG_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_St1_D_REG_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_St2_D_REG_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_St3_D_REG_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_St4_D_REG_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__0_I_1 (viewRef NetList (cellRef NAND3 (libraryRef plsi))))
+          (instance GATE_T__0_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__0_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__1_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__2_I_1 (viewRef NetList (cellRef NAND3 (libraryRef plsi))))
+          (instance GATE_T__2_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__2_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__3_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__3_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__4_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__5_I_1 (viewRef NetList (cellRef NAND3 (libraryRef plsi))))
+          (instance GATE_T__5_I_3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__5_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__5_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__6_U1 (viewRef NetList (cellRef NAND4 (libraryRef plsi))))
+          (instance GATE_T__6_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__6_U4 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__6_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__6_U2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__7_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__7_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__7_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__8_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__8_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__8_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__9_I_1 (viewRef NetList (cellRef NAND3 (libraryRef plsi))))
+          (instance GATE_T__9_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__9_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__10_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__10_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__11_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__11_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__11_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__12_U1 (viewRef NetList (cellRef XNOR2 (libraryRef plsi))))
+          (instance GATE_T__13_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__14_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__15_I_1 (viewRef NetList (cellRef NAND3 (libraryRef plsi))))
+          (instance GATE_T__15_I_3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__15_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__15_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__16_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__16_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__16_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__17_I_1 (viewRef NetList (cellRef NAND3 (libraryRef plsi))))
+          (instance GATE_T__17_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__17_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__18_I_1 (viewRef NetList (cellRef NAND3 (libraryRef plsi))))
+          (instance GATE_T__18_I_3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__18_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__18_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__19_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__19_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__19_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__20_I_3 (viewRef NetList (cellRef NAND2 (libraryRef plsi))))
+          (instance GATE_T__20_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__20_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__21_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__22_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__22_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__23_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__23_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__24_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__24_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__24_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__25_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__25_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__26_U1 (viewRef NetList (cellRef AND4 (libraryRef plsi))))
+          (instance GATE_T__26_U2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__27_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__27_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__27_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__28_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__28_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__29_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__30_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__30_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__31_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__31_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__32_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__32_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__33_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__33_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__34_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__34_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__35_U1 (viewRef NetList (cellRef AND4 (libraryRef plsi))))
+          (instance GATE_T__35_U4 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__35_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__35_U2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__36_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__37_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__37_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__38_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__38_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__38_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__39_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__39_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__40_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__40_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__41_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__41_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__41_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__42_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__42_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__43_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__43_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__44_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__44_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__45_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__45_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__45_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__46_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__46_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__46_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__47_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__47_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__48_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__48_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__49_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__49_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__50_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__50_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__50_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__51_U1 (viewRef NetList (cellRef AND4 (libraryRef plsi))))
+          (instance GATE_T__51_U3 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__51_U2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__52_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__52_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__53_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__53_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__54_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__55_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__55_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__55_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__56_I_4 (viewRef NetList (cellRef AND3 (libraryRef plsi))))
+          (instance GATE_T__57_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__58_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__58_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__59_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__59_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__60_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__61_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__61_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__62_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__62_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__62_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__63_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__63_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__63_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__64_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__64_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__64_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__65_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__66_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+          (instance GATE_T__67_I_2 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__67_I_1 (viewRef NetList (cellRef INV (libraryRef plsi))))
+          (instance GATE_T__67_U1 (viewRef NetList (cellRef AND2 (libraryRef plsi))))
+
+          (net JTAG_NTRST (joined
+            (portRef JTAG_NTRST)
+            (portRef XI0 (instanceRef IN_JTAG_NTRST_U1))
+          ))
+
+          (net JTAG_NTRST_PIN_BLIF (joined
+            (portRef Z0 (instanceRef IN_JTAG_NTRST_U1))
+            (portRef A0 (instanceRef GATE_NTRST_I_2))
+          ))
+
+          (net NReset (joined
+            (portRef NReset)
+            (portRef XI0 (instanceRef IN_NReset_U1))
+          ))
+
+          (net NReset_PIN_BLIF (joined
+            (portRef Z0 (instanceRef IN_NReset_U1))
+            (portRef A0 (instanceRef GATE_NTRST_I_1))
+            (portRef A2 (instanceRef GATE_St0_D_REG_I_4))
+            (portRef A0 (instanceRef GATE_St1_D_REG_U1))
+            (portRef A1 (instanceRef GATE_St2_D_REG_I_4))
+            (portRef A0 (instanceRef GATE_St3_D_REG_U1))
+            (portRef A0 (instanceRef GATE_St4_D_REG_U1))
+          ))
+
+          (net NTRST (joined
+            (portRef NTRST)
+            (portRef XO0 (instanceRef OUT_NTRST_U1))
+          ))
+
+          (net NTRST_COM_BLIF (joined
+            (portRef A0 (instanceRef OUT_NTRST_U1))
+            (portRef ZN0 (instanceRef GATE_NTRST_I_3))
+          ))
+
+          (net RAS (joined
+            (portRef RAS)
+            (portRef XO0 (instanceRef OUT_RAS_U1))
+          ))
+
+          (net RAS_COM_BLIF (joined
+            (portRef A0 (instanceRef OUT_RAS_U1))
+            (portRef ZN0 (instanceRef GATE_RAS_I_1))
+          ))
+
+          (net CAS (joined
+            (portRef CAS)
+            (portRef XO0 (instanceRef OUT_CAS_U1))
+          ))
+
+          (net CAS_COM_BLIF (joined
+            (portRef A0 (instanceRef OUT_CAS_U1))
+            (portRef ZN0 (instanceRef GATE_CAS_U1))
+          ))
+
+          (net DRAM_WE (joined
+            (portRef DRAM_WE)
+            (portRef XO0 (instanceRef OUT_DRAM_WE_U1))
+          ))
+
+          (net DRAM_WE_COM_BLIF (joined
+            (portRef A0 (instanceRef OUT_DRAM_WE_U1))
+            (portRef ZN0 (instanceRef GATE_DRAM_WE_U1))
+          ))
+
+          (net R_A_EN (joined
+            (portRef R_A_EN)
+            (portRef XO0 (instanceRef OUT_R_A_EN_U1))
+          ))
+
+          (net R_A_EN_COM_BLIF (joined
+            (portRef A0 (instanceRef OUT_R_A_EN_U1))
+            (portRef ZN0 (instanceRef GATE_R_A_EN_U1))
+          ))
+
+          (net C_A_EN (joined
+            (portRef C_A_EN)
+            (portRef XO0 (instanceRef OUT_C_A_EN_U1))
+          ))
+
+          (net C_A_EN_COM_BLIF (joined
+            (portRef A0 (instanceRef OUT_C_A_EN_U1))
+            (portRef ZN0 (instanceRef GATE_C_A_EN_U1))
+          ))
+
+          (net NCS (joined
+            (portRef NCS)
+            (portRef XI0 (instanceRef IN_NCS_U1))
+          ))
+
+          (net NCS_PIN_BLIF (joined
+            (portRef Z0 (instanceRef IN_NCS_U1))
+            (portRef A0 (instanceRef GATE_NWAIT_U3))
+            (portRef A0 (instanceRef GATE_T__38_I_1))
+            (portRef A0 (instanceRef GATE_T__44_I_1))
+            (portRef A0 (instanceRef GATE_T__63_I_1))
+          ))
+
+          (net NWE (joined
+            (portRef NWE)
+            (portRef XI0 (instanceRef IN_NWE_U1))
+          ))
+
+          (net NWE_PIN_BLIF (joined
+            (portRef Z0 (instanceRef IN_NWE_U1))
+            (portRef A0 (instanceRef GATE_T__30_I_2))
+            (portRef A0 (instanceRef GATE_T__38_I_2))
+            (portRef A1 (instanceRef GATE_T__44_U1))
+          ))
+
+          (net NWAIT (joined
+            (portRef NWAIT)
+            (portRef XO0 (instanceRef OUT_NWAIT_U1))
+          ))
+
+          (net NWAIT_COM_BLIF (joined
+            (portRef A0 (instanceRef OUT_NWAIT_U1))
+            (portRef ZN0 (instanceRef GATE_NWAIT_I_1))
+          ))
+
+          (net MCLK (joined
+            (portRef MCLK)
+            (portRef XI0 (instanceRef IN_MCLK_U1))
+          ))
+
+          (net MCLK_PIN_BLIF (joined
+            (portRef Z0 (instanceRef IN_MCLK_U1))
+            (portRef CLK (instanceRef FF_St0_U1))
+            (portRef CLK (instanceRef FF_St1_U1))
+            (portRef CLK (instanceRef FF_St2_U1))
+            (portRef CLK (instanceRef FF_St3_U1))
+            (portRef CLK (instanceRef FF_St4_U1))
+          ))
+
+          (net RCLK (joined
+            (portRef RCLK)
+            (portRef XI0 (instanceRef IN_RCLK_U1))
+          ))
+
+          (net RCLK_PIN_BLIF (joined
+            (portRef Z0 (instanceRef IN_RCLK_U1))
+            (portRef CLK (instanceRef FF_RefRqst_U1))
+          ))
+
+          (net St0 (joined
+            (portRef St0)
+            (portRef XO0 (instanceRef OUT_St0_U1))
+          ))
+
+          (net St0_Q_BLIF (joined
+            (portRef A0 (instanceRef OUT_St0_U1))
+            (portRef Q0 (instanceRef FF_St0_U1))
+            (portRef A0 (instanceRef GATE_St0_D_REG_I_2))
+            (portRef A1 (instanceRef GATE_T__1_I_3))
+            (portRef A1 (instanceRef GATE_T__3_I_3))
+            (portRef A1 (instanceRef GATE_T__4_I_3))
+            (portRef A1 (instanceRef GATE_T__13_I_3))
+            (portRef A2 (instanceRef GATE_T__17_I_1))
+            (portRef A0 (instanceRef GATE_T__20_I_2))
+            (portRef A1 (instanceRef GATE_T__21_I_4))
+            (portRef A3 (instanceRef GATE_T__26_U1))
+            (portRef A2 (instanceRef GATE_T__33_I_4))
+            (portRef A0 (instanceRef GATE_T__34_I_1))
+            (portRef A0 (instanceRef GATE_T__46_I_2))
+            (portRef A1 (instanceRef GATE_T__47_I_4))
+            (portRef A0 (instanceRef GATE_T__50_I_2))
+            (portRef A3 (instanceRef GATE_T__51_U1))
+            (portRef A0 (instanceRef GATE_T__55_I_2))
+            (portRef A1 (instanceRef GATE_T__56_I_4))
+            (portRef A0 (instanceRef GATE_T__59_I_1))
+            (portRef A0 (instanceRef GATE_T__62_I_1))
+            (portRef A0 (instanceRef GATE_T__64_I_2))
+          ))
+
+          (net St1 (joined
+            (portRef St1)
+            (portRef XO0 (instanceRef OUT_St1_U1))
+          ))
+
+          (net St1_Q_BLIF (joined
+            (portRef A0 (instanceRef OUT_St1_U1))
+            (portRef Q0 (instanceRef FF_St1_U1))
+            (portRef A1 (instanceRef GATE_RefRqst_AR_I_4))
+            (portRef A2 (instanceRef GATE_T__0_I_1))
+            (portRef A0 (instanceRef GATE_T__4_I_3))
+            (portRef A0 (instanceRef GATE_T__6_U3))
+            (portRef A0 (instanceRef GATE_T__13_I_3))
+            (portRef A0 (instanceRef GATE_T__23_I_1))
+            (portRef A2 (instanceRef GATE_T__26_U1))
+            (portRef A0 (instanceRef GATE_T__27_I_2))
+            (portRef A0 (instanceRef GATE_T__31_I_1))
+            (portRef A1 (instanceRef GATE_T__32_U1))
+            (portRef A0 (instanceRef GATE_T__33_I_2))
+            (portRef A0 (instanceRef GATE_T__36_U1))
+            (portRef A0 (instanceRef GATE_T__41_I_2))
+            (portRef A0 (instanceRef GATE_T__46_U3))
+            (portRef A2 (instanceRef GATE_T__47_I_4))
+            (portRef A1 (instanceRef GATE_T__48_U1))
+            (portRef A0 (instanceRef GATE_T__49_I_1))
+            (portRef A0 (instanceRef GATE_T__50_I_1))
+            (portRef A2 (instanceRef GATE_T__51_U1))
+            (portRef A0 (instanceRef GATE_T__53_I_1))
+            (portRef A1 (instanceRef GATE_T__60_U1))
+            (portRef A1 (instanceRef GATE_T__66_U1))
+          ))
+
+          (net St2 (joined
+            (portRef St2)
+            (portRef XO0 (instanceRef OUT_St2_U1))
+          ))
+
+          (net St2_Q_BLIF (joined
+            (portRef A0 (instanceRef OUT_St2_U1))
+            (portRef Q0 (instanceRef FF_St2_U1))
+            (portRef A3 (instanceRef GATE_DRAM_WE_U1))
+            (portRef A0 (instanceRef GATE_R_A_EN_U3))
+            (portRef A3 (instanceRef GATE_C_A_EN_U1))
+            (portRef A2 (instanceRef GATE_T__2_I_1))
+            (portRef A0 (instanceRef GATE_T__12_U1))
+            (portRef A0 (instanceRef GATE_T__20_I_1))
+            (portRef A0 (instanceRef GATE_T__25_I_1))
+            (portRef A1 (instanceRef GATE_T__26_U1))
+            (portRef A0 (instanceRef GATE_T__27_U3))
+            (portRef A1 (instanceRef GATE_T__31_U1))
+            (portRef A0 (instanceRef GATE_T__32_I_1))
+            (portRef A0 (instanceRef GATE_T__35_U4))
+            (portRef A1 (instanceRef GATE_T__37_U1))
+            (portRef A0 (instanceRef GATE_T__39_I_1))
+            (portRef A1 (instanceRef GATE_T__40_U1))
+            (portRef A0 (instanceRef GATE_T__41_U3))
+            (portRef A1 (instanceRef GATE_T__43_U1))
+            (portRef A0 (instanceRef GATE_T__45_I_2))
+            (portRef A0 (instanceRef GATE_T__52_I_1))
+            (portRef A0 (instanceRef GATE_T__58_I_1))
+            (portRef A0 (instanceRef GATE_T__60_U1))
+            (portRef A0 (instanceRef GATE_T__64_I_1))
+            (portRef A0 (instanceRef GATE_T__66_U1))
+          ))
+
+          (net St3 (joined
+            (portRef St3)
+            (portRef XO0 (instanceRef OUT_St3_U1))
+          ))
+
+          (net St3_Q_BLIF (joined
+            (portRef A0 (instanceRef OUT_St3_U1))
+            (portRef Q0 (instanceRef FF_St3_U1))
+            (portRef A2 (instanceRef GATE_DRAM_WE_U1))
+            (portRef A0 (instanceRef GATE_T__2_U3))
+            (portRef A0 (instanceRef GATE_T__3_I_1))
+            (portRef A0 (instanceRef GATE_T__6_U2))
+            (portRef A2 (instanceRef GATE_T__9_I_1))
+            (portRef A1 (instanceRef GATE_T__14_I_3))
+            (portRef A0 (instanceRef GATE_T__22_I_2))
+            (portRef A0 (instanceRef GATE_T__24_U3))
+            (portRef A0 (instanceRef GATE_T__26_U2))
+            (portRef A2 (instanceRef GATE_T__28_I_4))
+            (portRef A1 (instanceRef GATE_T__29_U1))
+            (portRef A0 (instanceRef GATE_T__35_U3))
+            (portRef A0 (instanceRef GATE_T__37_I_1))
+            (portRef A0 (instanceRef GATE_T__43_I_1))
+            (portRef A0 (instanceRef GATE_T__45_U3))
+            (portRef A2 (instanceRef GATE_T__46_I_4))
+            (portRef A0 (instanceRef GATE_T__47_I_2))
+            (portRef A0 (instanceRef GATE_T__51_U3))
+            (portRef A1 (instanceRef GATE_T__54_U1))
+            (portRef A1 (instanceRef GATE_T__57_U1))
+            (portRef A1 (instanceRef GATE_T__59_U1))
+            (portRef A1 (instanceRef GATE_T__61_U1))
+            (portRef A1 (instanceRef GATE_T__65_U1))
+            (portRef A0 (instanceRef GATE_T__67_I_2))
+          ))
+
+          (net St4 (joined
+            (portRef St4)
+            (portRef XO0 (instanceRef OUT_St4_U1))
+          ))
+
+          (net St4_Q_BLIF (joined
+            (portRef A0 (instanceRef OUT_St4_U1))
+            (portRef Q0 (instanceRef FF_St4_U1))
+            (portRef A0 (instanceRef GATE_DRAM_WE_U2))
+            (portRef A0 (instanceRef GATE_R_A_EN_U2))
+            (portRef A0 (instanceRef GATE_C_A_EN_U4))
+            (portRef A2 (instanceRef GATE_NWAIT_I_1))
+            (portRef A0 (instanceRef GATE_T__0_U3))
+            (portRef A0 (instanceRef GATE_T__1_I_3))
+            (portRef A1 (instanceRef GATE_T__10_I_3))
+            (portRef A0 (instanceRef GATE_T__14_I_3))
+            (portRef A2 (instanceRef GATE_T__22_I_4))
+            (portRef A1 (instanceRef GATE_T__25_U1))
+            (portRef A0 (instanceRef GATE_T__28_I_2))
+            (portRef A0 (instanceRef GATE_T__29_U1))
+            (portRef A0 (instanceRef GATE_T__35_U2))
+            (portRef A1 (instanceRef GATE_T__39_U1))
+            (portRef A0 (instanceRef GATE_T__40_I_1))
+            (portRef A2 (instanceRef GATE_T__41_I_4))
+            (portRef A0 (instanceRef GATE_T__42_I_1))
+            (portRef A0 (instanceRef GATE_T__51_U2))
+            (portRef A0 (instanceRef GATE_T__54_U1))
+            (portRef A0 (instanceRef GATE_T__55_I_1))
+            (portRef A0 (instanceRef GATE_T__57_U1))
+            (portRef A0 (instanceRef GATE_T__61_I_1))
+            (portRef A0 (instanceRef GATE_T__63_I_2))
+            (portRef A0 (instanceRef GATE_T__65_U1))
+            (portRef A0 (instanceRef GATE_T__67_I_1))
+          ))
+
+          (net RefRqst (joined
+            (portRef RefRqst)
+            (portRef XO0 (instanceRef OUT_RefRqst_U1))
+          ))
+
+          (net RefRqst_Q_BLIF (joined
+            (portRef A0 (instanceRef OUT_RefRqst_U1))
+            (portRef Q0 (instanceRef FF_RefRqst_U1))
+            (portRef A0 (instanceRef GATE_T__6_U4))
+            (portRef A0 (instanceRef GATE_T__11_I_1))
+            (portRef A2 (instanceRef GATE_T__24_I_4))
+            (portRef A0 (instanceRef GATE_T__62_I_2))
+          ))
+
+          (net RefRqst_AR (joined
+            (portRef CD (instanceRef FF_RefRqst_U1))
+            (portRef Z0 (instanceRef GATE_RefRqst_AR_I_4))
+          ))
+
+          (net St0_D_REG (joined
+            (portRef D0 (instanceRef FF_St0_U1))
+            (portRef Z0 (instanceRef GATE_St0_D_REG_I_4))
+          ))
+
+          (net St1_D_REG (joined
+            (portRef D0 (instanceRef FF_St1_U1))
+            (portRef Z0 (instanceRef GATE_St1_D_REG_U1))
+          ))
+
+          (net St2_D_REG (joined
+            (portRef D0 (instanceRef FF_St2_U1))
+            (portRef Z0 (instanceRef GATE_St2_D_REG_I_4))
+          ))
+
+          (net St3_D_REG (joined
+            (portRef D0 (instanceRef FF_St3_U1))
+            (portRef Z0 (instanceRef GATE_St3_D_REG_U1))
+          ))
+
+          (net St4_D_REG (joined
+            (portRef D0 (instanceRef FF_St4_U1))
+            (portRef Z0 (instanceRef GATE_St4_D_REG_U1))
+          ))
+
+          (net T__0 (joined
+            (portRef ZN0 (instanceRef GATE_T__0_I_1))
+            (portRef A1 (instanceRef GATE_T__58_U1))
+          ))
+
+          (net T__1 (joined
+            (portRef ZN0 (instanceRef GATE_T__1_I_3))
+            (portRef A1 (instanceRef GATE_T__52_U1))
+          ))
+
+          (net T__2 (joined
+            (portRef ZN0 (instanceRef GATE_T__2_I_1))
+            (portRef A1 (instanceRef GATE_T__53_U1))
+          ))
+
+          (net T__3 (joined
+            (portRef ZN0 (instanceRef GATE_T__3_I_3))
+            (portRef A0 (instanceRef GATE_T__48_I_1))
+            (portRef A1 (instanceRef GATE_T__49_U1))
+          ))
+
+          (net T__4 (joined
+            (portRef ZN0 (instanceRef GATE_T__4_I_3))
+            (portRef A2 (instanceRef GATE_T__45_I_4))
+          ))
+
+          (net T__5 (joined
+            (portRef A1 (instanceRef GATE_St0_D_REG_I_4))
+            (portRef ZN0 (instanceRef GATE_T__5_I_1))
+          ))
+
+          (net T__6 (joined
+            (portRef ZN0 (instanceRef GATE_T__6_U1))
+            (portRef A1 (instanceRef GATE_T__42_U1))
+          ))
+
+          (net T__7 (joined
+            (portRef A1 (instanceRef GATE_St1_D_REG_U1))
+            (portRef ZN0 (instanceRef GATE_T__7_I_3))
+          ))
+
+          (net T__8 (joined
+            (portRef ZN0 (instanceRef GATE_T__8_I_3))
+            (portRef A1 (instanceRef GATE_T__34_U1))
+          ))
+
+          (net T__9 (joined
+            (portRef ZN0 (instanceRef GATE_T__9_I_1))
+            (portRef A1 (instanceRef GATE_T__33_I_4))
+          ))
+
+          (net T__10 (joined
+            (portRef ZN0 (instanceRef GATE_T__10_I_3))
+            (portRef A1 (instanceRef GATE_T__36_U1))
+          ))
+
+          (net T__11 (joined
+            (portRef ZN0 (instanceRef GATE_T__11_I_3))
+            (portRef A3 (instanceRef GATE_T__35_U1))
+          ))
+
+          (net T__12 (joined
+            (portRef A0 (instanceRef GATE_St2_D_REG_I_4))
+            (portRef ZN0 (instanceRef GATE_T__12_U1))
+          ))
+
+          (net T__13 (joined
+            (portRef A1 (instanceRef GATE_T__12_U1))
+            (portRef ZN0 (instanceRef GATE_T__13_I_3))
+          ))
+
+          (net T__14 (joined
+            (portRef A2 (instanceRef GATE_St2_D_REG_I_4))
+            (portRef ZN0 (instanceRef GATE_T__14_I_3))
+          ))
+
+          (net T__15 (joined
+            (portRef A1 (instanceRef GATE_St3_D_REG_U1))
+            (portRef ZN0 (instanceRef GATE_T__15_I_1))
+          ))
+
+          (net T__16 (joined
+            (portRef ZN0 (instanceRef GATE_T__16_I_3))
+            (portRef A2 (instanceRef GATE_T__27_I_4))
+          ))
+
+          (net T__17 (joined
+            (portRef ZN0 (instanceRef GATE_T__17_I_1))
+            (portRef A1 (instanceRef GATE_T__28_I_4))
+          ))
+
+          (net T__18 (joined
+            (portRef A1 (instanceRef GATE_St4_D_REG_U1))
+            (portRef ZN0 (instanceRef GATE_T__18_I_1))
+          ))
+
+          (net T__19 (joined
+            (portRef ZN0 (instanceRef GATE_T__19_I_3))
+            (portRef A1 (instanceRef GATE_T__23_U1))
+          ))
+
+          (net T__20 (joined
+            (portRef ZN0 (instanceRef GATE_T__20_I_3))
+            (portRef A1 (instanceRef GATE_T__22_I_4))
+            (portRef A0 (instanceRef GATE_T__24_I_2))
+          ))
+
+          (net T__21 (joined
+            (portRef A0 (instanceRef GATE_T__18_U3))
+            (portRef Z0 (instanceRef GATE_T__21_I_4))
+          ))
+
+          (net T__22 (joined
+            (portRef A0 (instanceRef GATE_T__18_I_3))
+            (portRef Z0 (instanceRef GATE_T__22_I_4))
+          ))
+
+          (net T__23 (joined
+            (portRef A0 (instanceRef GATE_T__18_I_2))
+            (portRef Z0 (instanceRef GATE_T__23_U1))
+          ))
+
+          (net T__24 (joined
+            (portRef A0 (instanceRef GATE_T__19_I_1))
+            (portRef Z0 (instanceRef GATE_T__24_I_4))
+          ))
+
+          (net T__25 (joined
+            (portRef A0 (instanceRef GATE_T__19_I_2))
+            (portRef Z0 (instanceRef GATE_T__25_U1))
+          ))
+
+          (net T__26 (joined
+            (portRef A0 (instanceRef GATE_T__15_U3))
+            (portRef Z0 (instanceRef GATE_T__26_U1))
+          ))
+
+          (net T__27 (joined
+            (portRef A0 (instanceRef GATE_T__15_I_3))
+            (portRef Z0 (instanceRef GATE_T__27_I_4))
+          ))
+
+          (net T__28 (joined
+            (portRef A0 (instanceRef GATE_T__15_I_2))
+            (portRef Z0 (instanceRef GATE_T__28_I_4))
+          ))
+
+          (net T__29 (joined
+            (portRef A0 (instanceRef GATE_T__16_I_1))
+            (portRef Z0 (instanceRef GATE_T__29_U1))
+          ))
+
+          (net T__30 (joined
+            (portRef A0 (instanceRef GATE_T__16_I_2))
+            (portRef Z0 (instanceRef GATE_T__30_I_4))
+          ))
+
+          (net T__31 (joined
+            (portRef A0 (instanceRef GATE_T__17_U3))
+            (portRef Z0 (instanceRef GATE_T__31_U1))
+          ))
+
+          (net T__32 (joined
+            (portRef A0 (instanceRef GATE_T__17_I_2))
+            (portRef Z0 (instanceRef GATE_T__32_U1))
+          ))
+
+          (net T__33 (joined
+            (portRef A0 (instanceRef GATE_T__7_I_1))
+            (portRef Z0 (instanceRef GATE_T__33_I_4))
+          ))
+
+          (net T__34 (joined
+            (portRef A0 (instanceRef GATE_T__7_I_2))
+            (portRef Z0 (instanceRef GATE_T__34_U1))
+          ))
+
+          (net T__35 (joined
+            (portRef A0 (instanceRef GATE_T__8_I_1))
+            (portRef Z0 (instanceRef GATE_T__35_U1))
+          ))
+
+          (net T__36 (joined
+            (portRef A0 (instanceRef GATE_T__8_I_2))
+            (portRef Z0 (instanceRef GATE_T__36_U1))
+          ))
+
+          (net T__37 (joined
+            (portRef A0 (instanceRef GATE_T__10_I_1))
+            (portRef Z0 (instanceRef GATE_T__37_U1))
+          ))
+
+          (net T__38 (joined
+            (portRef A0 (instanceRef GATE_T__11_I_2))
+            (portRef Z0 (instanceRef GATE_T__38_U1))
+          ))
+
+          (net T__39 (joined
+            (portRef A0 (instanceRef GATE_T__9_U3))
+            (portRef Z0 (instanceRef GATE_T__39_U1))
+          ))
+
+          (net T__40 (joined
+            (portRef A0 (instanceRef GATE_T__9_I_2))
+            (portRef Z0 (instanceRef GATE_T__40_U1))
+          ))
+
+          (net T__41 (joined
+            (portRef A0 (instanceRef GATE_T__5_U3))
+            (portRef Z0 (instanceRef GATE_T__41_I_4))
+          ))
+
+          (net T__42 (joined
+            (portRef A0 (instanceRef GATE_T__5_I_3))
+            (portRef Z0 (instanceRef GATE_T__42_U1))
+          ))
+
+          (net T__43 (joined
+            (portRef A0 (instanceRef GATE_T__5_I_2))
+            (portRef Z0 (instanceRef GATE_T__43_U1))
+          ))
+
+          (net T__44 (joined
+            (portRef A0 (instanceRef GATE_T__6_I_1))
+            (portRef Z0 (instanceRef GATE_T__44_U1))
+          ))
+
+          (net T__45 (joined
+            (portRef A0 (instanceRef GATE_NWAIT_I_2))
+            (portRef Z0 (instanceRef GATE_T__45_I_4))
+          ))
+
+          (net T__46 (joined
+            (portRef A0 (instanceRef GATE_C_A_EN_U2))
+            (portRef Z0 (instanceRef GATE_T__46_I_4))
+          ))
+
+          (net T__47 (joined
+            (portRef A0 (instanceRef GATE_C_A_EN_U3))
+            (portRef Z0 (instanceRef GATE_T__47_I_4))
+          ))
+
+          (net T__48 (joined
+            (portRef A0 (instanceRef GATE_R_A_EN_U4))
+            (portRef Z0 (instanceRef GATE_T__48_U1))
+          ))
+
+          (net T__49 (joined
+            (portRef A0 (instanceRef GATE_R_A_EN_I_1))
+            (portRef Z0 (instanceRef GATE_T__49_U1))
+          ))
+
+          (net T__50 (joined
+            (portRef A0 (instanceRef GATE_DRAM_WE_U3))
+            (portRef Z0 (instanceRef GATE_T__50_U1))
+          ))
+
+          (net T__51 (joined
+            (portRef A0 (instanceRef GATE_CAS_U2))
+            (portRef Z0 (instanceRef GATE_T__51_U1))
+          ))
+
+          (net T__52 (joined
+            (portRef A0 (instanceRef GATE_CAS_U3))
+            (portRef Z0 (instanceRef GATE_T__52_U1))
+          ))
+
+          (net T__53 (joined
+            (portRef A0 (instanceRef GATE_CAS_U4))
+            (portRef Z0 (instanceRef GATE_T__53_U1))
+          ))
+
+          (net T__54 (joined
+            (portRef A0 (instanceRef GATE_CAS_I_1))
+            (portRef Z0 (instanceRef GATE_T__54_U1))
+          ))
+
+          (net T__55 (joined
+            (portRef A0 (instanceRef GATE_T__2_I_2))
+            (portRef Z0 (instanceRef GATE_T__55_U1))
+          ))
+
+          (net T__56 (joined
+            (portRef A0 (instanceRef GATE_RAS_U3))
+            (portRef Z0 (instanceRef GATE_T__56_I_4))
+          ))
+
+          (net T__57 (joined
+            (portRef A0 (instanceRef GATE_RAS_I_3))
+            (portRef Z0 (instanceRef GATE_T__57_U1))
+          ))
+
+          (net T__58 (joined
+            (portRef A0 (instanceRef GATE_RAS_I_2))
+            (portRef Z0 (instanceRef GATE_T__58_U1))
+          ))
+
+          (net T__59 (joined
+            (portRef A0 (instanceRef GATE_T__0_I_2))
+            (portRef Z0 (instanceRef GATE_T__59_U1))
+          ))
+
+          (net T__60 (joined
+            (portRef A0 (instanceRef GATE_T__21_I_4))
+            (portRef Z0 (instanceRef GATE_T__60_U1))
+          ))
+
+          (net T__61 (joined
+            (portRef A2 (instanceRef GATE_T__21_I_4))
+            (portRef Z0 (instanceRef GATE_T__61_U1))
+          ))
+
+          (net T__62 (joined
+            (portRef A1 (instanceRef GATE_T__30_I_4))
+            (portRef Z0 (instanceRef GATE_T__62_U1))
+          ))
+
+          (net T__63 (joined
+            (portRef A2 (instanceRef GATE_T__30_I_4))
+            (portRef Z0 (instanceRef GATE_T__63_U1))
+          ))
+
+          (net T__64 (joined
+            (portRef A0 (instanceRef GATE_RefRqst_AR_I_4))
+            (portRef Z0 (instanceRef GATE_T__64_U1))
+          ))
+
+          (net T__65 (joined
+            (portRef A2 (instanceRef GATE_RefRqst_AR_I_4))
+            (portRef Z0 (instanceRef GATE_T__65_U1))
+          ))
+
+          (net T__66 (joined
+            (portRef A0 (instanceRef GATE_T__56_I_4))
+            (portRef Z0 (instanceRef GATE_T__66_U1))
+          ))
+
+          (net T__67 (joined
+            (portRef A2 (instanceRef GATE_T__56_I_4))
+            (portRef Z0 (instanceRef GATE_T__67_U1))
+          ))
+
+          (net VCC (joined
+            (portRef D0 (instanceRef FF_RefRqst_U1))
+          ))
+
+          (net GATE_NTRST_N_1 (joined
+            (portRef A0 (instanceRef GATE_NTRST_I_3))
+            (portRef ZN0 (instanceRef GATE_NTRST_I_1))
+          ))
+
+          (net GATE_NTRST_N_2 (joined
+            (portRef A1 (instanceRef GATE_NTRST_I_3))
+            (portRef ZN0 (instanceRef GATE_NTRST_I_2))
+          ))
+
+          (net GATE_RAS_N_3 (joined
+            (portRef A2 (instanceRef GATE_RAS_I_1))
+            (portRef ZN0 (instanceRef GATE_RAS_I_3))
+          ))
+
+          (net GATE_RAS_N_2 (joined
+            (portRef A1 (instanceRef GATE_RAS_I_1))
+            (portRef ZN0 (instanceRef GATE_RAS_U3))
+          ))
+
+          (net GATE_RAS_N_1 (joined
+            (portRef A0 (instanceRef GATE_RAS_I_1))
+            (portRef ZN0 (instanceRef GATE_RAS_I_2))
+          ))
+
+          (net GATE_CAS_N_4 (joined
+            (portRef A3 (instanceRef GATE_CAS_U1))
+            (portRef ZN0 (instanceRef GATE_CAS_I_1))
+          ))
+
+          (net GATE_CAS_N_3 (joined
+            (portRef A2 (instanceRef GATE_CAS_U1))
+            (portRef ZN0 (instanceRef GATE_CAS_U4))
+          ))
+
+          (net GATE_CAS_N_2 (joined
+            (portRef A1 (instanceRef GATE_CAS_U1))
+            (portRef ZN0 (instanceRef GATE_CAS_U3))
+          ))
+
+          (net GATE_CAS_N_1 (joined
+            (portRef A0 (instanceRef GATE_CAS_U1))
+            (portRef ZN0 (instanceRef GATE_CAS_U2))
+          ))
+
+          (net GATE_DRAM_WE_N_2 (joined
+            (portRef A1 (instanceRef GATE_DRAM_WE_U1))
+            (portRef ZN0 (instanceRef GATE_DRAM_WE_U3))
+          ))
+
+          (net GATE_DRAM_WE_N_1 (joined
+            (portRef A0 (instanceRef GATE_DRAM_WE_U1))
+            (portRef ZN0 (instanceRef GATE_DRAM_WE_U2))
+          ))
+
+          (net GATE_R_A_EN_N_4 (joined
+            (portRef A3 (instanceRef GATE_R_A_EN_U1))
+            (portRef ZN0 (instanceRef GATE_R_A_EN_I_1))
+          ))
+
+          (net GATE_R_A_EN_N_3 (joined
+            (portRef A2 (instanceRef GATE_R_A_EN_U1))
+            (portRef ZN0 (instanceRef GATE_R_A_EN_U4))
+          ))
+
+          (net GATE_R_A_EN_N_2 (joined
+            (portRef A1 (instanceRef GATE_R_A_EN_U1))
+            (portRef ZN0 (instanceRef GATE_R_A_EN_U3))
+          ))
+
+          (net GATE_R_A_EN_N_1 (joined
+            (portRef A0 (instanceRef GATE_R_A_EN_U1))
+            (portRef ZN0 (instanceRef GATE_R_A_EN_U2))
+          ))
+
+          (net GATE_C_A_EN_N_3 (joined
+            (portRef A2 (instanceRef GATE_C_A_EN_U1))
+            (portRef ZN0 (instanceRef GATE_C_A_EN_U4))
+          ))
+
+          (net GATE_C_A_EN_N_2 (joined
+            (portRef A1 (instanceRef GATE_C_A_EN_U1))
+            (portRef ZN0 (instanceRef GATE_C_A_EN_U3))
+          ))
+
+          (net GATE_C_A_EN_N_1 (joined
+            (portRef A0 (instanceRef GATE_C_A_EN_U1))
+            (portRef ZN0 (instanceRef GATE_C_A_EN_U2))
+          ))
+
+          (net GATE_NWAIT_N_2 (joined
+            (portRef A1 (instanceRef GATE_NWAIT_I_1))
+            (portRef ZN0 (instanceRef GATE_NWAIT_U3))
+          ))
+
+          (net GATE_NWAIT_N_1 (joined
+            (portRef A0 (instanceRef GATE_NWAIT_I_1))
+            (portRef ZN0 (instanceRef GATE_NWAIT_I_2))
+          ))
+
+          (net GATE_St0_D_REG_N_1 (joined
+            (portRef A0 (instanceRef GATE_St0_D_REG_I_4))
+            (portRef ZN0 (instanceRef GATE_St0_D_REG_I_2))
+          ))
+
+          (net GATE_T__0_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__0_I_1))
+            (portRef ZN0 (instanceRef GATE_T__0_U3))
+          ))
+
+          (net GATE_T__0_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__0_I_1))
+            (portRef ZN0 (instanceRef GATE_T__0_I_2))
+          ))
+
+          (net GATE_T__2_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__2_I_1))
+            (portRef ZN0 (instanceRef GATE_T__2_U3))
+          ))
+
+          (net GATE_T__2_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__2_I_1))
+            (portRef ZN0 (instanceRef GATE_T__2_I_2))
+          ))
+
+          (net GATE_T__3_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__3_I_3))
+            (portRef ZN0 (instanceRef GATE_T__3_I_1))
+          ))
+
+          (net GATE_T__5_N_3 (joined
+            (portRef A2 (instanceRef GATE_T__5_I_1))
+            (portRef ZN0 (instanceRef GATE_T__5_I_3))
+          ))
+
+          (net GATE_T__5_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__5_I_1))
+            (portRef ZN0 (instanceRef GATE_T__5_U3))
+          ))
+
+          (net GATE_T__5_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__5_I_1))
+            (portRef ZN0 (instanceRef GATE_T__5_I_2))
+          ))
+
+          (net GATE_T__6_N_4 (joined
+            (portRef A3 (instanceRef GATE_T__6_U1))
+            (portRef ZN0 (instanceRef GATE_T__6_I_1))
+          ))
+
+          (net GATE_T__6_N_3 (joined
+            (portRef A2 (instanceRef GATE_T__6_U1))
+            (portRef ZN0 (instanceRef GATE_T__6_U4))
+          ))
+
+          (net GATE_T__6_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__6_U1))
+            (portRef ZN0 (instanceRef GATE_T__6_U3))
+          ))
+
+          (net GATE_T__6_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__6_U1))
+            (portRef ZN0 (instanceRef GATE_T__6_U2))
+          ))
+
+          (net GATE_T__7_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__7_I_3))
+            (portRef ZN0 (instanceRef GATE_T__7_I_1))
+          ))
+
+          (net GATE_T__7_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__7_I_3))
+            (portRef ZN0 (instanceRef GATE_T__7_I_2))
+          ))
+
+          (net GATE_T__8_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__8_I_3))
+            (portRef ZN0 (instanceRef GATE_T__8_I_1))
+          ))
+
+          (net GATE_T__8_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__8_I_3))
+            (portRef ZN0 (instanceRef GATE_T__8_I_2))
+          ))
+
+          (net GATE_T__9_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__9_I_1))
+            (portRef ZN0 (instanceRef GATE_T__9_U3))
+          ))
+
+          (net GATE_T__9_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__9_I_1))
+            (portRef ZN0 (instanceRef GATE_T__9_I_2))
+          ))
+
+          (net GATE_T__10_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__10_I_3))
+            (portRef ZN0 (instanceRef GATE_T__10_I_1))
+          ))
+
+          (net GATE_T__11_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__11_I_3))
+            (portRef ZN0 (instanceRef GATE_T__11_I_1))
+          ))
+
+          (net GATE_T__11_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__11_I_3))
+            (portRef ZN0 (instanceRef GATE_T__11_I_2))
+          ))
+
+          (net GATE_T__15_N_3 (joined
+            (portRef A2 (instanceRef GATE_T__15_I_1))
+            (portRef ZN0 (instanceRef GATE_T__15_I_3))
+          ))
+
+          (net GATE_T__15_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__15_I_1))
+            (portRef ZN0 (instanceRef GATE_T__15_U3))
+          ))
+
+          (net GATE_T__15_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__15_I_1))
+            (portRef ZN0 (instanceRef GATE_T__15_I_2))
+          ))
+
+          (net GATE_T__16_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__16_I_3))
+            (portRef ZN0 (instanceRef GATE_T__16_I_1))
+          ))
+
+          (net GATE_T__16_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__16_I_3))
+            (portRef ZN0 (instanceRef GATE_T__16_I_2))
+          ))
+
+          (net GATE_T__17_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__17_I_1))
+            (portRef ZN0 (instanceRef GATE_T__17_U3))
+          ))
+
+          (net GATE_T__17_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__17_I_1))
+            (portRef ZN0 (instanceRef GATE_T__17_I_2))
+          ))
+
+          (net GATE_T__18_N_3 (joined
+            (portRef A2 (instanceRef GATE_T__18_I_1))
+            (portRef ZN0 (instanceRef GATE_T__18_I_3))
+          ))
+
+          (net GATE_T__18_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__18_I_1))
+            (portRef ZN0 (instanceRef GATE_T__18_U3))
+          ))
+
+          (net GATE_T__18_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__18_I_1))
+            (portRef ZN0 (instanceRef GATE_T__18_I_2))
+          ))
+
+          (net GATE_T__19_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__19_I_3))
+            (portRef ZN0 (instanceRef GATE_T__19_I_1))
+          ))
+
+          (net GATE_T__19_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__19_I_3))
+            (portRef ZN0 (instanceRef GATE_T__19_I_2))
+          ))
+
+          (net GATE_T__20_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__20_I_3))
+            (portRef ZN0 (instanceRef GATE_T__20_I_1))
+          ))
+
+          (net GATE_T__20_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__20_I_3))
+            (portRef ZN0 (instanceRef GATE_T__20_I_2))
+          ))
+
+          (net GATE_T__22_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__22_I_4))
+            (portRef ZN0 (instanceRef GATE_T__22_I_2))
+          ))
+
+          (net GATE_T__23_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__23_I_1))
+            (portRef A0 (instanceRef GATE_T__23_U1))
+          ))
+
+          (net GATE_T__24_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__24_I_4))
+            (portRef ZN0 (instanceRef GATE_T__24_U3))
+          ))
+
+          (net GATE_T__24_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__24_I_4))
+            (portRef ZN0 (instanceRef GATE_T__24_I_2))
+          ))
+
+          (net GATE_T__25_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__25_I_1))
+            (portRef A0 (instanceRef GATE_T__25_U1))
+          ))
+
+          (net GATE_T__26_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__26_U1))
+            (portRef ZN0 (instanceRef GATE_T__26_U2))
+          ))
+
+          (net GATE_T__27_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__27_I_4))
+            (portRef ZN0 (instanceRef GATE_T__27_U3))
+          ))
+
+          (net GATE_T__27_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__27_I_4))
+            (portRef ZN0 (instanceRef GATE_T__27_I_2))
+          ))
+
+          (net GATE_T__28_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__28_I_4))
+            (portRef ZN0 (instanceRef GATE_T__28_I_2))
+          ))
+
+          (net GATE_T__30_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__30_I_4))
+            (portRef ZN0 (instanceRef GATE_T__30_I_2))
+          ))
+
+          (net GATE_T__31_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__31_I_1))
+            (portRef A0 (instanceRef GATE_T__31_U1))
+          ))
+
+          (net GATE_T__32_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__32_I_1))
+            (portRef A0 (instanceRef GATE_T__32_U1))
+          ))
+
+          (net GATE_T__33_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__33_I_4))
+            (portRef ZN0 (instanceRef GATE_T__33_I_2))
+          ))
+
+          (net GATE_T__34_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__34_I_1))
+            (portRef A0 (instanceRef GATE_T__34_U1))
+          ))
+
+          (net GATE_T__35_N_3 (joined
+            (portRef A2 (instanceRef GATE_T__35_U1))
+            (portRef ZN0 (instanceRef GATE_T__35_U4))
+          ))
+
+          (net GATE_T__35_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__35_U1))
+            (portRef ZN0 (instanceRef GATE_T__35_U3))
+          ))
+
+          (net GATE_T__35_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__35_U1))
+            (portRef ZN0 (instanceRef GATE_T__35_U2))
+          ))
+
+          (net GATE_T__37_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__37_I_1))
+            (portRef A0 (instanceRef GATE_T__37_U1))
+          ))
+
+          (net GATE_T__38_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__38_I_1))
+            (portRef A0 (instanceRef GATE_T__38_U1))
+          ))
+
+          (net GATE_T__38_N_2 (joined
+            (portRef ZN0 (instanceRef GATE_T__38_I_2))
+            (portRef A1 (instanceRef GATE_T__38_U1))
+          ))
+
+          (net GATE_T__39_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__39_I_1))
+            (portRef A0 (instanceRef GATE_T__39_U1))
+          ))
+
+          (net GATE_T__40_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__40_I_1))
+            (portRef A0 (instanceRef GATE_T__40_U1))
+          ))
+
+          (net GATE_T__41_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__41_I_4))
+            (portRef ZN0 (instanceRef GATE_T__41_U3))
+          ))
+
+          (net GATE_T__41_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__41_I_4))
+            (portRef ZN0 (instanceRef GATE_T__41_I_2))
+          ))
+
+          (net GATE_T__42_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__42_I_1))
+            (portRef A0 (instanceRef GATE_T__42_U1))
+          ))
+
+          (net GATE_T__43_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__43_I_1))
+            (portRef A0 (instanceRef GATE_T__43_U1))
+          ))
+
+          (net GATE_T__44_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__44_I_1))
+            (portRef A0 (instanceRef GATE_T__44_U1))
+          ))
+
+          (net GATE_T__45_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__45_I_4))
+            (portRef ZN0 (instanceRef GATE_T__45_U3))
+          ))
+
+          (net GATE_T__45_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__45_I_4))
+            (portRef ZN0 (instanceRef GATE_T__45_I_2))
+          ))
+
+          (net GATE_T__46_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__46_I_4))
+            (portRef ZN0 (instanceRef GATE_T__46_U3))
+          ))
+
+          (net GATE_T__46_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__46_I_4))
+            (portRef ZN0 (instanceRef GATE_T__46_I_2))
+          ))
+
+          (net GATE_T__47_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__47_I_4))
+            (portRef ZN0 (instanceRef GATE_T__47_I_2))
+          ))
+
+          (net GATE_T__48_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__48_I_1))
+            (portRef A0 (instanceRef GATE_T__48_U1))
+          ))
+
+          (net GATE_T__49_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__49_I_1))
+            (portRef A0 (instanceRef GATE_T__49_U1))
+          ))
+
+          (net GATE_T__50_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__50_I_1))
+            (portRef A0 (instanceRef GATE_T__50_U1))
+          ))
+
+          (net GATE_T__50_N_2 (joined
+            (portRef ZN0 (instanceRef GATE_T__50_I_2))
+            (portRef A1 (instanceRef GATE_T__50_U1))
+          ))
+
+          (net GATE_T__51_N_2 (joined
+            (portRef A1 (instanceRef GATE_T__51_U1))
+            (portRef ZN0 (instanceRef GATE_T__51_U3))
+          ))
+
+          (net GATE_T__51_N_1 (joined
+            (portRef A0 (instanceRef GATE_T__51_U1))
+            (portRef ZN0 (instanceRef GATE_T__51_U2))
+          ))
+
+          (net GATE_T__52_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__52_I_1))
+            (portRef A0 (instanceRef GATE_T__52_U1))
+          ))
+
+          (net GATE_T__53_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__53_I_1))
+            (portRef A0 (instanceRef GATE_T__53_U1))
+          ))
+
+          (net GATE_T__55_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__55_I_1))
+            (portRef A0 (instanceRef GATE_T__55_U1))
+          ))
+
+          (net GATE_T__55_N_2 (joined
+            (portRef ZN0 (instanceRef GATE_T__55_I_2))
+            (portRef A1 (instanceRef GATE_T__55_U1))
+          ))
+
+          (net GATE_T__58_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__58_I_1))
+            (portRef A0 (instanceRef GATE_T__58_U1))
+          ))
+
+          (net GATE_T__59_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__59_I_1))
+            (portRef A0 (instanceRef GATE_T__59_U1))
+          ))
+
+          (net GATE_T__61_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__61_I_1))
+            (portRef A0 (instanceRef GATE_T__61_U1))
+          ))
+
+          (net GATE_T__62_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__62_I_1))
+            (portRef A0 (instanceRef GATE_T__62_U1))
+          ))
+
+          (net GATE_T__62_N_2 (joined
+            (portRef ZN0 (instanceRef GATE_T__62_I_2))
+            (portRef A1 (instanceRef GATE_T__62_U1))
+          ))
+
+          (net GATE_T__63_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__63_I_1))
+            (portRef A0 (instanceRef GATE_T__63_U1))
+          ))
+
+          (net GATE_T__63_N_2 (joined
+            (portRef ZN0 (instanceRef GATE_T__63_I_2))
+            (portRef A1 (instanceRef GATE_T__63_U1))
+          ))
+
+          (net GATE_T__64_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__64_I_1))
+            (portRef A0 (instanceRef GATE_T__64_U1))
+          ))
+
+          (net GATE_T__64_N_2 (joined
+            (portRef ZN0 (instanceRef GATE_T__64_I_2))
+            (portRef A1 (instanceRef GATE_T__64_U1))
+          ))
+
+          (net GATE_T__67_N_1 (joined
+            (portRef ZN0 (instanceRef GATE_T__67_I_1))
+            (portRef A0 (instanceRef GATE_T__67_U1))
+          ))
+
+          (net GATE_T__67_N_2 (joined
+            (portRef ZN0 (instanceRef GATE_T__67_I_2))
+            (portRef A1 (instanceRef GATE_T__67_U1))
+          ))
+        )
+      )
+    )
+  )
+
+  (design dram (cellRef dram (libraryRef dram)))
+)
