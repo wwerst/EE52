@@ -11,4 +11,5 @@
 
 
 
-    .equ Keypad_RDY_Pin,    26
+    .equ RDY_PIN,    26
+    .equ HANGUP_BTN, 24

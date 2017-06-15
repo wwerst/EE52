@@ -69,10 +69,10 @@ low_level_init:
 
 @@Check SRAM valid
    
-   LDR r0, =0x30000000
-   LDR r1, =0x10000
-   @LDR r0, =0x20000000
-   @LDR r1, =0x20000
+   @LDR r0, =0x30000000
+   @LDR r1, =0x10
+   LDR r0, =0x20000000
+   LDR r1, =0x20000
    BL mem_test
 
    @BL keypad_init

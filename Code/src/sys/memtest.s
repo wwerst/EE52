@@ -41,7 +41,7 @@ mem_test_loop:
 writedata:
     STR r4, [r0, r2]        @Load value into memory
     ADDS r4, r3              @Increment value to load into memory
-    SUB r4, #0              @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
+    ADC r4, #-1              @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
     ADD r2, #4              @Increment the relative location to load into memory
     CMP r2, r1              @Check if written to all locations in memory
     BLT writedata            @If haven't, then keep writing, else go to check memory
@@ -52,7 +52,7 @@ checkdata:
     CMP r5, r4
     BNE failure
     ADDS r4, r3              @Increment value to load into memory
-    SUB r4, #0              @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
+    ADC r4, #-1              @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
     ADD r2, #4              @Increment the relative location to load into memory
     CMP r2, r1              @Check if written to all locations in memory
     BLT checkdata
