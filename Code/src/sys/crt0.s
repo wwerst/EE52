@@ -71,14 +71,20 @@ low_level_init:
    
    @LDR r0, =0x30000000
    @LDR r1, =0x10
-   LDR r0, =0x20000000
-   LDR r1, =0x20000
+   @LDR r0, =0x20000000
+   @LDR r1, =0x20000
+   @BL mem_test
+   
+   LDR r0, =0x30000000
+   LDR r1, =0x100
    BL mem_test
-
-   @BL keypad_init
+   
+   
+   BL keypad_init
     
 
 loop:
+    BL getkey
     B loop
     @BL		main			@ run the main function (no arguments)
 

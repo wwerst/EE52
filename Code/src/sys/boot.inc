@@ -25,7 +25,7 @@
 	@ ACSS				0x--00----
 	@ 8 bit				0x----40--
 	@ 10 Wait state		0x------86
-    .equ SMC_CSR2_VAL, 	0x50004785
+    .equ SMC_CSR2_VAL, 	0x30004385
 	
 	@ ROM
 	@ RWHOLD,RWSETUP 	0x00------
@@ -40,7 +40,7 @@
 
 
 	.equ PMC_PLLAR_VAL, 0x20153F05  @ MULA = 21 + 1, DIVA = 5, PLLACOUNT =63, OUTA = 00
-    .equ PMC_MCKR_VAL,  0x00000012
+    .equ PMC_MCKR_VAL,  0x0000000A
     .equ PMC_PCER_VAL,  0x0000001C  @Enable PIOA, PIOB
     .equ PMC_PCK1_VAL,  0x00000019  @MCK source, Pre-scale by 64
 	

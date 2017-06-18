@@ -24,3 +24,8 @@
 
 @ supervisor mode stack size (see chapter 13 of the manual)
 	.equ	SVC_STACK_SIZE,	128
+
+    
+@ General Definitions
+    .equ    TRUE,   1
+    .equ    FALSE,  0

@@ -33,7 +33,7 @@ mem_test:
     LDR r3, =0              @Load incrementer value
     LDR r4, =0
 mem_test_loop:
-    LDR r5, =0xAAAAAA
+    LDR r5, =0xF35D4B3
     ADDS r3, r5              @Increment incrementer value
     BCS success             @If have used all incrementer values, and thus overflowed, return
     LDR r2, =0              @Load the initial location to load into memory
@@ -41,7 +41,7 @@ mem_test_loop:
 writedata:
     STR r4, [r0, r2]        @Load value into memory
     ADDS r4, r3              @Increment value to load into memory
-    ADC r4, #-1              @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
+    SBC r4, r4, #1              @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
     ADD r2, #4              @Increment the relative location to load into memory
     CMP r2, r1              @Check if written to all locations in memory
     BLT writedata            @If haven't, then keep writing, else go to check memory
@@ -52,7 +52,7 @@ checkdata:
     CMP r5, r4
     BNE failure
     ADDS r4, r3              @Increment value to load into memory
-    ADC r4, #-1              @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
+    SBC r4, r4, #1              @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
     ADD r2, #4              @Increment the relative location to load into memory
     CMP r2, r1              @Check if written to all locations in memory
     BLT checkdata

@@ -148,13 +148,10 @@ _start:
     ORR r1, r0                           @Merge current PRES value with new CSS
     LDR r0, =PMC_MCKR                   @Load PMC_MCKR address
     STR r1, [r0]                        @Store intermediate value in MCKR
-    
-    SetHReg PMC_MCKR, PMC_MCKR_VAL
-    @Configure Peripheral clock
-    LDR r2, =100000                      @Clock initialization timeout
+    LDR r2, =2000                       @Clock initialization timeout
 WaitMCKRDY:
-    ADDS r2, #-1
-    BCC DoneMCKRDY
+    SUBS r2, r2, #1
+    BLO DoneMCKRDY
     LDR r0, =PMC_SR
     LDR r1, [r0]
     TST r1, #0x8
@@ -162,6 +159,8 @@ WaitMCKRDY:
     @B DoneMCKRDY
 DoneMCKRDY:
 
+    SetHReg PMC_MCKR, PMC_MCKR_VAL
+    @Configure Peripheral clock
 
     SetHReg PMC_PCER, PMC_PCER_VAL
 
