@@ -1,6 +1,6 @@
 CELL: dram;
 
-OUTPUTS: NTRST, RAS, CAS, DRAM_WE, R_A_EN, C_A_EN, NWAIT, St0, St1, St2, St3, St4, RefRqst;
+OUTPUTS: NTRST, RAS, CAS, DRAM_WE, R_A_EN, C_A_EN, NWAIT, St0, St1, St2, St3, St4, RefRqst, RefInProgress, RefInProgressDelay;
 INPUTS: JTAG_NTRST, NReset, NCS, NWE, MCLK, RCLK;
 
 SYMBOLS:
@@ -10,22 +10,24 @@ PLA: CAS;
 PLA: DRAM_WE;
 PLA: R_A_EN;
 PLA: C_A_EN;
-PLA: St0_C;
-PLA: St1_C;
-PLA: St2_C;
-PLA: St3_C;
+PLA: NWAIT;
 PLA: St4_C;
-PLA: NWAIT_C;
+PLA: St3_C;
+PLA: St2_C;
+PLA: St1_C;
+PLA: St0_C;
+PLA: RefInProgress_C;
+PLA: RefInProgressDelay_C;
 PLA: RefRqst_C;
 PLA: RefRqst_AR;
-PLA: NWAIT_D;
 PLA: St0_D;
 PLA: St1_D;
 PLA: St2_D;
 PLA: St3_D;
 PLA: St4_D;
 BUF: RefRqst_D;
-FD11: NWAIT;
+PLA: RefInProgress_D;
+PLA: RefInProgressDelay_D;
 FD11: St0;
 BUF: St0_Q;
 FD11: St1;
@@ -37,11 +39,13 @@ BUF: St3_Q;
 FD11: St4;
 BUF: St4_Q;
 FD21: RefRqst;
+FD11: RefInProgress;
+FD11: RefInProgressDelay;
 ENDSYMBOLS;
 
 NETS:
 JTAG_NTRST: .JTAG_NTRST, NTRST.A1;
-NReset: .NReset, NTRST.A0, St0_D.A1, St1_D.A1, St2_D.A0, St3_D.A1
+NReset: .NReset, NTRST.A0, St0_D.A0, St1_D.A0, St2_D.A0, St3_D.A0
 , St4_D.A0;
 NTRST_PIN: .NTRST, NTRST.Z0;
 RAS_PIN: .RAS, RAS.Z0;
@@ -49,43 +53,47 @@ CAS_PIN: .CAS, CAS.Z0;
 DRAM_WE_PIN: .DRAM_WE, DRAM_WE.Z0;
 R_A_EN_PIN: .R_A_EN, R_A_EN.Z0;
 C_A_EN_PIN: .C_A_EN, C_A_EN.Z0;
-NCS: .NCS, NWAIT_D.A0, St0_D.A0, St1_D.A0, St3_D.A0;
-NWE: .NWE, St0_D.A8, St1_D.A8, St3_D.A8;
-NWAIT_C:  NWAIT_C.Z0, NWAIT.CLK;
-NWAIT_D: NWAIT_D.Z0, NWAIT.D0;
-NWAIT_PIN: .NWAITNWAIT.Q0;
-MCLK: .MCLK, St0_C.A0, St1_C.A0, St2_C.A0, St3_C.A0, St4_C.A0
-, NWAIT_C.A0;
+NCS: .NCS, DRAM_WE.A1, St0_D.A1;
+NWE: .NWE, DRAM_WE.A0;
+NWAIT_PIN: .NWAIT, NWAIT.Z0;
+MCLK: .MCLK, St4_C.A0, St3_C.A0, St2_C.A0, St1_C.A0, St0_C.A0
+, RefInProgress_C.A0, RefInProgressDelay_C.A0;
 RCLK: .RCLK, RefRqst_C.A0;
 St0_C:  St0_C.Z0, St0.CLK;
 St0_D: St0_D.Z0, St0.D0;
-St0_PIN: .St0St0.Q0, St0_Q.A0, RefRqst_AR.A3, NWAIT_D.A4;
-St0_Q: St0_Q.Z0, RAS.A4, CAS.A4, DRAM_WE.A4, R_A_EN.A4, C_A_EN.A3
-, St0_D.A6, St1_D.A6, St2_D.A5, St3_D.A6, St4_D.A5;
+St0_PIN: .St0St0.Q0, St0_Q.A0, RefRqst_AR.A0, RefInProgress_D.A1;
+St0_Q: St0_Q.Z0, RAS.A4, CAS.A4, R_A_EN.A4, C_A_EN.A4, St0_D.A6
+, St1_D.A5, St2_D.A5, St3_D.A5, St4_D.A5;
 St1_C:  St1_C.Z0, St1.CLK;
 St1_D: St1_D.Z0, St1.D0;
-St1_PIN: .St1St1.Q0, St1_Q.A0, RefRqst_AR.A4, NWAIT_D.A5;
-St1_Q: St1_Q.Z0, RAS.A3, CAS.A3, DRAM_WE.A3, R_A_EN.A3, C_A_EN.A2
-, St0_D.A5, St1_D.A5, St2_D.A4, St3_D.A5, St4_D.A4;
+St1_PIN: .St1St1.Q0, St1_Q.A0, RefRqst_AR.A1, RefInProgress_D.A2;
+St1_Q: St1_Q.Z0, RAS.A3, CAS.A3, R_A_EN.A3, C_A_EN.A3, St0_D.A5
+, St1_D.A4, St2_D.A4, St3_D.A4, St4_D.A4;
 St2_C:  St2_C.Z0, St2.CLK;
 St2_D: St2_D.Z0, St2.D0;
-St2_PIN: .St2St2.Q0, St2_Q.A0, RefRqst_AR.A2, NWAIT_D.A3;
-St2_Q: St2_Q.Z0, RAS.A2, CAS.A2, DRAM_WE.A2, R_A_EN.A2, C_A_EN.A1
-, St0_D.A4, St1_D.A4, St2_D.A3, St3_D.A4, St4_D.A3;
+St2_PIN: .St2St2.Q0, St2_Q.A0, RefRqst_AR.A2, RefInProgress_D.A3;
+St2_Q: St2_Q.Z0, RAS.A2, CAS.A2, R_A_EN.A2, C_A_EN.A2, St0_D.A4
+, St1_D.A3, St2_D.A3, St3_D.A3, St4_D.A3;
 St3_C:  St3_C.Z0, St3.CLK;
 St3_D: St3_D.Z0, St3.D0;
-St3_PIN: .St3St3.Q0, St3_Q.A0, RefRqst_AR.A1, NWAIT_D.A2;
-St3_Q: St3_Q.Z0, RAS.A1, CAS.A1, DRAM_WE.A1, R_A_EN.A1, St0_D.A3
-, St1_D.A3, St2_D.A2, St3_D.A3, St4_D.A2;
+St3_PIN: .St3St3.Q0, St3_Q.A0, RefRqst_AR.A3, RefInProgress_D.A4;
+St3_Q: St3_Q.Z0, RAS.A1, CAS.A1, R_A_EN.A1, C_A_EN.A1, St0_D.A3
+, St1_D.A2, St2_D.A2, St3_D.A2, St4_D.A2;
 St4_C:  St4_C.Z0, St4.CLK;
 St4_D: St4_D.Z0, St4.D0;
-St4_PIN: .St4St4.Q0, St4_Q.A0, RefRqst_AR.A0, NWAIT_D.A1;
-St4_Q: St4_Q.Z0, RAS.A0, CAS.A0, DRAM_WE.A0, R_A_EN.A0, C_A_EN.A0
-, St0_D.A2, St1_D.A2, St2_D.A1, St3_D.A2, St4_D.A1;
+St4_PIN: .St4St4.Q0, St4_Q.A0, RefRqst_AR.A4, RefInProgress_D.A5;
+St4_Q: St4_Q.Z0, RAS.A0, CAS.A0, R_A_EN.A0, C_A_EN.A0, St0_D.A2
+, St1_D.A1, St2_D.A1, St3_D.A1, St4_D.A1;
 RefRqst_C:  RefRqst_C.Z0, RefRqst.CLK;
 RefRqst_AR: RefRqst_AR.Z0, RefRqst.CD;
 RefRqst_D: RefRqst_D.Z0, RefRqst.D0;
-RefRqst_PIN: .RefRqstRefRqst.Q0, St0_D.A7, St1_D.A7, St3_D.A7, St4_D.A6;
+RefRqst_PIN: .RefRqstRefRqst.Q0, St0_D.A7, St1_D.A6, St4_D.A6;
+RefInProgress_C:  RefInProgress_C.Z0, RefInProgress.CLK;
+RefInProgress_D: RefInProgress_D.Z0, RefInProgress.D0;
+RefInProgress_PIN: .RefInProgressRefInProgress.Q0, NWAIT.A0, RefInProgress_D.A0, RefInProgressDelay_D.A0;
+RefInProgressDelay_C:  RefInProgressDelay_C.Z0, RefInProgressDelay.CLK;
+RefInProgressDelay_D: RefInProgressDelay_D.Z0, RefInProgressDelay.D0;
+RefInProgressDelay_PIN: .RefInProgressDelayRefInProgressDelay.Q0, NWAIT.A1;
 ENDNETS;
 
 ENDCELL: dram;

@@ -1,8 +1,8 @@
-ispLEVER Classic 1.7.00.05.28.13 Linked Equations File
-Copyright(C), 1992-2013, Lattice Semiconductor Corp.
+ispLEVER Classic 1.8.00.04.29.14 Linked Equations File
+Copyright(C), 1992-2014, Lattice Semiconductor Corp.
 All Rights Reserved.
 
-Design dram created Sun Jun 11 23:05:14 2017
+Design dram created Sun Jun 18 02:56:04 2017
 
 Title: DRAM Interface - State Machine Version
 
@@ -11,29 +11,33 @@ Title: DRAM Interface - State Machine Version
    2          2        1    Pin   NTRST 
    5          5        1    Pin   RAS 
    7          5        1    Pin   CAS 
-   4          5        1    Pin   DRAM_WE 
+   2          2        1    Pin   DRAM_WE 
    5          5        1    Pin   R_A_EN 
    4          5        1    Pin   C_A_EN 
-   4          6        1    Pin   NWAIT.REG 
-   1/1        1        1    Pin   NWAIT.C 
-   6          9        1    Pin   St0.REG 
-   1/1        1        1    Pin   St0.C 
-   7          9        1    Pin   St1.REG 
-   1/1        1        1    Pin   St1.C 
+   2          3        1    Pin   NWAIT 
+   6          8        1    Pin   St0.REG 
+   1          1        1    Pin   St0.C 
+   6          7        1    Pin   St1.REG 
+   1          1        1    Pin   St1.C 
    6          6        1    Pin   St2.REG 
-   1/1        1        1    Pin   St2.C 
-   6          9        1    Pin   St3.REG 
-   1/1        1        1    Pin   St3.C 
+   1          1        1    Pin   St2.C 
+   5          6        1    Pin   St3.REG 
+   1          1        1    Pin   St3.C 
    5          7        1    Pin   St4.REG 
-   1/1        1        1    Pin   St4.C 
+   1          1        1    Pin   St4.C 
    1          0        1    Pin   RefRqst.REG 
    1          5        1    Pin   RefRqst.AR 
-   1/1        1        1    Pin   RefRqst.C 
+   1          1        1    Pin   RefRqst.C 
+   1          5        1    Pin   RefInProgress.S 
+   1          5        1    Pin   RefInProgress.R 
+   1          1        1    Pin   RefInProgress.C 
+   1/1        1        1    Pin   RefInProgressDelay.D 
+   1          1        1    Pin   RefInProgressDelay.C 
 =========
-  70/7          Best P-Term Total: 70
-                       Total Pins: 19
+  68/1          Best P-Term Total: 68
+                       Total Pins: 21
                       Total Nodes: 0
-            Average P-Term/Output: 4
+            Average P-Term/Output: 3
 
 
 Equations:
@@ -55,10 +59,8 @@ CAS = (!St4.FB & !St3.FB & St1.FB & St0.FB
      # !St2.FB & !St1.FB
      # !St4.FB & !St2.FB);
 
-DRAM_WE = (!St1.FB & !St0.FB
-     # !St2.FB
-     # !St3.FB
-     # St4.FB);
+DRAM_WE = (NWE
+     # NCS);
 
 R_A_EN = (!St3.FB & St1.FB & St0.FB
      # !St1.FB & !St0.FB
@@ -71,31 +73,26 @@ C_A_EN = (St3.FB & !St1.FB & !St0.FB
      # !St2.FB
      # St4.FB);
 
-NWAIT := (!St3 & !St2 & !St1
-     # !St3 & !St2 & !St0
-     # !St4
+NWAIT = (!RefInProgress & !RefInProgressDelay
      # NCS);
 
-NWAIT.C = (MCLK);
-
-St0 := (!NCS & NReset & !St4.FB & !St0.FB & NWE
+St0 := (!NCS & NReset & !St4.FB & !St0.FB
      # NReset & !St4.FB & !St0.FB & RefRqst
      # NReset & !St3.FB & St2.FB & !St0.FB
      # NReset & St4.FB & !St2.FB & !St1.FB & !St0.FB
      # NReset & !St4.FB & St3.FB & !St0.FB
      # NReset & !St4.FB & St1.FB & !St0.FB);
 
-St0.C = (MCLK);
+St0.C = (!MCLK);
 
-St1 := (!NCS & NReset & !St4.FB & !St3.FB & !St2.FB & !St0.FB & !NWE
-     # NReset & !St4.FB & !St3.FB & !St2.FB & !St0.FB & RefRqst
+St1 := (NReset & !St4.FB & !St3.FB & !St2.FB & !St1.FB & RefRqst
      # NReset & St4.FB & !St2.FB & !St1.FB & St0.FB
-     # NReset & !St3.FB & St2.FB & St1.FB & !St0.FB
      # NReset & !St4.FB & St1.FB & !St0.FB
+     # NReset & !St3.FB & St2.FB & St1.FB & !St0.FB
      # NReset & !St3.FB & !St1.FB & St0.FB
      # NReset & !St4.FB & St2.FB & !St1.FB & St0.FB);
 
-St1.C = (MCLK);
+St1.C = (!MCLK);
 
 St2 := (NReset & !St3.FB & !St2.FB & St1.FB & St0.FB
      # NReset & !St4.FB & !St2.FB & St1.FB & St0.FB
@@ -104,16 +101,15 @@ St2 := (NReset & !St3.FB & !St2.FB & St1.FB & St0.FB
      # NReset & !St4.FB & St2.FB & !St0.FB
      # NReset & !St3.FB & St2.FB & !St1.FB);
 
-St2.C = (MCLK);
+St2.C = (!MCLK);
 
-St3 := (!NCS & NReset & !St4.FB & !St2.FB & !St1.FB & !St0.FB & !RefRqst & !NWE
-     # NReset & !St3.FB & St2.FB & St1.FB & St0.FB
+St3 := (NReset & !St3.FB & St2.FB & St1.FB & St0.FB
      # NReset & St4.FB & St3.FB & !St2.FB & !St1.FB
      # NReset & !St4.FB & St3.FB & !St0.FB
      # NReset & !St4.FB & St3.FB & St2.FB & !St1.FB
      # NReset & !St4.FB & St3.FB & !St2.FB & St1.FB);
 
-St3.C = (MCLK);
+St3.C = (!MCLK);
 
 St4 := (NReset & !St3.FB & !St2.FB & !St1.FB & !St0.FB & RefRqst
      # NReset & !St4.FB & St3.FB & St2.FB & St1.FB & St0.FB
@@ -121,28 +117,26 @@ St4 := (NReset & !St3.FB & !St2.FB & !St1.FB & !St0.FB & RefRqst
      # NReset & St4.FB & !St3.FB & St2.FB
      # NReset & St4.FB & !St3.FB & St0.FB);
 
-St4.C = (MCLK);
+St4.C = (!MCLK);
 
 RefRqst := (1);
 
-RefRqst.AR = (St4 & St3 & !St2 & !St0 & St1);
+RefRqst.AR = (!St0 & St1 & !St2 & St3 & St4);
 
-RefRqst.C = (RCLK);
+RefRqst.C = (!RCLK);
+
+RefInProgress.S = (St0 & St1 & !St2 & !St3 & St4);
+
+RefInProgress.R = (!St0 & !St1 & !St2 & !St3 & !St4);
+
+RefInProgress.C = (!MCLK);
+
+RefInProgressDelay.D = (RefInProgress);
+
+RefInProgressDelay.C = (!MCLK);
 
 
 Reverse-Polarity Equations:
 
-!NWAIT.C = (!MCLK);
-
-!St0.C = (!MCLK);
-
-!St1.C = (!MCLK);
-
-!St2.C = (!MCLK);
-
-!St3.C = (!MCLK);
-
-!St4.C = (!MCLK);
-
-!RefRqst.C = (!RCLK);
+!RefInProgressDelay.D = (!RefInProgress);
 

@@ -1,7 +1,9 @@
 NWE		i
 C_A_EN		o
+RefInProgressDelay		o
 NWAIT		o
 RAS		o
+RefInProgress		o
 DRAM_WE		o
 RefRqst		o
 RCLK		i

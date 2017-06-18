@@ -1,9 +1,9 @@
-1 1.7.00.05.28.13
+1 1.8.00.04.29.14
 -i c:\documents and settings\micro\my documents\wwerst\ee52\abel\pld.laf -if laf -p ispLSI1016E-100LJ44 -of vhdl -of verilog -s d -e 2 -z -m 16 -n 4 -ta on -y c:\documents and settings\micro\my documents\wwerst\ee52\abel\PLD.xpn -r c:\documents and settings\micro\my documents\wwerst\ee52\abel\ispxpert.par 
-c:\documents and settings\micro\my documents\wwerst\ee52\abel\ispxpert.par 1497430032 Wed Jun 14 01:47:12 2017
-pld.ppn 1497430032 Wed Jun 14 01:47:12 2017
-pld.fxp 1497430032 Wed Jun 14 01:47:12 2017
-c:\documents and settings\micro\my documents\wwerst\ee52\abel\pld.laf 1497430030 Wed Jun 14 01:47:10 2017
+c:\documents and settings\micro\my documents\wwerst\ee52\abel\ispxpert.par 1497780334 Sun Jun 18 03:05:34 2017
+pld.ppn 1497780334 Sun Jun 18 03:05:34 2017
+pld.fxp 1497780334 Sun Jun 18 03:05:34 2017
+c:\documents and settings\micro\my documents\wwerst\ee52\abel\pld.laf 1497780332 Sun Jun 18 03:05:32 2017
 >  c:\documents and settings\micro\my documents\wwerst\ee52\abel\PLD.xpn
 // PART: 	ispLSI1016E-100LJ44
 // FORMAT: 	PINNAME		PINTYPE	LOCK	PULLUP	SLOWSLEW	OPENDRAIN	OUTDELAY	VOLTAGE	CRIT

@@ -12,6 +12,8 @@ Tpd Paths:
   Source                   Destination              Path Delay
   (Input)                  (Output)                   [ns]
 ==------------------------------------------------------------------------------
-  NRESET                   NTRST                    14.20 
-  JTAG_NTRST               NTRST                    13.90 
+  NCS                      DRAM_WE                  13.90 
+  NWE                      DRAM_WE                  13.70 
+  NRESET                   NTRST                    14.00 
+  JTAG_NTRST               NTRST                    13.70 
 ==----------------------------------------------------------------------------

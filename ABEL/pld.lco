@@ -11,8 +11,8 @@ Default_Device_Io_Types = LVCMOS50,-;
 RCS = ;
 Parent = lc1k.lci;
 Design = pld;
-DATE = 06/14/2017;
-TIME = 01:47:10;
+DATE = 06/18/2017;
+TIME = 03:05:33;
 Source_Format = ;
 Type = ;
 Pre_Fit_Time = ;
@@ -34,6 +34,7 @@ SLEWRATE = Off;
 [FITTER REPORT FORMAT]
 
 [LOCATION ASSIGNMENTS]
+REFINPROGRESS = pin, 4, -, -, -;
 RCLK = pin, 29, -, -, -;
 NWE = pin, 26, -, -, -;
 NRESET = pin, 16, -, -, -;
@@ -47,6 +48,7 @@ ST1 = pin, 38, -, -, -;
 ST0 = pin, 37, -, -, -;
 R_A_EN = pin, 21, -, -, -;
 REFRQST = pin, 30, -, -, -;
+REFINPROGRESSDELAY = pin, 43, -, -, -;
 RAS = pin, 18, -, -, -;
 NWAIT = pin, 27, -, -, -;
 NTRST = pin, 17, -, -, -;
@@ -55,30 +57,31 @@ C_A_EN = pin, 22, -, -, -;
 CAS = pin, 19, -, -, -;
 
 [PULLUP]
-Up = RCLK, NWE, NRESET, NCS, MCLK, JTAG_NTRST, ST4, ST3, ST2, ST1, ST0, R_A_EN, REFRQST, RAS, NWAIT, NTRST, DRAM_WE, C_A_EN, CAS; 
+Up = REFINPROGRESS, RCLK, NWE, NRESET, NCS, MCLK, JTAG_NTRST, ST4, ST3, ST2, ST1, ST0, R_A_EN, REFRQST, REFINPROGRESSDELAY, RAS, NWAIT, NTRST, DRAM_WE, C_A_EN, CAS; 
 
 [SLEWRATE]
-FAST = ST4, ST3, ST2, ST1, ST0, R_A_EN, REFRQST, RAS, NWAIT, NTRST, DRAM_WE, C_A_EN, CAS; 
+FAST = REFINPROGRESS, ST4, ST3, ST2, ST1, ST0, R_A_EN, REFRQST, REFINPROGRESSDELAY, RAS, NWAIT, NTRST, DRAM_WE, C_A_EN, CAS; 
 
 [IO TYPES]
 
 [OSM Bypass]
 
 [CLK]
-CLK1 = BUF_932, 
-CLK2 = BUF_933; 
+CLK1 = BUF_974_part2, 
+CLK2 = BUF_973; 
+IOCLK = BUF_974_part1; 
 
 [PTSABYPASS]
-Bypass = OR_865, OR_866, OR_867, OR_869, OR_868; 
+Bypass = OR_919, C_A_EN_PIN; 
 
 [Fitter Results]
-I/O_Pin_Util = 59;
-I/O_Pin = 19;
-Logic_PT_Util = 14;
-Logic_PT = 47;
-Logic_MC_Util = 23;
-Logic_MC = 15;
-Occupied_PT_Util = 7;
-Occupied_PT = 23;
-GLB_input_Util = 15;
-GLB_input = 45;
+I/O_Pin_Util = 65;
+I/O_Pin = 21;
+Logic_PT_Util = 17;
+Logic_PT = 56;
+Logic_MC_Util = 28;
+Logic_MC = 18;
+Occupied_PT_Util = 4;
+Occupied_PT = 15;
+GLB_input_Util = 14;
+GLB_input = 41;

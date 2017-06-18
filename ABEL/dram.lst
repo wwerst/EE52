@@ -29,521 +29,528 @@
 0030 |"      pin   12                  input   unused
 0031 |"      pin   13                  input   unused
 0032 |"      pin   14                  input   unused
-0033 |!JTAG_NTRST pin   15 ISTYPE 'com'; "JTAG NTRST output
-0034 |!NReset pin  16  ISTYPE 'com';  "Reset input
+0033 |!JTAG_NTRST pin   15;           "JTAG NTRST input
+0034 |!NReset pin  16;                "Reset input
 0035 |!NTRST pin   17  ISTYPE 'com';  "TRST output  
 0036 |RAS    pin   18  ISTYPE 'com';  "RAS line
 0037 |CAS    pin   19  ISTYPE 'com';  "CAS line
-0038 |DRAM_WE pin  20  ISTYPE 'com';  "Write Enable Line to DRAM
+0038 |!DRAM_WE pin  20  ISTYPE 'com';  "Write Enable Line to DRAM
 0039 |!R_A_EN pin   21 ISTYPE 'com';  "Buffer row address enable
 0040 |!C_A_EN pin   22 ISTYPE 'com';  "Buffer column address enable line
 0041 |"      pin   23                  input   unused
 0042 |"      pin   24                  input   unused
 0043 |!NCS   pin   25;                "input chip select
 0044 |!NWE   pin   26;                "input for whether write access
-0045 |!NWAIT pin   27  ISTYPE 'com';  "output for making cpu wait for refresh finish
-0046 |MCLK   pin   28;                "main clock input
-0047 |RCLK   pin   29;                "refresh clock input
+0045 |!NWAIT pin   27  ISTYPE 'reg';  "output for making cpu wait for refresh finish
+0046 |!MCLK   pin   28;                "main clock input
+0047 |!RCLK   pin   29;                "refresh clock input
 0048 |"      pin   13                  output  unused
 0049 |"      pin   14                  output  unused
 0050 |"      pin   15                  output  unused
 0051 |"      pin   16                  output  unused
-0052 |St0    pin       ISTYPE 'reg';  "output  state bit 0
-0053 |St1    pin       ISTYPE 'reg';  "output  state bit 1
-0054 |St2    pin       ISTYPE 'reg';  "output  state bit 2
-0055 |St3    pin       ISTYPE 'reg';  "output  state bit 3
-0056 |St4    pin       ISTYPE 'reg';  "output  state bit 4
+0052 |St0    pin 37      ISTYPE 'reg';  "output  state bit 0
+0053 |St1    pin 38      ISTYPE 'reg';  "output  state bit 1
+0054 |St2    pin 39      ISTYPE 'reg';  "output  state bit 2
+0055 |St3    pin 40      ISTYPE 'reg';  "output  state bit 3
+0056 |St4    pin 41      ISTYPE 'reg';  "output  state bit 4
 0057 |RefRqst pin      ISTYPE 'reg';  "refresh request bit
-0058 |"      pin   17                  output  unused
-0059 |"      pin   18                  output  unused
-0060 |
+0058 |RefFin pin	ISTYPE	'reg';	"bit indicating refresh just finished, used to implement logic for holding nwait one more cycle
+0059 |"      pin   17                  output  unused
+0060 |"      pin   18                  output  unused
 0061 |
 0062 |
-0063 |"the states
-0064 |
-0065 |StateBits   =  [ St4, St3, St2, St1, St0 ];     " state bits
-0066 |                                      		" state assignments
-0067 |Idle        =  [   0,   0,   0,   0,   0 ];     " idle state (waiting for a cycle to start)
-0068 |Read0       =  [   0,   0,   0,   0,   1 ];     " enable row address for read
-0069 |Read1       =  [   0,   0,   0,   1,   0 ];     " RAS line low
-0070 |Read2       =  [   0,   0,   0,   1,   1 ];     " disable row address for read
-0071 |Read3       =  [   0,   0,   1,   0,   0 ];     " enable column address for read
-0072 |Read4       =  [   0,   0,   1,   0,   1 ];     " CAS line low
-0073 |Read5       =  [   0,   0,   1,   1,   0 ];     " Wait for data access
-0074 |Read6       =  [   0,   0,   1,   1,   1 ];     " CAS line high
-0075 |Read7       =  [   0,   1,   0,   0,   0 ];     " Pre-charge
-0076 |Read8       =  [   0,   1,   0,   0,   1 ];     " Pre-charge
-0077 |Write0      =  [   0,   1,   0,   1,   0 ];     " enable row address
-0078 |Write1      =  [   0,   1,   0,   1,   1 ];     " RAS line low
-0079 |Write2      =  [   0,   1,   1,   0,   0 ];     " disable row address
-0080 |Write3      =  [   0,   1,   1,   0,   1 ];     " WE low and column address enable
-0081 |Write4      =  [   0,   1,   1,   1,   0 ];     " CAS line low
-0082 |Write5      =  [   0,   1,   1,   1,   1 ];     " Wait
-0083 |Write6      =  [   1,   0,   0,   0,   0 ];     " RAS, CAS, WE high
-0084 |Write7      =  [   1,   0,   0,   0,   1 ];     " Pre-charge
-0085 |Write8      =  [   1,   0,   0,   1,   0 ];     " Pre-charge
-0086 |Ref0        =  [   1,   0,   0,   1,   1 ];     " CAS low
-0087 |Ref1        =  [   1,   0,   1,   0,   0 ];     " RAS low
-0088 |Ref2        =  [   1,   0,   1,   0,   1 ];     " Wait
-0089 |Ref3        =  [   1,   0,   1,   1,   0 ];     " Wait
-0090 |Ref4        =  [   1,   0,   1,   1,   1 ];     " Wait
-0091 |Ref5        =  [   1,   1,   0,   0,   0 ];     " RAS, CAS high
-0092 |Ref6        =  [   1,   1,   0,   0,   1 ];     " Pre-charge
-0093 |Ref7        =  [   1,   1,   0,   1,   0 ];     " Pre-charge
-0094 |Inval0      =  [   1,   1,   0,   1,   1 ];     " Invalid state
-0095 |Inval1      =  [   1,   1,   1,   0,   0 ];     " Invalid state
-0096 |Inval2      =  [   1,   1,   1,   0,   1 ];     " Invalid state
-0097 |Inval3      =  [   1,   1,   1,   1,   0 ];     " Invalid state
-0098 |Inval4      =  [   1,   1,   1,   1,   1 ];     " Invalid state
-0099 |
+0063 |
+0064 |"the states
+0065 |
+0066 |StateBits   =  [ St4, St3, St2, St1, St0 ];     " state bits
+0067 |                                      		" state assignments
+0068 |Idle        =  [   0,   0,   0,   0,   0 ];     " idle state (waiting for a cycle to start)
+0069 |Read0       =  [   0,   0,   0,   0,   1 ];     " enable row address for read
+0070 |Read1       =  [   0,   0,   0,   1,   0 ];     " RAS line low
+0071 |Read2       =  [   0,   0,   0,   1,   1 ];     " disable row address for read
+0072 |Read3       =  [   0,   0,   1,   0,   0 ];     " enable column address for read
+0073 |Read4       =  [   0,   0,   1,   0,   1 ];     " CAS line low
+0074 |Read5       =  [   0,   0,   1,   1,   0 ];     " Wait for data access
+0075 |Read6       =  [   0,   0,   1,   1,   1 ];     " CAS line high
+0076 |Read7       =  [   0,   1,   0,   0,   0 ];     " Pre-charge
+0077 |Read8       =  [   0,   1,   0,   0,   1 ];     " Pre-charge
+0078 |Write0      =  [   0,   1,   0,   1,   0 ];     " enable row address
+0079 |Write1      =  [   0,   1,   0,   1,   1 ];     " RAS line low
+0080 |Write2      =  [   0,   1,   1,   0,   0 ];     " disable row address
+0081 |Write3      =  [   0,   1,   1,   0,   1 ];     " WE low and column address enable
+0082 |Write4      =  [   0,   1,   1,   1,   0 ];     " CAS line low
+0083 |Write5      =  [   0,   1,   1,   1,   1 ];     " Wait
+0084 |Write6      =  [   1,   0,   0,   0,   0 ];     " RAS, CAS, WE high
+0085 |Write7      =  [   1,   0,   0,   0,   1 ];     " Pre-charge
+0086 |Write8      =  [   1,   0,   0,   1,   0 ];     " Pre-charge
+0087 |Ref0        =  [   1,   0,   0,   1,   1 ];     " CAS low
+0088 |Ref1        =  [   1,   0,   1,   0,   0 ];     " RAS low
+0089 |Ref2        =  [   1,   0,   1,   0,   1 ];     " Wait
+0090 |Ref3        =  [   1,   0,   1,   1,   0 ];     " Wait
+0091 |Ref4        =  [   1,   0,   1,   1,   1 ];     " Wait
+0092 |Ref5        =  [   1,   1,   0,   0,   0 ];     " RAS, CAS high
+0093 |Ref6        =  [   1,   1,   0,   0,   1 ];     " Pre-charge
+0094 |Ref7        =  [   1,   1,   0,   1,   0 ];     " Pre-charge
+0095 |Inval0      =  [   1,   1,   0,   1,   1 ];     " Invalid state
+0096 |Inval1      =  [   1,   1,   1,   0,   0 ];     " Invalid state
+0097 |Inval2      =  [   1,   1,   1,   0,   1 ];     " Invalid state
+0098 |Inval3      =  [   1,   1,   1,   1,   0 ];     " Invalid state
+0099 |Inval4      =  [   1,   1,   1,   1,   1 ];     " Invalid state
 0100 |
-0101 |EQUATIONS
-0102 |
+0101 |
+0102 |EQUATIONS
 0103 |
-0104 |" NWAIT equation
-0105 |NWAIT      =  NCS & (StateBits >= 19);
-0106 |NTRST = NReset & JTAG_NTRST;
+0104 |
+0105 |" NWAIT equation
+0106 |NWAIT := (NCS & (StateBits >= 19 # RefFin));
 0107 |
 0108 |
-0109 |" clocks for the registered outputs (state bits)
-0110 |StateBits.CLK  =  MCLK;        " use the global clock pin
-0111 |RefRqst.CLK = RCLK;
-0112 |RefRqst.AR = (StateBits == Ref7);
-0113 |RefRqst := 1;
-0114 |
-0115 |
-0116 |STATE_DIAGRAM  StateBits        " a Mealy state machine
-0117 |
-0118 |
-0119 |STATE  Idle:                    " in the idle state waiting for an access
+0109 |NTRST = NReset & JTAG_NTRST;
+0110 |DRAM_WE = NWE & NCS;
+0111 |
+0112 |" clocks for the registered outputs (state bits)
+0113 |StateBits.CLK  =  MCLK;        " use the global clock pin
+0114 |NWAIT.CLK = MCLK;
+0115 |RefRqst.CLK = RCLK;
+0116 |RefFin.CLK = MCLK;
+0117 |RefRqst.AR = (StateBits == Ref7);
+0118 |RefRqst := 1;
+0119 |RefFin := 0;
 0120 |
-0121 |   RAS = 1;
-0122 |   CAS = 1;
-0123 |   DRAM_WE = 1;
-0124 |   R_A_EN = 0;
-0125 |   C_A_EN = 0;
+0121 |
+0122 |STATE_DIAGRAM  StateBits        " a Mealy state machine
+0123 |
+0124 |
+0125 |STATE  Idle:                    " in the idle state waiting for an access
 0126 |
-0127 |   IF (NReset) THEN Idle;
-0128 |   ELSE IF (RefRqst) THEN  Ref0;
-0129 |   ELSE IF (NCS & NWE) THEN Write0;
-0130 |   ELSE IF (NCS) THEN      Read0;
-0131 |   ELSE                       Idle;     " otherwise just stay here
+0127 |   RAS = 1;
+0128 |   CAS = 1;
+0129 |   "DRAM_WE = 1;
+0130 |   R_A_EN = 0;
+0131 |   C_A_EN = 0;
 0132 |
-0133 |STATE Read0:
-0134 |
-0135 |   RAS = 1;
-0136 |   CAS = 1;
-0137 |   DRAM_WE = 1;
-0138 |   R_A_EN = 1;
-0139 |   C_A_EN = 0;
+0133 |   IF (NReset) THEN Idle;
+0134 |   ELSE IF (RefRqst) THEN  Ref0;
+0135 |   "ELSE IF (NCS & NWE) THEN Write0;
+0136 |   ELSE IF (NCS) THEN      Read0;
+0137 |   ELSE                       Idle;     " otherwise just stay here
+0138 |
+0139 |STATE Read0:
 0140 |
-0141 |   IF (NReset) THEN        Idle;
-0142 |   ELSE                   Read1;
-0143 |
-0144 |STATE Read1:
-0145 |
-0146 |   RAS = 0;
-0147 |   CAS = 1;
-0148 |   DRAM_WE = 1;
-0149 |   R_A_EN = 1;
-0150 |   C_A_EN = 0;
+0141 |   RAS = 1;
+0142 |   CAS = 1;
+0143 |   "DRAM_WE = 1;
+0144 |   R_A_EN = 1;
+0145 |   C_A_EN = 0;
+0146 |
+0147 |   IF (NReset) THEN        Idle;
+0148 |   ELSE                   Read1;
+0149 |
+0150 |STATE Read1:
 0151 |
-0152 |   IF (NReset) THEN        Idle;
-0153 |   ELSE                   Read2;
-0154 |
-0155 |STATE Read2:
-0156 |
-0157 |   RAS = 0;
-0158 |   CAS = 1;
-0159 |   DRAM_WE = 1;
-0160 |   R_A_EN = 0;
-0161 |   C_A_EN = 0;
+0152 |   RAS = 0;
+0153 |   CAS = 1;
+0154 |   "DRAM_WE = 1;
+0155 |   R_A_EN = 1;
+0156 |   C_A_EN = 0;
+0157 |
+0158 |   IF (NReset) THEN        Idle;
+0159 |   ELSE                   Read2;
+0160 |
+0161 |STATE Read2:
 0162 |
-0163 |   IF (NReset) THEN        Idle;
-0164 |   ELSE                   Read3;
-0165 |
-0166 |STATE Read3:
-0167 |
-0168 |   RAS = 0;
-0169 |   CAS = 1;
-0170 |   DRAM_WE = 1;
-0171 |   R_A_EN = 0;
-0172 |   C_A_EN = 1;
+0163 |   RAS = 0;
+0164 |   CAS = 1;
+0165 |   "DRAM_WE = 1;
+0166 |   R_A_EN = 0;
+0167 |   C_A_EN = 0;
+0168 |
+0169 |   IF (NReset) THEN        Idle;
+0170 |   ELSE                   Read3;
+0171 |
+0172 |STATE Read3:
 0173 |
-0174 |   IF (NReset) THEN        Idle;
-0175 |   ELSE                   Read4;
-0176 |
-0177 |STATE Read4:
-0178 |
-0179 |   RAS = 0;
-0180 |   CAS = 0;
-0181 |   DRAM_WE = 1;
-0182 |   R_A_EN = 0;
-0183 |   C_A_EN = 1;
+0174 |   RAS = 0;
+0175 |   CAS = 1;
+0176 |   "DRAM_WE = 1;
+0177 |   R_A_EN = 0;
+0178 |   C_A_EN = 1;
+0179 |
+0180 |   IF (NReset) THEN        Idle;
+0181 |   ELSE                   Read4;
+0182 |
+0183 |STATE Read4:
 0184 |
-0185 |   IF (NReset) THEN        Idle;
-0186 |   ELSE                   Read5;
-0187 |
-0188 |STATE Read5:
-0189 |
-0190 |   RAS = 0;
-0191 |   CAS = 0;
-0192 |   DRAM_WE = 1;
-0193 |   R_A_EN = 0;
-0194 |   C_A_EN = 1;
-0195 |   
-0196 |   IF (NReset) THEN        Idle;
-0197 |   ELSE                   Read6;
-0198 |
-0199 |
-0200 |STATE Read6:
-0201 |
-0202 |   RAS = 1;
-0203 |   CAS = 1;
-0204 |   DRAM_WE = 1;
-0205 |   R_A_EN = 0;
-0206 |   C_A_EN = 0;
+0185 |   RAS = 0;
+0186 |   CAS = 0;
+0187 |   "DRAM_WE = 1;
+0188 |   R_A_EN = 0;
+0189 |   C_A_EN = 1;
+0190 |
+0191 |   IF (NReset) THEN        Idle;
+0192 |   ELSE                   Read5;
+0193 |
+0194 |STATE Read5:
+0195 |
+0196 |   RAS = 0;
+0197 |   CAS = 0;
+0198 |   "DRAM_WE = 1;
+0199 |   R_A_EN = 0;
+0200 |   C_A_EN = 1;
+0201 |   
+0202 |   IF (NReset) THEN        Idle;
+0203 |   ELSE                   Read6;
+0204 |
+0205 |
+0206 |STATE Read6:
 0207 |
-0208 |   IF (NReset) THEN        Idle;
-0209 |   ELSE                   Read7;
-0210 |
-0211 |STATE Read7:
-0212 |
-0213 |   RAS = 1;
-0214 |   CAS = 1;
-0215 |   DRAM_WE = 1;
-0216 |   R_A_EN = 0;
-0217 |   C_A_EN = 0;
+0208 |   RAS = 1;
+0209 |   CAS = 1;
+0210 |   "DRAM_WE = 1;
+0211 |   R_A_EN = 0;
+0212 |   C_A_EN = 0;
+0213 |
+0214 |   IF (NReset) THEN        Idle;
+0215 |   ELSE                   Read7;
+0216 |
+0217 |STATE Read7:
 0218 |
-0219 |   IF (NReset) THEN        Idle;
-0220 |   ELSE                   Read8;
-0221 |
-0222 |
-0223 |STATE Read8:
+0219 |   RAS = 1;
+0220 |   CAS = 1;
+0221 |   "DRAM_WE = 1;
+0222 |   R_A_EN = 0;
+0223 |   C_A_EN = 0;
 0224 |
-0225 |   RAS = 1;
-0226 |   CAS = 1;
-0227 |   DRAM_WE = 1;
-0228 |   R_A_EN = 0;
-0229 |   C_A_EN = 0;
+0225 |   IF (NReset) THEN        Idle;
+0226 |   ELSE                   Read8;
+0227 |
+0228 |
+0229 |STATE Read8:
 0230 |
-0231 |   GOTO Idle;
-0232 |
-0233 |
-0234 |STATE Write0:
-0235 |   
-0236 |   RAS = 1;
-0237 |   CAS = 1;
-0238 |   DRAM_WE = 1;
-0239 |   R_A_EN = 1;
-0240 |   C_A_EN = 0;
-0241 |
-0242 |   IF (NReset) THEN        Idle;
-0243 |   ELSE                   Write1;
-0244 |
-0245 |STATE Write1:
-0246 |
-0247 |   RAS = 0;
-0248 |   CAS = 1;
-0249 |   DRAM_WE = 1;
-0250 |   R_A_EN = 1;
-0251 |   C_A_EN = 0;
+0231 |   RAS = 1;
+0232 |   CAS = 1;
+0233 |   "DRAM_WE = 1;
+0234 |   R_A_EN = 0;
+0235 |   C_A_EN = 0;
+0236 |
+0237 |   GOTO Idle;
+0238 |
+0239 |
+0240 |STATE Write0:
+0241 |   
+0242 |   RAS = 1;
+0243 |   CAS = 1;
+0244 |   "DRAM_WE = 1;
+0245 |   R_A_EN = 1;
+0246 |   C_A_EN = 0;
+0247 |
+0248 |   IF (NReset) THEN        Idle;
+0249 |   ELSE                   Write1;
+0250 |
+0251 |STATE Write1:
 0252 |
-0253 |   IF (NReset) THEN        Idle;
-0254 |   ELSE                   Write2;
-0255 |
-0256 |STATE Write2:
-0257 |
-0258 |   RAS = 0;
-0259 |   CAS = 1;
-0260 |   DRAM_WE = 1;
-0261 |   R_A_EN = 0;
-0262 |   C_A_EN = 0;
+0253 |   RAS = 0;
+0254 |   CAS = 1;
+0255 |   "DRAM_WE = 1;
+0256 |   R_A_EN = 1;
+0257 |   C_A_EN = 0;
+0258 |
+0259 |   IF (NReset) THEN        Idle;
+0260 |   ELSE                   Write2;
+0261 |
+0262 |STATE Write2:
 0263 |
-0264 |   IF (NReset) THEN        Idle;
-0265 |   ELSE                   Write3;
-0266 |
-0267 |STATE Write3:
-0268 |
-0269 |   RAS = 0;
-0270 |   CAS = 1;
-0271 |   DRAM_WE = 0;
-0272 |   R_A_EN = 0;
-0273 |   C_A_EN = 1;
+0264 |   RAS = 0;
+0265 |   CAS = 1;
+0266 |   "DRAM_WE = 1;
+0267 |   R_A_EN = 0;
+0268 |   C_A_EN = 0;
+0269 |
+0270 |   IF (NReset) THEN        Idle;
+0271 |   ELSE                   Write3;
+0272 |
+0273 |STATE Write3:
 0274 |
-0275 |   IF (NReset) THEN        Idle;
-0276 |   ELSE                   Write4;
-0277 |
-0278 |STATE Write4:
-0279 |
-0280 |   RAS = 0;
-0281 |   CAS = 0;
-0282 |   DRAM_WE = 0;
-0283 |   R_A_EN = 0;
-0284 |   C_A_EN = 1;
+0275 |   RAS = 0;
+0276 |   CAS = 1;
+0277 |   "DRAM_WE = 0;
+0278 |   R_A_EN = 0;
+0279 |   C_A_EN = 1;
+0280 |
+0281 |   IF (NReset) THEN        Idle;
+0282 |   ELSE                   Write4;
+0283 |
+0284 |STATE Write4:
 0285 |
-0286 |   IF (NReset) THEN        Idle;
-0287 |   ELSE                   Write5;
-0288 |
-0289 |STATE Write5:
-0290 |   
-0291 |   RAS = 0;
-0292 |   CAS = 0;
-0293 |   DRAM_WE = 0;
-0294 |   R_A_EN = 0;
-0295 |   C_A_EN = 1;
-0296 |
-0297 |   IF (NReset) THEN        Idle;
-0298 |   ELSE                   Write6;
-0299 |
-0300 |
-0301 |STATE Write6:
+0286 |   RAS = 0;
+0287 |   CAS = 0;
+0288 |   "DRAM_WE = 0;
+0289 |   R_A_EN = 0;
+0290 |   C_A_EN = 1;
+0291 |
+0292 |   IF (NReset) THEN        Idle;
+0293 |   ELSE                   Write5;
+0294 |
+0295 |STATE Write5:
+0296 |   
+0297 |   RAS = 0;
+0298 |   CAS = 0;
+0299 |   "DRAM_WE = 0;
+0300 |   R_A_EN = 0;
+0301 |   C_A_EN = 1;
 0302 |
-0303 |
-0304 |   RAS = 1;
-0305 |   CAS = 1;
-0306 |   DRAM_WE = 1;
-0307 |   R_A_EN = 0;
-0308 |   C_A_EN = 0;
+0303 |   IF (NReset) THEN        Idle;
+0304 |   ELSE                   Write6;
+0305 |
+0306 |
+0307 |STATE Write6:
+0308 |
 0309 |
-0310 |   IF (NReset) THEN        Idle;
-0311 |   ELSE                   Write7;
-0312 |
-0313 |STATE Write7:
-0314 |
-0315 |   RAS = 1;
-0316 |   CAS = 1;
-0317 |   DRAM_WE = 1;
-0318 |   R_A_EN = 0;
-0319 |   C_A_EN = 0;
+0310 |   RAS = 1;
+0311 |   CAS = 1;
+0312 |   "DRAM_WE = 1;
+0313 |   R_A_EN = 0;
+0314 |   C_A_EN = 0;
+0315 |
+0316 |   IF (NReset) THEN        Idle;
+0317 |   ELSE                   Write7;
+0318 |
+0319 |STATE Write7:
 0320 |
-0321 |   IF (NReset) THEN        Idle;
-0322 |   ELSE                   Write8;
-0323 |
-0324 |
-0325 |STATE Write8:
+0321 |   RAS = 1;
+0322 |   CAS = 1;
+0323 |   "DRAM_WE = 1;
+0324 |   R_A_EN = 0;
+0325 |   C_A_EN = 0;
 0326 |
-0327 |   RAS = 1;
-0328 |   CAS = 1;
-0329 |   DRAM_WE = 1;
-0330 |   R_A_EN = 0;
-0331 |   C_A_EN = 0;
+0327 |   IF (NReset) THEN        Idle;
+0328 |   ELSE                   Write8;
+0329 |
+0330 |
+0331 |STATE Write8:
 0332 |
-0333 |   GOTO Idle;
-0334 |
-0335 |STATE Ref0:
-0336 |   
-0337 |   RAS = 1;
-0338 |   CAS = 0;
-0339 |   DRAM_WE = 1;
-0340 |   R_A_EN = 0;
-0341 |   C_A_EN = 0;
-0342 |
-0343 |   IF (NReset) THEN        Idle;
-0344 |   ELSE                   Ref1;
-0345 |
-0346 |STATE Ref1:
-0347 |
-0348 |   RAS = 0;
-0349 |   CAS = 0;
-0350 |   DRAM_WE = 1;
-0351 |   R_A_EN = 0;
-0352 |   C_A_EN = 0;
+0333 |   RAS = 1;
+0334 |   CAS = 1;
+0335 |   "DRAM_WE = 1;
+0336 |   R_A_EN = 0;
+0337 |   C_A_EN = 0;
+0338 |
+0339 |   GOTO Idle;
+0340 |
+0341 |STATE Ref0:
+0342 |   
+0343 |   RAS = 1;
+0344 |   CAS = 0;
+0345 |   "DRAM_WE = 1;
+0346 |   R_A_EN = 0;
+0347 |   C_A_EN = 0;
+0348 |
+0349 |   IF (NReset) THEN        Idle;
+0350 |   ELSE                   Ref1;
+0351 |
+0352 |STATE Ref1:
 0353 |
-0354 |   IF (NReset) THEN        Idle;
-0355 |   ELSE                   Ref2;
-0356 |
-0357 |
-0358 |STATE Ref2:
-0359 |   
-0360 |   RAS = 0;
-0361 |   CAS = 0;
-0362 |   DRAM_WE = 1;
-0363 |   R_A_EN = 0;
-0364 |   C_A_EN = 0;
-0365 |
-0366 |   IF (NReset) THEN        Idle;
-0367 |   ELSE                   Ref3;
-0368 |
-0369 |STATE Ref3:
-0370 |   
-0371 |   RAS = 0;
-0372 |   CAS = 0;
-0373 |   DRAM_WE = 1;
-0374 |   R_A_EN = 0;
-0375 |   C_A_EN = 0;
-0376 |
-0377 |
-0378 |   IF (NReset) THEN        Idle;
-0379 |   ELSE                   Ref4;
-0380 |
-0381 |
-0382 |STATE Ref4:
-0383 |   
-0384 |   RAS = 0;
-0385 |   CAS = 0;
-0386 |   DRAM_WE = 1;
-0387 |   R_A_EN = 0;
-0388 |   C_A_EN = 0;
-0389 |
-0390 |
-0391 |   IF (NReset) THEN        Idle;
-0392 |   ELSE                   Ref5;
-0393 |
-0394 |
-0395 |STATE Ref5:
+0354 |   RAS = 0;
+0355 |   CAS = 0;
+0356 |   "DRAM_WE = 1;
+0357 |   R_A_EN = 0;
+0358 |   C_A_EN = 0;
+0359 |
+0360 |   IF (NReset) THEN        Idle;
+0361 |   ELSE                   Ref2;
+0362 |
+0363 |
+0364 |STATE Ref2:
+0365 |   
+0366 |   RAS = 0;
+0367 |   CAS = 0;
+0368 |   "DRAM_WE = 1;
+0369 |   R_A_EN = 0;
+0370 |   C_A_EN = 0;
+0371 |
+0372 |   IF (NReset) THEN        Idle;
+0373 |   ELSE                   Ref3;
+0374 |
+0375 |STATE Ref3:
+0376 |   
+0377 |   RAS = 0;
+0378 |   CAS = 0;
+0379 |   "DRAM_WE = 1;
+0380 |   R_A_EN = 0;
+0381 |   C_A_EN = 0;
+0382 |
+0383 |
+0384 |   IF (NReset) THEN        Idle;
+0385 |   ELSE                   Ref4;
+0386 |
+0387 |
+0388 |STATE Ref4:
+0389 |   
+0390 |   RAS = 0;
+0391 |   CAS = 0;
+0392 |   "DRAM_WE = 1;
+0393 |   R_A_EN = 0;
+0394 |   C_A_EN = 0;
+0395 |
 0396 |
-0397 |   
-0398 |   RAS = 1;
-0399 |   CAS = 1;
-0400 |   DRAM_WE = 1;
-0401 |   R_A_EN = 0;
-0402 |   C_A_EN = 0;
-0403 |
-0404 |
-0405 |   IF (NReset) THEN        Idle;
-0406 |   ELSE                   Ref6;
-0407 |
-0408 |STATE Ref6:
+0397 |   IF (NReset) THEN        Idle;
+0398 |   ELSE                   Ref5;
+0399 |
+0400 |
+0401 |STATE Ref5:
+0402 |
+0403 |   
+0404 |   RAS = 1;
+0405 |   CAS = 1;
+0406 |   "DRAM_WE = 1;
+0407 |   R_A_EN = 0;
+0408 |   C_A_EN = 0;
 0409 |
-0410 |   
-0411 |   RAS = 1;
-0412 |   CAS = 1;
-0413 |   DRAM_WE = 1;
-0414 |   R_A_EN = 0;
-0415 |   C_A_EN = 0;
-0416 |
-0417 |
-0418 |   IF (NReset) THEN        Idle;
-0419 |   ELSE                   Ref7;
-0420 |
-0421 |STATE Ref7:
-0422 |   RAS = 1;
-0423 |   CAS = 1;
-0424 |   DRAM_WE = 1;
-0425 |   R_A_EN = 0;
-0426 |   C_A_EN = 0;
-0427 |   RefRqst = 0;
-0428 |
-0429 |   GOTO                   Idle;
-0430 |
-0431 |STATE Inval0:
-0432 |   RAS = 1;
-0433 |   CAS = 1;
-0434 |   DRAM_WE = 1;
-0435 |   R_A_EN = 0;
-0436 |   C_A_EN = 0;
+0410 |
+0411 |   IF (NReset) THEN        Idle;
+0412 |   ELSE                   Ref6;
+0413 |
+0414 |STATE Ref6:
+0415 |
+0416 |   
+0417 |   RAS = 1;
+0418 |   CAS = 1;
+0419 |   "DRAM_WE = 1;
+0420 |   R_A_EN = 0;
+0421 |   C_A_EN = 0;
+0422 |
+0423 |
+0424 |   IF (NReset) THEN        Idle;
+0425 |   ELSE                   Ref7;
+0426 |
+0427 |STATE Ref7:
+0428 |   RAS = 1;
+0429 |   CAS = 1;
+0430 |   "DRAM_WE = 1;
+0431 |   R_A_EN = 0;
+0432 |   C_A_EN = 0;
+0433 |   RefRqst = 0;
+0434 |   RefFin = 1;
+0435 |
+0436 |   GOTO                   Idle;
 0437 |
-0438 |   GOTO                   Idle;
-0439 |
-0440 |STATE Inval1:
-0441 |   RAS = 1;
-0442 |   CAS = 1;
-0443 |   DRAM_WE = 1;
-0444 |   R_A_EN = 0;
-0445 |   C_A_EN = 0;
+0438 |STATE Inval0:
+0439 |   RAS = 1;
+0440 |   CAS = 1;
+0441 |   "DRAM_WE = 1;
+0442 |   R_A_EN = 0;
+0443 |   C_A_EN = 0;
+0444 |
+0445 |   GOTO                   Idle;
 0446 |
-0447 |   GOTO                   Idle;
-0448 |
-0449 |STATE Inval2:
-0450 |   RAS = 1;
-0451 |   CAS = 1;
-0452 |   DRAM_WE = 1;
-0453 |   R_A_EN = 0;
-0454 |   C_A_EN = 0;
+0447 |STATE Inval1:
+0448 |   RAS = 1;
+0449 |   CAS = 1;
+0450 |   "DRAM_WE = 1;
+0451 |   R_A_EN = 0;
+0452 |   C_A_EN = 0;
+0453 |
+0454 |   GOTO                   Idle;
 0455 |
-0456 |   GOTO                   Idle;
-0457 |
-0458 |STATE Inval3:
-0459 |   RAS = 1;
-0460 |   CAS = 1;
-0461 |   DRAM_WE = 1;
-0462 |   R_A_EN = 0;
-0463 |   C_A_EN = 0;
+0456 |STATE Inval2:
+0457 |   RAS = 1;
+0458 |   CAS = 1;
+0459 |   "DRAM_WE = 1;
+0460 |   R_A_EN = 0;
+0461 |   C_A_EN = 0;
+0462 |
+0463 |   GOTO                   Idle;
 0464 |
-0465 |   GOTO                   Idle;
-0466 |
-0467 |STATE Inval4:
-0468 |   RAS = 1;
-0469 |   CAS = 1;
-0470 |   DRAM_WE = 1;
-0471 |   R_A_EN = 0;
-0472 |   C_A_EN = 0;
+0465 |STATE Inval3:
+0466 |   RAS = 1;
+0467 |   CAS = 1;
+0468 |   "DRAM_WE = 1;
+0469 |   R_A_EN = 0;
+0470 |   C_A_EN = 0;
+0471 |
+0472 |   GOTO                   Idle;
 0473 |
-0474 |   GOTO                   Idle;
-0475 |
-0476 |
-0477 |
-0478 |
-0479 |TEST_VECTORS
+0474 |STATE Inval4:
+0475 |   RAS = 1;
+0476 |   CAS = 1;
+0477 |   "DRAM_WE = 1;
+0478 |   R_A_EN = 0;
+0479 |   C_A_EN = 0;
 0480 |
-0481 |( [  MCLK,  RCLK, NReset,  NCS,  NWE ] -> [   RAS, CAS, DRAM_WE, R_A_EN, C_A_EN, NWAIT, RefRqst, St0, St1, St2, St3, St4 ] )
+0481 |   GOTO                   Idle;
 0482 |
-0483 |  [     0,     0,      0,    0,   0  ] -> [   .X., .X.,     .X.,    .X.,    .X.,   .X.,     .X., .X., .X.,  .X., .X., .X. ];
+0483 |
 0484 |
 0485 |
-0486 |" reset the system
-0487 |  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
-0488 |  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
-0489 |  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
-0490 |
-0491 |" Single read
-0492 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read0
-0493 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read1
-0494 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read2
-0495 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read3
-0496 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read4
-0497 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read5
-0498 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read6
-0499 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
-0500 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
-0501 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
-0502 |
-0503 |" Single write
-0504 |  [   .C.,     0,      0,    1,   1  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write0
-0505 |  [   .C.,     0,      0,    1,   1  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write1
-0506 |  [   .C.,     0,      0,    1,   1  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write2
-0507 |  [   .C.,     0,      0,    1,   1  ] -> [     0,   1,       0,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write3
-0508 |  [   .C.,     0,      0,    1,   1  ] -> [     0,   0,       0,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write4
-0509 |  [   .C.,     0,      0,    1,   1  ] -> [     0,   0,       0,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write5
-0510 |  [   .C.,     0,      0,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write6
-0511 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
-0512 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
-0513 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
-0514 |
-0515 |" Consecutive reads
-0516 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read0
-0517 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read1
-0518 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read2
-0519 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read3
-0520 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read4
-0521 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read5
-0522 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read6
-0523 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
-0524 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
-0525 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
-0526 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read0
-0527 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read1
-0528 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read2
-0529 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read3
-0530 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read4
-0531 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read5
-0532 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read6
-0533 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
-0534 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
-0535 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
-0536 |
-0537 |" Refresh
-0538 |  [     0,   .C.,      0,    0,   0  ] -> [   .X., .X.,     .X.,    .X.,    .X.,   .X.,       1, .X., .X.,  .X., .X., .X. ]; "Trigger the refresh request
-0539 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   0,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref0
-0540 |  [   .C.,     0,      0,    0,   0  ] -> [     0,   0,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref1
-0541 |  [   .C.,     0,      0,    0,   0  ] -> [     0,   0,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref2
-0542 |  [   .C.,     0,      0,    0,   0  ] -> [     0,   0,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref3
-0543 |  [   .C.,     0,      0,    0,   0  ] -> [     0,   0,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref4
-0544 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref5
-0545 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref6
-0546 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Ref7
-0547 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
-0548 |
-0549 |
-0550 |END DRAM
+0486 |TEST_VECTORS
+0487 |
+0488 |( [  MCLK,  RCLK, NReset,  NCS,  NWE ] -> [   RAS, CAS, DRAM_WE, R_A_EN, C_A_EN, NWAIT, RefRqst, St0, St1, St2, St3, St4 ] )
+0489 |
+0490 |  [     0,     0,      0,    0,   0  ] -> [   .X., .X.,     .X.,    .X.,    .X.,   .X.,     .X., .X., .X.,  .X., .X., .X. ];
+0491 |
+0492 |
+0493 |" reset the system
+0494 |  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
+0495 |  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
+0496 |  [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
+0497 |
+0498 |" Single read
+0499 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read0
+0500 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read1
+0501 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read2
+0502 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read3
+0503 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read4
+0504 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read5
+0505 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read6
+0506 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
+0507 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
+0508 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
+0509 |
+0510 |" Single write
+0511 |  [   .C.,     0,      0,    1,   1  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write0
+0512 |  [   .C.,     0,      0,    1,   1  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write1
+0513 |  [   .C.,     0,      0,    1,   1  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write2
+0514 |  [   .C.,     0,      0,    1,   1  ] -> [     0,   1,       0,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write3
+0515 |  [   .C.,     0,      0,    1,   1  ] -> [     0,   0,       0,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write4
+0516 |  [   .C.,     0,      0,    1,   1  ] -> [     0,   0,       0,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write5
+0517 |  [   .C.,     0,      0,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Write6
+0518 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
+0519 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
+0520 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
+0521 |
+0522 |" Consecutive reads
+0523 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read0
+0524 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read1
+0525 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read2
+0526 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read3
+0527 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read4
+0528 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read5
+0529 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read6
+0530 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
+0531 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
+0532 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
+0533 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read0
+0534 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read1
+0535 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read2
+0536 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read3
+0537 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read4
+0538 |  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read5
+0539 |  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read6
+0540 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
+0541 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
+0542 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
+0543 |
+0544 |" Refresh
+0545 |  [     0,   .C.,      0,    0,   0  ] -> [   .X., .X.,     .X.,    .X.,    .X.,   .X.,       1, .X., .X.,  .X., .X., .X. ]; "Trigger the refresh request
+0546 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   0,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref0
+0547 |  [   .C.,     0,      0,    0,   0  ] -> [     0,   0,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref1
+0548 |  [   .C.,     0,      0,    0,   0  ] -> [     0,   0,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref2
+0549 |  [   .C.,     0,      0,    0,   0  ] -> [     0,   0,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref3
+0550 |  [   .C.,     0,      0,    0,   0  ] -> [     0,   0,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref4
+0551 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref5
+0552 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       1, .X., .X.,  .X., .X., .X. ]; "Ref6
+0553 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Ref7
+0554 |  [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
+0555 |
+0556 |
+0557 |END DRAM
