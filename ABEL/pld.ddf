@@ -10,16 +10,17 @@ PLA: CAS;
 PLA: DRAM_WE;
 PLA: R_A_EN;
 PLA: C_A_EN;
-PLA: NWAIT;
 PLA: St4_C;
 PLA: St3_C;
 PLA: St2_C;
 PLA: St1_C;
 PLA: St0_C;
+PLA: NWAIT_C;
 PLA: RefInProgress_C;
 PLA: RefInProgressDelay_C;
 PLA: RefRqst_C;
 PLA: RefRqst_AR;
+PLA: NWAIT_D;
 PLA: St0_D;
 PLA: St1_D;
 PLA: St2_D;
@@ -28,6 +29,7 @@ PLA: St4_D;
 BUF: RefRqst_D;
 PLA: RefInProgress_D;
 PLA: RefInProgressDelay_D;
+FD11: NWAIT;
 FD11: St0;
 BUF: St0_Q;
 FD11: St1;
@@ -45,7 +47,7 @@ ENDSYMBOLS;
 
 NETS:
 JTAG_NTRST: .JTAG_NTRST, NTRST.A1;
-NReset: .NReset, NTRST.A0, St0_D.A0, St1_D.A0, St2_D.A0, St3_D.A0
+NReset: .NReset, NTRST.A0, St0_D.A1, St1_D.A0, St2_D.A0, St3_D.A0
 , St4_D.A0;
 NTRST_PIN: .NTRST, NTRST.Z0;
 RAS_PIN: .RAS, RAS.Z0;
@@ -53,11 +55,13 @@ CAS_PIN: .CAS, CAS.Z0;
 DRAM_WE_PIN: .DRAM_WE, DRAM_WE.Z0;
 R_A_EN_PIN: .R_A_EN, R_A_EN.Z0;
 C_A_EN_PIN: .C_A_EN, C_A_EN.Z0;
-NCS: .NCS, DRAM_WE.A1, St0_D.A1;
-NWE: .NWE, DRAM_WE.A0;
-NWAIT_PIN: .NWAIT, NWAIT.Z0;
+NCS: .NCS, DRAM_WE.A0, NWAIT_D.A0, St0_D.A0;
+NWE: .NWE, DRAM_WE.A1;
+NWAIT_C:  NWAIT_C.Z0, NWAIT.CLK;
+NWAIT_D: NWAIT_D.Z0, NWAIT.D0;
+NWAIT_PIN: .NWAITNWAIT.Q0;
 MCLK: .MCLK, St4_C.A0, St3_C.A0, St2_C.A0, St1_C.A0, St0_C.A0
-, RefInProgress_C.A0, RefInProgressDelay_C.A0;
+, NWAIT_C.A0, RefInProgress_C.A0, RefInProgressDelay_C.A0;
 RCLK: .RCLK, RefRqst_C.A0;
 St0_C:  St0_C.Z0, St0.CLK;
 St0_D: St0_D.Z0, St0.D0;
@@ -90,10 +94,10 @@ RefRqst_D: RefRqst_D.Z0, RefRqst.D0;
 RefRqst_PIN: .RefRqstRefRqst.Q0, St0_D.A7, St1_D.A6, St4_D.A6;
 RefInProgress_C:  RefInProgress_C.Z0, RefInProgress.CLK;
 RefInProgress_D: RefInProgress_D.Z0, RefInProgress.D0;
-RefInProgress_PIN: .RefInProgressRefInProgress.Q0, NWAIT.A0, RefInProgress_D.A0, RefInProgressDelay_D.A0;
+RefInProgress_PIN: .RefInProgressRefInProgress.Q0, NWAIT_D.A1, RefInProgress_D.A0, RefInProgressDelay_D.A0;
 RefInProgressDelay_C:  RefInProgressDelay_C.Z0, RefInProgressDelay.CLK;
 RefInProgressDelay_D: RefInProgressDelay_D.Z0, RefInProgressDelay.D0;
-RefInProgressDelay_PIN: .RefInProgressDelayRefInProgressDelay.Q0, NWAIT.A1;
+RefInProgressDelay_PIN: .RefInProgressDelayRefInProgressDelay.Q0;
 ENDNETS;
 
 ENDCELL: dram;

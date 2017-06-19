@@ -1,4 +1,4 @@
-ispEXPERT Compiler Release 1.8.00.04.29.14, May 20 2002 13:06:40
+ispEXPERT Compiler Release 1.7.00.05.28.13, May 20 2002 13:06:40
 
 
 Design Parameters
@@ -100,32 +100,29 @@ I/O Utilization (Out of 33):	63%
 Net Utilization (Out of 97):	22%
 
 
-Nets with Fanout of  1:         12
-Nets with Fanout of  2:         2
-Nets with Fanout of  3:         2
+Nets with Fanout of  1:         13
+Nets with Fanout of  3:         3
 Nets with Fanout of  4:         1
-Nets with Fanout of  6:         5
+Nets with Fanout of  7:         5
 
-Average Fanout per Net:         2.55
+Average Fanout per Net:         2.77
 
 
-GLBs with  2 Input(s):          1
-GLBs with  7 Input(s):          2
+GLBs with  7 Input(s):          3
 GLBs with  8 Input(s):          2
 GLBs with  9 Input(s):          1
 
-Average Inputs per GLB:         6.83
+Average Inputs per GLB:         7.67
 
 
-GLBs with  1 Output(s):         1
-GLBs with  2 Output(s):         1
-GLBs with  3 Output(s):         2
+GLBs with  2 Output(s):         3
+GLBs with  3 Output(s):         1
 GLBs with  4 Output(s):         2
 
 Average Outputs per GLB:        2.83
 
 
-Number of GLB Registers:        7
+Number of GLB Registers:        8
 Number of IOC Registers:        1
 
 
@@ -141,13 +138,29 @@ Number of GLB Levels:		1
 
 GLB glb00, A1
 
-    2 Input(s)
-        (JTAG_NTRST.O, JTAG_NTRSTX, I0), (NRESET.O, NRESETX, I1)
-    1 Output(s)
-        (AND_914, O2)
-    1 Product Term(s)
+    7 Input(s)
+        (JTAG_NTRST.O, JTAG_NTRSTX, I0), (NRESET.O, NRESETX, I1), 
+        (glb04.O0, ST0_PIN, I4), (glb05.O1, ST1_PIN, I2), (glb03.O2, 
+        ST2_PIN, I6), (glb05.O3, ST3_PIN, I11), (glb05.O0, 
+        ST4_PIN, I3)
+    2 Output(s)
+        (REFRQST_PIN, O1), (AND_919, O2)
+    2 Product Term(s)
 
-    Output AND_914
+    Output REFRQST_PIN
+
+        5 Input(s)
+            ST3_PIN, ST1_PIN, ST4_PIN, ST2_PIN, ST0_PIN
+        3 Fanout(s)
+            glb04.I10, glb05.I10, REFRQST.IR
+        0 Product Term(s)
+        1 GLB Level(s)
+
+        REFRQST_PIN.D = VCC
+        !REFRQST_PIN.C = BUF_975
+        REFRQST_PIN.R = ST1_PIN & ST3_PIN & ST4_PIN & !ST0_PIN & !ST2_PIN
+
+    Output AND_919
 
         2 Input(s)
             JTAG_NTRSTX, NRESETX
@@ -156,7 +169,7 @@ GLB glb00, A1
         1 Product Term(s)
         1 GLB Level(s)
 
-        AND_914 = !NRESETX & !JTAG_NTRSTX
+        AND_919 = !NRESETX & !JTAG_NTRSTX
 
 
 GLB glb01, A2
@@ -166,7 +179,7 @@ GLB glb01, A2
         (glb05.O1, ST1_PIN, I9), (glb03.O2, ST2_PIN, I6), (glb05.O3, 
         ST3_PIN, I0), (glb05.O0, ST4_PIN, I8)
     4 Output(s)
-        (RAS_PIN, O3), (OR_919, O2), (DEF_918, O0), (AND_916, O1)
+        (RAS_PIN, O3), (OR_925, O2), (DEF_924, O0), (AND_922, O1)
     13 Product Term(s)
 
     Output RAS_PIN
@@ -184,7 +197,7 @@ GLB glb01, A2
             # ST3_PIN & !ST0_PIN & !ST2_PIN
             # ST0_PIN & ST1_PIN & ST2_PIN & !ST3_PIN & !ST4_PIN)
 
-    Output OR_919
+    Output OR_925
 
         5 Input(s)
             ST3_PIN, ST1_PIN, ST4_PIN, ST2_PIN, ST0_PIN
@@ -193,11 +206,11 @@ GLB glb01, A2
         3 Product Term(s)
         1 GLB Level(s)
 
-        OR_919 = ST1_PIN & !ST0_PIN & !ST2_PIN & !ST4_PIN
+        OR_925 = ST1_PIN & !ST0_PIN & !ST2_PIN & !ST4_PIN
             # ST1_PIN & ST3_PIN & !ST2_PIN & !ST4_PIN
             # ST0_PIN & !ST3_PIN & !ST2_PIN & !ST4_PIN & !ST1_PIN
 
-    Output DEF_918
+    Output DEF_924
 
         5 Input(s)
             ST3_PIN, ST1_PIN, ST4_PIN, ST2_PIN, ST0_PIN
@@ -206,12 +219,12 @@ GLB glb01, A2
         4 Product Term(s)
         1 GLB Level(s)
 
-        DEF_918 = (ST1_PIN & ST2_PIN & !ST4_PIN
+        DEF_924 = (ST1_PIN & ST2_PIN & !ST4_PIN
             # ST2_PIN & ST4_PIN & !ST3_PIN & !ST0_PIN
             # ST0_PIN & ST1_PIN & ST4_PIN & !ST3_PIN & !ST2_PIN)
             $ ST0_PIN & ST2_PIN & !ST3_PIN
 
-    Output AND_916
+    Output AND_922
 
         2 Input(s)
             NWEX, NCSX
@@ -220,7 +233,7 @@ GLB glb01, A2
         1 Product Term(s)
         1 GLB Level(s)
 
-        AND_916 = !NCSX & !NWEX
+        AND_922 = !NCSX & !NWEX
 
 
 GLB glb02_part1, A6
@@ -229,22 +242,9 @@ GLB glb02_part1, A6
         (glb04.O0, ST0_PIN, I4), (glb05.O1, ST1_PIN, I2), (glb03.O2, 
         ST2_PIN, I6), (glb05.O3, ST3_PIN, I0), (glb05.O0, 
         ST4_PIN, I3)
-    2 Output(s)
-        (REFRQST_PIN, O1), (C_A_EN_PIN, O3)
-    5 Product Term(s)
-
-    Output REFRQST_PIN
-
-        5 Input(s)
-            ST3_PIN, ST1_PIN, ST4_PIN, ST2_PIN, ST0_PIN
-        3 Fanout(s)
-            glb04.I13, glb05.I6, REFRQST.IR
-        0 Product Term(s)
-        1 GLB Level(s)
-
-        REFRQST_PIN.D = VCC
-        !REFRQST_PIN.C = BUF_973
-        REFRQST_PIN.R = ST1_PIN & ST3_PIN & ST4_PIN & !ST0_PIN & !ST2_PIN
+    1 Output(s)
+        (C_A_EN_PIN, O3)
+    4 Product Term(s)
 
     Output C_A_EN_PIN
 
@@ -264,8 +264,7 @@ GLB glb02_part1, A6
 GLB glb02_part2, A4
 
     2 Input(s)
-        (glb04.O1, REFINPROGRESS_PIN, I5), (REFINPROGRESS.O, 
-        REFINPROGRESSDELAY_PIN, I2)
+        (NCS.O, NCSX, I3), (glb04.O1, REFINPROGRESS_PIN, I5)
     1 Output(s)
         (NWAIT_PIN, O2)
     1 Product Term(s)
@@ -273,14 +272,16 @@ GLB glb02_part2, A4
     Output NWAIT_PIN
 
         2 Input(s)
-            REFINPROGRESSDELAY_PIN, REFINPROGRESS_PIN
+            REFINPROGRESS_PIN, NCSX
         1 Fanout(s)
             NWAIT.IR
-        1 Product Term(s)
+        2 Product Term(s)
         1 GLB Level(s)
 
-        NWAIT_PIN = !REFINPROGRESS_PIN & !REFINPROGRESSDELAY_PIN
-
+        NWAIT_PIN.D = (REFINPROGRESS_PIN & !NCSX)
+            $ VCC
+        NWAIT_PIN.C = BUF_976_part2
+        NWAIT_PIN.R = 
 
 Clock GLB glb03, B0
 
@@ -290,17 +291,17 @@ Clock GLB glb03, B0
         (glb03.O2, ST2_PIN, I16), (glb05.O3, ST3_PIN, I4), (glb05.O0, 
         ST4_PIN, I12)
     4 Output(s)
-        (ST2_PIN, O2), (BUF_974_part2, O0), (BUF_973, O1), 
-        (BUF_974_part1, O3)
+        (ST2_PIN, O2), (BUF_976_part2, O0), (BUF_975, O1), 
+        (BUF_976_part1, O3)
     8 Product Term(s)
 
     Output ST2_PIN
 
         6 Input(s)
             ST3_PIN, ST1_PIN, ST4_PIN, ST2_PIN, NRESETX, ST0_PIN
-        6 Fanout(s)
-            glb01.I6, glb02_part1.I6, glb03.I16, glb04.I9, glb05.I9,
-            ST2.IR
+        7 Fanout(s)
+            glb00.I6, glb01.I6, glb02_part1.I6, glb03.I16, glb04.I9,
+            glb05.I9, ST2.IR
         6 Product Term(s)
         1 GLB Level(s)
 
@@ -310,31 +311,31 @@ Clock GLB glb03, B0
             # ST3_PIN & ST4_PIN
             # ST0_PIN & ST1_PIN & ST2_PIN)
             $ VCC
-        !ST2_PIN.C = BUF_974_part2
+        !ST2_PIN.C = BUF_976_part2
         ST2_PIN.R = 
-    Output BUF_974_part2
+    Output BUF_976_part2
 
         1 Input(s)
             MCLKX
-        3 Fanout(s)
-            glb03.CLK1, glb04.CLK1, glb05.CLK1
+        4 Fanout(s)
+            glb02_part2.CLK1, glb03.CLK1, glb04.CLK1, glb05.CLK1
         1 Product Term(s)
         1 GLB Level(s)
 
-        BUF_974_part2 = MCLKX
+        BUF_976_part2 = MCLKX
 
-    Output BUF_973
+    Output BUF_975
 
         1 Input(s)
             RCLKX
         1 Fanout(s)
-            glb02_part1.CLK2
+            glb00.CLK2
         1 Product Term(s)
         1 GLB Level(s)
 
-        BUF_973 = RCLKX
+        BUF_975 = RCLKX
 
-    Output BUF_974_part1
+    Output BUF_976_part1
 
         1 Input(s)
             MCLKX
@@ -343,15 +344,15 @@ Clock GLB glb03, B0
         1 Product Term(s)
         1 GLB Level(s)
 
-        BUF_974_part1 = MCLKX
+        BUF_976_part1 = MCLKX
 
 
 GLB glb04, B1
 
     9 Input(s)
         (NCS.O, NCSX, I12), (NRESET.O, NRESETX, I14), (glb04.O1, 
-        REFINPROGRESS_PIN, I16), (glb02_part1.O1, REFRQST_PIN, I13), 
-        (glb04.O0, ST0_PIN, I11), (glb05.O1, ST1_PIN, I6), (glb03.O2, 
+        REFINPROGRESS_PIN, I16), (glb00.O1, REFRQST_PIN, I10), 
+        (glb04.O0, ST0_PIN, I11), (glb05.O1, ST1_PIN, I13), (glb03.O2, 
         ST2_PIN, I9), (glb05.O3, ST3_PIN, I15), (glb05.O0, 
         ST4_PIN, I7)
     2 Output(s)
@@ -363,9 +364,9 @@ GLB glb04, B1
         8 Input(s)
             ST3_PIN, ST1_PIN, ST4_PIN, ST2_PIN, REFRQST_PIN, NRESETX,
             ST0_PIN, NCSX
-        6 Fanout(s)
-            glb01.I4, glb02_part1.I4, glb03.I11, glb04.I11, glb05.I11,
-            ST0.IR
+        7 Fanout(s)
+            glb00.I4, glb01.I4, glb02_part1.I4, glb03.I11, glb04.I11,
+            glb05.I11, ST0.IR
         6 Product Term(s)
         1 GLB Level(s)
 
@@ -376,7 +377,7 @@ GLB glb04, B1
             # NCSX & !ST3_PIN & !REFRQST_PIN & !ST2_PIN & !ST4_PIN
             & !ST1_PIN)
             $ VCC
-        !ST0_PIN.C = BUF_974_part2
+        !ST0_PIN.C = BUF_976_part2
         ST0_PIN.R = 
     Output REFINPROGRESS_PIN
 
@@ -394,19 +395,19 @@ GLB glb04, B1
             # REFINPROGRESS_PIN & ST3_PIN
             # REFINPROGRESS_PIN & ST4_PIN
             # ST0_PIN & ST1_PIN & ST4_PIN & !ST3_PIN & !ST2_PIN)
-        !REFINPROGRESS_PIN.C = BUF_974_part2
+        !REFINPROGRESS_PIN.C = BUF_976_part2
         REFINPROGRESS_PIN.R = 
 
 GLB glb05, B6
 
     8 Input(s)
         (NRESET.O, NRESETX, I14), (REFINPROGRESS.O, 
-        REFINPROGRESSDELAY_PIN, I13), (glb02_part1.O1, 
-        REFRQST_PIN, I6), (glb04.O0, ST0_PIN, I11), (glb05.O1, 
-        ST1_PIN, I16), (glb03.O2, ST2_PIN, I9), (glb05.O3, 
-        ST3_PIN, I17), (glb05.O0, ST4_PIN, I12)
+        REFINPROGRESSDELAY_PIN, I13), (glb00.O1, REFRQST_PIN, I10), 
+        (glb04.O0, ST0_PIN, I11), (glb05.O1, ST1_PIN, I16), (glb03.O2, 
+        ST2_PIN, I9), (glb05.O3, ST3_PIN, I17), (glb05.O0, 
+        ST4_PIN, I12)
     4 Output(s)
-        (ST4_PIN, O0), (ST3_PIN, O3), (ST1_PIN, O1), (BUF_975, O2)
+        (ST4_PIN, O0), (ST3_PIN, O3), (ST1_PIN, O1), (BUF_977, O2)
     17 Product Term(s)
 
     Output ST4_PIN
@@ -414,9 +415,9 @@ GLB glb05, B6
         7 Input(s)
             ST3_PIN, ST1_PIN, ST4_PIN, ST2_PIN, REFRQST_PIN, NRESETX,
             ST0_PIN
-        6 Fanout(s)
-            glb01.I8, glb02_part1.I3, glb03.I12, glb04.I7, glb05.I12,
-            ST4.IR
+        7 Fanout(s)
+            glb00.I3, glb01.I8, glb02_part1.I3, glb03.I12, glb04.I7,
+            glb05.I12, ST4.IR
         5 Product Term(s)
         1 GLB Level(s)
 
@@ -427,15 +428,15 @@ GLB glb05, B6
             & !ST1_PIN
             # NRESETX & ST0_PIN & ST1_PIN & ST2_PIN & ST3_PIN & !ST4_PIN
             )
-        !ST4_PIN.C = BUF_974_part2
+        !ST4_PIN.C = BUF_976_part2
         ST4_PIN.R = 
     Output ST3_PIN
 
         6 Input(s)
             ST3_PIN, ST1_PIN, ST4_PIN, ST2_PIN, NRESETX, ST0_PIN
-        6 Fanout(s)
-            glb01.I0, glb02_part1.I0, glb03.I4, glb04.I15, glb05.I17,
-            ST3.IR
+        7 Fanout(s)
+            glb00.I11, glb01.I0, glb02_part1.I0, glb03.I4, glb04.I15,
+            glb05.I17, ST3.IR
         5 Product Term(s)
         1 GLB Level(s)
 
@@ -444,29 +445,29 @@ GLB glb05, B6
             # NRESETX & ST3_PIN & ST4_PIN & !ST2_PIN & !ST1_PIN
             # NRESETX & ST2_PIN & ST3_PIN & !ST4_PIN & !ST1_PIN
             # NRESETX & ST1_PIN & ST3_PIN & !ST2_PIN & !ST4_PIN)
-        !ST3_PIN.C = BUF_974_part2
+        !ST3_PIN.C = BUF_976_part2
         ST3_PIN.R = 
     Output ST1_PIN
 
         7 Input(s)
             ST3_PIN, ST1_PIN, ST4_PIN, ST2_PIN, REFRQST_PIN, NRESETX,
             ST0_PIN
-        6 Fanout(s)
-            glb01.I9, glb02_part1.I2, glb03.I13, glb04.I6, glb05.I16,
-            ST1.IR
+        7 Fanout(s)
+            glb00.I2, glb01.I9, glb02_part1.I2, glb03.I13, glb04.I13,
+            glb05.I16, ST1.IR
         6 Product Term(s)
         1 GLB Level(s)
 
-        ST1_PIN.D = (NRESETX & ST1_PIN & !ST0_PIN & !ST4_PIN
-            # NRESETX & ST0_PIN & !ST3_PIN & !ST1_PIN
-            # NRESETX & ST0_PIN & ST4_PIN & !ST2_PIN & !ST1_PIN
+        ST1_PIN.D = (NRESETX & ST0_PIN & ST4_PIN & !ST2_PIN & !ST1_PIN
             # NRESETX & ST0_PIN & ST2_PIN & !ST4_PIN & !ST1_PIN
             # NRESETX & ST1_PIN & ST2_PIN & !ST3_PIN & !ST0_PIN
             # NRESETX & REFRQST_PIN & !ST3_PIN & !ST2_PIN & !ST4_PIN
-            & !ST1_PIN)
-        !ST1_PIN.C = BUF_974_part2
+            & !ST1_PIN
+            # NRESETX & ST1_PIN & !ST0_PIN & !ST4_PIN
+            # NRESETX & ST0_PIN & !ST3_PIN & !ST1_PIN)
+        !ST1_PIN.C = BUF_976_part2
         ST1_PIN.R = 
-    Output BUF_975
+    Output BUF_977
 
         1 Input(s)
             REFINPROGRESSDELAY_PIN
@@ -475,14 +476,14 @@ GLB glb05, B6
         1 Product Term(s)
         1 GLB Level(s)
 
-        BUF_975 = REFINPROGRESSDELAY_PIN
+        BUF_977 = REFINPROGRESSDELAY_PIN
 
 
 Output CAS, IO4
 
-    Input (glb01.O0, DEF_918)
+    Input (glb01.O0, DEF_924)
 
-    CAS = !DEF_918
+    CAS = !DEF_924
 
 
 Output C_A_EN, IO7
@@ -494,9 +495,9 @@ Output C_A_EN, IO7
 
 Output DRAM_WE, IO5
 
-    Input (glb01.O1, AND_916)
+    Input (glb01.O1, AND_922)
 
-    DRAM_WE = !AND_916
+    DRAM_WE = !AND_922
 
 
 Input JTAG_NTRST, IO0
@@ -516,8 +517,8 @@ Input MCLK, IO11
 Input NCS, IO8
 
     Output NCSX
-        2 Fanout(s)
-            glb01.I3, glb04.I12
+        3 Fanout(s)
+            glb01.I3, glb02_part2.I3, glb04.I12
 
 
 Input NRESET, IO1
@@ -529,9 +530,9 @@ Input NRESET, IO1
 
 Output NTRST, IO2
 
-    Input (glb00.O2, AND_914)
+    Input (glb00.O2, AND_919)
 
-    NTRST = !AND_914
+    NTRST = !AND_919
 
 
 Output NWAIT, IO10
@@ -566,33 +567,33 @@ Registered Bidirectional REFINPROGRESS, IO25
 
     Input (glb04.O1, REFINPROGRESS_PIN)
     Output REFINPROGRESSDELAY_PIN
-        2 Fanout(s)
-            glb02_part2.I2, glb05.I13
+        1 Fanout(s)
+            glb05.I13
 
     REFINPROGRESS = REFINPROGRESS_PIN
     REFINPROGRESS.E = VCC
-    REFINPROGRESS.C = !BUF_974_part1
+    REFINPROGRESS.C = !BUF_976_part1
 
 
 Output REFINPROGRESSDELAY, IO22
 
-    Input (glb05.O2, BUF_975)
+    Input (glb05.O2, BUF_977)
 
-    REFINPROGRESSDELAY = BUF_975
+    REFINPROGRESSDELAY = BUF_977
 
 
 Output REFRQST, IO13
 
-    Input (glb02_part1.O1, REFRQST_PIN)
+    Input (glb00.O1, REFRQST_PIN)
 
     REFRQST = REFRQST_PIN
 
 
 Output R_A_EN, IO6
 
-    Input (glb01.O2, OR_919)
+    Input (glb01.O2, OR_925)
 
-    R_A_EN = !OR_919
+    R_A_EN = !OR_925
 
 
 Output ST0, IO16
@@ -634,9 +635,9 @@ Clock Assignments
 
     Net Name		    Clock Assignment
 
-        BUF_973                 Internal CLK2
-        BUF_974_part2           Internal CLK1
-        BUF_974_part1           Internal IOCLK1
+        BUF_975                 Internal CLK2
+        BUF_976_part2           Internal CLK1
+        BUF_976_part1           Internal IOCLK1
 
 
 GLB and GLB Output Statistics
@@ -644,37 +645,37 @@ GLB and GLB Output Statistics
     GLB Name, Location      GLB Statistics          GLB Output Statistics
     GLB Output Name         Ins, Outs, PTs          Ins, FOs, PTs, Levels, PTSABP
 
-        glb00, A1                2,  1,  1          
-            AND_914                                      2,  1,  1,  1, 1PT 
-
-        glb01, A2                7,  4, 13          
-            AND_916                                      2,  1,  1,  1, 1PT 
-            DEF_918                                      5,  1,  4,  1, -   
-            OR_919                                       5,  1,  3,  1, 4PT 
-            RAS_PIN                                      5,  1,  5,  1, -   
-
-        glb02_part1, A6          5,  2,  5          
-            C_A_EN_PIN                                   5,  1,  4,  1, 4PT 
+        glb00, A1                7,  2,  2          
+            AND_919                                      2,  1,  1,  1, 1PT 
             REFRQST_PIN                                  5,  3,  0,  1, -   
 
+        glb01, A2                7,  4, 13          
+            AND_922                                      2,  1,  1,  1, 1PT 
+            DEF_924                                      5,  1,  4,  1, -   
+            OR_925                                       5,  1,  3,  1, 4PT 
+            RAS_PIN                                      5,  1,  5,  1, -   
+
+        glb02_part1, A6          5,  1,  4          
+            C_A_EN_PIN                                   5,  1,  4,  1, 4PT 
+
         glb02_part2, A4          2,  1,  1          
-            NWAIT_PIN                                    2,  1,  1,  1, 1PT 
+            NWAIT_PIN                                    2,  1,  2,  1, -   
 
         glb03, B0                8,  4,  8          
-            BUF_973                                      1,  1,  1,  1, 1PT 
-            BUF_974_part1                                1,  1,  1,  1, 1PT 
-            BUF_974_part2                                1,  3,  1,  1, 1PT 
-            ST2_PIN                                      6,  6,  6,  1, -   
+            BUF_975                                      1,  1,  1,  1, 1PT 
+            BUF_976_part1                                1,  1,  1,  1, 1PT 
+            BUF_976_part2                                1,  4,  1,  1, 1PT 
+            ST2_PIN                                      6,  7,  6,  1, -   
 
         glb04, B1                9,  2, 11          
             REFINPROGRESS_PIN                            6,  3,  6,  1, -   
-            ST0_PIN                                      8,  6,  6,  1, -   
+            ST0_PIN                                      8,  7,  6,  1, -   
 
         glb05, B6                8,  4, 17          
-            BUF_975                                      1,  1,  1,  1, 1PT 
-            ST1_PIN                                      7,  6,  6,  1, -   
-            ST3_PIN                                      6,  6,  5,  1, -   
-            ST4_PIN                                      7,  6,  5,  1, -   
+            BUF_977                                      1,  1,  1,  1, 1PT 
+            ST1_PIN                                      7,  7,  6,  1, -   
+            ST3_PIN                                      6,  7,  5,  1, -   
+            ST4_PIN                                      7,  7,  5,  1, -   
 
 
 Pin Assignments

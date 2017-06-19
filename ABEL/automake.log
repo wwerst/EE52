@@ -5,10 +5,10 @@ Updating: Fit Design
 Start to record tcl script...
 Finished recording TCL script.
 
-Starting: 'C:\ispLEVER_Classic1_8\ispcpld\bin\ahdl2blf.exe "dram.abl" -vec -ovec "dram.tmv"  -def _PLSI_ _LATTICE_  -err automake.err -gui'
+Starting: 'C:\ispLEVER_Classic1_7\ispcpld\BIN\ahdl2blf.exe "dram.abl" -vec -ovec "dram.tmv"  -def _PLSI_ _LATTICE_  -err automake.err -gui'
 
 AHDL2BLF  ABEL-HDL Processor
-ispLEVER Classic 1.8 Copyright(C), 1992-2005, Lattice Semiconductor Corporation. All rights reserved
+ispLEVER Classic 1.7 Copyright(C), 1992-2005, Lattice Semiconductor Corporation. All rights reserved
 Portions Copyright(c), 1992-1999, Vantis Corporation
 Portions Copyright(C), 1993-1998, Data I/O Corporation
 Portions Copyright(C), 1997-1998, MINC Washington Corporation
@@ -24,39 +24,14 @@ AHDL2BLF complete - 0 errors, 0 warnings. Time: 1 seconds
 
 Done: completed successfully.
 
-Starting: 'C:\ispLEVER_Classic1_8\ispcpld\bin\syndos -batch copytmv '
+Starting: 'C:\ispLEVER_Classic1_7\ispcpld\BIN\syndos -batch copytmv '
 
 Done: completed successfully.
 
-Starting: 'C:\ispLEVER_Classic1_8\ispcpld\bin\ahdl2blf.exe "dram.abl" -mod DRAM -ojhd compile -prj pld -def _PLSI_ _LATTICE_  -err automake.err -gui'
-
-AHDL2BLF  ABEL-HDL Processor
-ispLEVER Classic 1.8 Copyright(C), 1992-2005, Lattice Semiconductor Corporation. All rights reserved
-Portions Copyright(c), 1992-1999, Vantis Corporation
-Portions Copyright(C), 1993-1998, Data I/O Corporation
-Portions Copyright(C), 1997-1998, MINC Washington Corporation
-Portions Copyright(C), Alan Phillips, Lancaster University Computer Centre 1992-1998
-Module: 'DRAM'
-
-  Processing equations...
-  Processing state diagram............
-
-  Module parsing complete. Building logic network...
-
-  Creating Open-ABEL 2 (BLIF) file dram.bl0...
-
-
-
-Module 'dram' processing complete.
-
-AHDL2BLF complete - 0 errors, 0 warnings. Time: 1 seconds
-
-Done: completed successfully.
-
-Starting: 'C:\ispLEVER_Classic1_8\ispcpld\bin\iblifopt.exe "DRAM.bl0" -red bypin choose -collapse -pterms 8 -family -err automake.err -gui'
+Starting: 'C:\ispLEVER_Classic1_7\ispcpld\BIN\iblifopt.exe "DRAM.bl0" -red bypin choose -collapse -pterms 8 -family -err automake.err -gui'
 
 BLIFOPT  Open-ABEL Optimizer 
-ispLEVER Classic 1.8 Copyright(C), 1992-2005, Lattice Semiconductor Corporation. All rights reserved
+ispLEVER Classic 1.7 Copyright(C), 1992-2005, Lattice Semiconductor Corporation. All rights reserved
 Portions Copyright(c), 1992-1999, Vantis Corporation
 Portions Copyright(C), 1993-1998, Data I/O Corporation
 Portions Copyright(C), 1997-1998, MINC Washington Corporation
@@ -70,10 +45,10 @@ BLIFOPT complete - 0 errors, 0 warnings. Time: 1 seconds
 
 Done: completed successfully.
 
-Starting: 'C:\ispLEVER_Classic1_8\ispcpld\bin\iblflink.exe "DRAM.bl1" -o "pld.bl2" -omod DRAM -propadd -family PLSI -ues pld.ues -err automake.err -gui'
+Starting: 'C:\ispLEVER_Classic1_7\ispcpld\BIN\iblflink.exe "DRAM.bl1" -o "pld.bl2" -omod DRAM -propadd -family PLSI -ues pld.ues -err automake.err -gui'
 
 BLIFLINK  Top-Down Design Linker
-ispLEVER Classic 1.8 Copyright(C), 1992-2005, Lattice Semiconductor Corporation. All rights reserved
+ispLEVER Classic 1.7 Copyright(C), 1992-2005, Lattice Semiconductor Corporation. All rights reserved
 Portions Copyright(c), 1992-1999, Vantis Corporation
 Portions Copyright(C), 1993-1998, Data I/O Corporation
 Portions Copyright(C), 1997-1998, MINC Washington Corporation
@@ -87,10 +62,10 @@ BLIFLINK complete.  Time: 1 second
 
 Done: completed successfully.
 
-Starting: 'C:\ispLEVER_Classic1_8\ispcpld\bin\iblifopt.exe pld.bl2 -red bypin choose -sweep -collapse all -pterms 8 -err automake.err -gui'
+Starting: 'C:\ispLEVER_Classic1_7\ispcpld\BIN\iblifopt.exe pld.bl2 -red bypin choose -sweep -collapse all -pterms 8 -err automake.err -gui'
 
 BLIFOPT  Open-ABEL Optimizer 
-ispLEVER Classic 1.8 Copyright(C), 1992-2005, Lattice Semiconductor Corporation. All rights reserved
+ispLEVER Classic 1.7 Copyright(C), 1992-2005, Lattice Semiconductor Corporation. All rights reserved
 Portions Copyright(c), 1992-1999, Vantis Corporation
 Portions Copyright(C), 1993-1998, Data I/O Corporation
 Portions Copyright(C), 1997-1998, MINC Washington Corporation
@@ -104,10 +79,10 @@ BLIFOPT complete - 0 errors, 0 warnings. Time: 1 seconds
 
 Done: completed successfully.
 
-Starting: 'C:\ispLEVER_Classic1_8\ispcpld\bin\idiofft.exe -i pld.bl3 -o pld.tt2 -propadd -idev PLSI -dev pla_basic -pla -err automake.err -gui'
+Starting: 'C:\ispLEVER_Classic1_7\ispcpld\BIN\idiofft.exe -i pld.bl3 -o pld.tt2 -propadd -idev PLSI -dev pla_basic -pla -err automake.err -gui'
 
 DIOFFT  Flip-Flop Transformation program
-ispLEVER Classic 1.8 Copyright(C), 1992-2005, Lattice Semiconductor Corporation. All rights reserved
+ispLEVER Classic 1.7 Copyright(C), 1992-2005, Lattice Semiconductor Corporation. All rights reserved
 Portions Copyright(c), 1992-1999, Vantis Corporation
 Portions Copyright(C), 1993-1998, Data I/O Corporation
 Portions Copyright(C), 1997-1998, MINC Washington Corporation
@@ -116,7 +91,7 @@ Input file: pld.bl3.
 Output file: pld.tt2.
 Cross reference file: pld.xrf.
 
-........
+.........
 Shortening signal names...
 Writing signal name cross reference file pld.xrf... 
 
@@ -124,9 +99,9 @@ DIOFFT complete. - Time 0 seconds
 
 Done: completed successfully.
 
-Starting: 'C:\ispLEVER_Classic1_8\ispcpld\bin\syndpm.exe -i pld.tt2 -if pla -p ispLSI1016E-100LJ44 -pre -gui'
+Starting: 'C:\ispLEVER_Classic1_7\ispcpld\BIN\syndpm.exe -i pld.tt2 -if pla -p ispLSI1016E-100LJ44 -pre -gui'
 
-arg[0] = C:\ispLEVER_Classic1_8\ispcomp\bin\dpm.exe
+arg[0] = C:\ispLEVER_Classic1_7\ispcomp\bin\dpm.exe
 arg[1] = -i
 arg[2] = "C:\Documents and Settings\micro\My Documents\wwerst\EE52\ABEL\pld.tt2"
 arg[3] = -if
@@ -149,8 +124,8 @@ arg[19] = -y
 arg[20] = "C:\Documents and Settings\micro\My Documents\wwerst\EE52\ABEL\PLD.xpn"
 arg[21] = -r
 arg[22] = "C:\Documents and Settings\micro\My Documents\wwerst\EE52\ABEL\ispxpert.par"
-cmd line = C:\ispLEVER_Classic1_8\ispcomp\bin\dpm.exe -i "C:\Documents and Settings\micro\My Documents\wwerst\EE52\ABEL\pld.tt2" -if pla -p ispLSI1016E-100LJ44 -pre -s d -e 2 -z -m 16 -n 4 -ta on -y "C:\Documents and Settings\micro\My Documents\wwerst\EE52\ABEL\PLD.xpn" -r "C:\Documents and Settings\micro\My Documents\wwerst\EE52\ABEL\ispxpert.par" 
-ispEXPERT Compiler Release 1.8.00.04.29.14, May 20 2002 13:06:40
+cmd line = C:\ispLEVER_Classic1_7\ispcomp\bin\dpm.exe -i "C:\Documents and Settings\micro\My Documents\wwerst\EE52\ABEL\pld.tt2" -if pla -p ispLSI1016E-100LJ44 -pre -s d -e 2 -z -m 16 -n 4 -ta on -y "C:\Documents and Settings\micro\My Documents\wwerst\EE52\ABEL\PLD.xpn" -r "C:\Documents and Settings\micro\My Documents\wwerst\EE52\ABEL\ispxpert.par" 
+ispEXPERT Compiler Release 1.7.00.05.28.13, May 20 2002 13:06:40
 
 Copyright (C) 1994-2000 by Lattice Semiconductor Corporation.
 All Rights Reserved.
@@ -181,13 +156,13 @@ PLA reading and translation completed successfully
 
 Done: completed successfully.
 
-Starting: 'C:\ispLEVER_Classic1_8\ispcomp\bin\impsrclever.exe -prj pld -log pld.irs -gui'
+Starting: 'C:\ispLEVER_Classic1_7\ispcomp\bin\impsrclever.exe -prj pld -log pld.irs -gui'
 
 Done: completed successfully.
 
-Starting: 'C:\ispLEVER_Classic1_8\ispcpld\bin\syndpm.exe -i pld.laf -if laf -p ispLSI1016E-100LJ44 -pd "c:\documents and settings\micro\my documents\wwerst\ee52\abel" -gui -of vhdl -of verilog'
+Starting: 'C:\ispLEVER_Classic1_7\ispcpld\BIN\syndpm.exe -i pld.laf -if laf -p ispLSI1016E-100LJ44 -pd "c:\documents and settings\micro\my documents\wwerst\ee52\abel" -gui -of vhdl -of verilog'
 
-arg[0] = C:\ispLEVER_Classic1_8\ispcomp\bin\dpm.exe
+arg[0] = C:\ispLEVER_Classic1_7\ispcomp\bin\dpm.exe
 arg[1] = -i
 arg[2] = "c:\documents and settings\micro\my documents\wwerst\ee52\abel\pld.laf"
 arg[3] = -if
@@ -213,8 +188,8 @@ arg[22] = -y
 arg[23] = "c:\documents and settings\micro\my documents\wwerst\ee52\abel\PLD.xpn"
 arg[24] = -r
 arg[25] = "c:\documents and settings\micro\my documents\wwerst\ee52\abel\ispxpert.par"
-cmd line = C:\ispLEVER_Classic1_8\ispcomp\bin\dpm.exe -i "c:\documents and settings\micro\my documents\wwerst\ee52\abel\pld.laf" -if laf -p ispLSI1016E-100LJ44 -of vhdl -of verilog -s d -e 2 -z -m 16 -n 4 -ta on -y "c:\documents and settings\micro\my documents\wwerst\ee52\abel\PLD.xpn" -r "c:\documents and settings\micro\my documents\wwerst\ee52\abel\ispxpert.par" 
-ispEXPERT Compiler Release 1.8.00.04.29.14, May 20 2002 13:06:40
+cmd line = C:\ispLEVER_Classic1_7\ispcomp\bin\dpm.exe -i "c:\documents and settings\micro\my documents\wwerst\ee52\abel\pld.laf" -if laf -p ispLSI1016E-100LJ44 -of vhdl -of verilog -s d -e 2 -z -m 16 -n 4 -ta on -y "c:\documents and settings\micro\my documents\wwerst\ee52\abel\PLD.xpn" -r "c:\documents and settings\micro\my documents\wwerst\ee52\abel\ispxpert.par" 
+ispEXPERT Compiler Release 1.7.00.05.28.13, May 20 2002 13:06:40
 
 Copyright (C) 1994-2000 by Lattice Semiconductor Corporation.
 All Rights Reserved.
@@ -276,11 +251,11 @@ Synthesis and partitioning statistics:
   
 Number of Macrocells is 17 
 Number of GLBs is 6 
-Number of product terms is 56 
+Number of product terms is 57 
 Maximum number of GLB levels is 1 
-Average number of inputs per GLB is 6.8 
+Average number of inputs per GLB is 7.7 
 Average number of outputs per GLB is 2.8 
-Average number of product terms per GLB is 9.3 
+Average number of product terms per GLB is 9.5 
   
 Synthesis and partitioning completed successfully 
 
@@ -404,7 +379,7 @@ Design process management completed successfully
 
 Done: completed successfully.
 
-Starting: 'C:\ispLEVER_Classic1_8\ispcpld\bin\synsvf.exe -exe "C:\ispLEVER_Classic1_8\ispvmsystem/ispufw" -prj pld -if pld.jed -j2s -log pld.svl -gui'
+Starting: 'C:\ispLEVER_Classic1_7\ispcpld\BIN\synsvf.exe -exe "C:\ispLEVER_Classic1_7\ispvmsystem/ispufw" -prj pld -if pld.jed -j2s -log pld.svl -gui'
 
 Need not generate svf file according to the constraints, exit
 Done: completed successfully.

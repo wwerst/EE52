@@ -42,7 +42,7 @@ CAS    pin   19  ISTYPE 'com';  "CAS line
 "      pin   24                  input   unused
 !NCS   pin   25;                "input chip select
 !NWE   pin   26;                "input for whether write access
-!NWAIT pin   27  ISTYPE 'com';  "output for making cpu wait for refresh finish
+!NWAIT pin   27  ISTYPE 'reg';  "output for making cpu wait for refresh finish
 !MCLK   pin   28;                "main clock input
 !RCLK   pin   29;                "refresh clock input
 "      pin   13                  output  unused
@@ -104,7 +104,7 @@ EQUATIONS
 
 
 " NWAIT equation
-NWAIT = ((RefInProgress # RefInProgressDelay));
+NWAIT := (NCS & (RefInProgress));
 
 
 NTRST = NReset & JTAG_NTRST;
@@ -113,7 +113,7 @@ DRAM_WE = NWE & NCS;
 
 " clocks for the registered outputs (state bits)
 StateBits.CLK  =  MCLK;        " use the global clock pin
-"NWAIT.CLK = MCLK;
+NWAIT.CLK = !MCLK;
 
 RefInProgress.S = (StateBits == Ref0);
 RefInProgress.R = (StateBits == Idle);

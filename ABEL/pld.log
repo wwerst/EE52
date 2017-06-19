@@ -1,4 +1,4 @@
-ispEXPERT Compiler Release 1.8.00.04.29.14, May 20 2002 13:06:40
+ispEXPERT Compiler Release 1.7.00.05.28.13, May 20 2002 13:06:40
 
 Copyright (C) 1994-2000 by Lattice Semiconductor Corporation.
 All Rights Reserved.
@@ -60,11 +60,11 @@ Synthesis and partitioning statistics:
   
 Number of Macrocells is 17 
 Number of GLBs is 6 
-Number of product terms is 56 
+Number of product terms is 57 
 Maximum number of GLB levels is 1 
-Average number of inputs per GLB is 6.8 
+Average number of inputs per GLB is 7.7 
 Average number of outputs per GLB is 2.8 
-Average number of product terms per GLB is 9.3 
+Average number of product terms per GLB is 9.5 
   
 Synthesis and partitioning completed successfully 
 

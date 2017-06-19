@@ -35,7 +35,7 @@ XPIN RefInProgressDelay OUT RefInProgressDelay_PIN;
 
 NET JTAG_NTRST EXT DST NTRST.A1;
 
-NET NReset EXT DST NTRST.A0 St0_D.A0 St1_D.A0 St2_D.A0 St3_D.A0
+NET NReset EXT DST NTRST.A0 St0_D.A1 St1_D.A0 St2_D.A0 St3_D.A0
  St4_D.A0;
 
 NET NTRST_PIN EXT SRC NTRST.Z0;
@@ -50,14 +50,18 @@ NET R_A_EN_PIN EXT SRC R_A_EN.Z0;
 
 NET C_A_EN_PIN EXT SRC C_A_EN.Z0;
 
-NET NCS EXT DST DRAM_WE.A1 St0_D.A1;
+NET NCS EXT DST DRAM_WE.A0 NWAIT_D.A0 St0_D.A0;
 
-NET NWE EXT DST DRAM_WE.A0;
+NET NWE EXT DST DRAM_WE.A1;
 
-NET NWAIT_PIN EXT SRC NWAIT.Z0;
+NET NWAIT_C SRC NWAIT_C.Z0 DST NWAIT.CLK;
+
+NET NWAIT_D SRC NWAIT_D.Z0 DST NWAIT.D0;
+
+NET NWAIT_PIN EXT SRC NWAIT.Q0;
 
 NET MCLK EXT DST St4_C.A0 St3_C.A0 St2_C.A0 St1_C.A0 St0_C.A0
- RefInProgress_C.A0 RefInProgressDelay_C.A0;
+ NWAIT_C.A0 RefInProgress_C.A0 RefInProgressDelay_C.A0;
 
 NET RCLK EXT DST RefRqst_C.A0;
 
@@ -118,13 +122,13 @@ NET RefInProgress_C SRC RefInProgress_C.Z0 DST RefInProgress.CLK;
 
 NET RefInProgress_D SRC RefInProgress_D.Z0 DST RefInProgress.D0;
 
-NET RefInProgress_PIN EXT SRC RefInProgress.Q0 DST NWAIT.A0 RefInProgress_D.A0 RefInProgressDelay_D.A0;
+NET RefInProgress_PIN EXT SRC RefInProgress.Q0 DST NWAIT_D.A1 RefInProgress_D.A0 RefInProgressDelay_D.A0;
 
 NET RefInProgressDelay_C SRC RefInProgressDelay_C.Z0 DST RefInProgressDelay.CLK;
 
 NET RefInProgressDelay_D SRC RefInProgressDelay_D.Z0 DST RefInProgressDelay.D0;
 
-NET RefInProgressDelay_PIN EXT SRC RefInProgressDelay.Q0 DST NWAIT.A1;
+NET RefInProgressDelay_PIN EXT SRC RefInProgressDelay.Q0;
 
 NET VCC DST RefRqst_D.A0;
 
@@ -173,8 +177,8 @@ SYM PLA CAS;
 END;
 
 SYM PLA DRAM_WE;
-	PIN A0 IN NWE;
-	PIN A1 IN NCS;
+	PIN A0 IN NCS;
+	PIN A1 IN NWE;
 	PIN Z0 OUT DRAM_WE_PIN;
 	BEGIN_PLA
 	1- 1
@@ -210,15 +214,6 @@ SYM PLA C_A_EN;
 	--0-- 1
 	-0-11 1
 	-1-00 1
-	END_PLA
-END;
-
-SYM PLA NWAIT;
-	PIN A0 IN RefInProgress_PIN;
-	PIN A1 IN RefInProgressDelay_PIN;
-	PIN Z0 OUT NWAIT_PIN;
-	BEGIN_PLA
-	00 1
 	END_PLA
 END;
 
@@ -262,6 +257,14 @@ SYM PLA St0_C;
 	END_PLA
 END;
 
+SYM PLA NWAIT_C;
+	PIN A0 IN MCLK;
+	PIN Z0 OUT NWAIT_C;
+	BEGIN_PLA
+	1 1
+	END_PLA
+END;
+
 SYM PLA RefInProgress_C;
 	PIN A0 IN MCLK;
 	PIN Z0 OUT RefInProgress_C;
@@ -298,9 +301,19 @@ SYM PLA RefRqst_AR;
 	END_PLA
 END;
 
+SYM PLA NWAIT_D;
+	PIN A0 IN NCS;
+	PIN A1 IN RefInProgress_PIN;
+	PIN Z0 OUT NWAIT_D;
+	BEGIN_PLA
+	1- 1
+	-0 1
+	END_PLA
+END;
+
 SYM PLA St0_D;
-	PIN A0 IN NReset;
-	PIN A1 IN NCS;
+	PIN A0 IN NCS;
+	PIN A1 IN NReset;
 	PIN A2 IN St4_Q;
 	PIN A3 IN St3_Q;
 	PIN A4 IN St2_Q;
@@ -309,12 +322,12 @@ SYM PLA St0_D;
 	PIN A7 IN RefRqst_PIN;
 	PIN Z0 OUT St0_D;
 	BEGIN_PLA
-	100---0- 1
-	1-01--0- 1
-	1--01-0- 1
-	1-0--10- 1
-	1-1-000- 1
-	1-0---01 1
+	010---0- 1
+	-101--0- 1
+	-1-01-0- 1
+	-10--10- 1
+	-11-000- 1
+	-10---01 1
 	END_PLA
 END;
 
@@ -419,6 +432,12 @@ SYM PLA RefInProgressDelay_D;
 	BEGIN_PLA
 	1 1
 	END_PLA
+END;
+
+SYM FD11 NWAIT;
+	PIN D0 IN NWAIT_D;
+	PIN CLK IN NWAIT_C;
+	PIN Q0 OUT NWAIT_PIN;
 END;
 
 SYM FD11 St0;

@@ -1,5 +1,5 @@
-#$ TOOL ispLEVER Classic 1.8.00.04.29.14
-#$ DATE Sun Jun 18 03:05:30 2017
+#$ TOOL ispLEVER Classic 1.7.00.05.28.13
+#$ DATE Sun Jun 18 22:02:10 2017
 #$ TITLE DRAM Interface - State Machine Version
 #$ MODULE dram
 #$ JEDECFILE dram
@@ -7,13 +7,13 @@
 #  St3:40 St4:41 RefRqst RefInProgress RefInProgressDelay
 
 .model dram
-.inputs RefInProgress.BLIF RefInProgressDelay.BLIF NReset.BLIF JTAG_NTRST.BLIF \
-NWE.BLIF NCS.BLIF MCLK.BLIF St0.BLIF St1.BLIF St2.BLIF St3.BLIF St4.BLIF \
-RCLK.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RefRqst.BLIF
-.outputs NTRST RAS CAS DRAM_WE R_A_EN C_A_EN NWAIT St4.C St3.C St2.C St1.C \
-St0.C RefInProgress.S RefInProgress.R RefInProgress.C RefInProgressDelay.D \
-RefInProgressDelay.C RefRqst.C RefRqst.AR RefRqst.REG St0.REG St1.REG St2.REG \
-St3.REG St4.REG
+.inputs NCS.BLIF RefInProgress.BLIF NReset.BLIF JTAG_NTRST.BLIF NWE.BLIF MCLK.BLIF \
+St0.BLIF St1.BLIF St2.BLIF St3.BLIF St4.BLIF RCLK.BLIF St4.FB St3.FB St2.FB \
+St1.FB St0.FB RefRqst.BLIF
+.outputs NTRST RAS CAS DRAM_WE R_A_EN C_A_EN NWAIT.REG St4.C St3.C St2.C St1.C \
+St0.C NWAIT.C RefInProgress.S RefInProgress.R RefInProgress.C \
+RefInProgressDelay.D RefInProgressDelay.C RefRqst.C RefRqst.AR RefRqst.REG \
+St0.REG St1.REG St2.REG St3.REG St4.REG
 .names NReset.BLIF JTAG_NTRST.BLIF NTRST
 1- 1
 -1 1
@@ -42,7 +42,7 @@ St3.REG St4.REG
 101-- 0
 -0101 0
 10-11 0
-.names NWE.BLIF NCS.BLIF DRAM_WE
+.names NCS.BLIF NWE.BLIF DRAM_WE
 1- 1
 -1 1
 00 0
@@ -63,10 +63,10 @@ St3.REG St4.REG
 0-110 0
 011-1 0
 0010- 0
-.names RefInProgress.BLIF RefInProgressDelay.BLIF NWAIT
-00 1
-1- 0
--1 0
+.names NCS.BLIF RefInProgress.BLIF NWAIT.REG
+1- 1
+-0 1
+01 0
 .names MCLK.BLIF St4.C
 0 1
 1 0
@@ -114,19 +114,19 @@ St3.REG St4.REG
 ----0 0
 .names RefRqst.REG
  1
-.names NReset.BLIF NCS.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RefRqst.BLIF \
+.names NCS.BLIF NReset.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RefRqst.BLIF \
 St0.REG
-100---0- 1
-1-01--0- 1
-1-1-000- 1
-1-0---01 1
-1--01-0- 1
-1-0--10- 1
--10000-0 0
+010---0- 1
+-101--0- 1
+-11-000- 1
+-10---01 1
+-1-01-0- 1
+-10--10- 1
+1-0000-0 0
 --111--- 0
 --1-01-- 0
 ------1- 0
-0------- 0
+-0------ 0
 .names NReset.BLIF St4.FB St3.FB St2.FB St1.FB St0.FB RefRqst.BLIF St1.REG
 10000-1 1
 1-0110- 1
@@ -181,6 +181,9 @@ St0.REG
 -01--0- 0
 ---010- 0
 0------ 0
+.names MCLK.BLIF NWAIT.C
+1 1
+0 0
 .names RefInProgress.BLIF RefInProgressDelay.D
 1 1
 0 0

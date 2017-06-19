@@ -19,11 +19,13 @@ Required Setup and Hold
   GLB_ST0_PIN           NCS                 MCLK                -4.20          6.90    
   GLB_ST0_PIN           NRESET              MCLK                -4.30          7.00    
   GLB_ST2_PIN           NRESET              MCLK                -4.30          7.00    
+  GLB_..._PIN *3        NCS                 MCLK                -4.40          7.10    
 ==-----------------------------------------------------------------------------------
 
 Index Name Table
 ==----------------------------------------
     *1  IOC_REFINPROGRESSDELAY_PIN
     *2  REFINPROGRESS
+    *3  GLB_NWAIT_PIN
 ==----------------------------------------
 
