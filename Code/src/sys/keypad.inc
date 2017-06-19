@@ -12,5 +12,5 @@
 
 
     .equ RDY_PIN,    26
-    .equ HANGUP_BTN, 24
 	.equ MAXDEBCOUNT,	10000
+	.equ HANGUPBTN, 3

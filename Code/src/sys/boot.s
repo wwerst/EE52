@@ -141,12 +141,16 @@ _start:
     
     @Configure MCK @MDIV = 00, PRES = 001, CSS = 10
     @First, need to change one value at a time, so change CSS first
-    LDR r0, =PMC_MCKR                   @Load PMC_MCKR address
-    LDR r1, [r0]                        @Load current PMC_MCKR value
-    AND r1, r1, #0xFFFFFFFC             @Mask out CSS bits
+    LDR r0, 		=PMC_MCKR           @Load PMC_MCKR address
+    LDR r1, 		[r0]                @Load current PMC_MCKR value
+	LDR r0, 		=PMC_MCKR_VAL		@Check current value to see if any changes
+	CMP r1, 		r0					@Because clock ready bit will not go
+	BEQ	DoneMCK							@high if the same value is re-written.
+										
+    AND r1, 	r1, #0xFFFFFFFC			@Mask out CSS bits
     LDR r0, =(PMC_MCKR_VAL & 0x03)      @Load the CSS component of final MCKR value
-    ORR r1, r0                           @Merge current PRES value with new CSS
-    LDR r0, =PMC_MCKR                   @Load PMC_MCKR address
+    ORR r1, 		r0 					@Merge current PRES value with new CSS
+    LDR r0, 		=PMC_MCKR			@Load PMC_MCKR address
     STR r1, [r0]                        @Store intermediate value in MCKR
     LDR r2, =2000                       @Clock initialization timeout
 WaitMCKRDY:
@@ -160,8 +164,9 @@ WaitMCKRDY:
 DoneMCKRDY:
 
     SetHReg PMC_MCKR, PMC_MCKR_VAL
-    @Configure Peripheral clock
-
+    @B DoneMCK
+DoneMCK:
+	@Configure Peripheral clock
     SetHReg PMC_PCER, PMC_PCER_VAL
 
     @Configure PCK0

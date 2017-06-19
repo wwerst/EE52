@@ -22,7 +22,7 @@
 @ r3 - incrementer value used to generate sequences of data to load into memory
 @ r4 - value to load into memory
 @Returns:
-@ r0 - 0 if success, 1 if failure
+@ r0 - TRUE if success, FALSE if failure
 @ r1 - value read from memory
 @ r2 - value expected in memory
 @ r3 - relative address where error occurred
@@ -58,13 +58,13 @@ checkdata:
     BLT checkdata
     B mem_test_loop
 failure:
-    LDR r0, =1
+    LDR r0, =FALSE
     MOV r1, r5
     MOV r3, r2
     MOV r2, r4
     B mem_test_end
 success:
-    LDR r0, =0
+    LDR r0, =TRUE
     @B mem_test_end
 mem_test_end:
 	POP {r4, r5, pc}
