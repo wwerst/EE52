@@ -69,16 +69,19 @@ low_level_init:
 
 @@Check SRAM valid
    
-   @LDR r0, =0x30000000
-   @LDR r1, =0x10
-   @LDR r0, =0x20000000
-   @LDR r1, =0x20000
-   @BL mem_test
-   
-   LDR r0, =0x30000000
-   LDR r1, =0x100
+   @Test SRAM
+   LDR r0, =0x20000000
+   LDR r1, =0x20000
    BL mem_test
+   CMP		r0,		#TRUE
+   BNE		memtestfail
    
+   @Test DRAM
+   @LDR r0, =0x30000000
+   @LDR r1, =0x100000
+   @BL mem_test
+   @CMP		r0,		#TRUE
+   @BNE		memtestfail
    
    BL keypad_init
     
@@ -92,5 +95,7 @@ loop:
     					@   reinitialize everything and start
 					@   over
 
+memtestfail:
+	B memtestfail
 
 .end
