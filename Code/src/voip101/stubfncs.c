@@ -82,7 +82,7 @@ int  getkey()
 
 
 /* display functions  */
-/*
+
 void  display_IP(unsigned long int ip)
 {
     return;
@@ -97,11 +97,11 @@ void  display_status(unsigned int s)
 {
     return;
 }
-*/
+
 
 
 /* audio functions */
-/*
+
 void  call_start(short int *p)
 {
     return;
@@ -111,19 +111,19 @@ void  call_halt()
 {
     return;
 }
-*/
+
 
 /* timing function */
-/*
+
 int  elapsed_time()
 {
     return  0;
 }
-*/
+
 
 
 /* networking functions */
-/*
+
 char  ether_init()
 {
     return  TRUE;
@@ -143,4 +143,4 @@ struct pbuf  *ether_receive()
 {
     return  NULL;
 }
-*/
+

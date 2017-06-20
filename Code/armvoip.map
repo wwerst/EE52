@@ -1,0 +1,879 @@
+Archive member included because of file (symbol)
+
+c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_divsi3.o)
+                              obj/tcp_in.o (__aeabi_idiv)
+c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_dvmd_tls.o)
+                              c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_divsi3.o) (__aeabi_idiv0)
+c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memcpy.o)
+                              obj/pbuf.o (memcpy)
+c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memset.o)
+                              obj/mem.o (memset)
+
+Allocating common symbols
+Common symbol       size              file
+
+netif_list          0x4               obj/netif.o
+tcp_active_pcbs     0x4               obj/tcp.o
+udp_pcbs            0x4               obj/udp.o
+current_netif       0x4               obj/ip.o
+tcp_ticks           0x4               obj/tcp.o
+tcp_listen_pcbs     0x4               obj/tcp.o
+tcp_tmp_pcb         0x4               obj/tcp.o
+tcp_input_pcb       0x4               obj/tcp_in.o
+current_header      0x4               obj/ip.o
+tcp_bound_pcbs      0x4               obj/tcp.o
+tcp_tw_pcbs         0x4               obj/tcp.o
+lwip_stats          0x116             obj/stats.o
+netif_default       0x4               obj/netif.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+int_ram          0x00200000         0x00004000         xrw
+ext_ram          0x20000000         0x00020000         xrw
+ext_rom          0x80000000         0x00080000         xr
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a
+LOAD obj/crt0.o
+LOAD obj/memtest.o
+LOAD obj/keypad.o
+LOAD obj/display.o
+LOAD obj/mem.o
+LOAD obj/memp.o
+LOAD obj/netif.o
+LOAD obj/pbuf.o
+LOAD obj/raw.o
+LOAD obj/stats.o
+LOAD obj/sys.o
+LOAD obj/tcp.o
+LOAD obj/tcp_in.o
+LOAD obj/tcp_out.o
+LOAD obj/udp.o
+LOAD obj/dhcp.o
+LOAD obj/icmp.o
+LOAD obj/ip.o
+LOAD obj/inet.o
+LOAD obj/ip_addr.o
+LOAD obj/ip_frag.o
+LOAD obj/inet_chksum.o
+LOAD obj/etharp.o
+LOAD obj/ipproc.o
+LOAD obj/memproc.o
+LOAD obj/mainloop.o
+LOAD obj/buffers.o
+LOAD obj/callproc.o
+LOAD obj/ethernet.o
+LOAD obj/keyproc.o
+LOAD obj/tcpconn.o
+LOAD obj/stubfncs.o
+LOAD obj/callutil.o
+LOAD obj/error.o
+START GROUP
+LOAD c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a
+LOAD c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a
+END GROUP
+
+.text           0x20000000    0x140a8
+ obj/crt0.o(.text)
+ .text          0x20000000       0x38 obj/crt0.o
+                0x20000000                low_level_init
+ *(.text)
+ .text          0x20000038       0x84 obj/memtest.o
+                0x20000038                mem_test
+ .text          0x200000bc      0x184 obj/keypad.o
+                0x200000bc                keypad_init
+                0x20000114                key_available
+                0x20000124                getkey
+ .text          0x20000240        0x0 obj/display.o
+ .text          0x20000240      0xac8 obj/mem.o
+                0x200003cc                mem_init
+                0x200004b0                mem_free
+                0x200005e0                mem_realloc
+                0x2000091c                mem_malloc
+                0x20000c90                mem_calloc
+ .text          0x20000d08      0x46c obj/memp.o
+                0x20000d08                memp_init
+                0x20000ed8                memp_malloc
+                0x200010b0                memp_free
+ .text          0x20001174      0x68c obj/netif.o
+                0x20001174                netif_add
+                0x2000126c                netif_set_addr
+                0x200012b8                netif_remove
+                0x20001398                netif_find
+                0x20001460                netif_set_ipaddr
+                0x20001618                netif_set_gw
+                0x20001680                netif_set_netmask
+                0x200016e8                netif_set_default
+                0x20001714                netif_set_up
+                0x20001784                netif_set_down
+                0x200017d0                netif_is_up
+ .text          0x20001800      0xf90 obj/pbuf.o
+                0x20001800                pbuf_alloc
+                0x20001b9c                pbuf_realloc
+                0x20001d40                pbuf_header
+                0x20001ee8                pbuf_free
+                0x2000201c                pbuf_clen
+                0x20002070                pbuf_ref
+                0x200020b4                pbuf_cat
+                0x20002168                pbuf_chain
+                0x2000219c                pbuf_dechain
+                0x20002244                pbuf_copy
+                0x20002440                pbuf_copy_partial
+                0x200025c4                pbuf_take
+                0x200026fc                pbuf_coalesce
+ .text          0x20002790      0x57c obj/raw.o
+                0x20002790                raw_input
+                0x200028f4                raw_bind
+                0x2000296c                raw_connect
+                0x200029e4                raw_recv
+                0x20002a20                raw_sendto
+                0x20002b90                raw_send
+                0x20002bd0                raw_remove
+                0x20002c84                raw_new
+ .text          0x20002d0c        0x0 obj/stats.o
+ .text          0x20002d0c        0x0 obj/sys.o
+ .text          0x20002d0c     0x217c obj/tcp.o
+                0x20002d0c                tcp_tmr
+                0x20002d5c                tcp_close
+                0x20002fbc                tcp_abandon
+                0x20003144                tcp_bind
+                0x20003594                tcp_listen_with_backlog
+                0x20003790                tcp_update_rcv_ann_wnd
+                0x2000388c                tcp_recved
+                0x20003a84                tcp_connect
+                0x20003d38                tcp_slowtmr
+                0x2000440c                tcp_fasttmr
+                0x20004538                tcp_segs_free
+                0x200045a4                tcp_seg_free
+                0x20004610                tcp_setprio
+                0x20004640                tcp_recv_null
+                0x20004864                tcp_alloc
+                0x20004a68                tcp_new
+                0x20004a8c                tcp_arg
+                0x20004ab8                tcp_recv
+                0x20004ae4                tcp_sent
+                0x20004b10                tcp_err
+                0x20004b3c                tcp_accept
+                0x20004b68                tcp_poll
+                0x20004ba8                tcp_pcb_purge
+                0x20004c5c                tcp_pcb_remove
+                0x20004d98                tcp_next_iss
+                0x20004ddc                tcp_eff_send_mss
+                0x20004e54                tcp_debug_state_str
+ .text          0x20004e88     0x342c obj/tcp_in.o
+                0x20004e88                tcp_input
+ .text          0x200082b4     0x26c4 obj/tcp_out.o
+                0x200085d0                tcp_send_ctrl
+                0x20008620                tcp_write
+                0x200086dc                tcp_enqueue
+                0x200093a0                tcp_send_empty_ack
+                0x200094f0                tcp_output
+                0x20009f10                tcp_rst
+                0x2000a298                tcp_rexmit_rto
+                0x2000a350                tcp_rexmit
+                0x2000a494                tcp_rexmit_fast
+                0x2000a5bc                tcp_keepalive
+                0x2000a6e0                tcp_zero_window_probe
+ .text          0x2000a978      0xf50 obj/udp.o
+                0x2000a978                udp_input
+                0x2000b000                udp_send
+                0x2000b044                udp_sendto
+                0x2000b0d8                udp_sendto_if
+                0x2000b428                udp_bind
+                0x2000b5bc                udp_connect
+                0x2000b708                udp_disconnect
+                0x2000b784                udp_recv
+                0x2000b7c0                udp_remove
+                0x2000b874                udp_new
+ .text          0x2000b8c8        0x0 obj/dhcp.o
+ .text          0x2000b8c8      0x90c obj/icmp.o
+                0x2000b8c8                icmp_input
+                0x2000bfe4                icmp_dest_unreach
+                0x2000c01c                icmp_time_exceeded
+ .text          0x2000c1d4      0xd78 obj/ip.o
+                0x2000c1d4                ip_route
+                0x2000c2ec                ip_input
+                0x2000c8e0                ip_output_if
+                0x2000cea8                ip_output
+ .text          0x2000cf4c      0x68c obj/inet.o
+                0x2000cf4c                inet_addr
+                0x2000cf94                inet_aton
+                0x2000d334                inet_ntoa
+                0x2000d4c4                htons
+                0x2000d524                ntohs
+                0x2000d558                htonl
+                0x2000d5ac                ntohl
+ .text          0x2000d5d8      0x130 obj/ip_addr.o
+                0x2000d5d8                ip_addr_isbroadcast
+ .text          0x2000d708     0x15e8 obj/ip_frag.o
+                0x2000d708                ip_reass_tmr
+                0x2000e2f0                ip_reass
+                0x2000e944                ip_frag
+ .text          0x2000ecf0      0x550 obj/inet_chksum.o
+                0x2000ee24                inet_chksum_pseudo
+                0x2000f0cc                inet_chksum
+                0x2000f114                inet_chksum_pbuf
+ .text          0x2000f240     0x17d0 obj/etharp.o
+                0x2000f240                etharp_tmr
+                0x2000fa80                etharp_find_addr
+                0x2000fb3c                etharp_ip_input
+                0x2000fbfc                etharp_arp_input
+                0x2001005c                etharp_output
+                0x200102f4                etharp_query
+                0x20010860                etharp_request
+                0x200108d4                ethernet_input
+ .text          0x20010a10      0x61c obj/ipproc.o
+                0x20010a10                start_IPEntry
+                0x20010ad0                clear_IPAddr
+                0x20010b38                add_IPDigit
+                0x20010cf0                del_IPDigit
+                0x20010e78                set_IP
+                0x20010ef8                set_gateway
+                0x20010f78                set_subnet
+ .text          0x2001102c      0x3c8 obj/memproc.o
+                0x2001102c                init_memory
+                0x200110a0                start_memLoc
+                0x20011138                clear_memLoc
+                0x20011184                add_memDigit
+                0x20011228                del_memDigit
+                0x200112a4                save_mem
+                0x2001133c                recall_mem
+ .text          0x200113f4      0x2bc obj/mainloop.o
+                0x200113f4                main
+ .text          0x200116b0      0x760 obj/buffers.o
+                0x200116b0                init_buffers
+                0x20011760                reset_rx_buffer
+                0x200117a4                reset_tx_buffer
+                0x200117e8                rx_available
+                0x20011848                xmit_available
+                0x200118bc                get_rx_next_ptr
+                0x20011934                get_rx_buffer
+                0x20011a18                get_xmit_next_ptr
+                0x20011a90                get_xmit_buffer
+                0x20011b18                tx_available
+                0x20011b7c                rcv_available
+                0x20011bdc                get_tx_next_ptr
+                0x20011c54                get_tx_buffer
+                0x20011d10                get_rcv_next_ptr
+                0x20011d88                get_rcv_buffer
+ .text          0x20011e10       0x90 obj/callproc.o
+                0x20011e10                do_answer
+                0x20011e40                do_call
+                0x20011e70                end_call
+ .text          0x20011ea0      0x2f4 obj/ethernet.o
+                0x20011ea0                init_networking
+                0x20011f40                ethernetif_init
+                0x2001204c                ethernetif_input
+                0x20012120                ethernetif_output
+ .text          0x20012194       0x60 obj/keyproc.o
+                0x20012194                no_action
+                0x200121c0                reset_input
+ .text          0x200121f4      0x9e0 obj/tcpconn.o
+                0x200121f4                have_tcp_connection
+                0x2001222c                tcp_connection_status
+                0x20012254                tcp_connection_init
+                0x2001229c                tcp_connection_restart
+                0x200123f8                tcp_connection_connect
+                0x2001249c                tcp_connection_answer
+                0x20012520                tcp_connection_close
+                0x20012598                tcp_connection_rx
+                0x20012654                tcp_connection_tx
+ .text          0x20012bd4      0x160 obj/stubfncs.o
+                0x20012bd4                update_rx
+                0x20012bf8                update_tx
+                0x20012c1c                display_IP
+                0x20012c38                display_memory_addr
+                0x20012c54                display_status
+                0x20012c70                call_start
+                0x20012c8c                call_halt
+                0x20012ca0                elapsed_time
+                0x20012cbc                ether_init
+                0x20012cd8                ether_transmit
+                0x20012cfc                ether_rx_available
+                0x20012d18                ether_receive
+ .text          0x20012d34      0x8c4 obj/callutil.o
+                0x20012d34                get_calling_IP
+                0x20012d58                get_calling_name
+                0x20012d78                set_calling_IP
+                0x20012da4                set_calling_name
+                0x20012e34                incoming_call
+                0x20012e54                call_connected
+                0x20012e84                initiate_outgoing
+                0x20012eac                start_call
+                0x20012ef8                connect_incoming
+                0x20012f38                process_call
+                0x20013118                disconnect_call
+ .text          0x200135f8       0x20 obj/error.o
+                0x200135f8                process_error
+ .text          0x20013618      0x148 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_divsi3.o)
+                0x20013618                __divsi3
+                0x20013618                __aeabi_idiv
+                0x20013740                __aeabi_idivmod
+ .text          0x20013760        0x4 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_dvmd_tls.o)
+                0x20013760                __aeabi_idiv0
+                0x20013760                __aeabi_ldiv0
+ .text          0x20013764      0x1b4 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memcpy.o)
+                0x20013764                memcpy
+ .text          0x20013918      0x10c c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memset.o)
+                0x20013918                memset
+                0x20013a24                __ecode = .
+                0x20013a24                __rom_data_start = .
+ *(.rodata)
+ .rodata        0x20013a24       0x28 obj/memp.o
+ .rodata        0x20013a4c       0x90 obj/tcp.o
+                0x20013ac4                tcp_backoff
+                0x20013ad4                tcp_persist_backoff
+ .rodata        0x20013adc        0x8 obj/ip_addr.o
+                0x20013adc                ip_addr_any
+                0x20013ae0                ip_addr_broadcast
+ .rodata        0x20013ae4       0x10 obj/etharp.o
+                0x20013ae4                ethbroadcast
+                0x20013aec                ethzero
+ .rodata        0x20013af4        0x4 obj/ipproc.o
+ .rodata        0x20013af8      0x3a4 obj/mainloop.o
+ .rodata        0x20013e9c        0xc obj/tcpconn.o
+ .rodata        0x20013ea8      0x200 obj/callutil.o
+ *(.rdata)
+                0x200140a8                __rom_data_end = .
+
+.glue_7         0x200140a8        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x200140a8        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x200140a8        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x200140a8        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x200140a8        0x0
+ .iplt          0x00000000        0x0 obj/crt0.o
+
+.rel.dyn        0x200140a8        0x0
+ .rel.iplt      0x00000000        0x0 obj/crt0.o
+
+.data           0x200140a8       0xe4
+                0x200140a8                __data_start = .
+ *(.data)
+ .data          0x200140a8        0x0 obj/crt0.o
+ .data          0x200140a8        0x0 obj/memtest.o
+ .data          0x200140a8       0xb0 obj/keypad.o
+ .data          0x20014158        0x0 obj/display.o
+ .data          0x20014158        0x0 obj/mem.o
+ .data          0x20014158        0x0 obj/memp.o
+ .data          0x20014158        0x0 obj/netif.o
+ .data          0x20014158        0x0 obj/pbuf.o
+ .data          0x20014158        0x0 obj/raw.o
+ .data          0x20014158        0x0 obj/stats.o
+ .data          0x20014158        0x0 obj/sys.o
+ .data          0x20014158       0x34 obj/tcp.o
+                0x20014158                tcp_state_str
+ .data          0x2001418c        0x0 obj/tcp_in.o
+ .data          0x2001418c        0x0 obj/tcp_out.o
+ .data          0x2001418c        0x0 obj/udp.o
+ .data          0x2001418c        0x0 obj/dhcp.o
+ .data          0x2001418c        0x0 obj/icmp.o
+ .data          0x2001418c        0x0 obj/ip.o
+ .data          0x2001418c        0x0 obj/inet.o
+ .data          0x2001418c        0x0 obj/ip_addr.o
+ .data          0x2001418c        0x0 obj/ip_frag.o
+ .data          0x2001418c        0x0 obj/inet_chksum.o
+ .data          0x2001418c        0x0 obj/etharp.o
+ .data          0x2001418c        0x0 obj/ipproc.o
+ .data          0x2001418c        0x0 obj/memproc.o
+ .data          0x2001418c        0x0 obj/mainloop.o
+ .data          0x2001418c        0x0 obj/buffers.o
+ .data          0x2001418c        0x0 obj/callproc.o
+ .data          0x2001418c        0x0 obj/ethernet.o
+ .data          0x2001418c        0x0 obj/keyproc.o
+ .data          0x2001418c        0x0 obj/tcpconn.o
+ .data          0x2001418c        0x0 obj/stubfncs.o
+ .data          0x2001418c        0x0 obj/callutil.o
+ .data          0x2001418c        0x0 obj/error.o
+ .data          0x2001418c        0x0 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_divsi3.o)
+ .data          0x2001418c        0x0 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_dvmd_tls.o)
+ .data          0x2001418c        0x0 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memcpy.o)
+ .data          0x2001418c        0x0 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memset.o)
+                0x2001418c                __edata = .
+
+.igot.plt       0x2001418c        0x0
+ .igot.plt      0x00000000        0x0 obj/crt0.o
+
+.bss            0x2001418c     0x6144
+                0x2001418c                __start_bss = .
+ *(.bss)
+ .bss           0x2001418c        0x0 obj/crt0.o
+ .bss           0x2001418c        0x0 obj/memtest.o
+ .bss           0x2001418c        0x0 obj/keypad.o
+ .bss           0x2001418c        0x0 obj/display.o
+ .bss           0x2001418c     0x1924 obj/mem.o
+ .bss           0x20015ab0     0x3c3c obj/memp.o
+ .bss           0x200196ec        0x1 obj/netif.o
+ .bss           0x200196ed        0x0 obj/pbuf.o
+ *fill*         0x200196ed        0x3 00
+ .bss           0x200196f0        0x4 obj/raw.o
+ .bss           0x200196f4        0x0 obj/stats.o
+ .bss           0x200196f4        0x0 obj/sys.o
+ .bss           0x200196f4        0x1 obj/tcp.o
+ *fill*         0x200196f5        0x3 00
+ .bss           0x200196f8       0x30 obj/tcp_in.o
+ .bss           0x20019728        0x0 obj/tcp_out.o
+ .bss           0x20019728        0x0 obj/udp.o
+ .bss           0x20019728        0x0 obj/dhcp.o
+ .bss           0x20019728        0x0 obj/icmp.o
+ .bss           0x20019728        0x2 obj/ip.o
+ *fill*         0x2001972a        0x2 00
+ .bss           0x2001972c       0x10 obj/inet.o
+ .bss           0x2001973c        0x0 obj/ip_addr.o
+ .bss           0x2001973c      0x5e8 obj/ip_frag.o
+ .bss           0x20019d24        0x0 obj/inet_chksum.o
+ .bss           0x20019d24       0xa4 obj/etharp.o
+ .bss           0x20019dc8        0x8 obj/ipproc.o
+ .bss           0x20019dd0       0x8c obj/memproc.o
+ .bss           0x20019e5c        0x0 obj/mainloop.o
+ .bss           0x20019e5c       0xb8 obj/buffers.o
+ .bss           0x20019f14        0x0 obj/callproc.o
+ .bss           0x20019f14       0x30 obj/ethernet.o
+ .bss           0x20019f44        0x0 obj/keyproc.o
+ .bss           0x20019f44      0x210 obj/tcpconn.o
+ .bss           0x2001a154        0x0 obj/stubfncs.o
+ .bss           0x2001a154       0x34 obj/callutil.o
+ .bss           0x2001a188        0x0 obj/error.o
+ .bss           0x2001a188        0x0 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_divsi3.o)
+ .bss           0x2001a188        0x0 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_dvmd_tls.o)
+ .bss           0x2001a188        0x0 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memcpy.o)
+ .bss           0x2001a188        0x0 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memset.o)
+ *(COMMON)
+ COMMON         0x2001a188        0x8 obj/netif.o
+                0x2001a188                netif_list
+                0x2001a18c                netif_default
+ COMMON         0x2001a190      0x116 obj/stats.o
+                0x2001a190                lwip_stats
+ *fill*         0x2001a2a6        0x2 00
+ COMMON         0x2001a2a8       0x18 obj/tcp.o
+                0x2001a2a8                tcp_active_pcbs
+                0x2001a2ac                tcp_ticks
+                0x2001a2b0                tcp_listen_pcbs
+                0x2001a2b4                tcp_tmp_pcb
+                0x2001a2b8                tcp_bound_pcbs
+                0x2001a2bc                tcp_tw_pcbs
+ COMMON         0x2001a2c0        0x4 obj/tcp_in.o
+                0x2001a2c0                tcp_input_pcb
+ COMMON         0x2001a2c4        0x4 obj/udp.o
+                0x2001a2c4                udp_pcbs
+ COMMON         0x2001a2c8        0x8 obj/ip.o
+                0x2001a2c8                current_netif
+                0x2001a2cc                current_header
+                0x2001a2d0                __end_bss = .
+OUTPUT(armvoip.elf elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x28
+ .ARM.attributes
+                0x00000000       0x1c obj/crt0.o
+ .ARM.attributes
+                0x0000001c       0x1c obj/memtest.o
+ .ARM.attributes
+                0x00000038       0x1c obj/keypad.o
+ .ARM.attributes
+                0x00000054       0x1c obj/display.o
+ .ARM.attributes
+                0x00000070       0x31 obj/mem.o
+ .ARM.attributes
+                0x000000a1       0x31 obj/memp.o
+ .ARM.attributes
+                0x000000d2       0x31 obj/netif.o
+ .ARM.attributes
+                0x00000103       0x31 obj/pbuf.o
+ .ARM.attributes
+                0x00000134       0x31 obj/raw.o
+ .ARM.attributes
+                0x00000165       0x31 obj/stats.o
+ .ARM.attributes
+                0x00000196       0x31 obj/sys.o
+ .ARM.attributes
+                0x000001c7       0x31 obj/tcp.o
+ .ARM.attributes
+                0x000001f8       0x31 obj/tcp_in.o
+ .ARM.attributes
+                0x00000229       0x31 obj/tcp_out.o
+ .ARM.attributes
+                0x0000025a       0x31 obj/udp.o
+ .ARM.attributes
+                0x0000028b       0x31 obj/dhcp.o
+ .ARM.attributes
+                0x000002bc       0x31 obj/icmp.o
+ .ARM.attributes
+                0x000002ed       0x31 obj/ip.o
+ .ARM.attributes
+                0x0000031e       0x31 obj/inet.o
+ .ARM.attributes
+                0x0000034f       0x31 obj/ip_addr.o
+ .ARM.attributes
+                0x00000380       0x31 obj/ip_frag.o
+ .ARM.attributes
+                0x000003b1       0x31 obj/inet_chksum.o
+ .ARM.attributes
+                0x000003e2       0x31 obj/etharp.o
+ .ARM.attributes
+                0x00000413       0x31 obj/ipproc.o
+ .ARM.attributes
+                0x00000444       0x31 obj/memproc.o
+ .ARM.attributes
+                0x00000475       0x31 obj/mainloop.o
+ .ARM.attributes
+                0x000004a6       0x31 obj/buffers.o
+ .ARM.attributes
+                0x000004d7       0x31 obj/callproc.o
+ .ARM.attributes
+                0x00000508       0x31 obj/ethernet.o
+ .ARM.attributes
+                0x00000539       0x31 obj/keyproc.o
+ .ARM.attributes
+                0x0000056a       0x31 obj/tcpconn.o
+ .ARM.attributes
+                0x0000059b       0x31 obj/stubfncs.o
+ .ARM.attributes
+                0x000005cc       0x31 obj/callutil.o
+ .ARM.attributes
+                0x000005fd       0x31 obj/error.o
+ .ARM.attributes
+                0x0000062e       0x1a c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_divsi3.o)
+ .ARM.attributes
+                0x00000648       0x18 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x00000660       0x32 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memcpy.o)
+ .ARM.attributes
+                0x00000692       0x32 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memset.o)
+
+.comment        0x00000000       0x30
+ .comment       0x00000000       0x30 obj/mem.o
+                                 0x31 (size before relaxing)
+ .comment       0x00000000       0x31 obj/memp.o
+ .comment       0x00000000       0x31 obj/netif.o
+ .comment       0x00000000       0x31 obj/pbuf.o
+ .comment       0x00000000       0x31 obj/raw.o
+ .comment       0x00000000       0x31 obj/stats.o
+ .comment       0x00000000       0x31 obj/sys.o
+ .comment       0x00000000       0x31 obj/tcp.o
+ .comment       0x00000000       0x31 obj/tcp_in.o
+ .comment       0x00000000       0x31 obj/tcp_out.o
+ .comment       0x00000000       0x31 obj/udp.o
+ .comment       0x00000000       0x31 obj/dhcp.o
+ .comment       0x00000000       0x31 obj/icmp.o
+ .comment       0x00000000       0x31 obj/ip.o
+ .comment       0x00000000       0x31 obj/inet.o
+ .comment       0x00000000       0x31 obj/ip_addr.o
+ .comment       0x00000000       0x31 obj/ip_frag.o
+ .comment       0x00000000       0x31 obj/inet_chksum.o
+ .comment       0x00000000       0x31 obj/etharp.o
+ .comment       0x00000000       0x31 obj/ipproc.o
+ .comment       0x00000000       0x31 obj/memproc.o
+ .comment       0x00000000       0x31 obj/mainloop.o
+ .comment       0x00000000       0x31 obj/buffers.o
+ .comment       0x00000000       0x31 obj/callproc.o
+ .comment       0x00000000       0x31 obj/ethernet.o
+ .comment       0x00000000       0x31 obj/keyproc.o
+ .comment       0x00000000       0x31 obj/tcpconn.o
+ .comment       0x00000000       0x31 obj/stubfncs.o
+ .comment       0x00000000       0x31 obj/callutil.o
+ .comment       0x00000000       0x31 obj/error.o
+
+.debug_line     0x00000000     0x37a3
+ .debug_line    0x00000000       0x4f obj/crt0.o
+ .debug_line    0x0000004f       0x63 obj/memtest.o
+ .debug_line    0x000000b2       0x91 obj/keypad.o
+ .debug_line    0x00000143      0x1ae obj/mem.o
+ .debug_line    0x000002f1      0x136 obj/memp.o
+ .debug_line    0x00000427      0x1fb obj/netif.o
+ .debug_line    0x00000622      0x2ee obj/pbuf.o
+ .debug_line    0x00000910      0x1b9 obj/raw.o
+ .debug_line    0x00000ac9       0xa6 obj/stats.o
+ .debug_line    0x00000b6f       0x1d obj/sys.o
+ .debug_line    0x00000b8c      0x573 obj/tcp.o
+ .debug_line    0x000010ff      0x699 obj/tcp_in.o
+ .debug_line    0x00001798      0x491 obj/tcp_out.o
+ .debug_line    0x00001c29      0x2e0 obj/udp.o
+ .debug_line    0x00001f09       0x1d obj/dhcp.o
+ .debug_line    0x00001f26      0x1a2 obj/icmp.o
+ .debug_line    0x000020c8      0x25f obj/ip.o
+ .debug_line    0x00002327      0x195 obj/inet.o
+ .debug_line    0x000024bc      0x106 obj/ip_addr.o
+ .debug_line    0x000025c2      0x307 obj/ip_frag.o
+ .debug_line    0x000028c9      0x147 obj/inet_chksum.o
+ .debug_line    0x00002a10      0x356 obj/etharp.o
+ .debug_line    0x00002d66      0x169 obj/ipproc.o
+ .debug_line    0x00002ecf       0xc6 obj/memproc.o
+ .debug_line    0x00002f95       0xb1 obj/mainloop.o
+ .debug_line    0x00003046      0x120 obj/buffers.o
+ .debug_line    0x00003166       0x64 obj/callproc.o
+ .debug_line    0x000031ca      0x156 obj/ethernet.o
+ .debug_line    0x00003320       0x5c obj/keyproc.o
+ .debug_line    0x0000337c      0x1f5 obj/tcpconn.o
+ .debug_line    0x00003571       0xb8 obj/stubfncs.o
+ .debug_line    0x00003629      0x128 obj/callutil.o
+ .debug_line    0x00003751       0x52 obj/error.o
+
+.debug_info     0x00000000     0xbf57
+ .debug_info    0x00000000       0x76 obj/crt0.o
+ .debug_info    0x00000076       0x79 obj/memtest.o
+ .debug_info    0x000000ef       0x78 obj/keypad.o
+ .debug_info    0x00000167      0x565 obj/mem.o
+ .debug_info    0x000006cc      0x42a obj/memp.o
+ .debug_info    0x00000af6      0xbf8 obj/netif.o
+ .debug_info    0x000016ee      0x6a8 obj/pbuf.o
+ .debug_info    0x00001d96      0x6d3 obj/raw.o
+ .debug_info    0x00002469      0x28b obj/stats.o
+ .debug_info    0x000026f4       0x73 obj/sys.o
+ .debug_info    0x00002767     0x14ba obj/tcp.o
+ .debug_info    0x00003c21      0xedf obj/tcp_in.o
+ .debug_info    0x00004b00      0xf8c obj/tcp_out.o
+ .debug_info    0x00005a8c      0xaba obj/udp.o
+ .debug_info    0x00006546       0x73 obj/dhcp.o
+ .debug_info    0x000065b9      0x77b obj/icmp.o
+ .debug_info    0x00006d34      0x7dd obj/ip.o
+ .debug_info    0x00007511      0x2f8 obj/inet.o
+ .debug_info    0x00007809      0x2ff obj/ip_addr.o
+ .debug_info    0x00007b08      0xab0 obj/ip_frag.o
+ .debug_info    0x000085b8      0x2b8 obj/inet_chksum.o
+ .debug_info    0x00008870      0xccc obj/etharp.o
+ .debug_info    0x0000953c      0x641 obj/ipproc.o
+ .debug_info    0x00009b7d      0x397 obj/memproc.o
+ .debug_info    0x00009f14      0x3e1 obj/mainloop.o
+ .debug_info    0x0000a2f5      0x3d3 obj/buffers.o
+ .debug_info    0x0000a6c8      0x172 obj/callproc.o
+ .debug_info    0x0000a83a      0x44c obj/ethernet.o
+ .debug_info    0x0000ac86      0x138 obj/keyproc.o
+ .debug_info    0x0000adbe      0xab3 obj/tcpconn.o
+ .debug_info    0x0000b871      0x296 obj/stubfncs.o
+ .debug_info    0x0000bb07      0x39b obj/callutil.o
+ .debug_info    0x0000bea2       0xb5 obj/error.o
+
+.debug_abbrev   0x00000000     0x2659
+ .debug_abbrev  0x00000000       0x14 obj/crt0.o
+ .debug_abbrev  0x00000014       0x14 obj/memtest.o
+ .debug_abbrev  0x00000028       0x14 obj/keypad.o
+ .debug_abbrev  0x0000003c      0x17c obj/mem.o
+ .debug_abbrev  0x000001b8      0x147 obj/memp.o
+ .debug_abbrev  0x000002ff      0x21d obj/netif.o
+ .debug_abbrev  0x0000051c      0x161 obj/pbuf.o
+ .debug_abbrev  0x0000067d      0x186 obj/raw.o
+ .debug_abbrev  0x00000803       0xac obj/stats.o
+ .debug_abbrev  0x000008af       0x2a obj/sys.o
+ .debug_abbrev  0x000008d9      0x29e obj/tcp.o
+ .debug_abbrev  0x00000b77      0x1f7 obj/tcp_in.o
+ .debug_abbrev  0x00000d6e      0x22c obj/tcp_out.o
+ .debug_abbrev  0x00000f9a      0x1c4 obj/udp.o
+ .debug_abbrev  0x0000115e       0x2a obj/dhcp.o
+ .debug_abbrev  0x00001188      0x1b3 obj/icmp.o
+ .debug_abbrev  0x0000133b      0x18a obj/ip.o
+ .debug_abbrev  0x000014c5      0x10b obj/inet.o
+ .debug_abbrev  0x000015d0       0xe7 obj/ip_addr.o
+ .debug_abbrev  0x000016b7      0x1e7 obj/ip_frag.o
+ .debug_abbrev  0x0000189e      0x133 obj/inet_chksum.o
+ .debug_abbrev  0x000019d1      0x1d3 obj/etharp.o
+ .debug_abbrev  0x00001ba4      0x140 obj/ipproc.o
+ .debug_abbrev  0x00001ce4       0xd9 obj/memproc.o
+ .debug_abbrev  0x00001dbd       0xef obj/mainloop.o
+ .debug_abbrev  0x00001eac       0xb7 obj/buffers.o
+ .debug_abbrev  0x00001f63       0x81 obj/callproc.o
+ .debug_abbrev  0x00001fe4      0x168 obj/ethernet.o
+ .debug_abbrev  0x0000214c       0x81 obj/keyproc.o
+ .debug_abbrev  0x000021cd      0x202 obj/tcpconn.o
+ .debug_abbrev  0x000023cf       0xdf obj/stubfncs.o
+ .debug_abbrev  0x000024ae      0x15b obj/callutil.o
+ .debug_abbrev  0x00002609       0x50 obj/error.o
+
+.debug_aranges  0x00000000      0x3c0
+ .debug_aranges
+                0x00000000       0x20 obj/crt0.o
+ .debug_aranges
+                0x00000020       0x20 obj/memtest.o
+ .debug_aranges
+                0x00000040       0x20 obj/keypad.o
+ .debug_aranges
+                0x00000060       0x20 obj/mem.o
+ .debug_aranges
+                0x00000080       0x20 obj/memp.o
+ .debug_aranges
+                0x000000a0       0x20 obj/netif.o
+ .debug_aranges
+                0x000000c0       0x20 obj/pbuf.o
+ .debug_aranges
+                0x000000e0       0x20 obj/raw.o
+ .debug_aranges
+                0x00000100       0x20 obj/tcp.o
+ .debug_aranges
+                0x00000120       0x20 obj/tcp_in.o
+ .debug_aranges
+                0x00000140       0x20 obj/tcp_out.o
+ .debug_aranges
+                0x00000160       0x20 obj/udp.o
+ .debug_aranges
+                0x00000180       0x20 obj/icmp.o
+ .debug_aranges
+                0x000001a0       0x20 obj/ip.o
+ .debug_aranges
+                0x000001c0       0x20 obj/inet.o
+ .debug_aranges
+                0x000001e0       0x20 obj/ip_addr.o
+ .debug_aranges
+                0x00000200       0x20 obj/ip_frag.o
+ .debug_aranges
+                0x00000220       0x20 obj/inet_chksum.o
+ .debug_aranges
+                0x00000240       0x20 obj/etharp.o
+ .debug_aranges
+                0x00000260       0x20 obj/ipproc.o
+ .debug_aranges
+                0x00000280       0x20 obj/memproc.o
+ .debug_aranges
+                0x000002a0       0x20 obj/mainloop.o
+ .debug_aranges
+                0x000002c0       0x20 obj/buffers.o
+ .debug_aranges
+                0x000002e0       0x20 obj/callproc.o
+ .debug_aranges
+                0x00000300       0x20 obj/ethernet.o
+ .debug_aranges
+                0x00000320       0x20 obj/keyproc.o
+ .debug_aranges
+                0x00000340       0x20 obj/tcpconn.o
+ .debug_aranges
+                0x00000360       0x20 obj/stubfncs.o
+ .debug_aranges
+                0x00000380       0x20 obj/callutil.o
+ .debug_aranges
+                0x000003a0       0x20 obj/error.o
+
+.debug_loc      0x00000000     0x2680
+ .debug_loc     0x00000000      0x108 obj/mem.o
+ .debug_loc     0x00000108       0x84 obj/memp.o
+ .debug_loc     0x0000018c      0x1e4 obj/netif.o
+ .debug_loc     0x00000370      0x23c obj/pbuf.o
+ .debug_loc     0x000005ac      0x160 obj/raw.o
+ .debug_loc     0x0000070c      0x554 obj/tcp.o
+ .debug_loc     0x00000c60      0x108 obj/tcp_in.o
+ .debug_loc     0x00000d68      0x23c obj/tcp_out.o
+ .debug_loc     0x00000fa4      0x1b8 obj/udp.o
+ .debug_loc     0x0000115c       0xb0 obj/icmp.o
+ .debug_loc     0x0000120c       0xb0 obj/ip.o
+ .debug_loc     0x000012bc      0x134 obj/inet.o
+ .debug_loc     0x000013f0       0x2c obj/ip_addr.o
+ .debug_loc     0x0000141c      0x160 obj/ip_frag.o
+ .debug_loc     0x0000157c       0xb0 obj/inet_chksum.o
+ .debug_loc     0x0000162c      0x210 obj/etharp.o
+ .debug_loc     0x0000183c      0x160 obj/ipproc.o
+ .debug_loc     0x0000199c      0x134 obj/memproc.o
+ .debug_loc     0x00001ad0       0x58 obj/mainloop.o
+ .debug_loc     0x00001b28      0x294 obj/buffers.o
+ .debug_loc     0x00001dbc       0x84 obj/callproc.o
+ .debug_loc     0x00001e40       0xb0 obj/ethernet.o
+ .debug_loc     0x00001ef0       0x58 obj/keyproc.o
+ .debug_loc     0x00001f48      0x294 obj/tcpconn.o
+ .debug_loc     0x000021dc      0x210 obj/stubfncs.o
+ .debug_loc     0x000023ec      0x268 obj/callutil.o
+ .debug_loc     0x00002654       0x2c obj/error.o
+
+.debug_str      0x00000000     0x2167
+ .debug_str     0x00000000      0x28a obj/mem.o
+                                0x2e2 (size before relaxing)
+ .debug_str     0x0000028a       0x6f obj/memp.o
+                                0x29f (size before relaxing)
+ .debug_str     0x000002f9      0x346 obj/netif.o
+                                0x4f5 (size before relaxing)
+ .debug_str     0x0000063f      0x1b5 obj/pbuf.o
+                                0x390 (size before relaxing)
+ .debug_str     0x000007f4       0xcc obj/raw.o
+                                0x35e (size before relaxing)
+ .debug_str     0x000008c0       0x20 obj/stats.o
+                                0x231 (size before relaxing)
+ .debug_str     0x000008e0       0x1e obj/sys.o
+                                 0xf1 (size before relaxing)
+ .debug_str     0x000008fe      0x28e obj/tcp.o
+                                0x808 (size before relaxing)
+ .debug_str     0x00000b8c      0x105 obj/tcp_in.o
+                                0x69f (size before relaxing)
+ .debug_str     0x00000c91      0x126 obj/tcp_out.o
+                                0x690 (size before relaxing)
+ .debug_str     0x00000db7      0x148 obj/udp.o
+                                0x4e1 (size before relaxing)
+ .debug_str     0x00000eff       0x1f obj/dhcp.o
+                                 0xf2 (size before relaxing)
+ .debug_str     0x00000f1e       0xba obj/icmp.o
+                                0x3cc (size before relaxing)
+ .debug_str     0x00000fd8       0x88 obj/ip.o
+                                0x3e8 (size before relaxing)
+ .debug_str     0x00001060       0x74 obj/inet.o
+                                0x15d (size before relaxing)
+ .debug_str     0x000010d4       0x57 obj/ip_addr.o
+                                0x1c7 (size before relaxing)
+ .debug_str     0x0000112b      0x1dd obj/ip_frag.o
+                                0x55d (size before relaxing)
+ .debug_str     0x00001308       0x8b obj/inet_chksum.o
+                                0x1b4 (size before relaxing)
+ .debug_str     0x00001393      0x27c obj/etharp.o
+                                0x5b6 (size before relaxing)
+ .debug_str     0x0000160f      0x3a8 obj/ipproc.o
+                                0x523 (size before relaxing)
+ .debug_str     0x000019b7       0x86 obj/memproc.o
+                                0x465 (size before relaxing)
+ .debug_str     0x00001a3d      0x14c obj/mainloop.o
+                                0x414 (size before relaxing)
+ .debug_str     0x00001b89      0x163 obj/buffers.o
+                                0x24a (size before relaxing)
+ .debug_str     0x00001cec       0x32 obj/callproc.o
+                                0x1bf (size before relaxing)
+ .debug_str     0x00001d1e       0x67 obj/ethernet.o
+                                0x288 (size before relaxing)
+ .debug_str     0x00001d85       0x2c obj/keyproc.o
+                                0x1b9 (size before relaxing)
+ .debug_str     0x00001db1      0x1b2 obj/tcpconn.o
+                                0x695 (size before relaxing)
+ .debug_str     0x00001f63       0xb6 obj/stubfncs.o
+                                0x1b9 (size before relaxing)
+ .debug_str     0x00002019      0x12c obj/callutil.o
+                                0x28b (size before relaxing)
+ .debug_str     0x00002145       0x22 obj/error.o
+                                0x1a1 (size before relaxing)
+
+.debug_frame    0x00000000     0x19f4
+ .debug_frame   0x00000000       0xa8 obj/mem.o
+ .debug_frame   0x000000a8       0x58 obj/memp.o
+ .debug_frame   0x00000100      0x12c obj/netif.o
+ .debug_frame   0x0000022c      0x16c obj/pbuf.o
+ .debug_frame   0x00000398       0xe4 obj/raw.o
+ .debug_frame   0x0000047c      0x344 obj/tcp.o
+ .debug_frame   0x000007c0       0xd0 obj/tcp_in.o
+ .debug_frame   0x00000890      0x19c obj/tcp_out.o
+ .debug_frame   0x00000a2c      0x120 obj/udp.o
+ .debug_frame   0x00000b4c       0x84 obj/icmp.o
+ .debug_frame   0x00000bd0       0x88 obj/ip.o
+ .debug_frame   0x00000c58       0xc8 obj/inet.o
+ .debug_frame   0x00000d20       0x28 obj/ip_addr.o
+ .debug_frame   0x00000d48       0xf8 obj/ip_frag.o
+ .debug_frame   0x00000e40       0x80 obj/inet_chksum.o
+ .debug_frame   0x00000ec0      0x168 obj/etharp.o
+ .debug_frame   0x00001028       0xec obj/ipproc.o
+ .debug_frame   0x00001114       0xd4 obj/memproc.o
+ .debug_frame   0x000011e8       0x48 obj/mainloop.o
+ .debug_frame   0x00001230      0x19c obj/buffers.o
+ .debug_frame   0x000013cc       0x64 obj/callproc.o
+ .debug_frame   0x00001430       0x80 obj/ethernet.o
+ .debug_frame   0x000014b0       0x44 obj/keyproc.o
+ .debug_frame   0x000014f4      0x1b0 obj/tcpconn.o
+ .debug_frame   0x000016a4      0x130 obj/stubfncs.o
+ .debug_frame   0x000017d4      0x184 obj/callutil.o
+ .debug_frame   0x00001958       0x28 obj/error.o
+ .debug_frame   0x00001980       0x20 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1\libgcc.a(_divsi3.o)
+ .debug_frame   0x000019a0       0x2c c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memcpy.o)
+ .debug_frame   0x000019cc       0x28 c:/mgc2/bin/../lib/gcc/arm-none-eabi/4.6.1/../../../../arm-none-eabi/lib\libc.a(lib_a-memset.o)
+
+.debug_ranges   0x00000000       0x30
+ .debug_ranges  0x00000000       0x18 obj/netif.o
+ .debug_ranges  0x00000018       0x18 obj/icmp.o

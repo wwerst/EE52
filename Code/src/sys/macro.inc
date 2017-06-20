@@ -9,3 +9,17 @@ LDR r1, =\value
 STR r1, [r0]
 
 .endm
+
+.macro LoadToReg reg, mem_loc 
+
+	LDR \reg,	=\mem_loc
+	LDR \reg,	[\reg]
+
+.endm
+
+.macro StoreFromReg reg, temp_reg, mem_loc
+
+	LDR \temp_reg, =\mem_loc
+	STR \reg, [\temp_reg]
+
+.endm

@@ -37,7 +37,10 @@
 
 .global low_level_init
 low_level_init:
-
+	
+	@Uncomment instruction below to prevent ROM code from executing after
+	@bootloader runs. This effectively creates a dummy ROM code that does nothing.
+	@B low_level_init
 
 @ Stack and IRQ Initialization
 
@@ -67,21 +70,7 @@ low_level_init:
 @  user initialization goes here  @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-@@Check SRAM valid
-   
-   @Test SRAM
-   LDR r0, =0x20000000
-   LDR r1, =0x20000
-   BL mem_test
-   CMP		r0,		#TRUE
-   BNE		memtestfail
-   
-   @Test DRAM
-   @LDR r0, =0x30000000
-   @LDR r1, =0x100000
-   @BL mem_test
-   @CMP		r0,		#TRUE
-   @BNE		memtestfail
+
    
    BL keypad_init
     
@@ -95,7 +84,5 @@ loop:
     					@   reinitialize everything and start
 					@   over
 
-memtestfail:
-	B memtestfail
 
 .end

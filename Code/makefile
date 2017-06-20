@@ -159,11 +159,11 @@ endif
 ifdef TEST_MODE
 SYSOBJS = boot.o crt0.o memtest.o
 else
-SYSOBJS  = crt0.o memtest.o
-# display.o keypad.o system.o audio.o ether.o crt0.o
+SYSOBJS  = crt0.o keypad.o display.o
+# audio.o ether.o
 endif
 
-BOOTOBJS = boot.o crt0.o memtest.o keypad.o
+BOOTOBJS = boot.o memtest.o
 
 
 ### Rules ####################################################################
@@ -197,7 +197,7 @@ armvoip: .depend $(SYSOBJS) $(LWIPOBJS) $(VOIPOBJS)
 
 
 armstart: $(BOOTOBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -Ttext 0x200000 \
+	$(CC) $(CFLAGS) $(INCLUDES) -Ttext 0x000000 \
 		-L"C:\mgc\arm-none-eabi" \
 		-lgcc -nostartfiles -o armstart.elf \
 		$(addprefix $(OBJDIR)/,$(BOOTOBJS))
@@ -247,7 +247,6 @@ keypad.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/keypad.inc
 display.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/display.inc
 audio0.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/audio.inc
 ethernet.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/ethernet.inc
-lfsr.s: $(SYSDIR)/lfsr.inc
 system.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/system.inc
 
 boot.o: $(SYSDIR)/boot.s
@@ -265,8 +264,6 @@ display.o: $(SYSDIR)/display.s
 audio.o: $(SYSDIR)/audio0.s
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/audio.o $(SYSDIR)/audio0.s 
 ether.o: $(SYSDIR)/ethernet.s
-	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/ether.o $(SYSDIR)/ethernet.s 
+	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/ether.o $(SYSDIR)/ethernet.s 	
 system.o: $(SYSDIR)/system.s
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/system.o $(SYSDIR)/system.s
-lfsr.o: $(SYSDIR)/lfsr.s
-	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/lfsr.o $(SYSDIR)/lfsr.s

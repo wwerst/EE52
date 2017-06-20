@@ -154,7 +154,7 @@ _start:
     STR r1, [r0]                        @Store intermediate value in MCKR
     LDR r2, =2000                       @Clock initialization timeout
 WaitMCKRDY:
-    SUBS r2, r2, #1
+    SUBS r2, r2, #1						@Timeout
     BLO DoneMCKRDY
     LDR r0, =PMC_SR
     LDR r1, [r0]
@@ -201,16 +201,58 @@ DoneMCK:
 
     @Setup ROM
     SetHReg SMC_CSR7, SMC_CSR7_VAL
+	
+	@@@ Verify DRAM and SRAM are functioning
+	@@Check SRAM valid
+   
+	@Test SRAM
+	LDR r0, =SRAM_START
+	LDR r1, =SRAM_SIZE
+	BL mem_test
+	CMP		r0,		#TRUE
+	BNE		memtestfail
+   
+	@Test DRAM
+	LDR r0, =DRAM_START
+	LDR r1, =DRAM_SIZE
+	BL mem_test
+	CMP		r0,		#TRUE
+	BNE		memtestfail
 
-    @@@ Future Code for Copying Code from External ROM -> External SRAM @@@@@@@@@@@@
+    @@@ Copy Code from External ROM -> External SRAM @@@@@@@@@@@@
+	LDR		r0,		=SRAM_SIZE - 4
+	LDR		r1,		=ROM_START
+	LDR		r2,		=SRAM_START
+CopyROMToSRAM:
+	LDR		r3,		[r1, r0]
+	STR		r3,		[r2, r0]
+	SUBS	r0,		#4
+	BHS		CopyROMToSRAM
 
-
-  
+	@Check that code loaded into SRAM matches code in ROM
+	LDR		r0,		=SRAM_SIZE - 4
+	LDR		r1,		=ROM_START
+	LDR		r2,		=SRAM_START
+CheckCopyToSRAM:
+	LDR		r3,		[r1, r0]
+	LDR		r4,		[r2, r0]
+	CMP		r3,		r4
+	BNE		LoadToSRAMFailed
+	SUBS	r0,		#4
+	BHS		CheckCopyToSRAM
     @@@ Branch to the Main Body of Code Now Located in the External SRAM @@@@@@@@@@@
+	
+	@Uncomment this to branch to the copied code
+    BL      SRAM_START
 
-    BL      low_level_init
-
+@If don't want to branch to low_level_init, fall through to BootEndLoop
 BootEndLoop:
     B BootEndLoop    
-    
+
+memtestfail:
+	B memtestfail
+	
+LoadToSRAMFailed:
+	B LoadToSRAMFailed
+	
 .end

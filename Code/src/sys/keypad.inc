@@ -13,4 +13,5 @@
 
     .equ RDY_PIN,    26
 	.equ MAXDEBCOUNT,	10000
-	.equ HANGUPBTN, 3
+	.equ  KEY_HANGUPBTN, 21
+	.equ  KEY_SHIFT,	 22

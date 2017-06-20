@@ -12,7 +12,15 @@
 @                                                                            @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-
+@ Memory definitions
+	.equ	SRAM_START,		0x20000000
+	.equ	SRAM_SIZE,		0x20000
+	
+	.equ	DRAM_START,		0x30000000
+	.equ	DRAM_SIZE,		0x100000
+	
+	.equ	ROM_START,		0x80000000
+	.equ	ROM_SIZE,		0x80000
 
 @ Stack definitions
 
