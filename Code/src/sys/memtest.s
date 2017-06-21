@@ -33,7 +33,7 @@ mem_test:
     LDR r3, =0              @Load incrementer value
     LDR r4, =0
 mem_test_loop:
-    LDR r5, =0xF35D4B3
+    LDR r5, =0x3F35D4B3
     ADDS r3, r5              @Increment incrementer value
     BCS success             @If have used all incrementer values, and thus overflowed, return
     LDR r2, =0              @Load the initial location to load into memory

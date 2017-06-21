@@ -137,7 +137,7 @@ _start:
 @@@ Clock Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @Configure PLLA for DIVA = 5, MULA = 22 
 
-    SetHReg PMC_PLLAR, PMC_PLLAR_VAL
+    mSET_HREG PMC_PLLAR, PMC_PLLAR_VAL
     
     @Configure MCK @MDIV = 00, PRES = 001, CSS = 10
     @First, need to change one value at a time, so change CSS first
@@ -163,44 +163,46 @@ WaitMCKRDY:
     @B DoneMCKRDY
 DoneMCKRDY:
 
-    SetHReg PMC_MCKR, PMC_MCKR_VAL
+    
+	mSET_HREG PMC_MCKR, PMC_MCKR_VAL
+	mSET_HREG PMC_MCKR, (PMC_MCKR_VAL | (PMC_MCKR_MDIV << 8))
     @B DoneMCK
 DoneMCK:
 	@Configure Peripheral clock
-    SetHReg PMC_PCER, PMC_PCER_VAL
+    mSET_HREG PMC_PCER, PMC_PCER_VAL
 
     @Configure PCK0
-    SetHReg PMC_PCK0, PMC_MCKR_VAL
+    mSET_HREG PMC_PCK0, PMC_PCK0_VAL
 
     @Configure PCK1
-    SetHReg PMC_PCK1, PMC_PCK1_VAL
+    @mSET_HREG PMC_PCK1, PMC_PCK1_VAL
 
     @Configure PIOA
-    SetHReg PIOA_BSR, PIOA_BSR_VAL
-    SetHReg PIOA_OER, PIOA_OER_VAL
-    SetHReg PIOA_PDR, PIOA_PDR_VAL
+    @mSET_HREG PIOA_BSR, PIOA_BSR_VAL
+    @mSET_HREG PIOA_OER, PIOA_OER_VAL
+    @mSET_HREG PIOA_PDR, PIOA_PDR_VAL
 
     @Configure PIOB
-    SetHReg PIOB_ASR, PIOB_ASR_VAL
-    SetHReg PIOB_OER, PIOB_OER_VAL
-    SetHReg PIOB_PDR, PIOB_PDR_VAL
+    mSET_HREG PIOB_ASR, PIOB_ASR_VAL
+    mSET_HREG PIOB_OER, PIOB_OER_VAL
+    mSET_HREG PIOB_PDR, PIOB_PDR_VAL
 
 
 
     @Enable PCK0, PCK1 output
-    SetHReg 0xFFFFFC00, 0x00000300
+    mSET_HREG 0xFFFFFC00, 0x00000300
 
 
     @@@ CS Initialization @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     @Setup SRAM
-    SetHReg SMC_CSR1, SMC_CSR1_VAL
+    mSET_HREG SMC_CSR1, SMC_CSR1_VAL
 
     @Setup DRAM
-    SetHReg SMC_CSR2, SMC_CSR2_VAL
+    mSET_HREG SMC_CSR2, SMC_CSR2_VAL
 
     @Setup ROM
-    SetHReg SMC_CSR7, SMC_CSR7_VAL
+    mSET_HREG SMC_CSR7, SMC_CSR7_VAL
 	
 	@@@ Verify DRAM and SRAM are functioning
 	@@Check SRAM valid

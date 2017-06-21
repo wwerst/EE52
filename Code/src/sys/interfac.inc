@@ -19,7 +19,6 @@
 @      3/8/11   Glen George       Added MAC_ADDR_H and MAC_ADDR_L definitions.
 
 
-        .equ  DRAM_START,      0x30000000
         .equ  MEMORY_SIZE,     32
         .equ  SAMPLE_RATE,    8000
 

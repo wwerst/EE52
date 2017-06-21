@@ -15,18 +15,30 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
+@ DMA Definitions
+	.equ	DMA_RPR,			0x100
+	.equ	DMA_RCR,			0x104
+	.equ	DMA_TPR,			0x108
+	.equ	DMA_TCR,			0x10C
+	.equ	DMA_RNPR,			0x110
+	.equ	DMA_RNCR,			0x114
+	.equ	DMA_TNPR,			0x118
+	.equ	DMA_TNCR,			0x11C
+	.equ	DMA_PTCR,			0x120
+	.equ	DMA_PTSR,			0x124
+
 
 @ System Mode Definitions
 
-    .equ   ARM_MODE_USR,    0x10                @ User Mode
-    .equ   ARM_MODE_FIQ,    0x11                @ FIQ Mode
-    .equ   ARM_MODE_IRQ,    0x12                @ IRQ Mode
-    .equ   ARM_MODE_SVC,    0x13                @ Supervisor Mode
-    .equ   ARM_MODE_ABT,    0x17                @ Abort Mode
-    .equ   ARM_MODE_UND,    0x1B                @ Undefined Mode
-    .equ   ARM_MODE_SYS,    0x1F                @ System Mode
-    .equ   I_BIT,           0x80                @ Interrupts disabled
-    .equ   F_BIT,           0x40                @ Fast Interrupts disabled
+    .equ   	ARM_MODE_USR,    0x10                @ User Mode
+    .equ   	ARM_MODE_FIQ,    0x11                @ FIQ Mode
+    .equ   	ARM_MODE_IRQ,    0x12                @ IRQ Mode
+    .equ   	ARM_MODE_SVC,    0x13                @ Supervisor Mode
+    .equ   	ARM_MODE_ABT,    0x17                @ Abort Mode
+    .equ   	ARM_MODE_UND,    0x1B                @ Undefined Mode
+    .equ   	ARM_MODE_SYS,    0x1F                @ System Mode
+    .equ   	I_BIT,           0x80                @ Interrupts disabled
+    .equ   	F_BIT,           0x40                @ Fast Interrupts disabled
 
 
 @ Static Memory Controller Definitions
@@ -76,6 +88,8 @@
 
     .equ    AICBase,        0xFFFFF000          @ base address
     
+	.equ    AIC_SMR1,       AICBase + 0x04      @ System: Source Mode 1
+    .equ    AIC_SVR1,       AICBase + 0x84      @ System: Source Vector 1
     .equ    AIC_SMR4,       AICBase + 0x10      @ PIOC: Source Mode 4
     .equ    AIC_SVR4,       AICBase + 0x90      @ PIOC: Source Vector 4
     .equ    AIC_SMR14,      AICBase + 0x38      @ SSC0: Source Mode 14 
@@ -129,7 +143,32 @@
     .equ    SSC0_SR,        SSC0Base + 0x40     @ Status 
     .equ    SSC0_IER,       SSC0Base + 0x44     @ Interrupt Enable
     .equ    SSC0_IDR,       SSC0Base + 0x48     @ Interrupt Disable
+	.equ	SSC0_RPR,		SSC0Base + DMA_RPR
+	.equ	SSC0_RCR,		SSC0Base + DMA_RCR
+	.equ	SSC0_TPR,		SSC0Base + DMA_TPR
+	.equ	SSC0_TCR,		SSC0Base + DMA_TCR
+	.equ	SSC0_RNPR,		SSC0Base + DMA_RNPR
+	.equ	SSC0_RNCR,		SSC0Base + DMA_RNCR
+	.equ	SSC0_TNPR,		SSC0Base + DMA_TNPR
+	.equ	SSC0_TNCR,		SSC0Base + DMA_TNCR
+	.equ	SSC0_PTCR,		SSC0Base + DMA_PTCR
+	.equ	SSC0_PTSR,		SSC0Base + DMA_PTSR
 
+@ System Timer Definitions
+
+	.equ	STBase,			0xFFFFFD00			@ base address
+	
+	.equ	ST_CR,			STBase + 0x0 		@ Control Register
+	.equ	ST_PIMR,		STBase + 0x4 		@ Period Interval Mode Register
+	.equ	ST_SR,			STBase + 0x10		@ Status Register
+	.equ	ST_IER,			STBase + 0x14		@ Interrupt Enable Register
+	.equ	ST_IDR,			STBase + 0x18 		@ Interrupt Disable Register
+	.equ	ST_IMR,			STBase + 0x1C 		@ Interrupt Mask Register
+
+@ Real Time Clock Definitions
+	
+	.equ	RTCBase,		0xFFFFFE00			@
+	.equ	RTC_SR,			RTCBase + 0x18		@ Status Register
 
 @ Timer Counter 0 Definitions
 

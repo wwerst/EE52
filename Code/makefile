@@ -159,8 +159,8 @@ endif
 ifdef TEST_MODE
 SYSOBJS = boot.o crt0.o memtest.o
 else
-SYSOBJS  = crt0.o keypad.o display.o
-# audio.o ether.o
+SYSOBJS  = crt0.o keypad.o display.o audio.o system.o
+# ether.o
 endif
 
 BOOTOBJS = boot.o memtest.o
@@ -245,7 +245,7 @@ memtest.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc
 crt0.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc  $(SYSDIR)/system.inc $(SYSDIR)/boot.inc 
 keypad.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/keypad.inc
 display.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/display.inc
-audio0.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/audio.inc
+audio.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/audio.inc
 ethernet.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/ethernet.inc
 system.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/system.inc
 
@@ -261,8 +261,8 @@ keypad.o: $(SYSDIR)/keypad.s
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/keypad.o $(SYSDIR)/keypad.s    
 display.o: $(SYSDIR)/display.s
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/display.o $(SYSDIR)/display.s   
-audio.o: $(SYSDIR)/audio0.s
-	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/audio.o $(SYSDIR)/audio0.s 
+audio.o: $(SYSDIR)/audio.s
+	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/audio.o $(SYSDIR)/audio.s 
 ether.o: $(SYSDIR)/ethernet.s
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/ether.o $(SYSDIR)/ethernet.s 	
 system.o: $(SYSDIR)/system.s

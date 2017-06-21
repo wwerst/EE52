@@ -18,6 +18,7 @@ MEMORY
     
     /* external RAM and ROM locations, may need to be updated */
     ext_ram (RWX)   : ORIGIN = 0x20000000, LENGTH = 128K
+	ext_dram (RWX)   : ORIGIN = 0x30000000, LENGTH = 512K
     ext_rom (RX)    : ORIGIN = 0x80000000, LENGTH = 512K
 }
 
@@ -50,7 +51,7 @@ SECTIONS
              __data_start = .;
              *(.data)
              __edata = .;      /* keep track of the end of the data area */
-    } > ext_ram 
+    } > ext_dram 
     
     /* locate the .bss section, used for uninitialized variables */
     .bss : 

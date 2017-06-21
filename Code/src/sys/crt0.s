@@ -23,7 +23,8 @@
 
 .include    "at91rm9200.inc"
 .include    "system.inc"
-
+.include	"macro.inc"
+.include	"interfac.inc"
 
 .text
 .arm
@@ -69,14 +70,38 @@ low_level_init:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @  user initialization goes here  @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-   
-   BL keypad_init
+	BL init_system
+	BL keypad_init
+	BL audio_init
     
-
 loop:
-    BL getkey
+	mLOADTOREG	r4,	Cur_RXBuf
+	
+	LDR	r0,	=Bufs
+	ADD	r0,	r0,	r4,	LSL #8
+	BL	update_rx
+	CMP	r0,	#TRUE
+	ADDEQ	r4,	#1
+	CMP		r4, #32
+	LDREQ	r4, =0
+	mSTOREFROMREG	r4, r0, Cur_RXBuf
+	
+	mLOADTOREG	r5,	Cur_TXBuf
+	LDR	r0, =Bufs
+	ADD	r0,	r0,	r5,	LSL #8
+	LDR	r1, =AUDIO_BUFLEN
+	LDR r2, =0x0007
+	PUSH {r0-r3}
+	BL setVolume
+	POP {r0-r3}
+	BL	update_tx
+	CMP	r0,	#TRUE
+	ADDEQ	r5,	#1
+	CMP		r5, #32
+	LDREQ	r5, =0
+	mSTOREFROMREG	r5,	r0,	Cur_TXBuf
+	
+	
     B loop
     @BL		main			@ run the main function (no arguments)
 
@@ -84,5 +109,22 @@ loop:
     					@   reinitialize everything and start
 					@   over
 
-
+setVolume:
+	mSTARTFNC
+updateValue:
+	LDRH r3, [r0,r1]
+	ORR	 r3, r3, r2
+	STRH r3, [r0,r1]
+	SUB r1, #2
+	CMP r1, #0
+	BGT updateValue
+	mRETURNFNC
+					
+.data
+Cur_RXBuf:
+	.word 0x00000000
+Cur_TXBuf:
+	.word 0x00000005
+Bufs:
+	.skip 32768
 .end

@@ -18,14 +18,14 @@
 keypad_init:
     
     PUSH 	{lr}
-    SetHReg AIC_SVR4, KeypadHandler
-    SetHReg AIC_SMR4, 0x00000060        @Positive edge, Priority 0 (lowest)
-    SetHReg AIC_IECR, 0x00000010
-    SetHReg PIOC_IER, (1 << RDY_PIN)
+    mSET_HREG AIC_SVR4, KeypadHandler
+    mSET_HREG AIC_SMR4, 0x00000060        @Positive edge, Priority 0 (lowest)
+    mSET_HREG AIC_IECR, 0x00000010
+    mSET_HREG PIOC_IER, (1 << RDY_PIN)
     LDR 	r0, =KEY_ILLEGAL
-    StoreFromReg 	r0, r1, LastKeypress
+    mStoreFromReg 	r0, r1, LastKeypress
     LDR 	r0, =FALSE
-    StoreFromReg 	r0, r1, NewKey
+    mStoreFromReg 	r0, r1, NewKey
     LDR r0, =PIOC_ISR                   @Clear any changed values in PIOC_ISR
     LDR r0, [r0]
     POP {pc}
@@ -34,21 +34,21 @@ keypad_init:
 .global key_available
 key_available:
     PUSH    {lr}
-    LoadToReg     r0,     NewKey
+    mLoadToReg     r0,     NewKey
     POP     {pc}
 
 .global getkey
 getkey:
     PUSH    {lr}
 waitkey:
-    LoadToReg     r0,     NewKey
+    mLoadToReg     r0,     NewKey
     CMP     r0,     #FALSE
     BEQ     waitkey
     
     @ Continue and get key
     LDR     r0,     =FALSE
-    StoreFromReg     r0, r1,     NewKey
-    LoadToReg     r0,     LastKeypress
+    mStoreFromReg     r0, r1,     NewKey
+    mLoadToReg     r0,     LastKeypress
     POP     {pc}
     
 
@@ -56,9 +56,9 @@ KeypadHandler:
     
     PUSH {r0-r4, lr}
 	
-	LoadToReg	r2,	PIOC_ISR
+	mLoadToReg	r2,	PIOC_ISR
 	
-    LoadToReg	r0,	PIOC_PDSR
+    mLoadToReg	r0,	PIOC_PDSR
 	
     
 	
@@ -69,7 +69,7 @@ KeypadHandler:
 
 KeypadBTNPressed:
     LSR     r0, 	r0, 	#27			@Shift the data to extract the key value
-	LoadToReg r1, ShiftEnabled			@Check if in shift mode
+	mLoadToReg r1, ShiftEnabled			@Check if in shift mode
 	CMP		r1,		#TRUE				@Make comparison to see if in shift mode
 	LDREQ	r1,		=ShiftKeyTable		@If in shift mode, load shift key table
     LDRNE   r1, 	=KeyTable			@Else, load the ordinary key table
@@ -87,26 +87,26 @@ KeypadBTNPressed:
 										@special handling behaviour, store the
 										@button press
 HangupBtnPressed:
-    LoadToReg     r0, HookState			@Check what state phone is in (on or off hook)
+    mLoadToReg     r0, HookState			@Check what state phone is in (on or off hook)
     CMP     r0,     #KEY_ONHOOK			@Check the current value
     LDREQ   r0,     =KEY_OFFHOOK		@Toggle it
     LDRNE   r0,     =KEY_ONHOOK
-	StoreFromReg	r0,	r1,	HookState
+	mStoreFromReg	r0,	r1,	HookState
     B       StoreButtonPress			@Store button press.
 ShiftBtnPressed:
-	LoadToReg	r0,	ShiftEnabled
+	mLoadToReg	r0,	ShiftEnabled
 	CMP		r0,		#TRUE
 	LDREQ	r0,		=FALSE
 	LDRNE	r0,		=TRUE
-	StoreFromReg	r0, r1,	ShiftEnabled
+	mStoreFromReg	r0, r1,	ShiftEnabled
 	B 		EndKeypadHandler
 StoreButtonPress:
-    StoreFromReg 	r0, r1,	LastKeypress
+    mStoreFromReg 	r0, r1,	LastKeypress
     LDR 	r0, 	=TRUE
-    StoreFromReg 	r0, r1,	NewKey
+    mStoreFromReg 	r0, r1,	NewKey
     @B 		EndKeypadHandler
 EndKeypadHandler:
-    SetHReg AIC_EOICR, 4
+    mSET_HREG AIC_EOICR, 4
     POP 	{r0-r4, lr}
     SUBS 	pc, 	lr, 	#4
     

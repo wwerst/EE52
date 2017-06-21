@@ -18,7 +18,8 @@
 	
 	.equ	DRAM_START,		0x30000000
 	.equ	DRAM_SIZE,		0x100000
-	
+	.equ	DRAM_NUM_ROWS,	1024
+	.equ	DRAM_MILLIS_PER_REF, 256
 	.equ	ROM_START,		0x80000000
 	.equ	ROM_SIZE,		0x80000
 
@@ -37,3 +38,10 @@
 @ General Definitions
     .equ    TRUE,   1
     .equ    FALSE,  0
+	
+	
+@ System function definitions
+	@ timer definitions
+	.equ	SLCK_CNT_SEC,	32768
+	.equ	PIT_INTERVAL,	33
+	.equ	MILLIS_IN_SEC,	1000

@@ -55,16 +55,6 @@
 
 /* update functions */
 
-unsigned char  update_rx(short int *p)
-{
-    return  FALSE;
-}
-
-unsigned char  update_tx(short int *p)
-{
-    return  FALSE;
-}
-
 
 
 /* keypad functions */
@@ -102,7 +92,7 @@ void  display_status(unsigned int s)
 
 /* audio functions */
 
-void  call_start(short int *p)
+/*void  call_start(short int *p)
 {
     return;
 }
@@ -111,14 +101,23 @@ void  call_halt()
 {
     return;
 }
+unsigned char  update_rx(short int *p)
+{
+    return  FALSE;
+}
+
+unsigned char  update_tx(short int *p)
+{
+    return  FALSE;
+}*/
 
 
 /* timing function */
 
-int  elapsed_time()
+/*int  elapsed_time()
 {
     return  0;
-}
+}*/
 
 
 
