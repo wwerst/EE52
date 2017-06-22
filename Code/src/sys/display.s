@@ -176,6 +176,51 @@ endSetBacklight:
 	mRETURNFNC
 
 
+@ displayHandler
+@
+@ Description: Handles sending commands to the display
+@
+@ Operational Description: This interrupt routine toggles back and forth
+@							
+@
+@ Arguments: 
+@
+@ Return values: 
+@
+@ Local variables: 
+@
+@ Shared variables: 
+@
+@ Global Variables: 
+@
+@ Inputs: 
+@
+@ Outputs: 
+@
+@ Error Handling: 
+@
+@ Algorithms: 
+@
+@ Data Structures: 
+@
+@ Limitations: 
+@
+@ Registers Changed: 
+@
+@ Known Bugs: 
+@
+@ Special notes: 
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     6/22/2017
+	
+displayHandler:
+	mSTARTINT
+	
+	mRETURNINT
+
+
 .data
 .balign 4
 TextMessage:
