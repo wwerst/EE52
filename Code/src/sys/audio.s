@@ -70,7 +70,6 @@ update_rx:
 rx_empty:
 	mSTOREFROMREG	r0,	r1,	SSC0_RNPR
 	mSET_HREG	SSC0_RNCR,	(AUDIO_BUFLEN /2) - 1
-	mSET_HREG	SSC0_PTCR,	0x00000101
 	LDR		r0,		=TRUE
 endUpdate_RX:
 	mRETURNFNC
@@ -84,12 +83,27 @@ update_tx:
 	BNE		endUpdate_TX				@return false since new buffer not needed
 	@BEQ	tx_empty
 tx_empty:
+	PUSH	{r0-r3}
+	LDR		r1,	=(AUDIO_BUFLEN -2)
+	LDR		r2,	=AUDIO_VOLUME
+	BL		setVolume
+	POP		{r0-r3}
 	mSTOREFROMREG	r0,	r1,	SSC0_TNPR
 	mSET_HREG	SSC0_TNCR,	(AUDIO_BUFLEN / 2) - 1
-	mSET_HREG	SSC0_PTCR,	0x00000101
 	LDR		r0,		=TRUE
 endUpdate_TX:
 	mRETURNFNC
 
+	
+setVolume:
+	mSTARTFNC
+updateValue:
+	LDRH r3, [r0,r1]
+	ORR	 r3, r3, r2
+	STRH r3, [r0,r1]
+	SUB r1, #2
+	CMP r1, #0
+	BGE updateValue
+	mRETURNFNC
 
 .data

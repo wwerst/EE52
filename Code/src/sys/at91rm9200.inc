@@ -154,6 +154,32 @@
 	.equ	SSC0_PTCR,		SSC0Base + DMA_PTCR
 	.equ	SSC0_PTSR,		SSC0Base + DMA_PTSR
 
+@ SPI Definitions
+	
+	.equ	SPIBase,		0xFFFE0000			@ base address
+	
+	.equ	SPI_CR,			SPIBase + 0x0
+	.equ	SPI_MR,			SPIBase + 0x4
+	.equ	SPI_RDR,		SPIBase + 0x8
+	.equ	SPI_TDR,		SPIBase + 0xC
+	.equ	SPI_SR,			SPIBase + 0x10
+	.equ	SPI_IER,		SPIBase + 0x14
+	.equ	SPI_IDR,		SPIBase + 0x18
+	.equ	SPI_IMR,		SPIBase + 0x1C
+	.equ	SPI_CSR0,		SPIBase + 0x30
+	
+	.equ	SPI_RPR,		SPIBase + DMA_RPR
+	.equ	SPI_RCR,		SPIBase + DMA_RCR
+	.equ	SPI_TPR,		SPIBase + DMA_TPR
+	.equ	SPI_TCR,		SPIBase + DMA_TCR
+	.equ	SPI_RNPR,		SPIBase + DMA_RNPR
+	.equ	SPI_RNCR,		SPIBase + DMA_RNCR
+	.equ	SPI_TNPR,		SPIBase + DMA_TNPR
+	.equ	SPI_TNCR,		SPIBase + DMA_TNCR
+	.equ	SPI_PTCR,		SPIBase + DMA_PTCR
+	.equ	SPI_PTSR,		SPIBase + DMA_PTSR
+	
+	
 @ System Timer Definitions
 
 	.equ	STBase,			0xFFFFFD00			@ base address

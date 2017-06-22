@@ -73,7 +73,7 @@ int  getkey()
 
 /* display functions  */
 
-void  display_IP(unsigned long int ip)
+/*void  display_IP(unsigned long int ip)
 {
     return;
 }
@@ -86,7 +86,7 @@ void  display_memory_addr(unsigned int a)
 void  display_status(unsigned int s)
 {
     return;
-}
+}*/
 
 
 

@@ -68,3 +68,7 @@
 	@ ---- ---- ---- ---- ---- ---- ---0 1111		DATLEN: 16 bits per bit stream
 	@ 0000 0000 1010 0000 0000 0000 0000 1111
 	.equ	SSC0_TFMR_VAL, 0x0020008F
+	
+	
+	
+	.equ	AUDIO_VOLUME,	0x07

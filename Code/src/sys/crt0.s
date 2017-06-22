@@ -75,31 +75,51 @@ low_level_init:
 	BL audio_init
     
 loop:
-	mLOADTOREG	r4,	Cur_RXBuf
 	
-	LDR	r0,	=Bufs
-	ADD	r0,	r0,	r4,	LSL #8
+Buf1_rx:
+	LDR		r0, =Buf1
 	BL	update_rx
 	CMP	r0,	#TRUE
-	ADDEQ	r4,	#1
-	CMP		r4, #32
-	LDREQ	r4, =0
-	mSTOREFROMREG	r4, r0, Cur_RXBuf
+	BNE	Buf1_rx
 	
-	mLOADTOREG	r5,	Cur_TXBuf
-	LDR	r0, =Bufs
-	ADD	r0,	r0,	r5,	LSL #8
-	LDR	r1, =AUDIO_BUFLEN
-	LDR r2, =0x0007
-	PUSH {r0-r3}
-	BL setVolume
-	POP {r0-r3}
+	LDR 	r0,	=Buf3
 	BL	update_tx
+
+Buf2_rx:
+	LDR		r0, =Buf2
+	BL	update_rx
 	CMP	r0,	#TRUE
-	ADDEQ	r5,	#1
-	CMP		r5, #32
-	LDREQ	r5, =0
-	mSTOREFROMREG	r5,	r0,	Cur_TXBuf
+	BNE	Buf2_rx
+	
+	LDR 	r0,	=Buf4
+	BL	update_tx
+
+Buf3_rx:
+	LDR		r0, =Buf3
+	BL	update_rx
+	CMP	r0,	#TRUE
+	BNE	Buf3_rx
+	
+	LDR 	r0,	=Buf5
+	BL	update_tx
+
+Buf4_rx:
+	LDR		r0, =Buf4
+	BL	update_rx
+	CMP	r0,	#TRUE
+	BNE	Buf4_rx
+	
+	LDR 	r0,	=Buf1
+	BL	update_tx
+
+Buf5_rx:
+	LDR		r0, =Buf5
+	BL	update_rx
+	CMP	r0,	#TRUE
+	BNE	Buf5_rx
+	
+	LDR 	r0,	=Buf2
+	BL	update_tx
 	
 	
     B loop
@@ -108,23 +128,18 @@ loop:
     B		low_level_init		@ if main returns (shouldn't)
     					@   reinitialize everything and start
 					@   over
-
-setVolume:
-	mSTARTFNC
-updateValue:
-	LDRH r3, [r0,r1]
-	ORR	 r3, r3, r2
-	STRH r3, [r0,r1]
-	SUB r1, #2
-	CMP r1, #0
-	BGT updateValue
-	mRETURNFNC
 					
 .data
-Cur_RXBuf:
-	.word 0x00000000
-Cur_TXBuf:
-	.word 0x00000005
-Bufs:
-	.skip 32768
+
+.balign	4
+Buf1:
+	.skip 256
+Buf2:
+	.skip 256
+Buf3:
+	.skip 256
+Buf4:
+	.skip 256
+Buf5:
+	.skip 256
 .end
