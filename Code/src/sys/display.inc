@@ -9,7 +9,21 @@
 @                                                                            @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-@CPOL = 1, NCPHA = 1
+@Pin definitions
+	.equ	DISP_MOSI,	1
+	.equ	DISP_SPCK,	2
+	.equ	DISP_CS,	3
+	.equ	DISP_A0,	4
+	.equ	DISP_BCKLIGHT, 5
+	.equ	DISP_RST,	6
+	
+@SPI Status register bit definitions
+	.equ	SPI_SR_TXBUFE,	0x80
+
+@SPI Handler definitions
+	.equ	COM_QUEUE_LENGTH,	16
+	
+@Register definitions
 
 	@ 0000 0000 0000 0000 0000 0000 ---- ---- Reserved
 	@ ---- ---- ---- ---- ---- ---- 1--- ---- SWRST
@@ -49,18 +63,54 @@
 	@ 0000 0000 0000 0000 0000 0100 0000 0011
 	.equ	SPI_CSR0_VAL, 0x00000403
 	
+	@ 0000 0000 0000 0000 0000 00-- ---- ---- Reserved
+	@ ---- ---- ---- ---- ---- --01 ---- ---- Enable Transmit
+	@ ---- ---- ---- ---- ---- ---- 0000 00-- Reserved
+	@ ---- ---- ---- ---- ---- ---- ---- --10 Disable Receive (no receiving for display)
+	@ 0000 0000 0000 0000 0000 0001 0000 0010 
 	
+	.equ	SPI_DMA_ENABLE, 0x00000102
 	
+	@ 0000 0000 0000 0000 0000 00-- ---- ---- Reserved
+	@ ---- ---- ---- ---- ---- --10 ---- ---- Disable Transmit
+	@ ---- ---- ---- ---- ---- ---- 0000 00-- Reserved
+	@ ---- ---- ---- ---- ---- ---- ---- --10 Disable Receive
+	@ 0000 0000 0000 0000 0000 0001 0000 0010 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	.equ	SPI_DMA_DISABLE, 0x00000202
 	
 	
 	@ ---- ---- ---- ---- ---- ---- ---- ---- 
+	
+
+@State definitions for the display redrawing
+
+	.equ	STATE_IDLE,	0
+	.equ	STATE_ROWDRAW,	1
+	.equ	STATE_CARRIAGERETURN,	2
+
+@NHD-C12832 Definitions
+
+	.equ	NUM_PAGES,		4
+	.equ	NUM_COLS,		128
+	.equ	NHD_ON,			0xAF		@Enable display command
+	.equ	NHD_OFF,		0xAE		@Disable display command
+	.equ	NHD_RMW,		0xE0		@Read-modify-write command
+	.equ	NHD_RESET,		0xE2		@Reset command
+	.equ	NHD_STRT_PREF, 	0x40		@Prefix for start line set command
+	.equ	NHD_COLU_PREF, 	0x10		@Prefix for upper column address set command
+	.equ	NHD_COLL_PREF, 	0x00		@Prefix for lower column address set command
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

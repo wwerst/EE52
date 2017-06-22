@@ -41,3 +41,22 @@ STR r1, [r0]
 	POP {r0-r3, lr}
 	SUBS pc, lr, #WORD_SIZE
 .endm
+
+
+@ Macros to handle critical code. Note that r7 is used, the value is restored
+@ after critical code section, but since the stack is used to store value
+@ in critical code start, its value cannot be preserved during the critical
+@ code section.
+.macro	mSTARTCRITCODE
+	PUSH {r7}
+	MRS r7,	cpsr_c
+	PUSH {r7}
+	ORR r7, r7, #(I_BIT | F_BIT)
+	MSR cpsr_c, r7
+.endm
+
+.macro mENDCRITCODE
+	POP {r7}
+	MSR cpsr_c, r7
+	POP {r7}
+.endm

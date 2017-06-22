@@ -54,35 +54,41 @@
     .equ    SMC_CSR6,       SMCBase + 0x18      @ Chip Select 6 Register
     .equ    SMC_CSR7,       SMCBase + 0x1C      @ Chip Select 7 Register
 
+@ Parallel I/O Definitions
+	.equ    PIO_PER,       0x0      			@ PIO Enable
+    .equ    PIO_PDR,       0x4      			@ PIO Disable
+    .equ    PIO_OER,       0x10     			@ PIO Output Enable
+	.equ	PIO_ODR,	   0x14					@ PIO Output Disable
+	.equ	PIO_SODR,	   0x30					@ PIO Set Output data register
+	.equ	PIO_CODR,	   0x34					@ PIO Clear Output data register
+    .equ    PIO_PDSR,      0x3C     			@ Pin Data Status
+	.equ	PIO_IER,	   0x40					@ Interrupt Enable
+	.equ	PIO_IDR,	   0x44					@ Interrupt Disable
+    .equ    PIO_IMR,       0x48     			@ IRQ Mask
+	.equ	PIO_ISR,	   0x4C					@ IRQ Status
+    .equ    PIO_ASR,       0x70     			@ PIO Peripheral A Select
+    .equ    PIO_BSR,       0x74     			@ PIO Peripheral B Select
 
 @ Parallel I/O A Definintions
 
     .equ    PIOABase,       0xFFFFF400          @ base address
-
-    .equ    PIOA_PER,       PIOABase            @ PIO Enable
-    .equ    PIOA_PDR,       PIOABase + 0x4      @ PIO Disable
-    .equ    PIOA_OER,       PIOABase + 0x10     @ PIO Output Enable
-    .equ    PIOA_PDSR,      PIOABase + 0x3C     @ Pin Data Status
-    .equ    PIOA_IMR,       PIOABase + 0x48      @ IRQ Status
-    .equ    PIOA_ASR,       PIOABase + 0x70     @ PIO Peripheral A Select
-    .equ    PIOA_BSR,       PIOABase + 0x74     @ PIO Peripheral B Select
-
+    .equ    PIOA_PDSR,      PIOABase + PIO_PDSR @ Pin Data Status
+	.equ	PIOA_SODR,		PIOABase + PIO_SODR	@ Set Output Data Register
+	.equ	PIOA_CODR,		PIOABase + PIO_CODR	@ Clear Output Data Register
 
 @ Parallel I/O B Definintions
 
     .equ    PIOBBase,       0xFFFFF600          @ base address
-
-    .equ    PIOB_PDR,       PIOBBase + 0x4      @ PIO Disable
-    .equ    PIOB_OER,       PIOBBase + 0x10     @ PIO Output Enable
-    .equ    PIOB_ASR,       PIOBBase + 0x70     @ PIO Peripheral A Select
-    .equ    PIOB_BSR,       PIOBBase + 0x74     @ PIO Peripheral B Select
+	.equ	PIOB_ASR,		PIOBBase + PIO_ASR
+	.equ	PIOB_PDR,		PIOBBase + PIO_PDR
+	.equ	PIOB_OER,		PIOBBase + PIO_OER
 
 @ Parallel I/O C Definintions
 
     .equ    PIOCBase,       0xFFFFF800          @ base address
-    .equ    PIOC_PDSR,      PIOCBase + 0x3C     @ PIO Pin Data Status Register
-    .equ    PIOC_IER,       PIOCBase + 0x40     @ PIO Interrupt Enable Register
-    .equ    PIOC_ISR,       PIOCBase + 0x4C     @ IRQ Status
+    .equ    PIOC_PDSR,      PIOCBase + PIO_PDSR     @ PIO Pin Data Status Register
+    .equ    PIOC_ISR,       PIOCBase + PIO_ISR     @ IRQ Status
+	.equ	PIOC_IER,		PIOCBase + PIO_IER
 
 @ Advanced Interrupt Ccontroller Definitions
 

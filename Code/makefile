@@ -159,11 +159,11 @@ endif
 ifdef TEST_MODE
 SYSOBJS = boot.o crt0.o memtest.o
 else
-SYSOBJS  = crt0.o keypad.o display.o audio.o system.o
+SYSOBJS  = crt0.o keypad.o display.o audio.o system.o pio.o
 # ether.o
 endif
 
-BOOTOBJS = boot.o memtest.o
+BOOTOBJS = boot.o memtest.o pio.o
 
 
 ### Rules ####################################################################
@@ -242,6 +242,7 @@ include .depend
 
 boot.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/boot.inc $(SYSDIR)/macro.inc
 memtest.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc
+pio.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc
 crt0.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc  $(SYSDIR)/system.inc $(SYSDIR)/boot.inc 
 keypad.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/keypad.inc
 display.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/display.inc
@@ -251,10 +252,10 @@ system.s: $(SYSDIR)/at91rm9200.inc $(SYSDIR)/macro.inc $(SYSDIR)/system.inc
 
 boot.o: $(SYSDIR)/boot.s
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/boot.o $(SYSDIR)/boot.s
-
 memtest.o: $(SYSDIR)/memtest.s
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/memtest.o $(SYSDIR)/memtest.s
-    
+pio.o: $(SYSDIR)/pio.s
+	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/pio.o $(SYSDIR)/pio.s
 crt0.o: $(SYSDIR)/crt0.s
 	$(CC) $(CFLAGS) $(INCLUDES) -c -o $(OBJDIR)/crt0.o $(SYSDIR)/crt0.s
 keypad.o: $(SYSDIR)/keypad.s

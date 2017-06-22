@@ -73,53 +73,11 @@ low_level_init:
 	BL init_system
 	BL keypad_init
 	BL audio_init
+	BL display_init
     
 loop:
 	
-Buf1_rx:
-	LDR		r0, =Buf1
-	BL	update_rx
-	CMP	r0,	#TRUE
-	BNE	Buf1_rx
-	
-	LDR 	r0,	=Buf3
-	BL	update_tx
-
-Buf2_rx:
-	LDR		r0, =Buf2
-	BL	update_rx
-	CMP	r0,	#TRUE
-	BNE	Buf2_rx
-	
-	LDR 	r0,	=Buf4
-	BL	update_tx
-
-Buf3_rx:
-	LDR		r0, =Buf3
-	BL	update_rx
-	CMP	r0,	#TRUE
-	BNE	Buf3_rx
-	
-	LDR 	r0,	=Buf5
-	BL	update_tx
-
-Buf4_rx:
-	LDR		r0, =Buf4
-	BL	update_rx
-	CMP	r0,	#TRUE
-	BNE	Buf4_rx
-	
-	LDR 	r0,	=Buf1
-	BL	update_tx
-
-Buf5_rx:
-	LDR		r0, =Buf5
-	BL	update_rx
-	CMP	r0,	#TRUE
-	BNE	Buf5_rx
-	
-	LDR 	r0,	=Buf2
-	BL	update_tx
+	BL	audioDemo
 	
 	
     B loop
@@ -129,17 +87,4 @@ Buf5_rx:
     					@   reinitialize everything and start
 					@   over
 					
-.data
-
-.balign	4
-Buf1:
-	.skip 256
-Buf2:
-	.skip 256
-Buf3:
-	.skip 256
-Buf4:
-	.skip 256
-Buf5:
-	.skip 256
 .end
