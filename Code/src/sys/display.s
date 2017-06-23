@@ -13,6 +13,7 @@
 .global display_init
 display_init:
 	mSTARTFNC
+	mSET_HREG	PMC_PCER,	(1 << 13)
 	LDR		r0, =(0xE)			@MOSI, SPCK, NPCS0
 	LDR		r1, =PIO_A
 	LDR		r2, =(PIO_PERA | PIO_OUTPUT)
@@ -23,21 +24,72 @@ display_init:
 	LDR		r2, =(PIO_NORM | PIO_OUTPUT)
 	BL		configPIOPin
 	
+	mSET_HREG PIOA_CODR,	(1 << DISP_RST)
+	LDR r0, =0xFFFF
+count:
+	SUB r0, #1
+	CMP r0, #0
+	BNE	count
+	mSET_HREG PIOA_SODR,	(1 << DISP_RST)
+	
 	LDR		r0,	=FALSE
 	BL		setBacklight
 	
-	@mSET_HREG	SPI_CR,	SPI_CR_RESET
+	@Enqueue all of the commands for initializing display now
+	LDR		r0,	=NHD_RESET
+	BL		queueDisplayCommand
+	@LDR		r0,	=NHD_ON
+	@BL		queueDisplayCommand
+	@LDR		r0,	=0x2F
+	@BL		queueDisplayCommand
+	@LDR		r0,	=0x26
+	@BL		queueDisplayCommand
+	@LDR		r0, =NHD_RMW
+	@BL		queueDisplayCommand
+	@LDR		r0, =0xA4
+	@BL		queueDisplayCommand
+	@LDR		r0, =0x81
+	@BL		queueDisplayCommand
+	@LDR		r0, =0x2F
+	@BL		queueDisplayCommand
+	
+	LDR		r0,	=0xA0
+	BL		queueDisplayCommand
+	LDR		r0,	=0xAE
+	BL		queueDisplayCommand
+
+	LDR		r0,	=0xC0
+	BL		queueDisplayCommand
+	LDR		r0,	=0xA2
+	BL		queueDisplayCommand
+	
+	LDR		r0,	=0x2F
+	BL		queueDisplayCommand
+	LDR		r0,	=0x26
+	BL		queueDisplayCommand
+	
+	LDR		r0,	=0x81
+	BL		queueDisplayCommand
+	LDR		r0,	=0x2F
+	BL		queueDisplayCommand
+	
+	mSET_HREG	SPI_CR,	SPI_CR_RESET
 	mSET_HREG	SPI_MR, SPI_MR_VAL
 	mSET_HREG	SPI_CSR0, SPI_CSR0_VAL
-	mSET_HREG	SPI_IER, SPI_IER_VAL
 	mSET_HREG	AIC_SVR13, displayHandler
 	mSET_HREG	AIC_SMR13, AIC_SMR13_VAL
 	mSET_HREG	AIC_IECR, (1 << 13)
 	mSET_HREG	SPI_CR,	SPI_CR_RUN
-	LDRB r0, =0xFF
+	LDRB r0, =0xF0
 	LDR r1, =DispBuffer
-	STRB r0, [r1]
-	mSET_HREG	SPI_PTCR,	SPI_DMA_ENABLE	@Enable the DMA controller	
+	LDR	r2, =(NUM_COLS*NUM_PAGES)
+fillDBuffer:
+	STRB r0, [r1, r2]
+	SUB r2, #1
+	CMP r2, #0
+	BNE	fillDBuffer
+	mSET_HREG	SPI_PTCR,	SPI_DMA_ENABLE	@Enable the DMA controller
+	mSET_HREG	SPI_IER, SPI_IER_VAL
 	mRETURNFNC
 
 .global display_memory_addr
@@ -123,7 +175,7 @@ CommandQFull:
 addCommandToQ:
 	LDR	r2, =ActiveCommandQueue			@Load pointer to activeCommandQueue
 	LDR r2, [r2]						@Load the queue pointed to by activeCommandQueue
-	STR r0, [r2,r1]
+	STRB r0, [r2,r1]
 	ADD r1, #1
 	mSTOREFROMREG r1, r0, CommandQueueSize
 	LDR r0, =TRUE
@@ -237,7 +289,7 @@ endSetBacklight:
 	
 displayHandler:
 	mSTARTINT
-	@mSET_HREG	SPI_PTCR,	SPI_DMA_DISABLE	@Disable the DMA controller
+	mSET_HREG	SPI_PTCR,	SPI_DMA_DISABLE	@Disable the DMA controller
 	mLOADTOREG	r0,	SPI_SR
 	mLOADTOREG	r0,	displayHandlerState
 	CMP	r0,	#STATE_COMMANDS
@@ -295,7 +347,7 @@ stateData:
 	STR	r0,	[r1]
 	@B endDisplayHandler
 endDisplayHandler:
-	@mSET_HREG	SPI_PTCR,	SPI_DMA_ENABLE	@Enable the DMA controller
+	mSET_HREG	SPI_PTCR,	SPI_DMA_ENABLE	@Enable the DMA controller
 	mRETURNINT
 
 
