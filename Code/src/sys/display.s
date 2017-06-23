@@ -87,7 +87,7 @@ count:
 	mSET_HREG	AIC_SVR13, displayHandler
 	mSET_HREG	AIC_SMR13, AIC_SMR13_VAL
 	mSET_HREG	AIC_IECR, (1 << 13)
-	mSET_HREG	SPI_CR,	SPI_CR_RUN
+	mSET_HREG	SPI_CR,	SPI_CR_EN
 	LDRB r0, =0xAA
 	LDR r1, =DispBuffer
 	LDR	r2, =(NUM_COLS*NUM_PAGES)
@@ -298,7 +298,11 @@ endSetBacklight:
 displayHandler:
 	mSTARTINT
 	mSET_HREG	SPI_PTCR,	SPI_DMA_DISABLE	@Disable the DMA controller
+    mSET_HREG	SPI_CR,	SPI_CR_DIS
+waitSPIDIS:
 	mLOADTOREG	r0,	SPI_SR
+    TST r0, #0x10000
+    BNE waitSPIDIS
 	mLOADTOREG	r0,	displayHandlerState
 	CMP	r0,	#STATE_COMMANDS
 	BEQ	stateCommand
@@ -306,9 +310,9 @@ displayHandler:
 	BEQ stateData
 	B	endDisplayHandler					@Should never hit this state
 stateCommand:
-	LDR	r0,	=0x00@=(NHD_COLL_PREF | 0x0)
+	LDR	r0,	=(NHD_COLL_PREF | 0x0)
 	BL	queueDisplayCommand
-	LDR	r0,	=0x10@=(NHD_COLU_PREF | 0x0)
+	LDR	r0,	=(NHD_COLU_PREF | 0x0)
 	BL	queueDisplayCommand
 	mLOADTOREG	r0,	displayCurPage			@Add the page address set command
 	ORR	r0,	r0, #NHD_PAGE_PREF
@@ -331,9 +335,9 @@ stateCommand:
 	@Setup DMA for sending commands
 	mSET_HREG	PIOA_CODR,	(1 << DISP_A0)	@Clear A0 (sending commands)
 	POP {r1}								@Get the queue of commands to send
-	mSTOREFROMREG	r1,	r0,	SPI_TNPR		@Set pointer to now inactive command queue
+	mSTOREFROMREG	r1,	r0,	SPI_TPR		@Set pointer to now inactive command queue
 	mLOADTOREG	r1, CommandQueueSize		@Set count of bytes to send to command queue size
-	mSTOREFROMREG	r1,	r0,	SPI_TNCR
+    mSTOREFROMREG	r1,	r0,	SPI_TCR
 	
 	LDR	r1, =CommandQueueSize				@clear command queue size since now using different queue
 	LDR r0, =0
@@ -350,9 +354,9 @@ stateData:
 	MUL r0, r0, r1
 	LDR r1, =DispBuffer
 	ADD r0, r0, r1
-	mSTOREFROMREG	r0,	r2,	SPI_TNPR			@Set pointer to now inactive command queue
+	mSTOREFROMREG	r0,	r2,	SPI_TPR			@Set pointer to now inactive command queue
 	LDR r1, =NUM_COLS
-	mSTOREFROMREG	r1, r2, SPI_TNCR		
+	mSTOREFROMREG	r1, r2, SPI_TCR		
 	
 	LDR	r0,	=STATE_COMMANDS					@Transition states
 	LDR	r1, =displayHandlerState
@@ -365,6 +369,7 @@ stateData:
 	mSTOREFROMREG	r0,	r1,	displayCurPage
 	@B endDisplayHandler
 endDisplayHandler:
+    mSET_HREG	SPI_CR,	SPI_CR_EN
 	mSET_HREG	SPI_PTCR,	SPI_DMA_ENABLE	@Enable the DMA controller
 	mRETURNINT
 
