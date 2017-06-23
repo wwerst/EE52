@@ -26,10 +26,18 @@ display_init:
 	LDR		r0,	=FALSE
 	BL		setBacklight
 	
-	mSET_HREG	SPI_CR,	SPI_CR_RESET
+	@mSET_HREG	SPI_CR,	SPI_CR_RESET
 	mSET_HREG	SPI_MR, SPI_MR_VAL
 	mSET_HREG	SPI_CSR0, SPI_CSR0_VAL
+	mSET_HREG	SPI_IER, SPI_IER_VAL
+	mSET_HREG	AIC_SVR13, displayHandler
+	mSET_HREG	AIC_SMR13, AIC_SMR13_VAL
+	mSET_HREG	AIC_IECR, (1 << 13)
 	mSET_HREG	SPI_CR,	SPI_CR_RUN
+	LDRB r0, =0xFF
+	LDR r1, =DispBuffer
+	STRB r0, [r1]
+	mSET_HREG	SPI_PTCR,	SPI_DMA_ENABLE	@Enable the DMA controller	
 	mRETURNFNC
 
 .global display_memory_addr
@@ -102,7 +110,7 @@ fillBuffer:
 @ Name             Comment              Date
 @ Will Werst        Initial version     6/22/2017
 
-sendDisplayCommand:
+queueDisplayCommand:
 	mSTARTFNC
 	mSTARTCRITCODE						@Enter critical code, r7 used by this macro
 	mLOADTOREG	r1, CommandQueueSize
@@ -110,14 +118,15 @@ sendDisplayCommand:
 	BLO addCommandToQ
 	@B	CommandQFull
 CommandQFull:
-	LDR	r0,	#FALSE
+	LDR	r0,	=FALSE
 	B	sDCEndCritCode
 addCommandToQ:
-	LDR	r2, =CommandQueue
+	LDR	r2, =ActiveCommandQueue			@Load pointer to activeCommandQueue
+	LDR r2, [r2]						@Load the queue pointed to by activeCommandQueue
 	STR r0, [r2,r1]
 	ADD r1, #1
 	mSTOREFROMREG r1, r0, CommandQueueSize
-	LDR r0, #TRUE
+	LDR r0, =TRUE
 sDCEndCritCode:
 	mENDCRITCODE						@Exit critical code, r7 used by this macro
 	
@@ -180,7 +189,18 @@ endSetBacklight:
 @
 @ Description: Handles sending commands to the display
 @
-@ Operational Description: This interrupt routine toggles back and forth
+@ Operational Description: This interrupt routine handles a state machine that
+@							updates the display. This state machine has two
+@							states: Commands, and Data. The different states
+@							are handled as follows:
+@							Commands: The ActiveCommandQueue is switched to the other queue. The command to
+@										switch to the next page of data is enqueued if possible.
+@										If there is space for this command, then the state transitions
+@										to Data next, and the current page is updated to the next page, else the state stays at Commands.
+@										The display is transitioned to command mode (DISP_A0 pin is set to 0 in PIO). Then, the DMA controller
+@										is set to transmit all commands in the now-inactive command queue.
+@							Data: The DMA controller is setup to transmit the next page of data from DispBuffer.
+@										
 @							
 @
 @ Arguments: 
@@ -217,19 +237,88 @@ endSetBacklight:
 	
 displayHandler:
 	mSTARTINT
+	@mSET_HREG	SPI_PTCR,	SPI_DMA_DISABLE	@Disable the DMA controller
+	mLOADTOREG	r0,	SPI_SR
+	mLOADTOREG	r0,	displayHandlerState
+	CMP	r0,	#STATE_COMMANDS
+	BEQ	stateCommand
+	CMP	r0, #STATE_DATA
+	BEQ stateData
+	B	endDisplayHandler					@Should never hit this state
+stateCommand:
+	mLOADTOREG	r0,	displayCurPage			@Add the page address set command
+	ORR	r0,	r0, #NHD_PAGE_PREF
+	BL	queueDisplayCommand					
+	CMP r0, #TRUE							@Check if command added
+	LDREQ	r0,	=STATE_DATA					@If it was, transition states
+	LDREQ	r1, =displayHandlerState		@Else, the state is left as STATE_COMMANDS
+	STREQ	r0,	[r1]
+	LDR	r0,	=ActiveCommandQueue				@Load the address of activeCommandQueue pointer
+	LDR r1, [r0]							@Dereference activeCommandQueue to get
+											@pointer to active queue's start.
+	PUSH {r1}								@Save pointer to current active queue for later.
+	LDR	r2, =CommandQueue1					@Load pointer to CommandQeueu1 to
+											@compare to active command queue
+	CMP	r1, r2								@Compare the queues
+	LDREQ	r2,	=CommandQueue2				@If active queue is 1, switch to queue 2.
+											@Else, queue 2 is active and want to switch to queue 1
+	STR		r2, [r0]						@switch to the new queue
 	
+	@Setup DMA for sending commands
+	mSET_HREG	PIOA_CODR,	(1 << DISP_A0)	@Clear A0 (sending commands)
+	POP {r1}								@Get the queue of commands to send
+	mSTOREFROMREG	r1,	r0,	SPI_TNPR		@Set pointer to now inactive command queue
+	mLOADTOREG	r1, CommandQueueSize		@Set count of bytes to send to command queue size
+	mSTOREFROMREG	r1,	r0,	SPI_TNCR
+	
+	LDR	r1, =CommandQueueSize				@clear command queue size since now using different queue
+	LDR r0, =0
+	STR	r0, [r1]
+	B	endDisplayHandler					
+stateData:
+
+	@Setup DMA for sending data
+	mSET_HREG	PIOA_SODR,	(1 << DISP_A0)	@Set A0 (sending data)
+	mLOADTOREG r0, displayCurPage			@Calculate the pointer to the current
+											@buffer page
+	
+	LDR r1, =NUM_COLS
+	MUL r0, r0, r1
+	LDR r1, =DispBuffer
+	ADD r0, r0, r1
+	mSTOREFROMREG	r0,	r2,	SPI_TNPR			@Set pointer to now inactive command queue
+	LDR r1, =NUM_COLS
+	mSTOREFROMREG	r1, r2, SPI_TNCR		
+	
+	LDR	r0,	=STATE_COMMANDS					@Transition states
+	LDR	r1, =displayHandlerState
+	STR	r0,	[r1]
+	@B endDisplayHandler
+endDisplayHandler:
+	@mSET_HREG	SPI_PTCR,	SPI_DMA_ENABLE	@Enable the DMA controller
 	mRETURNINT
 
 
 .data
 .balign 4
+
 TextMessage:
 	.word 0x00000000
+displayHandlerState:
+	.word STATE_COMMANDS
+displayUpdated:
+	.word TRUE
+displayCurPage:
+	.word 0
 
 CommandQueueSize:
 	.word 0x00000000
-CommandQueue:
-	.skip	COM_QUEUE_LENGTH
+ActiveCommandQueue:
+	.word CommandQueue1
+CommandQueue1:
+	.skip	(COM_QUEUE_LENGTH)
+CommandQueue2:
+	.skip	(COM_QUEUE_LENGTH)
 DispBuffer:
 	.skip (NUM_COLS*NUM_PAGES)
 	

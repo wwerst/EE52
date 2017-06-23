@@ -49,7 +49,7 @@ STR r1, [r0]
 @ code section.
 .macro	mSTARTCRITCODE
 	PUSH {r7}
-	MRS r7,	cpsr_c
+	MRS r7,	cpsr
 	PUSH {r7}
 	ORR r7, r7, #(I_BIT | F_BIT)
 	MSR cpsr_c, r7
@@ -57,6 +57,6 @@ STR r1, [r0]
 
 .macro mENDCRITCODE
 	POP {r7}
-	MSR cpsr_c, r7
+	MSR cpsr, r7
 	POP {r7}
 .endm

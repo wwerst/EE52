@@ -63,13 +63,18 @@
 	@ 0000 0000 0000 0000 0000 0100 0000 0011
 	.equ	SPI_CSR0_VAL, 0x00000403
 	
+	@ 0000 0000 0000 0000 0000 0000 ---- ---- Reserved
+	@ ---- ---- ---- ---- ---- ---- 1000 0000 Only enable TXBUFE
+	@ 0000 0000 0000 0000 0000 0000 1000 0000 
+	.equ	SPI_IER_VAL, 0x00000080
+	
 	@ 0000 0000 0000 0000 0000 00-- ---- ---- Reserved
 	@ ---- ---- ---- ---- ---- --01 ---- ---- Enable Transmit
 	@ ---- ---- ---- ---- ---- ---- 0000 00-- Reserved
 	@ ---- ---- ---- ---- ---- ---- ---- --10 Disable Receive (no receiving for display)
 	@ 0000 0000 0000 0000 0000 0001 0000 0010 
 	
-	.equ	SPI_DMA_ENABLE, 0x00000102
+	.equ	SPI_DMA_ENABLE, 0x00000101
 	
 	@ 0000 0000 0000 0000 0000 00-- ---- ---- Reserved
 	@ ---- ---- ---- ---- ---- --10 ---- ---- Disable Transmit
@@ -80,14 +85,21 @@
 	.equ	SPI_DMA_DISABLE, 0x00000202
 	
 	
+	@ 0000 0000 0000 0000 0000 0000 0--- ---- Reserved
+	@ ---- ---- ---- ---- ---- ---- -11- ---- SCRTYPE: Positive edge
+	@ ---- ---- ---- ---- ---- ---- ---0 0--- Reserved
+	@ ---- ---- ---- ---- ---- ---- ---- -010 Priority: 2 
+	@ 0000 0000 0000 0000 0000 0000 0110 0010 
+	.equ	AIC_SMR13_VAL, 0x00000042
+	
 	@ ---- ---- ---- ---- ---- ---- ---- ---- 
 	
 
 @State definitions for the display redrawing
 
-	.equ	STATE_IDLE,	0
-	.equ	STATE_ROWDRAW,	1
-	.equ	STATE_CARRIAGERETURN,	2
+	.equ	STATE_COMMANDS,	0
+	.equ	STATE_DATA,	1
+
 
 @NHD-C12832 Definitions
 
@@ -97,7 +109,7 @@
 	.equ	NHD_OFF,		0xAE		@Disable display command
 	.equ	NHD_RMW,		0xE0		@Read-modify-write command
 	.equ	NHD_RESET,		0xE2		@Reset command
-	.equ	NHD_STRT_PREF, 	0x40		@Prefix for start line set command
+	.equ	NHD_PAGE_PREF, 	0xB0		@Prefix for page address set command
 	.equ	NHD_COLU_PREF, 	0x10		@Prefix for upper column address set command
 	.equ	NHD_COLL_PREF, 	0x00		@Prefix for lower column address set command
 

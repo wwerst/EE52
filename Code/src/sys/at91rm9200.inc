@@ -98,6 +98,8 @@
     .equ    AIC_SVR1,       AICBase + 0x84      @ System: Source Vector 1
     .equ    AIC_SMR4,       AICBase + 0x10      @ PIOC: Source Mode 4
     .equ    AIC_SVR4,       AICBase + 0x90      @ PIOC: Source Vector 4
+	.equ	AIC_SMR13,		AICBase + 0x34		@ SPI: Source Vector 13
+	.equ	AIC_SVR13,		AICBase + 0xB4		@ SPI: Source Vector 13
     .equ    AIC_SMR14,      AICBase + 0x38      @ SSC0: Source Mode 14 
     .equ    AIC_SVR14,      AICBase + 0xB8      @ SSC0: Source Vector 14
     .equ    AIC_SMR17,      AICBase + 0x44      @ TC0: Source Mode 17
