@@ -53,24 +53,32 @@ count:
 	@LDR		r0, =0x2F
 	@BL		queueDisplayCommand
 	
-	LDR		r0,	=0xA0
-	BL		queueDisplayCommand
 	LDR		r0,	=0xAE
-	BL		queueDisplayCommand
-
-	LDR		r0,	=0xC0
 	BL		queueDisplayCommand
 	LDR		r0,	=0xA2
 	BL		queueDisplayCommand
+
+	LDR		r0,	=0xA0
+	BL		queueDisplayCommand
+	LDR		r0,	=0xC8
+	BL		queueDisplayCommand
 	
+	LDR		r0,	=0x22
+	BL		queueDisplayCommand
 	LDR		r0,	=0x2F
 	BL		queueDisplayCommand
-	LDR		r0,	=0x26
+	
+	LDR		r0,	=0x40
+	BL		queueDisplayCommand
+	LDR		r0,	=0xAF
 	BL		queueDisplayCommand
 	
 	LDR		r0,	=0x81
 	BL		queueDisplayCommand
-	LDR		r0,	=0x2F
+	LDR		r0,	=0x17
+	BL		queueDisplayCommand
+	
+	LDR		r0,	=0xA6
 	BL		queueDisplayCommand
 	
 	mSET_HREG	SPI_CR,	SPI_CR_RESET
@@ -80,7 +88,7 @@ count:
 	mSET_HREG	AIC_SMR13, AIC_SMR13_VAL
 	mSET_HREG	AIC_IECR, (1 << 13)
 	mSET_HREG	SPI_CR,	SPI_CR_RUN
-	LDRB r0, =0xF0
+	LDRB r0, =0xAA
 	LDR r1, =DispBuffer
 	LDR	r2, =(NUM_COLS*NUM_PAGES)
 fillDBuffer:
@@ -298,9 +306,13 @@ displayHandler:
 	BEQ stateData
 	B	endDisplayHandler					@Should never hit this state
 stateCommand:
+	LDR	r0,	=0x00@=(NHD_COLL_PREF | 0x0)
+	BL	queueDisplayCommand
+	LDR	r0,	=0x10@=(NHD_COLU_PREF | 0x0)
+	BL	queueDisplayCommand
 	mLOADTOREG	r0,	displayCurPage			@Add the page address set command
 	ORR	r0,	r0, #NHD_PAGE_PREF
-	BL	queueDisplayCommand					
+	BL	queueDisplayCommand
 	CMP r0, #TRUE							@Check if command added
 	LDREQ	r0,	=STATE_DATA					@If it was, transition states
 	LDREQ	r1, =displayHandlerState		@Else, the state is left as STATE_COMMANDS
@@ -345,6 +357,12 @@ stateData:
 	LDR	r0,	=STATE_COMMANDS					@Transition states
 	LDR	r1, =displayHandlerState
 	STR	r0,	[r1]
+	mLOADTOREG r0, displayCurPage			@Calculate the pointer to the current
+											@buffer page
+	ADD r0, #1
+	CMP r0, #NUM_PAGES
+	LDREQ	r0,	=0
+	mSTOREFROMREG	r0,	r1,	displayCurPage
 	@B endDisplayHandler
 endDisplayHandler:
 	mSET_HREG	SPI_PTCR,	SPI_DMA_ENABLE	@Enable the DMA controller

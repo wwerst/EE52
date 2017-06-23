@@ -55,13 +55,13 @@
 	
 	@ 0000 0000 ---- ---- ---- ---- ---- ---- DLYBCT: 0
 	@ ---- ---- 0000 0000 ---- ---- ---- ---- DLYBS: 0
-	@ ---- ---- ---- ---- 1111 0100 ---- ---- SCBR: SPCK Baudrate = MCK/(2*4) = 5.5 MHz. Device max is 20 MHz
+	@ ---- ---- ---- ---- 0000 0100 ---- ---- SCBR: SPCK Baudrate = MCK/(2*4) = 5.5 MHz. Device max is 20 MHz
 	@ ---- ---- ---- ---- ---- ---- 0000 ---- BITS: 8 bits
 	@ ---- ---- ---- ---- ---- ---- ---- 00-- Reserved
 	@ ---- ---- ---- ---- ---- ---- ---- --0- NCPHA: 0
 	@ ---- ---- ---- ---- ---- ---- ---- ---1 CPOL: 1
 	@ 0000 0000 0000 0000 1111 0100 0000 0011
-	.equ	SPI_CSR0_VAL, 0x0000F401
+	.equ	SPI_CSR0_VAL, 0x00000401
 	
 	@ 0000 0000 0000 0000 0000 0000 ---- ---- Reserved
 	@ ---- ---- ---- ---- ---- ---- 1000 0000 Only enable TXBUFE
@@ -103,8 +103,8 @@
 
 @NHD-C12832 Definitions
 
-	.equ	NUM_PAGES,		4
-	.equ	NUM_COLS,		128
+	.equ	NUM_PAGES,		1
+	.equ	NUM_COLS,		524
 	.equ	NHD_ON,			0xAF		@Enable display command
 	.equ	NHD_OFF,		0xAE		@Disable display command
 	.equ	NHD_RMW,		0xE0		@Read-modify-write command
