@@ -15,7 +15,6 @@
       5/27/08  Glen George       Initial revision (from 3/10/95 version of
                                  char57.asm).
 */
-void render_displaybuffer(char *string, char *buffer);
 
 const unsigned char ascii_char_patterns[] = {
 
@@ -183,9 +182,9 @@ const unsigned char ascii_char_patterns[] = {
 
 */
 
-void render_displaybuffer(char *string, char *buffer){
+void render_displaybuffer(char *string, char *buffer, int length){
     int col;
-    for (col = 0; col < 128; col++){
+    for (col = 0; col < length; col++){
         /*if (col % 6 == 0){
             buffer[col] = 0x00;
             continue;
@@ -204,10 +203,17 @@ void render_displaybuffer(char *string, char *buffer){
     }
 }
 
-void clear_displaybuffer(char *buffer){
+void clear_displaybuffer(char *buffer, int length){
     int col;
     for (col = 0; col < 512; col++){
         buffer[col] = 0x00;
     }
 }
 
+int divide(int num, int den){
+    return num / den;
+}
+
+int mod(int num, int den){
+    return num % den;
+}

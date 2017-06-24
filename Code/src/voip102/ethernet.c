@@ -104,8 +104,12 @@ void  init_networking()
 
 
     /* setup the lwIP library */
-    lwip_init();
-
+    mem_init();
+    memp_init();
+    pbuf_init();
+    netif_init();
+    etharp_init();
+    stats_init();
 
     /* setup the default gateway, net mask, and IP address */
     IP4_ADDR(&gateway, 192, 168, 1, 1);

@@ -50,7 +50,7 @@ SRCDIR  = src
 OBJDIR  = obj
 LWIPDIR = $(SRCDIR)/lwip-1.3.2/src
 SYSDIR  = $(SRCDIR)/sys
-VOIPDIR = $(SRCDIR)/voip101
+VOIPDIR = $(SRCDIR)/voip102
 
 
 # compiler flags (depend on whether compiling LwIP code or not)
