@@ -97,15 +97,47 @@ count:
 display_memory_addr:
 	mSTARTFNC
     
+    PUSH    {r4-r7}
+    LDR r5, =TextMessageR2          @String to write to
+    LDR r6, =0                      @ASCII string position
+    
+    
+    MOV r7, r0                      @Store memory address to use later
+    @Get tens digit
+    LDR r1, =10
+    MOV r0, r7
+    BL  divide
+    LDR r1, =hexToASCII
+    LDRB    r0, [r1, r0]
+    STRB    r0, [r5, r6]
+    ADD     r6, #1
+    
+    @Remove tens digit value from memory address
+    LDR r1, =10
+    MOV r0, r7
+    BL  mod
+    MOV r7, r0                      @r7 now contains original address with tens digit 0
+    
+    @Get ones digit
+    LDR r1, =hexToASCII
+    LDRB    r0, [r1, r0]
+    STRB    r0, [r5, r6]
+    ADD     r6, #1
+    
+    @Add null termination to string
+    LDRB    r0, =ASCII_NULL
+    STRB    r0, [r5, r6]
+    
     
     BL redraw
-	mRETURNFNC
+    
+    POP {r4-r7}
+    mRETURNFNC
 
 .global display_IP
 display_IP:
 	mSTARTFNC
     
-    @Attempt 2
     PUSH {r4-r7}
     @Get 4th octet
     AND r1, r0, #0xFF

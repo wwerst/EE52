@@ -68,3 +68,5 @@ success:
     @B mem_test_end
 mem_test_end:
 	POP {r4, r5, pc}
+    
+.end

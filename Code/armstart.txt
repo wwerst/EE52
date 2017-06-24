@@ -118,7 +118,7 @@ Disassembly of section .text:
  150:	1a000004 	bne	168 <LoadToSRAMFailed>
  154:	e2500004 	subs	r0, r0, #4
  158:	2afffff9 	bcs	144 <CheckCopyToSRAM>
- 15c:	eb000069 	bl	308 <__*ABS*0x20000000_veneer>
+ 15c:	eb00006b 	bl	310 <__*ABS*0x20000000_veneer>
 
 00000160 <BootEndLoop>:
  160:	eafffffe 	b	160 <BootEndLoop>
@@ -194,13 +194,13 @@ Disassembly of section .text:
  228:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
  22c:	e92d00f0 	push	{r4, r5, r6, r7}
  230:	e3510000 	cmp	r1, #0
- 234:	059f10c0 	ldreq	r1, [pc, #192]	; 2fc <Error>
+ 234:	059f10c4 	ldreq	r1, [pc, #196]	; 300 <Error+0x4>
  238:	0a000006 	beq	258 <StartConfig>
  23c:	e3510001 	cmp	r1, #1
- 240:	059f10b8 	ldreq	r1, [pc, #184]	; 300 <Error+0x4>
+ 240:	059f10bc 	ldreq	r1, [pc, #188]	; 304 <Error+0x8>
  244:	0a000003 	beq	258 <StartConfig>
  248:	e3510002 	cmp	r1, #2
- 24c:	059f10b0 	ldreq	r1, [pc, #176]	; 304 <Error+0x8>
+ 24c:	059f10b4 	ldreq	r1, [pc, #180]	; 308 <Error+0xc>
  250:	0a000000 	beq	258 <StartConfig>
  254:	1a000028 	bne	2fc <Error>
 
@@ -268,10 +268,12 @@ Disassembly of section .text:
  2f8:	e49df004 	pop	{pc}		; (ldr pc, [sp], #4)
 
 000002fc <Error>:
- 2fc:	fffff400 	.word	0xfffff400
- 300:	fffff600 	.word	0xfffff600
- 304:	fffff800 	.word	0xfffff800
+ 2fc:	eafffffe 	b	2fc <Error>
+ 300:	fffff400 	.word	0xfffff400
+ 304:	fffff600 	.word	0xfffff600
+ 308:	fffff800 	.word	0xfffff800
+ 30c:	00000000 	.word	0x00000000
 
-00000308 <__*ABS*0x20000000_veneer>:
- 308:	e51ff004 	ldr	pc, [pc, #-4]	; 30c <__*ABS*0x20000000_veneer+0x4>
- 30c:	20000000 	.word	0x20000000
+00000310 <__*ABS*0x20000000_veneer>:
+ 310:	e51ff004 	ldr	pc, [pc, #-4]	; 314 <__*ABS*0x20000000_veneer+0x4>
+ 314:	20000000 	.word	0x20000000

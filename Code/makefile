@@ -82,7 +82,7 @@ endif
 
 SYSINC = -I$(SYSDIR)
 
-CSINC  = -I"C:\mgc\arm-none-eabi\include" \
+CSINC  = -I"C:\mgg2\arm-none-eabi\include" \
 	 -L"C:\mgc\arm-none-eabi\lib"
 
 # take care of whether LwIP code should be included or not

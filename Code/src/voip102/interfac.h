@@ -35,7 +35,7 @@
 
 
 
-#define  DRAM_START      0x30000000
+#define  DRAM_START      0x200000
 #define  MEMORY_SIZE     32
 #define  SAMPLE_RATE     8000
 

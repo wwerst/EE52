@@ -106,3 +106,5 @@ timer_counter:
 	.word 0x00000000
 dramRefreshRow:
 	.word 0x00000000
+
+.end
