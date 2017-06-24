@@ -67,37 +67,37 @@ RefInProgressDelay pin	ISTYPE	'reg_D';
 StateBits   =  [ St4, St3, St2, St1, St0 ];     " state bits
                                       		" state assignments
 Idle        =  [   0,   0,   0,   0,   0 ];     " idle state (waiting for a cycle to start)
-Read0       =  [   0,   0,   0,   0,   1 ];     " enable row address for read
-Read1       =  [   0,   0,   0,   1,   0 ];     " RAS line low
-Read2       =  [   0,   0,   0,   1,   1 ];     " disable row address for read
-Read3       =  [   0,   0,   1,   0,   0 ];     " enable column address for read
-Read4       =  [   0,   0,   1,   0,   1 ];     " CAS line low
-Read5       =  [   0,   0,   1,   1,   0 ];     " Wait for data access
-Read6       =  [   0,   0,   1,   1,   1 ];     " CAS line high
-Read7       =  [   0,   1,   0,   0,   0 ];     " Pre-charge
-Read8       =  [   0,   1,   0,   0,   1 ];     " Pre-charge
-Write0      =  [   0,   1,   0,   1,   0 ];     " enable row address
-Write1      =  [   0,   1,   0,   1,   1 ];     " RAS line low
-Write2      =  [   0,   1,   1,   0,   0 ];     " disable row address
-Write3      =  [   0,   1,   1,   0,   1 ];     " WE low and column address enable
-Write4      =  [   0,   1,   1,   1,   0 ];     " CAS line low
-Write5      =  [   0,   1,   1,   1,   1 ];     " Wait
-Write6      =  [   1,   0,   0,   0,   0 ];     " RAS, CAS, WE high
-Write7      =  [   1,   0,   0,   0,   1 ];     " Pre-charge
-Write8      =  [   1,   0,   0,   1,   0 ];     " Pre-charge
-Ref0        =  [   1,   0,   0,   1,   1 ];     " CAS low
-Ref1        =  [   1,   0,   1,   0,   0 ];     " RAS low
-Ref2        =  [   1,   0,   1,   0,   1 ];     " Wait
-Ref3        =  [   1,   0,   1,   1,   0 ];     " Wait
-Ref4        =  [   1,   0,   1,   1,   1 ];     " Wait
-Ref5        =  [   1,   1,   0,   0,   0 ];     " RAS, CAS high
-Ref6        =  [   1,   1,   0,   0,   1 ];     " Pre-charge
-Ref7        =  [   1,   1,   0,   1,   0 ];     " Pre-charge
-Inval0      =  [   1,   1,   0,   1,   1 ];     " Invalid state
-Inval1      =  [   1,   1,   1,   0,   0 ];     " Invalid state
-Inval2      =  [   1,   1,   1,   0,   1 ];     " Invalid state
-Inval3      =  [   1,   1,   1,   1,   0 ];     " Invalid state
-Inval4      =  [   1,   1,   1,   1,   1 ];     " Invalid state
+Access0     =  [   0,   0,   0,   0,   1 ];     " enable row address for Access
+Access1     =  [   0,   0,   0,   1,   0 ];     " RAS line low
+Access2     =  [   0,   0,   0,   1,   1 ];     " disable row address for Access
+Access3     =  [   0,   0,   1,   0,   0 ];     " enable column address for Access
+Access4     =  [   0,   0,   1,   0,   1 ];     " CAS line low
+Access5     =  [   0,   0,   1,   1,   0 ];     " Wait for data access
+Access6     =  [   0,   0,   1,   1,   1 ];     " Wait for data access
+Access7     =  [   0,   1,   0,   0,   0 ];     " Wait for data access
+Access8     =  [   0,   1,   0,   0,   1 ];     " RAS, CAS line high
+Access9     =  [   0,   1,   0,   1,   0 ];     " Pre-charge
+Access10    =  [   0,   1,   0,   1,   1 ];     " Pre-charge
+Ref0        =  [   0,   1,   1,   0,   0 ];     " CAS low
+Ref1        =  [   0,   1,   1,   0,   1 ];     " RAS low
+Ref2        =  [   0,   1,   1,   1,   0 ];     " Wait
+Ref3        =  [   0,   1,   1,   1,   1 ];     " Wait
+Ref4        =  [   1,   0,   0,   0,   0 ];     " Wait
+Ref5        =  [   1,   0,   0,   0,   1 ];     " RAS, CAS high
+Ref6        =  [   1,   0,   0,   1,   0 ];     " Pre-charge
+Ref7        =  [   1,   0,   0,   1,   1 ];     " Pre-charge
+Inval0      =  [   1,   0,   1,   0,   0 ];     
+Inval1      =  [   1,   0,   1,   0,   1 ];     
+Inval2      =  [   1,   0,   1,   1,   0 ];     
+Inval3      =  [   1,   0,   1,   1,   1 ];     
+Inval4      =  [   1,   1,   0,   0,   0 ];     
+Inval5      =  [   1,   1,   0,   0,   1 ];     
+Inval6      =  [   1,   1,   0,   1,   0 ];     
+Inval7      =  [   1,   1,   0,   1,   1 ];     " Invalid state
+Inval8      =  [   1,   1,   1,   0,   0 ];     " Invalid state
+Inval9      =  [   1,   1,   1,   0,   1 ];     " Invalid state
+Inval10     =  [   1,   1,   1,   1,   0 ];     " Invalid state
+Inval11     =  [   1,   1,   1,   1,   1 ];     " Invalid state
 
 
 EQUATIONS
@@ -138,10 +138,10 @@ STATE  Idle:                    " in the idle state waiting for an access
    IF (NReset) THEN Idle;
    ELSE IF (RefRqst) THEN  Ref0;
    "ELSE IF (NCS & NWE) THEN Write0;
-   ELSE IF (NCS) THEN      Read0;
+   ELSE IF (NCS) THEN      Access0;
    ELSE                       Idle;     " otherwise just stay here
 
-STATE Read0:
+STATE Access0:
 
    RAS = 1;
    CAS = 1;
@@ -150,9 +150,9 @@ STATE Read0:
    C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
-   ELSE                   Read1;
+   ELSE                   Access1;
 
-STATE Read1:
+STATE Access1:
 
    RAS = 0;
    CAS = 1;
@@ -161,9 +161,9 @@ STATE Read1:
    C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
-   ELSE                   Read2;
+   ELSE                   Access2;
 
-STATE Read2:
+STATE Access2:
 
    RAS = 0;
    CAS = 1;
@@ -172,9 +172,9 @@ STATE Read2:
    C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
-   ELSE                   Read3;
+   ELSE                   Access3;
 
-STATE Read3:
+STATE Access3:
 
    RAS = 0;
    CAS = 1;
@@ -183,9 +183,9 @@ STATE Read3:
    C_A_EN = 1;
 
    IF (NReset) THEN        Idle;
-   ELSE                   Read4;
+   ELSE                   Access4;
 
-STATE Read4:
+STATE Access4:
 
    RAS = 0;
    CAS = 0;
@@ -194,9 +194,9 @@ STATE Read4:
    C_A_EN = 1;
 
    IF (NReset) THEN        Idle;
-   ELSE                   Read5;
+   ELSE                   Access5;
 
-STATE Read5:
+STATE Access5:
 
    RAS = 0;
    CAS = 0;
@@ -205,112 +205,32 @@ STATE Read5:
    C_A_EN = 1;
    
    IF (NReset) THEN        Idle;
-   ELSE                   Read6;
+   ELSE                   Access6;
 
-
-STATE Read6:
-
-   RAS = 1;
-   CAS = 1;
-   "DRAM_WE = 1;
-   R_A_EN = 0;
-   C_A_EN = 0;
-
-   IF (NReset) THEN        Idle;
-   ELSE                   Read7;
-
-STATE Read7:
-
-   RAS = 1;
-   CAS = 1;
-   "DRAM_WE = 1;
-   R_A_EN = 0;
-   C_A_EN = 0;
-
-   IF (NReset) THEN        Idle;
-   ELSE                   Read8;
-
-
-STATE Read8:
-
-   RAS = 1;
-   CAS = 1;
-   "DRAM_WE = 1;
-   R_A_EN = 0;
-   C_A_EN = 0;
-
-   GOTO Idle;
-
-
-STATE Write0:
-   
-   RAS = 1;
-   CAS = 1;
-   "DRAM_WE = 1;
-   R_A_EN = 1;
-   C_A_EN = 0;
-
-   IF (NReset) THEN        Idle;
-   ELSE                   Write1;
-
-STATE Write1:
-
-   RAS = 0;
-   CAS = 1;
-   "DRAM_WE = 1;
-   R_A_EN = 1;
-   C_A_EN = 0;
-
-   IF (NReset) THEN        Idle;
-   ELSE                   Write2;
-
-STATE Write2:
-
-   RAS = 0;
-   CAS = 1;
-   "DRAM_WE = 1;
-   R_A_EN = 0;
-   C_A_EN = 0;
-
-   IF (NReset) THEN        Idle;
-   ELSE                   Write3;
-
-STATE Write3:
-
-   RAS = 0;
-   CAS = 1;
-   "DRAM_WE = 0;
-   R_A_EN = 0;
-   C_A_EN = 1;
-
-   IF (NReset) THEN        Idle;
-   ELSE                   Write4;
-
-STATE Write4:
+STATE Access6:
 
    RAS = 0;
    CAS = 0;
-   "DRAM_WE = 0;
+   "DRAM_WE = 1;
    R_A_EN = 0;
    C_A_EN = 1;
-
-   IF (NReset) THEN        Idle;
-   ELSE                   Write5;
-
-STATE Write5:
    
+   IF (NReset) THEN        Idle;
+   ELSE                   Access7;
+
+STATE Access7:
+
    RAS = 0;
    CAS = 0;
-   "DRAM_WE = 0;
+   "DRAM_WE = 1;
    R_A_EN = 0;
    C_A_EN = 1;
-
+   
    IF (NReset) THEN        Idle;
-   ELSE                   Write6;
+   ELSE                   Access8;
 
 
-STATE Write6:
-
+STATE Access8:
 
    RAS = 1;
    CAS = 1;
@@ -319,9 +239,9 @@ STATE Write6:
    C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
-   ELSE                   Write7;
+   ELSE                   Access9;
 
-STATE Write7:
+STATE Access9:
 
    RAS = 1;
    CAS = 1;
@@ -330,10 +250,10 @@ STATE Write7:
    C_A_EN = 0;
 
    IF (NReset) THEN        Idle;
-   ELSE                   Write8;
+   ELSE                   Access10;
 
 
-STATE Write8:
+STATE Access10:
 
    RAS = 1;
    CAS = 1;
@@ -483,6 +403,69 @@ STATE Inval4:
 
    GOTO                   Idle;
 
+STATE Inval5:
+   RAS = 1;
+   CAS = 1;
+   "DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
+
+STATE Inval6:
+   RAS = 1;
+   CAS = 1;
+   "DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
+
+STATE Inval7:
+   RAS = 1;
+   CAS = 1;
+   "DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
+
+STATE Inval8:
+   RAS = 1;
+   CAS = 1;
+   "DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
+
+STATE Inval9:
+   RAS = 1;
+   CAS = 1;
+   "DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
+
+STATE Inval10:
+   RAS = 1;
+   CAS = 1;
+   "DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
+
+STATE Inval11:
+   RAS = 1;
+   CAS = 1;
+   "DRAM_WE = 1;
+   R_A_EN = 0;
+   C_A_EN = 0;
+
+   GOTO                   Idle;
+
 
 
 
@@ -498,14 +481,14 @@ TEST_VECTORS
   [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
   [   .C.,     0,      1,    1,   1  ] -> [     1,   1,       1,      0,      0,     0,     .X., .X., .X.,  .X., .X., .X. ];
 
-" Single read
-  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read0
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read1
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read2
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read3
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read4
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read5
-  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read6
+" Single Access
+  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access0
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access1
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access2
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access3
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access4
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access5
+  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access6
   [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
   [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
   [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
@@ -522,24 +505,24 @@ TEST_VECTORS
   [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
   [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
 
-" Consecutive reads
-  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read0
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read1
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read2
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read3
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read4
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read5
-  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read6
+" Consecutive Accesss
+  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access0
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access1
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access2
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access3
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access4
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access5
+  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access6
   [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
   [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
   [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle
-  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read0
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read1
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read2
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read3
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read4
-  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read5
-  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Read6
+  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access0
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      1,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access1
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access2
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   1,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access3
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access4
+  [   .C.,     0,      0,    1,   0  ] -> [     0,   0,       1,      0,      1,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access5
+  [   .C.,     0,      0,    1,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Access6
   [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
   [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0, .X., .X.,  .X., .X., .X. ]; "Pre-charge
   [   .C.,     0,      0,    0,   0  ] -> [     1,   1,       1,      0,      0,     0,       0,   0,   0,    0,   0,   0 ]; "Idle

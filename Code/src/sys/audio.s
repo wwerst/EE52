@@ -52,11 +52,17 @@ audio_init:
 .global call_start
 call_start:
 	mSTARTFNC
+    BL  update_tx
 	mRETURNFNC
 	
 .global call_halt
 call_halt:
 	mSTARTFNC
+    @Clear the counters in all DMA registers for audio
+    mSET_HREG	SSC0_RNCR, 0
+    mSET_HREG	SSC0_RCR, 0
+    mSET_HREG	SSC0_TNCR, 0
+    mSET_HREG	SSC0_TCR, 0
 	mRETURNFNC
 	
 .global update_rx
@@ -109,7 +115,7 @@ updateValue:
 .global	audioDemo
 audioDemo:
 	mSTARTFNC
-	
+loopAudioDemo:
 	Buf1_rx:
 	LDR		r0, =Buf1
 	BL	update_rx
@@ -155,6 +161,7 @@ Buf5_rx:
 	LDR 	r0,	=Buf2
 	BL	update_tx
 	
+    B   loopAudioDemo
 	mRETURNFNC
 	
 .data

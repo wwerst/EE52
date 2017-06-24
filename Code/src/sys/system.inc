@@ -26,7 +26,7 @@
 @ Stack definitions
 
 @ top of the stack, usually the end of the external SRAM
-	.equ	TOP_STACK, 0x00203000
+	.equ	TOP_STACK, 0x2001FFF0
    
 @ interrupt stack size (see chapter 13 of the manual)
         .equ	IRQ_STACK_SIZE, 128

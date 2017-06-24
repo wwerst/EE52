@@ -50,7 +50,7 @@ SRCDIR  = src
 OBJDIR  = obj
 LWIPDIR = $(SRCDIR)/lwip-1.3.2/src
 SYSDIR  = $(SRCDIR)/sys
-VOIPDIR = $(SRCDIR)/voip102
+VOIPDIR = $(SRCDIR)/voip101_archived
 
 
 # compiler flags (depend on whether compiling LwIP code or not)
@@ -64,7 +64,7 @@ VOIPDIR = $(SRCDIR)/voip102
 #         -g                    generate debugging output
 #
 
-BASICCFLAGS = -gdwarf-2 -Wall -march=armv4t -fno-builtin -mcpu=arm920t \
+BASICCFLAGS = -gdwarf-2 -Wall -march=armv4t -fno-builtin -mno-unaligned-access -mcpu=arm920t \
 	      -mlittle-endian -O0 -g
 
 
@@ -83,7 +83,7 @@ endif
 SYSINC = -I$(SYSDIR)
 
 CSINC  = -I"C:\mgg2\arm-none-eabi\include" \
-	 -L"C:\mgc\arm-none-eabi\lib"
+	 -L"C:\Program Files\CodeSourcery\Sourcery_CodeBench_Lite_for_ARM_EABI\arm-none-eabi\lib"
 
 # take care of whether LwIP code should be included or not
 ifdef  NO_LWIP
@@ -198,7 +198,7 @@ armvoip: .depend $(SYSOBJS) $(LWIPOBJS) $(VOIPOBJS)
 
 armstart: $(BOOTOBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -Ttext 0x000000 \
-		-L"C:\mgc\arm-none-eabi" \
+		-L"C:\Program Files\CodeSourcery\Sourcery_CodeBench_Lite_for_ARM_EABI\arm-none-eabi" \
 		-lgcc -nostartfiles -o armstart.elf \
 		$(addprefix $(OBJDIR)/,$(BOOTOBJS))
 	$(OBJDUMP) -d armstart.elf > armstart.txt
