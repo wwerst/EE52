@@ -1,0 +1,3 @@
+displayrenderer.o: src/voip101/displayrenderer.c
+char57.o: src/voip101/char57.c
+error.o: src/voip101/error.c src/voip101/error.h

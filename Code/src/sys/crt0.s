@@ -76,12 +76,7 @@ low_level_init:
 	BL display_init
     
 loop:
-	
-	BL	audioDemo
-	
-	
-    B loop
-    @BL		main			@ run the main function (no arguments)
+    BL		main			@ run the main function (no arguments)
 
     B		low_level_init		@ if main returns (shouldn't)
     					@   reinitialize everything and start

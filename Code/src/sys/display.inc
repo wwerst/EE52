@@ -121,11 +121,12 @@
 	.equ	NHD_COLL_PREF, 	0x00		@Prefix for lower column address set command
 
 	
-	
-	
-	
-	
-	
+@ASCII Definitions
+    .equ    ASCII_DOT,      0x2E        @ '.' character
+	.equ    ASCII_NULL,     0x00        @ ASCII null termination
+    
+@Miscellaneous definitions
+    .equ    NUM_OCTETS_IP,  4
 	
 	
 	

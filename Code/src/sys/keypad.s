@@ -132,11 +132,11 @@ KeyTable:
     .word 	KEY_8         	   	@5
     .word 	KEY_5		   		@6
     .word 	KEY_2		        @7
-    .word 	KEY_SET_GATEWAY		@8
+    .word 	KEY_0       		@8
     .word 	KEY_9         		@9
     .word 	KEY_6		        @10
     .word 	KEY_3		        @11
-    .word 	KEY_SEND			@12
+    .word 	KEY_SEND   			@12
     .word 	KEY_MEM_RECALL     	@13
     .word 	KEY_BACKSPACE		@14
     .word 	KEY_ESC				@15

@@ -5,6 +5,7 @@
 .include	"pio.inc"
 .include	"at91rm9200.inc"
 .include	"system.inc"
+.include    "interfac.inc"
 
 
 .arm
@@ -32,7 +33,7 @@ count:
 	BNE	count
 	mSET_HREG PIOA_SODR,	(1 << DISP_RST)
 	
-	LDR		r0,	=FALSE
+	LDR		r0,	=TRUE
 	BL		setBacklight
 	
 	@Enqueue all of the commands for initializing display now
@@ -88,14 +89,6 @@ count:
 	mSET_HREG	AIC_SMR13, AIC_SMR13_VAL
 	mSET_HREG	AIC_IECR, (1 << 13)
 	mSET_HREG	SPI_CR,	SPI_CR_EN
-	LDRB r0, =0xAA
-	LDR r1, =DispBuffer
-	LDR	r2, =(NUM_COLS*NUM_PAGES)
-fillDBuffer:
-	STRB r0, [r1, r2]
-	SUB r2, #1
-	CMP r2, #0
-	BNE	fillDBuffer
 	mSET_HREG	SPI_PTCR,	SPI_DMA_ENABLE	@Enable the DMA controller
 	mSET_HREG	SPI_IER, SPI_IER_VAL
 	mRETURNFNC
@@ -103,16 +96,114 @@ fillDBuffer:
 .global display_memory_addr
 display_memory_addr:
 	mSTARTFNC
+    
+    
+    BL redraw
 	mRETURNFNC
 
 .global display_IP
 display_IP:
 	mSTARTFNC
+    
+    @Attempt 2
+    PUSH {r4-r7}
+    @Get 4th octet
+    AND r1, r0, #0xFF
+    LSR r0, #8
+    PUSH {r1}
+    
+    @Get 3rd octet
+    AND r1, r0, #0xFF
+    LSR r0, #8
+    PUSH {r1}
+    
+    @Get 2nd octet
+    AND r1, r0, #0xFF
+    LSR r0, #8
+    PUSH {r1}
+    
+    @Get 1st octet
+    AND r1, r0, #0xFF
+    LSR r0, #8
+    PUSH {r1}
+    
+    LDR r4, =NUM_OCTETS_IP
+    LDR r5, =TextMessageR2          @String to write to
+    LDR r6, =0                      @ASCII string position
+OctetToASCII:
+    POP {r0}                        @Get next octet
+    MOV r7, r0                      @Store octet so can operate on it and recover later
+    
+    
+    @Get hundreds digit
+    LDR r1, =100
+    MOV r0, r7
+    BL  divide
+    LDR r1, =hexToASCII
+    LDRB    r0, [r1, r0]
+    STRB    r0, [r5, r6]
+    ADD     r6, #1
+    
+    @Remove hundreds digit value from octet
+    LDR r1, =100
+    MOV r0, r7
+    BL  mod
+    MOV r7, r0                      @r7 now contains original octet with hundreds digit 0
+    
+    @Get tens digit
+    LDR r1, =10
+    MOV r0, r7
+    BL  divide
+    LDR r1, =hexToASCII
+    LDRB    r0, [r1, r0]
+    STRB    r0, [r5, r6]
+    ADD     r6, #1
+    
+    @Remove tens digit value from octet
+    LDR r1, =10
+    MOV r0, r7
+    BL  mod
+    MOV r7, r0                      @r7 now contains original octet with hundreds and tens digit 0
+    
+    @Get ones digit
+    LDR r1, =hexToASCII
+    LDRB    r0, [r1, r0]
+    STRB    r0, [r5, r6]
+    ADD     r6, #1
+    
+    @Add '.' character to terminate string
+    LDRB    r0, =ASCII_DOT
+    STRB    r0, [r5, r6]
+    ADD     r6, #1
+    
+    SUB r4, #1
+    CMP r4, #0
+    BHI OctetToASCII
+    
+    @Add null termination to string
+    LDRB    r0, =ASCII_NULL
+    SUB     r6, #1                  @Left a '.' character at end, will overwrite with null.
+    STRB    r0, [r5, r6]
+    
+    
+    BL redraw
+    
+    POP {r4-r7}
 	mRETURNFNC
+
 
 .global display_status
 display_status:
 	mSTARTFNC
+    CMP     r0, #STATUS_IDLE
+    LDREQ     r1, =TextMessageR2
+    LDREQ     r2, =ASCII_NULL
+    STREQB    r2, [r1]
+    @Clear the 2nd row of display
+    LDR     r1, =StatusMessages
+    LDR     r1, [r1, r0, LSL #2]
+    mSTOREFROMREG r1, r0, TextMessageR1
+    BL  redraw
 	mRETURNFNC
 
 
@@ -120,15 +211,21 @@ display_status:
 .global redraw
 redraw:
 	mSTARTFNC
-	LDR r0, =DispBuffer
-	LDR r1, =(128*32)
-	LDR r2, =255
-	
-fillBuffer:
-	STRH r2, [r0,r1]
-	SUBS r1, #1
-	BPL	fillBuffer
-	
+    LDR r0, =DispBuffer
+    LDR r1, =(NUM_COLS*NUM_PAGES)
+    BL  clear_displaybuffer
+    
+	LDR r0, =TextMessageR1
+    LDR r0, [r0]
+	LDR r1, =DispBuffer
+    LDR r2, =NUM_COLS
+	BL render_displaybuffer
+    
+    LDR r0, =TextMessageR2
+	LDR r1, =(DispBuffer+NUM_COLS)
+    LDR r2, =NUM_COLS
+	BL render_displaybuffer
+    
 	mRETURNFNC
 
 	
@@ -373,12 +470,11 @@ endDisplayHandler:
 	mSET_HREG	SPI_PTCR,	SPI_DMA_ENABLE	@Enable the DMA controller
 	mRETURNINT
 
-
+    
 .data
 .balign 4
 
-TextMessage:
-	.word 0x00000000
+@Pointer to null-terminated ASCII string
 displayHandlerState:
 	.word STATE_COMMANDS
 displayUpdated:
@@ -386,15 +482,82 @@ displayUpdated:
 displayCurPage:
 	.word 0
 
+hexToASCII:
+    .byte   0x30
+    .byte   0x31
+    .byte   0x32
+    .byte   0x33
+    .byte   0x34
+    .byte   0x35
+    .byte   0x36
+    .byte   0x37
+    .byte   0x38
+    .byte   0x39
+    .byte   0x41
+    .byte   0x42
+    .byte   0x43
+    .byte   0x44
+    .byte   0x45
+    .byte   0x46
+    
+.balign 4
+TextMessageR1:
+    .word   St_IDLE_MES
+TextMessageR2:
+    .skip   22              @Max 21 characters on display plus null termination
+.balign 4
+StatusMessages:
+    .word   St_IDLE_MES
+    .word   St_OFFHOOK_MES
+    .word   St_RINGING_MES
+    .word   St_CONNECTING_MES
+    .word   St_CONNECTED_MES
+    .word   St_SET_IP_MES
+    .word   St_SET_SUBNET_MES
+    .word   St_SET_GATEWAY_MES
+    .word   St_MEM_SAVE_MES
+    .word   St_MEM_RECALL_MES
+    .word   St_RECALLED_MES
+    .word   St_ILLEGAL_MES
+
+St_IDLE_MES:
+    .asciz  "Idle"
+St_OFFHOOK_MES:
+    .asciz  "Off Hook"
+St_RINGING_MES:
+    .asciz  "Ringing"
+St_CONNECTING_MES:
+    .asciz  "Connecting"
+St_CONNECTED_MES:
+    .asciz  "Connected"
+St_SET_IP_MES:
+    .asciz  "Set IP"
+St_SET_SUBNET_MES:
+    .asciz  "Set Subnet"
+St_SET_GATEWAY_MES:
+    .asciz  "Set Gateway"
+St_MEM_SAVE_MES:
+    .asciz  "Memory Save"
+St_MEM_RECALL_MES:
+    .asciz  "Memory Recall"
+St_RECALLED_MES:
+    .asciz  "Recalled Message"
+St_ILLEGAL_MES:
+    .asciz  "Illegal Message"
+    
+
 CommandQueueSize:
 	.word 0x00000000
 ActiveCommandQueue:
 	.word CommandQueue1
+    
+
+
 CommandQueue1:
 	.skip	(COM_QUEUE_LENGTH)
 CommandQueue2:
 	.skip	(COM_QUEUE_LENGTH)
 DispBuffer:
 	.skip (NUM_COLS*NUM_PAGES)
-	
+.balign 4
 .end
