@@ -1,25 +1,36 @@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@                                                                            @
-@ crt0.s                                                                     @
-@                                                                            @
-@ Initialization file for EE52 ARM VoIP phone project.  It sets up the IRQ   @
-@ vector table, initializes the stacks for both the IRQ and System modes,    @
-@ sets up the Master Clock, all of the chip selects for external memories,   @
-@ and will eventually call all of the intialization functions for each       @
-@ hardware block.  Finally it invokes the main user interface code.          @
-@                                                                            @
-@                                                                            @
-@ Revision History:                                                          @
-@                                                                            @
-@   2008/02/02  Joseph Schmitz  Modified code from Arthur Chang to make it   @
-@                               available to the students.                   @
-@   2011/01/27  Joseph Schmitz  Split into crt0.s and boot.s.                @
-@   2011/01/31  Joseph Schmitz  Removed unused comments.                     @
-@   2012/01/24  Glen George     Updated comments, modified included files,   @
-@                               and cleaned up the code a little.            @
-@   2012/01/29  Glen George     Added comments explaining initialization.    @
-@                                                                            @
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@
+@
+@
+@
+@
+@
+@
+@
+@
+@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@ Description:
+@
+@
+@ Table of Contents:
+@   - audio_init:
+@   - call_start:
+@   - call_halt:
+@   - update_rx:
+@   - update_tx:
+@   - setVolume:
+@   - audioDemo:
+@
+@
+@
+@
+@
+@ Revision History:
+@ Name			Comment					Date
+@ Will Werst	Initial version			Some lonely night around 6/10/17
+@ Will Werst	Comment					October 2017
 
 .include    "at91rm9200.inc"
 .include    "system.inc"
@@ -34,9 +45,9 @@
 .global audio_init
 audio_init:
 	mSTARTFNC
-	mSET_HREG	PMC_PCER,	(1 << 14)
-	mSET_HREG	SSC0_CR,	SSC0_CR_VAL
-	mSET_HREG	SSC0_CMR,	SSC0_CMR_VAL
+	mSET_HREG	PMC_PCER,	(1 << 14)       @Enable the peripheral clock
+	mSET_HREG	SSC0_CR,	SSC0_CR_VAL     @Setup the serial controller
+	mSET_HREG	SSC0_CMR,	SSC0_CMR_VAL    
 	mSET_HREG	SSC0_RCMR,	SSC0_RCMR_VAL
 	mSET_HREG	SSC0_RFMR,	SSC0_RFMR_VAL
 	mSET_HREG	SSC0_TCMR,	SSC0_TCMR_VAL

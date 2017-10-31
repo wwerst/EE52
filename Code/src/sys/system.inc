@@ -1,16 +1,22 @@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@                                                                            @
-@ system.inc                                                                 @
-@                                                                            @
-@ Include file for the system hardware definitions for the EE/CS 52 VoIP     @
-@ phone project.  This file should contain all of the hardware specific      @
-@ definitions (chip select register values, control words, etc).             @
-@                                                                            @
-@ Revision History:                                                          @
-@                                                                            @
-@   2012/01/29  Glen George     Initial revision.                            @
-@                                                                            @
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@
+@
+@                                   system.inc
+@                       Contains general system-level definitions
+@                           and definitions used by system.s
+@
+@
+@
+@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@ Description: Defines system-level constants, like TRUE or FALSE, and
+@               also defines constants used by system.s
+@
+@ Revision History:
+@ Name			Comment					Date
+@ Will Werst	Initial version			Some lonely night around 6/10/17
+@ Will Werst	Comment					October 2017
 
 @ Memory definitions
 	.equ	SRAM_START,		0x20000000

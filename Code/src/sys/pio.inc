@@ -1,18 +1,26 @@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@                                                                            @
-@ pio.inc																	 @
-@                                                                            @
-@ Definitions for PIO configuration utility function                         @
-@                                                                            @
-@ Revision History:                                                          @
-@                                                                            @
-@   2017/06/22		Will Werst		Initial Revision						 @
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@
+@
+@                                   pio.inc
+@                       Contains definitions used by pio.s
+@
+@
+@
+@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@ Description: Defines register values used by the pio controller
+@                   for this project
+@
+@ Revision History:
+@ Name			Comment					Date
+@ Will Werst	Initial version			Some lonely night around 6/10/17
+@ Will Werst	Comment					October 2017
 
 @PIO Bank definitions
-	.equ	PIO_A,		0
-	.equ	PIO_B,		1
-	.equ	PIO_C,		2
+	.equ	PIO_A,		0           @Constant for specifying PIOA in config func
+	.equ	PIO_B,		1           @Constant for specifying PIOB in config func
+	.equ	PIO_C,		2           @Constant for specifying PIOA in config func
 	
 @PIO pin configuration definitions
 @	Bit use for defining configurations:

@@ -45,7 +45,7 @@ low_level_init:
 
 @ Stack and IRQ Initialization
 
-    LDR		r0, =TOP_STACK		@ get the location of the top of the stack
+    LDR		r0, =TOP_STACK		            @load address for top of the stack
 
     @ put the CPU in interrupt mode and set the stack pointer for this mode
     MSR		cpsr_c, #ARM_MODE_IRQ | I_BIT | F_BIT
@@ -70,13 +70,13 @@ low_level_init:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @  user initialization goes here  @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	BL init_system
-	BL keypad_init
-	BL audio_init
-	BL display_init
+	BL init_system                          @Initialize the system
+	BL keypad_init                          @Initialize the keypad
+	BL audio_init                           @Initialize the audio
+	BL display_init                         @Initialize the display
     
 loop:
-    @BL      audioDemo
+    @BL      audioDemo      @ Uncomment this line to run the audioDemo
     BL		main			@ run the main function (no arguments)
 
     B		low_level_init		@ if main returns (shouldn't)

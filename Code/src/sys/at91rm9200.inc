@@ -16,16 +16,16 @@
 
 
 @ DMA Definitions
-	.equ	DMA_RPR,			0x100
-	.equ	DMA_RCR,			0x104
-	.equ	DMA_TPR,			0x108
-	.equ	DMA_TCR,			0x10C
-	.equ	DMA_RNPR,			0x110
-	.equ	DMA_RNCR,			0x114
-	.equ	DMA_TNPR,			0x118
-	.equ	DMA_TNCR,			0x11C
-	.equ	DMA_PTCR,			0x120
-	.equ	DMA_PTSR,			0x124
+	.equ	DMA_RPR,			0x100			@ Receive Pointer Register
+	.equ	DMA_RCR,			0x104			@ Receive Counter Register
+	.equ	DMA_TPR,			0x108			@ Transmit Pointer Register
+	.equ	DMA_TCR,			0x10C			@ Transmit Counter Register
+	.equ	DMA_RNPR,			0x110			@ Receive Next Pointer Register
+	.equ	DMA_RNCR,			0x114			@ Receive Next Counter Register
+	.equ	DMA_TNPR,			0x118			@ Transmit Next Pointer Register
+	.equ	DMA_TNCR,			0x11C			@ Transmit Next Counter Register
+	.equ	DMA_PTCR,			0x120			@ Tranfer Control Register
+	.equ	DMA_PTSR,			0x124			@ Transfer Status Register
 
 
 @ System Mode Definitions
@@ -79,16 +79,16 @@
 @ Parallel I/O B Definintions
 
     .equ    PIOBBase,       0xFFFFF600          @ base address
-	.equ	PIOB_ASR,		PIOBBase + PIO_ASR
-	.equ	PIOB_PDR,		PIOBBase + PIO_PDR
-	.equ	PIOB_OER,		PIOBBase + PIO_OER
+	.equ	PIOB_ASR,		PIOBBase + PIO_ASR	@ Peripheral A Select Register
+	.equ	PIOB_PDR,		PIOBBase + PIO_PDR	@ Disable Register
+	.equ	PIOB_OER,		PIOBBase + PIO_OER	@ Output Enable Register
 
 @ Parallel I/O C Definintions
 
     .equ    PIOCBase,       0xFFFFF800          @ base address
     .equ    PIOC_PDSR,      PIOCBase + PIO_PDSR     @ PIO Pin Data Status Register
     .equ    PIOC_ISR,       PIOCBase + PIO_ISR     @ IRQ Status
-	.equ	PIOC_IER,		PIOCBase + PIO_IER
+	.equ	PIOC_IER,		PIOCBase + PIO_IER	@ Interrupt Enable Register
 
 @ Advanced Interrupt Ccontroller Definitions
 
@@ -151,41 +151,42 @@
     .equ    SSC0_SR,        SSC0Base + 0x40     @ Status 
     .equ    SSC0_IER,       SSC0Base + 0x44     @ Interrupt Enable
     .equ    SSC0_IDR,       SSC0Base + 0x48     @ Interrupt Disable
-	.equ	SSC0_RPR,		SSC0Base + DMA_RPR
-	.equ	SSC0_RCR,		SSC0Base + DMA_RCR
-	.equ	SSC0_TPR,		SSC0Base + DMA_TPR
-	.equ	SSC0_TCR,		SSC0Base + DMA_TCR
-	.equ	SSC0_RNPR,		SSC0Base + DMA_RNPR
-	.equ	SSC0_RNCR,		SSC0Base + DMA_RNCR
-	.equ	SSC0_TNPR,		SSC0Base + DMA_TNPR
-	.equ	SSC0_TNCR,		SSC0Base + DMA_TNCR
-	.equ	SSC0_PTCR,		SSC0Base + DMA_PTCR
-	.equ	SSC0_PTSR,		SSC0Base + DMA_PTSR
+	.equ	SSC0_RPR,		SSC0Base + DMA_RPR	@ Receive Pointer Register
+	.equ	SSC0_RCR,		SSC0Base + DMA_RCR	@ Receive Counter Register
+	.equ	SSC0_TPR,		SSC0Base + DMA_TPR	@ Transmit Pointer Register
+	.equ	SSC0_TCR,		SSC0Base + DMA_TCR	@ Transmit Counter Register
+	.equ	SSC0_RNPR,		SSC0Base + DMA_RNPR	@ Receive Next Pointer Register
+	.equ	SSC0_RNCR,		SSC0Base + DMA_RNCR	@ Receive Next Counter Register
+	.equ	SSC0_TNPR,		SSC0Base + DMA_TNPR	@ Transmit Next Pointer Register
+	.equ	SSC0_TNCR,		SSC0Base + DMA_TNCR	@ Transmit Next Counter Register
+	.equ	SSC0_PTCR,		SSC0Base + DMA_PTCR	@ Transfer Control Register
+	.equ	SSC0_PTSR,		SSC0Base + DMA_PTSR	@ Transfer Status Register
+	
 
 @ SPI Definitions
 	
 	.equ	SPIBase,		0xFFFE0000			@ base address
 	
-	.equ	SPI_CR,			SPIBase + 0x0
-	.equ	SPI_MR,			SPIBase + 0x4
-	.equ	SPI_RDR,		SPIBase + 0x8
-	.equ	SPI_TDR,		SPIBase + 0xC
-	.equ	SPI_SR,			SPIBase + 0x10
-	.equ	SPI_IER,		SPIBase + 0x14
-	.equ	SPI_IDR,		SPIBase + 0x18
-	.equ	SPI_IMR,		SPIBase + 0x1C
-	.equ	SPI_CSR0,		SPIBase + 0x30
+	.equ	SPI_CR,			SPIBase + 0x0		@ SPI Control Register
+	.equ	SPI_MR,			SPIBase + 0x4		@ SPI Mode Register
+	.equ	SPI_RDR,		SPIBase + 0x8		@ Receive Data Register
+	.equ	SPI_TDR,		SPIBase + 0xC		@ Transmit Data Register
+	.equ	SPI_SR,			SPIBase + 0x10		@ Status Register
+	.equ	SPI_IER,		SPIBase + 0x14		@ Interrupt Enable Register
+	.equ	SPI_IDR,		SPIBase + 0x18		@ Interrupt Disable Register
+	.equ	SPI_IMR,		SPIBase + 0x1C		@ Interrupt Mask Register
+	.equ	SPI_CSR0,		SPIBase + 0x30		@ Chip Select 0 Register
 	
-	.equ	SPI_RPR,		SPIBase + DMA_RPR
-	.equ	SPI_RCR,		SPIBase + DMA_RCR
-	.equ	SPI_TPR,		SPIBase + DMA_TPR
-	.equ	SPI_TCR,		SPIBase + DMA_TCR
-	.equ	SPI_RNPR,		SPIBase + DMA_RNPR
-	.equ	SPI_RNCR,		SPIBase + DMA_RNCR
-	.equ	SPI_TNPR,		SPIBase + DMA_TNPR
-	.equ	SPI_TNCR,		SPIBase + DMA_TNCR
-	.equ	SPI_PTCR,		SPIBase + DMA_PTCR
-	.equ	SPI_PTSR,		SPIBase + DMA_PTSR
+	.equ	SPI_RPR,		SPIBase + DMA_RPR	@ Receive Pointer Register
+	.equ	SPI_RCR,		SPIBase + DMA_RCR	@ Receive Counter Register
+	.equ	SPI_TPR,		SPIBase + DMA_TPR	@ Transmit Pointer Register
+	.equ	SPI_TCR,		SPIBase + DMA_TCR	@ Transmit Counter Register
+	.equ	SPI_RNPR,		SPIBase + DMA_RNPR	@ Receive Next Pointer Register
+	.equ	SPI_RNCR,		SPIBase + DMA_RNCR	@ Receive Next Counter Register
+	.equ	SPI_TNPR,		SPIBase + DMA_TNPR	@ Transmit Next Pointer Register
+	.equ	SPI_TNCR,		SPIBase + DMA_TNCR	@ Transmit Next Counter Register
+	.equ	SPI_PTCR,		SPIBase + DMA_PTCR	@ Transfer Control Register
+	.equ	SPI_PTSR,		SPIBase + DMA_PTSR	@ Transfer Status Register
 	
 	
 @ System Timer Definitions
@@ -201,7 +202,7 @@
 
 @ Real Time Clock Definitions
 	
-	.equ	RTCBase,		0xFFFFFE00			@
+	.equ	RTCBase,		0xFFFFFE00			@ base address
 	.equ	RTC_SR,			RTCBase + 0x18		@ Status Register
 
 @ Timer Counter 0 Definitions

@@ -1,4 +1,20 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@
+@
+@                                   macro.inc
+@                   Defines various macros used throughout the code base
+@
+@
+@
+@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+@ Description: Defines register values used by the audio system.
+@
+@ Revision History:
+@ Name			Comment					Date
+@ Will Werst	Initial version			Some lonely night around 6/10/17
+@ Will Werst	Comment					October 2017
 
 @Macro for setting Hardware register at destination with value val
 @Registers modified: r0, r1

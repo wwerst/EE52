@@ -1,21 +1,28 @@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@                                                                            @
-@ display.inc                                                                @
-@                                                                            @
-@                                                                            @
-@ Revision History:                                                          @
-@                                                                            @
-@   2017/06/18  Glen George     Initial revision.                            @
-@                                                                            @
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@
+@
+@                                   display.inc
+@                       Contains definitions used by display.s
+@
+@
+@
+@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+@ Description: Defines register values used by the NHDC12832 Display driver code
+@
+@ Revision History:
+@ Name			Comment					Date
+@ Will Werst	Initial version			Some lonely night around 6/10/17
+@ Will Werst	Comment					October 2017
 
 @Pin definitions
-	.equ	DISP_MOSI,	1
-	.equ	DISP_SPCK,	2
-	.equ	DISP_CS,	3
-	.equ	DISP_A0,	4
-	.equ	DISP_BCKLIGHT, 5
-	.equ	DISP_RST,	6
+	.equ	DISP_MOSI,	1                       @MOSI pin is A1
+	.equ	DISP_SPCK,	2                       @Clock pin is A2
+	.equ	DISP_CS,	3                       @Chip Select pin is A3
+	.equ	DISP_A0,	4                       @Mode select pin is A4
+	.equ	DISP_BCKLIGHT, 5                    @Backlight pin is A5
+	.equ	DISP_RST,	6                       @Reset pins is A6
 	
 @SPI Status register bit definitions
 	.equ	SPI_SR_TXBUFE,	0x80

@@ -9,14 +9,17 @@
 @/****************************************************************************/
 
 @   This file contains the constants for interfacing between the C code and
-@   the assembly code/hardware.  This is a sample interface file to allow test
-@   compilation and linking of the code.
+@   the assembly code/hardware.
 
 
 @   Revision History:
-@      6/3/06   Glen George       Initial revision.
-@      6/7/06   Glen George       Added ETHER_INTF definition.
-@      3/8/11   Glen George       Added MAC_ADDR_H and MAC_ADDR_L definitions.
+@   Name        Comment                         Date
+@   Glen George Initial revision.               6/3/06
+@   Glen George Added ETHER_INTF definition.    6/7/06
+@   Glen George Added MAC_ADDR_H and            3/8/11
+@                   MAC_ADDR_L definitions.
+@   Will Werst  Changed values to match         Some lonely night around 6/10/17
+@                   my specification
 
 
         .equ  MEMORY_SIZE,     32
