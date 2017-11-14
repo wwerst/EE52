@@ -1,3 +1,4 @@
+@ Done
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @                                                                            @
 @ at91rm9200.inc                                                             @
@@ -86,8 +87,8 @@
 @ Parallel I/O C Definintions
 
     .equ    PIOCBase,       0xFFFFF800          @ base address
-    .equ    PIOC_PDSR,      PIOCBase + PIO_PDSR     @ PIO Pin Data Status Register
-    .equ    PIOC_ISR,       PIOCBase + PIO_ISR     @ IRQ Status
+    .equ    PIOC_PDSR,      PIOCBase + PIO_PDSR @ PIO Pin Data Status Register
+    .equ    PIOC_ISR,       PIOCBase + PIO_ISR  @ IRQ Status
 	.equ	PIOC_IER,		PIOCBase + PIO_IER	@ Interrupt Enable Register
 
 @ Advanced Interrupt Ccontroller Definitions
