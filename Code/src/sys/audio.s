@@ -38,7 +38,7 @@ audio_init:
 	mSTARTFNC
 	mSET_HREG	PMC_PCER,	(1 << 14)       @Enable the peripheral clock
 	mSET_HREG	SSC0_CR,	SSC0_CR_VAL     @Setup the serial controller
-	mSET_HREG	SSC0_CMR,	SSC0_CMR_VAL    
+	mSET_HREG	SSC0_CMR,	SSC0_CMR_VAL    @
 	mSET_HREG	SSC0_RCMR,	SSC0_RCMR_VAL
 	mSET_HREG	SSC0_RFMR,	SSC0_RFMR_VAL
 	mSET_HREG	SSC0_TCMR,	SSC0_TCMR_VAL
