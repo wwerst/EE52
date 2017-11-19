@@ -38,45 +38,50 @@ audio_init:
 	mSTARTFNC
 	mSET_HREG	PMC_PCER,	(1 << 14)       @Enable the peripheral clock
 	mSET_HREG	SSC0_CR,	SSC0_CR_VAL     @Setup the serial controller
-	mSET_HREG	SSC0_CMR,	SSC0_CMR_VAL    @
-	mSET_HREG	SSC0_RCMR,	SSC0_RCMR_VAL
-	mSET_HREG	SSC0_RFMR,	SSC0_RFMR_VAL
-	mSET_HREG	SSC0_TCMR,	SSC0_TCMR_VAL
-	mSET_HREG	SSC0_TFMR,	SSC0_TFMR_VAL
-	mSET_HREG	PIOB_ASR,	0xF
-	mSET_HREG	PIOB_PDR,	0xF
-	mSET_HREG	PIOB_OER,	0xF
-	mSET_HREG	SSC0_CR,	0x00000101
-	mSET_HREG	SSC0_PTCR,	0x00000101
+	mSET_HREG	SSC0_CMR,	SSC0_CMR_VAL    @Setup the serial clock rate
+	mSET_HREG	SSC0_RCMR,	SSC0_RCMR_VAL   @Setup receive clock mode
+	mSET_HREG	SSC0_RFMR,	SSC0_RFMR_VAL   @Setup receive frame mode
+	mSET_HREG	SSC0_TCMR,	SSC0_TCMR_VAL   @Setup transmit clock mode
+	mSET_HREG	SSC0_TFMR,	SSC0_TFMR_VAL   @Setup transmit frame mode
+	mSET_HREG	PIOB_ASR,	0xF             @Setup serial output pins
+	mSET_HREG	PIOB_PDR,	0xF             @Setup serial output pins
+	mSET_HREG	PIOB_OER,	0xF             @Setup serial output pin
+	mSET_HREG	SSC0_CR,	0x00000101      @Enable serial
+	mSET_HREG	SSC0_PTCR,	0x00000101      @Enable DMA
 	mRETURNFNC
 	
 
 .global call_start
 call_start:
-	mSTARTFNC
+	mSTARTFNC                               @Call start function macro
     BL  update_tx
-	mRETURNFNC
+	mRETURNFNC                              @Call return from function macro
 	
 .global call_halt
 call_halt:
-	mSTARTFNC
+	mSTARTFNC                               @Call start function macro
     @Clear the counters in all DMA registers for audio
-    mSET_HREG	SSC0_RNCR, 0
-    mSET_HREG	SSC0_RCR, 0
-    mSET_HREG	SSC0_TNCR, 0
-    mSET_HREG	SSC0_TCR, 0
-	mRETURNFNC
+    mSET_HREG	SSC0_RNCR, 0                @Clear the counter register for the
+                                            @next DMA buffer receive
+    mSET_HREG	SSC0_RCR, 0                 @Clear the counter register for the
+                                            @buffer currently being received
+    mSET_HREG	SSC0_TNCR, 0                @Clear the counter register for the
+                                            @next DMA buffer transmit
+    mSET_HREG	SSC0_TCR, 0                 @Clear the counter register for the
+                                            @buffer currently being transmitted
+	mRETURNFNC                              @Call return from function macro
 	
 .global update_rx
 update_rx:
-	mSTARTFNC
-	mLOADTOREG	r1,	SSC0_RNCR
+	mSTARTFNC                           @Call start function macro
+	mLOADTOREG	r1,	SSC0_RNCR           @Load the length of the next receive
+                                        @buffer currently queued up
 	CMP		r1,		#0					@Check if next receive buffer is empty
 	LDRNE	r1,		=FALSE				@If memory is not empty
 	BNE		endUpdate_RX				@return false since new buffer not needed
-	@BEQ	rx_empty
+	@BEQ	rx_empty                    @Call return function macro
 rx_empty:
-	mSTOREFROMREG	r0,	r1,	SSC0_RNPR
+	mSTOREFROMREG	r0,	r1,	SSC0_RNPR   @
 	mSET_HREG	SSC0_RNCR,	(AUDIO_BUFLEN /2) - 1
 	LDR		r0,		=TRUE
 endUpdate_RX:
