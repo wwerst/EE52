@@ -78,12 +78,16 @@ update_rx:
                                         @buffer currently queued up
 	CMP		r1,		#0					@Check if next receive buffer is empty
 	LDRNE	r1,		=FALSE				@If memory is not empty
+                                        @Post-demo comment: I'm pretty sure this
+                                        @should have been r0, not sure why this
+                                        @worked
 	BNE		endUpdate_RX				@return false since new buffer not needed
 	@BEQ	rx_empty                    @Call return function macro
 rx_empty:
-	mSTOREFROMREG	r0,	r1,	SSC0_RNPR   @
-	mSET_HREG	SSC0_RNCR,	(AUDIO_BUFLEN /2) - 1
-	LDR		r0,		=TRUE
+	mSTOREFROMREG	r0,	r1,	SSC0_RNPR   @Store r0 (next pointer) into next
+                                        @pointer register
+	mSET_HREG	SSC0_RNCR,	(AUDIO_BUFLEN /2) - 1 @Store buffer length in half-words
+	LDR		r0,		=TRUE               @Return success
 endUpdate_RX:
 	mRETURNFNC
 	
@@ -93,17 +97,21 @@ update_tx:
 	mLOADTOREG	r1,	SSC0_TNCR
 	CMP		r1,		#0					@Check if next transmit buffer is empty
 	LDRNE	r1,		=FALSE				@If memory is not empty
+                                        @Post-demo comment: I'm pretty sure this
+                                        @should have been r0, not sure why this
+                                        @worked
 	BNE		endUpdate_TX				@return false since new buffer not needed
 	@BEQ	tx_empty
 tx_empty:
-	PUSH	{r0-r3}
-	LDR		r1,	=(AUDIO_BUFLEN -2)
-	LDR		r2,	=AUDIO_VOLUME
-	BL		setVolume
-	POP		{r0-r3}
-	mSTOREFROMREG	r0,	r1,	SSC0_TNPR
-	mSET_HREG	SSC0_TNCR,	(AUDIO_BUFLEN / 2) - 1
-	LDR		r0,		=TRUE
+	PUSH	{r0-r3}                     @Store registers to free up for temp
+	LDR		r1,	=(AUDIO_BUFLEN -2)      @Load buffer length
+	LDR		r2,	=AUDIO_VOLUME           @Load the volume setpoint
+	BL		setVolume                   @Set volume
+	POP		{r0-r3}                     @Restore register
+	mSTOREFROMREG	r0,	r1,	SSC0_TNPR   @Save next transmit register
+	mSET_HREG	SSC0_TNCR,	(AUDIO_BUFLEN / 2) - 1 @Save length of next transmit
+                                        @Register in half-words
+	LDR		r0,		=TRUE               @Return true
 endUpdate_TX:
 	mRETURNFNC
 
@@ -111,14 +119,16 @@ endUpdate_TX:
 setVolume:
 	mSTARTFNC
 updateValue:
-	LDRH r3, [r0,r1]
-	ORR	 r3, r3, r2
-	STRH r3, [r0,r1]
-	SUB r1, #2
-	CMP r1, #0
-	BGE updateValue
-	mRETURNFNC
+	LDRH r3, [r0,r1]               @Get byte of audio
+	ORR	 r3, r3, r2                @Mask out the high bits determined by volume
+	STRH r3, [r0,r1]               @Store byte of audio
+	SUB r1, #2                     @Decrement to next byte
+	CMP r1, #0                     @Check if at last byte
+	BGE updateValue                @If not, continue
+	mRETURNFNC                     @Return
 
+
+@Demo function to loopback audio with delay
 .global	audioDemo
 audioDemo:
 	mSTARTFNC
