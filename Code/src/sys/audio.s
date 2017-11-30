@@ -1,3 +1,5 @@
+@done
+@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @
 @
@@ -22,6 +24,7 @@
 @ Name			Comment					Date
 @ Will Werst	Initial version			Some lonely night around 6/10/17
 @ Will Werst	Comment					October 2017
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 .include    "at91rm9200.inc"
 .include    "system.inc"
@@ -32,6 +35,47 @@
 
 .text
 .arm
+
+
+
+@ audio_init
+@
+@ Description: Call to initialize everything in this file
+@
+@ Operational Description: Initializes the registers to the
+@                          initialization values for this project
+@
+@ Arguments: None
+@
+@ Return values: None
+@
+@ Local variables: None
+@
+@ Shared variables: None       
+@
+@ Global Variables: None
+@
+@ Inputs: SSC0 (audio serial communication) - initialized
+@
+@ Outputs: SSC0 (audio serial communication) - initialized
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
 
 .global audio_init
 audio_init:
@@ -51,12 +95,97 @@ audio_init:
 	mRETURNFNC
 	
 
+@ call_start
+@
+@ Description: Initializes a call with the initial receive buffer pointer (r0)
+@
+@ Operational Description: Passes the initial buffer pointer (r0) to the 
+@                          function that handles adding new buffers
+@                          to the system.
+@
+@ Arguments: r0 - pointer to first buffer in DRAM
+@
+@ Return values: None
+@
+@ Local variables: None
+@
+@ Shared variables: None       
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: update_rx should be called, not update_tx. This ends up being
+@             fine for long term operation because only the first buffer
+@             played is affected, which is why it worked in the demo.
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
+
 .global call_start
 call_start:
 	mSTARTFNC                               @Call start function macro
     BL  update_tx
 	mRETURNFNC                              @Call return from function macro
 	
+
+@ call_halt
+@
+@ Description: Halts the current call regardless of the state of buffers.
+@              If the call is already halted, this has no effect.
+@
+@ Operational Description: The counter registers for the DMA engine are
+@                          cleared. This will stop any memory accesses
+@                          from occurring through the DMA and into the
+@                          buffers.
+@
+@ Arguments: None
+@
+@ Return values: None
+@
+@ Local variables: None
+@
+@ Shared variables: None       
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: SSC0 - the counter registers for DMA are cleared
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
+
 .global call_halt
 call_halt:
 	mSTARTFNC                               @Call start function macro
@@ -70,7 +199,52 @@ call_halt:
     mSET_HREG	SSC0_TCR, 0                 @Clear the counter register for the
                                             @buffer currently being transmitted
 	mRETURNFNC                              @Call return from function macro
-	
+
+
+@ update_rx
+@
+@ Description: Takes a pointer, and either uses it and returns true, or
+@              discards it and returns false.
+@
+@ Operational Description: The next counter register is pulled from
+@                          the DMA engine and compared to 0, to see
+@                          if the next register in DMA is empty. If
+@                          it is, the new register is added to the
+@                          DMA engine, and true is returned. Else,
+@                          false is returned.
+@
+@ Arguments: r0 - pointer to new record buffer
+@
+@ Return values: bool - true if passed buffer is used, else false.
+@
+@ Local variables: 
+@
+@ Shared variables:           
+@
+@ Global Variables: 
+@
+@ Inputs: SSC0 - sets up DMA receive
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
+
 .global update_rx
 update_rx:
 	mSTARTFNC                           @Call start function macro
@@ -91,6 +265,51 @@ rx_empty:
 endUpdate_RX:
 	mRETURNFNC
 	
+
+@ update_tx
+@
+@ Description: Takes a transmit buffer pointer, and either uses it and returns 
+@              true, or discards it and returns false.
+@
+@ Operational Description: The next counter register is pulled from
+@                          the DMA engine and compared to 0, to see
+@                          if the next register in DMA is empty. If
+@                          it is, the new register is added to the
+@                          DMA engine, and true is returned. Else,
+@                          false is returned.
+@
+@ Arguments: r0 - pointer to new transmit buffer
+@
+@ Return values: bool - true if passed buffer is used, else false.
+@
+@ Local variables: None
+@
+@ Shared variables: None       
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: SSC0 - sets up DMA transmit
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
+
 .global update_tx
 update_tx:
 	mSTARTFNC
@@ -115,7 +334,50 @@ tx_empty:
 endUpdate_TX:
 	mRETURNFNC
 
-	
+
+@ setVolume
+@
+@ Description: Goes through the transmit buffer and scales each byte to reduce
+@              the perceived volume
+@
+@ Operational Description: The transmit buffer is looped over in reverse, and
+@                          each byte is OR-masked with the volume, and saved back
+@                          in-place in the buffer.
+@                       
+@
+@ Arguments: r0 - pointer to transmit buffer to set volume for
+@            r1 - length of transmit buffer in bytes
+@            r2 - volume, encoded as the bits to preserve in each byte
+@ Return values: None 
+@
+@ Local variables: None
+@
+@ Shared variables: None       
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
+
 setVolume:
 	mSTARTFNC
 updateValue:
@@ -128,7 +390,50 @@ updateValue:
 	mRETURNFNC                     @Return
 
 
-@Demo function to loopback audio with delay
+@ audioDemo
+@
+@ Description: Audio is looped back from the microphone to the speaker
+@              continuously
+@
+@ Operational Description: Five buffers are looped through, starting with
+@                          receive as buffer 1 and transmit as buffer 3.
+@                          The loop is unrolled, and the loop has no exit
+@                          condition.
+@
+@ Arguments: None
+@
+@ Return values: None (never returns)
+@
+@ Local variables: Buf[1..5] - buffers for storing audio data
+@
+@ Shared variables: None
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: Circular buffer
+@
+@ Limitations: Loop is unrolled, and the buffers are defined separately
+@              rather than as an array. Changing buffer count is not
+@              trivial.
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
+
 .global	audioDemo
 audioDemo:
 	mSTARTFNC
@@ -184,15 +489,15 @@ Buf5_rx:
 .data
 
 .balign	4
-Buf1:
+Buf1:           @Audio buffer 1
 	.skip 256
-Buf2:
+Buf2:           @Audio buffer 2
 	.skip 256
-Buf3:
+Buf3:           @Audio buffer 3
 	.skip 256
-Buf4:
+Buf4:           @Audio buffer 4
 	.skip 256
-Buf5:
+Buf5:           @Audio buffer 5
 	.skip 256
 	
 .end

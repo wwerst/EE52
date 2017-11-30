@@ -1,3 +1,4 @@
+@Done
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @                                                                            @
 @ crt0.s                                                                     @
@@ -36,6 +37,50 @@
 
 
 
+@ low_level_init
+@
+@ Description: Initializes the ARM processor modes, calls the 
+@              initialization functions for the different parts
+@              of the code, and then calls the main loop.
+@
+@ Operational Description: Initializes arm processor modes,
+@                          then goes through and calls a sequence
+@                          of initialization functions for various
+@                          files. Finally, the main loop is called
+@                          (or for the audio demo, audio_demo is called)
+@
+@ Arguments: None
+@
+@ Return values: never returns
+@
+@ Local variables: None
+@
+@ Shared variables: None       
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
+
 .global low_level_init
 low_level_init:
 	
@@ -70,17 +115,17 @@ low_level_init:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @  user initialization goes here  @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	BL init_system                          @Initialize the system
-	BL keypad_init                          @Initialize the keypad
-	BL audio_init                           @Initialize the audio
-	BL display_init                         @Initialize the display
+	BL init_system                          @ Initialize the system
+	BL keypad_init                          @ Initialize the keypad
+	BL audio_init                           @ Initialize the audio
+	BL display_init                         @ Initialize the display
     
 loop:
-    @BL      audioDemo      @ Uncomment this line to run the audioDemo
-    BL		main			@ run the main function (no arguments)
+    @BL      audioDemo               @ Uncomment this line to run the audioDemo
+    BL		main			         @ run the main function (no arguments)
 
-    B		low_level_init		@ if main returns (shouldn't)
-    					@   reinitialize everything and start
-					@   over
+    B		low_level_init		     @ if main returns (shouldn't)
+    					             @ reinitialize everything and start
+					                 @ over
 					
 .end

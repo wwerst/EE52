@@ -1,24 +1,21 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @
 @
-@
-@
-@
-@
-@
-@
-@
-@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-@ Description:
-@
+@ Display.s
+@ 
+@ Description: Contains code for controlling the display component of
+@ the EE52 VoIP Project
 @
 @ Table of Contents:
-@ 
-@
-@
-@
+@   - audio_init: Call to initialize this code file before
+@                   calling anything else
+@   - call_start: Call to initiate a call
+@   - call_halt:  Call to halt a call that has been started with call_start
+@   - update_rx:  Handler used to update the receive buffer
+@   - update_tx:  Handler used to update the transmit buffer
+@   - setVolume:  Call to set the volume
+@   - audioDemo:  A test function used to demo the audio code on its own,
+@                 by looping the audio input back to the audio output.
 @
 @
 @ Revision History:
@@ -36,6 +33,44 @@
 
 .arm
 .text
+
+@ display_init
+@
+@ Description: 
+@
+@ Operational Description: 
+@
+@ Arguments: None
+@
+@ Return values: None
+@
+@ Local variables: None
+@
+@ Shared variables: None       
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
 
 .global display_init
 display_init:
@@ -119,6 +154,44 @@ count:
 	mSET_HREG	SPI_IER, SPI_IER_VAL
 	mRETURNFNC
 
+@ display_memory_addr
+@
+@ Description: 
+@
+@ Operational Description: 
+@
+@ Arguments: None
+@
+@ Return values: None
+@
+@ Local variables: None
+@
+@ Shared variables: None       
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
+
 .global display_memory_addr
 display_memory_addr:
 	mSTARTFNC
@@ -159,6 +232,44 @@ display_memory_addr:
     
     POP {r4-r7}
     mRETURNFNC
+
+@ display_IP
+@
+@ Description: 
+@
+@ Operational Description: 
+@
+@ Arguments: None
+@
+@ Return values: None
+@
+@ Local variables: None
+@
+@ Shared variables: None       
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
 
 .global display_IP
 display_IP:
@@ -250,6 +361,44 @@ OctetToASCII:
 	mRETURNFNC
 
 
+@ display_status
+@
+@ Description: 
+@
+@ Operational Description: 
+@
+@ Arguments: None
+@
+@ Return values: None
+@
+@ Local variables: None
+@
+@ Shared variables: None       
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
+
 .global display_status
 display_status:
 	mSTARTFNC
@@ -265,6 +414,43 @@ display_status:
 	mRETURNFNC
 
 
+@ redraw
+@
+@ Description: 
+@
+@ Operational Description: 
+@
+@ Arguments: None
+@
+@ Return values: None
+@
+@ Local variables: None
+@
+@ Shared variables: None       
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None 
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
 
 .global redraw
 redraw:
@@ -540,7 +726,7 @@ displayUpdated:
 displayCurPage:
 	.word 0
 
-hexToASCII:
+hexToASCII:					@Table to map hex bytes to ASCII characters
     .byte   0x30
     .byte   0x31
     .byte   0x32

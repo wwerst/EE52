@@ -10,7 +10,17 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 @ Description: Defines register values used by the bootloader.
+@Done
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @
+@
+@                                   Boot.inc
+@                       Contains definitions used by boot.s
+@
+@
+@
+@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Revision History:
 @ Name			Comment					Date
 @ Will Werst	Initial version			Some lonely night around 6/10/17
@@ -20,24 +30,24 @@
 
 
 	@ SRAM
-	@ RWHOLD,RWSETUP 	0x00------
-	@ ACSS				0x--00----
-	@					0x----30--
-	@ 1 Wait state		0x------81
+	@ RWHOLD,RWSETUP 	0x00------		1/2 cycle setup and hold
+	@ ACSS				0x--00----		Standard chip select waveform
+	@					0x----30--		connected to 16-bit device
+	@ 1 Wait state		0x------81		Enable 1 wait state
     .equ SMC_CSR1_VAL,	0x00003081
 	
     @ DRAM
-	@ RWHOLD,RWSETUP 	0x20------ 2 RWHOLD
-	@ ACSS				0x--00----
-	@ 8 bit				0x----40--
-	@ 10 Wait state		0x------86
+	@ RWHOLD,RWSETUP 	0x30------ 		3 RWHOLD
+	@ ACSS				0x--00----		Standard chip select waveform
+	@ 8 bit				0x----43--		Connected to 8-bit device with 3 clock cycles data float
+	@ 7 Wait state		0x------87		Enable 7 wait state
     .equ SMC_CSR2_VAL, 	0x30004387
 	
 	@ ROM
-	@ RWHOLD,RWSETUP 	0x00------
-	@ ACSS				0x--00----
-	@					0x----40--
-	@ 3 Wait state		0x------83
+	@ RWHOLD,RWSETUP 	0x00------		1/2 cycle setup and hold
+	@ ACSS				0x--00----		Standard chip select waveform
+	@					0x----40--		Connected to 8-bit device
+	@ 3 Wait state		0x------83		Enable 3 wait state
     .equ SMC_CSR7_VAL, 	0x00004083
 	
 	
