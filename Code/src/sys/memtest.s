@@ -1,16 +1,12 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @
+@ Memtest.s
+@ Contains code for testing the SRAM and DRAM
+@ This code is normally ran before copying the system from ROM to SRAM or DRAM
 @
 @
 @
 @
-@
-@
-@
-@
-@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 @ Description:
 @
 @

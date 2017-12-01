@@ -12,8 +12,9 @@
    the start of the display buffer to write to, and an ASCII string to render there
 
    Revision History
-      5/27/08  Glen George       Initial revision (from 3/10/95 version of
-                                 char57.asm).
+      5/27/08  Glen George       Initial revision of ascii_patterns(from 
+                                 3/10/95 version of char57.asm).
+      6/10/17  Will Werst        Initial code
 */
 
 const unsigned char ascii_char_patterns[] = {
@@ -160,12 +161,18 @@ const unsigned char ascii_char_patterns[] = {
 /*
    render_displaybuffer
 
-   Description:      
+   Description: Renders the passed string to the passed buffer.
 
-   Operation:        
+   Operation: The buffer is a sequence of bytes that specify
+              how each column of pixels should be set, with each bit
+              in a byte setting one pixel in a column. The code goes
+              through all the columns, and picks out the appropriate
+              bits from the ascii_char_patterns.  
 
-   Arguments:        
-   Return Value:     
+   Arguments: *string - pointer to start of null-terminated string
+              *buffer - pointer to start of display buffer
+              length - length of string
+   Return Value: None
 
    Input:            None.
    Output:           None.

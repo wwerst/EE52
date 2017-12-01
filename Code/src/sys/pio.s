@@ -1,16 +1,8 @@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @
+@ Pio.s
+@ Contains code for configuring the PIO pins
 @
-@
-@
-@
-@
-@
-@
-@
-@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 @ Description:
 @
 @
@@ -49,32 +41,32 @@
 @				r1 - PIO bank
 @				r2 - configType
 @
-@ Return values: 
+@ Return values: None
 @
 @ Local variables: 	r0 - PIO pin number bit is 1
 @					r1 - PIO base offset for given PIO bank
 @
-@ Shared variables: 
+@ Shared variables: None
 @
-@ Global Variables: 
+@ Global Variables: None
 @
-@ Inputs: 
+@ Inputs: Interfaces with PIO controller
 @
-@ Outputs: 
+@ Outputs: Interfaces with PIO controller
 @
-@ Error Handling: 
+@ Error Handling: None
 @
-@ Algorithms: 
+@ Algorithms: None
 @
-@ Data Structures: 
+@ Data Structures: None
 @
-@ Limitations: 
+@ Limitations: None
 @
-@ Registers Changed: 
+@ Registers Changed (besides ARM convention r0-r3): None
 @
-@ Known Bugs: 
+@ Known Bugs: None
 @
-@ Special notes: 
+@ Special notes: None
 @
 @ Revision History:
 @ Name             Comment              Date

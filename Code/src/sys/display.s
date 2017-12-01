@@ -2,20 +2,21 @@
 @
 @
 @ Display.s
-@ 
+@
 @ Description: Contains code for controlling the display component of
 @ the EE52 VoIP Project
 @
 @ Table of Contents:
-@   - audio_init: Call to initialize this code file before
-@                   calling anything else
-@   - call_start: Call to initiate a call
-@   - call_halt:  Call to halt a call that has been started with call_start
-@   - update_rx:  Handler used to update the receive buffer
-@   - update_tx:  Handler used to update the transmit buffer
-@   - setVolume:  Call to set the volume
-@   - audioDemo:  A test function used to demo the audio code on its own,
-@                 by looping the audio input back to the audio output.
+@   - display_init: Call to initialize the shared variables and peripherals
+@					for interfacing with the C12832 Display
+@	- display_memory_addr: Displays the passed memory address on display
+@	- display_IP: Displays the passed IP address on display
+@	- display_status: Displays the passed status on display
+@	- redraw: Redraws the display buffer
+@	- queueDisplayCommand: Queues a command to send to the display
+@	- setBacklight: Sets the backlight on or off
+@	- displayHandler: Handles setting up display DMA stream and also
+@					  sending commands to display
 @
 @
 @ Revision History:
@@ -36,7 +37,7 @@
 
 @ display_init
 @
-@ Description: 
+@ Description: Initializes the display
 @
 @ Operational Description: 
 @
@@ -156,7 +157,7 @@ count:
 
 @ display_memory_addr
 @
-@ Description: 
+@ Description: Displays the passed memory address
 @
 @ Operational Description: 
 @
