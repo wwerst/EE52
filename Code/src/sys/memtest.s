@@ -1,16 +1,17 @@
+@Done
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @
 @ Memtest.s
-@ Contains code for testing the SRAM and DRAM
-@ This code is normally ran before copying the system from ROM to SRAM or DRAM
 @
 @
 @
 @
-@ Description:
-@
+@ Description: Contains code for testing the SRAM and DRAM
+@              This code is normally ran before copying the system from ROM to SRAM or DRAM
 @
 @ Table of Contents:
+@   - mem_test: Tests the memory address range that is passed.
+@               The test erases anything stored here before.
 @ 
 @
 @
@@ -30,24 +31,54 @@
 .text
 .arm
 
-@mem_test function
-@Arguments:
-@ r0 - starting address to test memory integrity
-@ r1 - length of data to test memory integrity of
-@Description: 
-@ In the process of testing memory, this function destroys all data
-@ that was in the memory already.
-@Variables:
-@ r0 - base address - unchanged
-@ r1 - length of memory - unchanged
-@ r2 - relative location into memory
-@ r3 - incrementer value used to generate sequences of data to load into memory
-@ r4 - value to load into memory
-@Returns:
-@ r0 - TRUE if success, FALSE if failure
-@ r1 - value read from memory
-@ r2 - value expected in memory
-@ r3 - relative address where error occurred
+@ mem_test
+@
+@ Description: Tests memory of passed memory section.
+@              In the process of testing memory, this function destroys all data
+@              that was in the memory already. 
+@
+@ Operational Description: 
+@
+@ Arguments: r0 - starting address to test memory integrity
+@            r1 - length of data to test memory integrity of
+@
+@ Return values: r0 - TRUE if success, FALSE if failure
+@                r1 - value read from memory
+@                r2 - value expected in memory
+@                r3 - relative address where error occurred
+@
+@ Local variables: r0 - base address - unchanged
+@                  r1 - length of memory - unchanged
+@                  r2 - relative location into memory
+@                  r3 - incrementer value used to generate sequences of data to load into memory
+@                  r4 - value to load into memory
+@
+@ Shared variables: None
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     6/22/2017
+
 
 .global mem_test
 mem_test:

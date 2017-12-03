@@ -39,6 +39,46 @@
 .text
 .arm
 
+@ init_system
+@
+@ Description: Initializes the code in this file. Call before
+@			   using anything in this file.
+@
+@ Operational Description: A timer interrupt is setup, and then
+@						   some status registers are read to clear them.
+@
+@ Arguments: None
+@
+@ Return values: None
+@
+@ Local variables: None
+@
+@ Shared variables: None  
+@
+@ Global Variables: None
+@
+@ Inputs: None
+@
+@ Outputs: None
+@
+@ Error Handling: None
+@
+@ Algorithms: None
+@
+@ Data Structures: None
+@
+@ Limitations: None
+@
+@ Registers Changed (besides ARM convention r0-r3): None
+@
+@ Known Bugs: None
+@
+@ Special notes: None
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
+
 .global init_system
 init_system:
 	mSTARTFNC							
@@ -55,6 +95,45 @@ init_system:
 	LDR		r0, 	[r0]
 	mRETURNFNC
 
+
+@ elapsed_time
+@
+@ Description:
+@
+@ Operational Description:
+@
+@ Arguments:
+@
+@ Return values:
+@
+@ Local variables:
+@
+@ Shared variables:      
+@
+@ Global Variables:
+@
+@ Inputs:
+@
+@ Outputs:
+@
+@ Error Handling:
+@
+@ Algorithms:
+@
+@ Data Structures:
+@
+@ Limitations:
+@
+@ Registers Changed (besides ARM convention r0-r3):
+@
+@ Known Bugs:
+@
+@ Special notes:
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
+
 @ returns: number of milliseconds since last function call
 .global elapsed_time
 elapsed_time:
@@ -65,6 +144,45 @@ elapsed_time:
 	SUB 	r0,	r0,	r1					@get difference
 	
 	mRETURNFNC
+
+
+@ timerHandler
+@
+@ Description:
+@
+@ Operational Description:
+@
+@ Arguments:
+@
+@ Return values:
+@
+@ Local variables:
+@
+@ Shared variables:      
+@
+@ Global Variables:
+@
+@ Inputs:
+@
+@ Outputs:
+@
+@ Error Handling:
+@
+@ Algorithms:
+@
+@ Data Structures:
+@
+@ Limitations:
+@
+@ Registers Changed (besides ARM convention r0-r3):
+@
+@ Known Bugs:
+@
+@ Special notes:
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
 
 @ variables:
 @	r1 - timer_counter
@@ -94,6 +212,44 @@ endTimerHandler:
 	mStoreFromReg	r1, r0,	timer_counter
 	mRETURNINT
 
+
+@ oneMillisElapsed
+@
+@ Description:
+@
+@ Operational Description:
+@
+@ Arguments:
+@
+@ Return values:
+@
+@ Local variables:
+@
+@ Shared variables:      
+@
+@ Global Variables:
+@
+@ Inputs:
+@
+@ Outputs:
+@
+@ Error Handling:
+@
+@ Algorithms:
+@
+@ Data Structures:
+@
+@ Limitations:
+@
+@ Registers Changed (besides ARM convention r0-r3):
+@
+@ Known Bugs:
+@
+@ Special notes:
+@
+@ Revision History:
+@ Name             Comment              Date
+@ Will Werst        Initial version     Some lonely night around 6/10/17
 
 
 @ oneMillisElapsed 
@@ -125,6 +281,9 @@ endDRAMRefresh:
 	@B	endOneMillisElapsed
 endOneMillisElapsed:
 	mRETURNFNC
+
+
+
 .data
 
 millis:

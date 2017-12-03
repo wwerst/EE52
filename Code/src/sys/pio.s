@@ -1,3 +1,4 @@
+@Done
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @
 @ Pio.s
@@ -7,7 +8,8 @@
 @
 @
 @ Table of Contents:
-@ 
+@ 	- configPIOPin: Configures PIO pins using arguments passed to it for 
+@					PIO
 @
 @
 @
@@ -78,73 +80,73 @@ configPIOPin:
 	PUSH {r4-r7}
 	
 	@Load PIO bank base offset into r1
-	CMP		r1,	#PIO_A
-	LDREQ	r1,	=PIOABase
-	BEQ		StartConfig
-	CMP		r1, #PIO_B
-	LDREQ	r1,	=PIOBBase
-	BEQ		StartConfig
-	CMP		r1,	#PIO_C
-	LDREQ	r1,	=PIOCBase
-	BEQ		StartConfig
+	CMP		r1,	#PIO_A   					@Check if PIOA
+	LDREQ	r1,	=PIOABase					@If so, load PIOA
+	BEQ		StartConfig						@And go to config section
+	CMP		r1, #PIO_B 						@Check if PIOB
+	LDREQ	r1,	=PIOBBase 					@If so, load PIOB
+	BEQ		StartConfig 					@And go to config section
+	CMP		r1,	#PIO_C 						@Check if PIOC
+	LDREQ	r1,	=PIOCBase 					@If so, load PIOC
+	BEQ		StartConfig 					@And go to config section
 	BNE		Error							@Catch the case that r1 does not match any of PIO banks
 StartConfig:
 	@Start configuration by first configuring the pin's peripheral
-	AND		r3,	r2,	#PIO_TYPE_MASK
-	CMP		r3,	#PIO_NORM
-	BEQ		NormalPin
-	CMP		r3,	#PIO_PERA
-	BEQ		PerAPin
-	CMP		r3,	#PIO_PERB
-	BEQ		PerBPin
+	AND		r3,	r2,	#PIO_TYPE_MASK 			@Mask out the PIO type
+	CMP		r3,	#PIO_NORM					@Check if PIO is normal type
+	BEQ		NormalPin						@If so, configure it
+	CMP		r3,	#PIO_PERA                   @Check if PIO is peripheral A type
+	BEQ		PerAPin                         @If so, configure it
+	CMP		r3,	#PIO_PERB                   @Check if PIO is peripheral B type
+	BEQ		PerBPin                         @If so, configure it
 NormalPin:
 	@Config pin as normal pin
-	ADD		r3,	r1,	#PIO_PER
-	STR		r0,	[r3]
-	B		ConfigInputOutput
+	ADD		r3,	r1,	#PIO_PER                @Load PIO_PER address
+	STR		r0,	[r3]                        @Configure PIO pin type
+	B		ConfigInputOutput 				@Go configure as input/output
 PerAPin:
 	@Config pin as peripheral A pin
-	ADD		r3,	r1,	#PIO_PDR
-	STR		r0,	[r3]
-	ADD		r3,	r1,	#PIO_ASR
-	STR		r0,	[r3]
-	B		ConfigInputOutput
+	ADD		r3,	r1,	#PIO_PDR          		@Load PIO_PDR address
+	STR		r0,	[r3]                        @Disable PIO pin normal mode
+	ADD		r3,	r1,	#PIO_ASR                @Load PIO_ASR address
+	STR		r0,	[r3] 						@Enable PIO pin peripheral A mode
+	B		ConfigInputOutput              	@Go configure as input/output
 PerBPin:
 	@Config pin as peripheral B pin
-	ADD		r3,	r1,	#PIO_PDR
-	STR		r0,	[r3]
-	ADD		r3,	r1,	#PIO_ASR
-	STR		r0,	[r3]
-	B		ConfigInputOutput
+	ADD		r3,	r1,	#PIO_PDR 				@Load PIO_PDR address
+	STR		r0,	[r3]  						@Disable PIO pin normal mode
+	ADD		r3,	r1,	#PIO_BSR  				@Load PIO_BSR address
+	STR		r0,	[r3] 						@Enable PIO pin peripheral B mode
+	B		ConfigInputOutput 				@Go configure as input/output
 ConfigInputOutput:
-	AND		r3, r2, #PIO_OUTPUT_MASK
-	CMP		r3, #PIO_OUTPUT
-	BEQ		OutputPin
-	BNE		InputPin
+	AND		r3, r2, #PIO_OUTPUT_MASK 		@Mask out the output type
+	CMP		r3, #PIO_OUTPUT 				@Check if PIO is output
+	BEQ		OutputPin 						@If so, set as output
+	BNE		InputPin 						@Else, set as input
 OutputPin:
-	ADD		r3,	r1,	#PIO_OER
-	STR		r0,	[r3]
-	B		ConfigInterrupt
+	ADD		r3,	r1,	#PIO_OER   				@Load output enable register
+	STR		r0,	[r3]  						@Enable pin as output
+	B		ConfigInterrupt 				@Go configure interrupt
 InputPin:
-	ADD		r3,	r1,	#PIO_ODR
-	STR		r0,	[r3]
-	B		ConfigInterrupt
+	ADD		r3,	r1,	#PIO_ODR   				@Load output disable register
+	STR		r0,	[r3] 						@Enable pin as input
+	B		ConfigInterrupt  				@Go configure interrupt
 ConfigInterrupt:
-	AND		r3, r2, #PIO_INT_MASK
-	CMP		r3, #PIO_INT_EN
-	BEQ		EnableInterrupt
-	BNE		DisableInterrupt
+	AND		r3, r2, #PIO_INT_MASK  			@Mask out interrupt settings
+	CMP		r3, #PIO_INT_EN    				@If interrupt is set to be enabled,
+	BEQ		EnableInterrupt  				@Go enable it
+	BNE		DisableInterrupt 				@Else, disable it
 EnableInterrupt:
-	ADD		r3,	r1,	#PIO_IER
-	STR		r0,	[r3]
-	B		EndConfigPIOPin
+	ADD		r3,	r1,	#PIO_IER  				@Load interrupt enable register
+	STR		r0,	[r3]  						@Enable interrupt
+	B		EndConfigPIOPin					@Done with config
 DisableInterrupt:
-	ADD		r3,	r1,	#PIO_IDR
-	STR		r0,	[r3]
-	@B		EndConfigPIOPin
+	ADD		r3,	r1,	#PIO_IDR 				@Load interrupt disable register
+	STR		r0,	[r3]  						@Disable interrupt
+	@B		EndConfigPIOPin    				@Done with config
 EndConfigPIOPin:
-	POP {r4-r7}
-	mRETURNFNC
+	POP {r4-r7} 							@Restore registers
+	mRETURNFNC 								@Return
 	
 	
 Error:
