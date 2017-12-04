@@ -1,3 +1,4 @@
+@Done
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @
 @ Keypad.s
@@ -83,10 +84,10 @@ keypad_init:
     PUSH 	{lr}
 
     @Setup interrupt for keypad
-    mSET_HREG AIC_SVR4, KeypadHandler
+    mSET_HREG AIC_SVR4, KeypadHandler     @Set interrupt handler
     mSET_HREG AIC_SMR4, 0x00000060        @Positive edge, Priority 0 (lowest)
-    mSET_HREG AIC_IECR, 0x00000010
-    mSET_HREG PIOC_IER, (1 << RDY_PIN)
+    mSET_HREG AIC_IECR, 0x00000010        @Enable interrupts for PIO bank C
+    mSET_HREG PIOC_IER, (1 << RDY_PIN)    @Set PIOC interrupt pin
 
     @Initialize private variables
     LDR 	r0, =KEY_ILLEGAL
@@ -155,7 +156,7 @@ key_available:
 @
 @ Arguments: None
 @
-@ Return values: key value of last key pressed.
+@ Return values: r0 - key value of last key pressed.
 @
 @ Local variables: None
 @
@@ -189,24 +190,32 @@ key_available:
 
 .global getkey
 getkey:
-    PUSH    {lr}
+    PUSH    {lr}                            @Save return address
 waitkey:
-    mLoadToReg     r0,     NewKey
+    mLoadToReg     r0,     NewKey           @Check if a new key is available
     CMP     r0,     #FALSE
-    BEQ     waitkey
+    BEQ     waitkey                         @If new key is not available, 
+                                            @loop until a new key is available
     
     @ Continue and get key
-    LDR     r0,     =FALSE
+    LDR     r0,     =FALSE                  @Clear newKey flag
     mStoreFromReg     r0, r1,     NewKey
-    mLoadToReg     r0,     LastKeypress
-    POP     {pc}
+    mLoadToReg     r0,     LastKeypress     @load the key value for returning
+    POP     {pc}                            @Pop back to return address
 
 
 @ KeypadHandler
 @
-@ Description: 
+@ Description: Handles keypress events
 @
-@ Operational Description: 
+@ Operational Description: The interrupt data about which pin was pressed is read
+@                          from PIO bank. The key value is loaded from the 
+@                          KeyTable or ShiftKeyTable, depending on whether the
+@                          ShiftEnabled variable is true or false. Then,
+@                          the key value is checked for whether it is the shift key
+@                          or the hangup key because these are handled different than
+@                          normal keys, otherwise the value is stored in LastKeypress
+@                          and NewKey is set to true.
 @
 @ Arguments: None
 @
@@ -214,7 +223,12 @@ waitkey:
 @
 @ Local variables: None
 @
-@ Shared variables: None       
+@ Shared variables: ShiftEnabled[RW] - Read to see whether shift is enabled, and
+@                                      toggled if the shift key is pressed.
+@                   HookState[RW] - Toggled if the hangup btn is pressed
+@                   LastKeypress[W] - The new key value is saved here.
+@                   NewKey[W] - Set to true if a key with a meaningful value (not shift key)
+@                               is pressed.
 @
 @ Global Variables: None
 @
@@ -265,10 +279,10 @@ KeypadBTNPressed:
 	
 	@Now, check for various special buttons and handle those
 	
-	CMP		r0,		#KEY_HANGUPBTN
+	CMP		r0,		#KEY_HANGUPBTN      @Check if hangup btn pressed
 	BEQ		HangupBtnPressed
 	
-	CMP		r0,		#KEY_SHIFT
+	CMP		r0,		#KEY_SHIFT          @Check if shift button pressed
 	BEQ		ShiftBtnPressed
 	
     B      StoreButtonPress				@Button pressed was normal, no

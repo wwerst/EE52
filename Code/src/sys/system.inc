@@ -1,3 +1,4 @@
+@Done
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @
 @
@@ -49,5 +50,5 @@
 @ System function definitions
 	@ timer definitions
 	.equ	SLCK_CNT_SEC,	32768
-	.equ	PIT_INTERVAL,	33
+	.equ	PIT_INTERVAL,	33			@SLCK ticks per PIT interrupt
 	.equ	MILLIS_IN_SEC,	1000

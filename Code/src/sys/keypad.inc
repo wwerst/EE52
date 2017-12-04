@@ -19,7 +19,7 @@
 
 
 
-    .equ RDY_PIN,    26
-	.equ MAXDEBCOUNT,	10000
+    .equ RDY_PIN,    26 				@Ready pin location for interrupts
+	.equ MAXDEBCOUNT,	10000  			
 	.equ  KEY_HANGUPBTN, 21
 	.equ  KEY_SHIFT,	 22

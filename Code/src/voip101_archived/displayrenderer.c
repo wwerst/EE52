@@ -1,8 +1,9 @@
+//Done
 /****************************************************************************/
 /*                                                                          */
-/*                                  CHAR57                                  */
+/*                              Display Renderer                            */
 /*                           5x7 Dot Matrix Codes                           */
-/*                       Digital Oscilloscope Project                       */
+/*                taken from Digital Oscilloscope Project                   */
 /*                                 EE/CS 52                                 */
 /*                                                                          */
 /****************************************************************************/
@@ -210,6 +211,7 @@ void render_displaybuffer(char *string, char *buffer, int length){
     }
 }
 
+// Clears the passed buffer
 void clear_displaybuffer(char *buffer, int length){
     int col;
     for (col = 0; col < 512; col++){
@@ -217,10 +219,12 @@ void clear_displaybuffer(char *buffer, int length){
     }
 }
 
+// Does what it says it does
 int divide(int num, int den){
     return num / den;
 }
 
+// Does what it says it does
 int mod(int num, int den){
     return num % den;
 }
