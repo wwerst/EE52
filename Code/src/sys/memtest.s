@@ -37,7 +37,18 @@
 @              In the process of testing memory, this function destroys all data
 @              that was in the memory already. 
 @
-@ Operational Description: 
+@ Operational Description: The code works by writing a sequence of numbers
+@                          to successive bytes in the memory that are fairly
+@                          random and do not repeat on any 2^n periodicity, and
+@                          hence should expose any address line connectivity issues.
+@                          A sequence is written to memory, and then read back
+@                          and checked against the expected sequence. Then,
+@                          another sequence is written to memory, and this is continued
+@                          until r3, the incrementer value, overflows. If
+@                          the memory does not show any errors, it is assumed
+@                          to be good. While this is not an exhaustive memory
+@                          test, it is a simple test that can be used to verify
+@                          basic memory functionality.
 @
 @ Arguments: r0 - starting address to test memory integrity
 @            r1 - length of data to test memory integrity of
@@ -67,7 +78,7 @@
 @
 @ Data Structures: None
 @
-@ Limitations: None
+@ Limitations: Does not verify that DRAM refresh is working correctly.
 @
 @ Registers Changed (besides ARM convention r0-r3): None
 @
@@ -93,19 +104,19 @@ mem_test_loop:
     PUSH {r4}               @Store current starting value to recover later for when checking
 writedata:
     STR r4, [r0, r2]        @Load value into memory
-    ADDS r4, r3              @Increment value to load into memory
-    SBC r4, r4, #1              @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
+    ADDS r4, r3             @Increment value to load into memory
+    SBC r4, r4, #1          @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
     ADD r2, #4              @Increment the relative location to load into memory
     CMP r2, r1              @Check if written to all locations in memory
-    BLT writedata            @If haven't, then keep writing, else go to check memory
+    BLT writedata           @If haven't, then keep writing, else go to check memory
     LDR r2, =0              @Reset initial location in memory
     POP {r4}                @Recover starting value and check data in memory
 checkdata:
     LDR r5, [r0, r2]        @Load value from memory
     CMP r5, r4
     BNE failure
-    ADDS r4, r3              @Increment value to load into memory
-    SBC r4, r4, #1              @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
+    ADDS r4, r3             @Increment value to load into memory
+    SBC r4, r4, #1          @Subtract carry flag so that wrapping occurs at 2^32 + 1, not 2^32
     ADD r2, #4              @Increment the relative location to load into memory
     CMP r2, r1              @Check if written to all locations in memory
     BLT checkdata

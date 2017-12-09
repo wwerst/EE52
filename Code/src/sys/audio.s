@@ -337,8 +337,7 @@ endUpdate_TX:
 
 @ setVolume
 @
-@ Description: Goes through the transmit buffer and scales each byte to reduce
-@              the perceived volume
+@ Description: Goes through the transmit buffer and sets the volume bits
 @
 @ Operational Description: The transmit buffer is looped over in reverse, and
 @                          each byte is OR-masked with the volume, and saved back
@@ -381,11 +380,11 @@ endUpdate_TX:
 setVolume:
 	mSTARTFNC
 updateValue:
-	LDRH r3, [r0,r1]               @Get byte of audio
-	ORR	 r3, r3, r2                @Mask out the high bits determined by volume
-	STRH r3, [r0,r1]               @Store byte of audio
-	SUB r1, #2                     @Decrement to next byte
-	CMP r1, #0                     @Check if at last byte
+	LDRH r3, [r0,r1]               @Get half-word of audio
+	ORR	 r3, r3, r2                @Set the high bits for volume control
+	STRH r3, [r0,r1]               @Store half-word of audio
+	SUB r1, #2                     @Decrement to next half-word
+	CMP r1, #0                     @Check if at last half-word
 	BGE updateValue                @If not, continue
 	mRETURNFNC                     @Return
 
